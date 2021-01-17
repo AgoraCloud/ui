@@ -1,8 +1,10 @@
 {
-  "name": "react_mobx_typescript_quickstart",
-  "version": "1.0.0",
+  "name": "agoracloud_ui",
+  "version": "0.0.1",
+  "description": "AgoraClouds UI",
+  "author": "AgoraCloud",
   "private": true,
-  "description": "React Mobx Typescript Quickstart",
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -10,7 +12,6 @@
     "build": "webpack -p --progress --colors",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,css}\""
   },
-  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
