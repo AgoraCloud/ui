@@ -1,8 +1,12 @@
 import { RootStore } from 'app/stores/RootStore';
+import { observable } from 'mobx';
 
 export class AuthStore {
-   constructor (private rootStore: RootStore){
 
+
+   @observable state: 'loading'|'loggedin'|'unauthed'
+   constructor (private rootStore: RootStore){
+      this.state = 'unauthed'
    }
 }
 
