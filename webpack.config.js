@@ -32,8 +32,8 @@ module.exports = {
     // plugins: [tsconfigPlug],
     alias: {
       app: path.resolve(__dirname, 'src/app/'),
-      "@styles" : path.resolve(__dirname, "src/app/styles/"),
-      "shared" : path.resolve(__dirname, "../shared/src"),
+      "@styles": path.resolve(__dirname, "src/app/styles/"),
+      "shared": path.resolve(__dirname, "../shared/src"),
       'react-dom': '@hot-loader/react-dom'
     }
   },
@@ -167,6 +167,7 @@ module.exports = {
     historyApiFallback: {
       disableDotRule: true
     },
+
     stats: 'minimal',
     clientLogLevel: 'warning'
   },
