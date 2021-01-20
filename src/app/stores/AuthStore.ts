@@ -35,12 +35,15 @@ export class AuthStore {
          switch(response.status){
             case 401: {
                this.state = 'unauthed'
+               break;
             }
             case 200: {
                this.state = 'loggedin'
+               break;
             }
             default: {
                this.state = 'unauthed'
+               break;
             }
          }
       }catch(e){
