@@ -30,9 +30,9 @@ export class AuthStore {
             },
          })
          const userDoc = await response.json()
-         console.log("userdoc", userDoc)
+         console.log("userdoc", userDoc, response.status)
 
-         switch(userDoc.statusCode){
+         switch(response.status){
             case 401: {
                this.state = 'unauthed'
             }
@@ -42,11 +42,6 @@ export class AuthStore {
             default: {
                this.state = 'unauthed'
             }
-         }
-
-         // temporary until statusCode 200 is returned for api/user
-         if(userDoc.email != undefined){
-            this.state = 'loggedin'
          }
       }catch(e){
          this.state = 'unauthed'
@@ -70,7 +65,7 @@ export class AuthStore {
 
 
    signup = async () => {
-      
+
    }
 }
 
