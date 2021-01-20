@@ -8,7 +8,6 @@ interface signup_i {
 }
 export class SignupFormModel extends BaseFormModel<signup_i, signup_i>{
     constructor() {
-        console.log("hello")
         super(CreateUserDto)
         this.data = {
             fullName: "",

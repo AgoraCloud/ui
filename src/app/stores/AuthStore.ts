@@ -13,7 +13,6 @@ export class AuthStore {
 
    constructor (private rootStore: RootStore){
       this.state = 'unauthed'
-      console.log("OY")
       this.signupForm = new SignupFormModel()
       this.loginForm = new LoginFormModel()
       this.loadUser()
@@ -61,8 +60,7 @@ export class AuthStore {
          body: JSON.stringify(this.loginForm.toDB())
       })
 
-      console.log(response)
-      console.log(await response.json())
+      console.log("login", response, await response.json())
       this.loadUser()
    }
 
@@ -71,5 +69,3 @@ export class AuthStore {
 
    }
 }
-
-export default AuthStore;

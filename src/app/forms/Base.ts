@@ -67,7 +67,7 @@ export class BaseFormModel<FormInterface, DBInterface>{
          * key can be nested "contact.phone"
          */
         return (value) => {
-            console.log(key, value)
+            // console.log(key, value)
             _.set(this.data, key, value)
             this.validate()
         }
