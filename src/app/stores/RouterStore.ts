@@ -13,5 +13,3 @@ export class RouterStore extends BaseRouterStore {
     }
   }
 }
-
-export default RouterStore;
