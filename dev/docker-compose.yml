@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  server:
+    container_name: server
+    image: agoracloud/server:latest
+    networks:
+      - agoracloud
+    ports:
+      - 3000:3000
+    environment:
+      DOMAIN: ""
+      DATABASE_URI: ""
+      ADMIN_EMAIL: ""
+      ADMIN_PASSWORD: ""
+      JWT_ACCESS_SECRET: ""
+      JWT_REFRESH_SECRET: ""
+      SMTP_HOST: ""
+      SMTP_PORT: 465
+      SMTP_SECURE: ""
+      SMTP_USERNAME: ""
+      SMTP_PASSWORD: ""
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    networks:
+      - agoracloud
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodata:/data/db
+networks:
+  agoracloud:
+volumes:
+  mongodata:
