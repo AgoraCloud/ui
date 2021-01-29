@@ -22,6 +22,12 @@ import { BaseFormModel } from 'app/forms';
 import { Link } from 'react-router-dom'
 
 
+
+
+/**
+ * Code sourced from https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in
+ * https://material-ui.com/getting-started/templates/sign-in/
+ */
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -200,3 +206,16 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
         </div>
     </Container>
 }))
+
+
+export const ForgotPassword = () => {
+    return null
+}
+
+export const ChangePassword = () => {
+    return null
+}
+
+export const VerifyEmail = () => {
+    return null
+}
