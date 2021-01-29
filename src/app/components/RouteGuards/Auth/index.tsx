@@ -16,6 +16,7 @@ export const AuthedRoute = inject(AUTH_STORE)(observer((props) => {
 
 export const UnauthedRoute = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
+    console.log({...props});
     switch(store.state){
         case 'loggedin' : return <Redirect to='/'/>
         case 'unauthed' : return <Route {...props} />

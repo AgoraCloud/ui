@@ -4,8 +4,8 @@ import { SignupFormModel, LoginFormModel } from 'app/forms';
 
 export class AuthStore {
 
-
    @observable state: 'loading'|'loggedin'|'unauthed'
+   @observable serverResponse: Response
 
 
    @observable signupForm: SignupFormModel
@@ -14,6 +14,7 @@ export class AuthStore {
    constructor (private rootStore: RootStore){
       this.state = 'unauthed'
       console.log("OY")
+      this.serverResponse = new Response
       this.signupForm = new SignupFormModel()
       this.loginForm = new LoginFormModel()
       this.loadUser()
@@ -68,6 +69,15 @@ export class AuthStore {
 
 
    signup = async () => {
+      const response = await fetch('/api/auth/register', {
+         method: 'POST',
+         headers: {
+            'Content-Type' : 'application/json'
+         },
+         body: JSON.stringify(this.signupForm.toDB())
+      })
+
+      this.serverResponse = response
 
    }
 }

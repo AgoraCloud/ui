@@ -160,6 +160,23 @@ module.exports = {
 
   ],
   devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        "logLevel": "info",
+      }
+      // ,
+      // '/proxy': {
+      //   target: 'https://agoracloud.saidghamra.com',
+      //   changeOrigin: true,
+      //   secure: false,
+      //   ws: true,
+      //   "logLevel": "debug",
+      // }
+    },
     contentBase: sourcePath,
     host: "0.0.0.0",
     hot: true,
@@ -178,3 +195,4 @@ module.exports = {
     net: 'empty'
   }
 };
+    

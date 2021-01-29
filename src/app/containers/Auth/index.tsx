@@ -9,10 +9,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Snackbar, { SnackbarOrigin } from '@material-ui/core/Snackbar';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
-import { observer, inject } from 'mobx-react'
+import { observer, inject } from 'mobx-react';
 import { AUTH_STORE } from 'app/constants'
 import { AuthStore } from 'app/stores';
 import { BaseFormModel } from 'app/forms';
@@ -37,9 +39,16 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-    },
+    }
 }));
 
+export interface SignupState extends SnackbarOrigin {
+    open: boolean;
+}
+
+function Alert(props: AlertProps) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 
 interface InputProps extends StandardTextFieldProps {
@@ -117,6 +126,42 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     const form = store.signupForm
     const classes = useStyles();
+    
+    const [statusMessage, setStatusMessage] = React.useState<String>("");
+
+    const [state, setState] = React.useState<SignupState>({
+        open: false,
+        vertical: 'bottom',
+        horizontal: 'center',
+    });
+    const { vertical, horizontal, open } = state;
+
+    
+
+    const handleSignup = async () => {
+        await store.signup()
+        setStatusMessage(store.serverResponse.statusText)
+        setState(prevValue => {
+            return {
+                ...prevValue,
+                open: true
+            }
+        });
+      
+    }
+
+    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setState(prevValue => {
+            return {
+                ...prevValue,
+                open: false
+            }
+        });
+      };
 
     return <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -131,16 +176,12 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
             <Input form={form} id="fullName" label="Full Name" autoFocus />
             <Input form={form} id="email" label="Email Address" />
             <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
-            <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-            />
             <Button
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={store.signup}
+                onClick={handleSignup}
             >
                 Sign Up
           </Button>
@@ -153,6 +194,9 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
                     </Link>
                 </Grid>
             </Grid>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}> 
+                <Alert onClose={handleClose} severity={ statusMessage === "Bad Request" ? "error" : "success"}> {statusMessage} </Alert>
+            </Snackbar>
         </div>
     </Container>
 }))
