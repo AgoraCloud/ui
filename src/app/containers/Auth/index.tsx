@@ -146,13 +146,30 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
 
     const handleSignup = async () => {
         await store.signup()
-        setStatusMessage(store.serverResponse.statusText)
+        const response = store.serverResponse
+        switch (response.status) {
+            case 400: {
+                setStatusMessage("The email you entered is already in use!")
+                break;
+            }
+            case 201: {
+                setStatusMessage("Success, check your email to verify your account")
+                break;
+            }
+            default: {
+                setStatusMessage("Error in the server")
+                
+                break;
+            }
+        }
+
         setState(prevValue => {
             return {
                 ...prevValue,
                 open: true
             }
         });
+    
       
     }
 
@@ -201,7 +218,7 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
                 </Grid>
             </Grid>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}> 
-                <Alert onClose={handleClose} severity={ statusMessage === "Bad Request" ? "error" : "success"}> {statusMessage} </Alert>
+                <Alert onClose={handleClose} severity={ statusMessage === ("The email you entered is already in use!" || "Error in the server" ) ? "error" : "success"}> {statusMessage} </Alert>       
             </Snackbar>
         </div>
     </Container>
