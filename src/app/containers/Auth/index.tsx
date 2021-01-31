@@ -133,32 +133,40 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
     const form = store.signupForm
     const classes = useStyles();
     
-    const [statusMessage, setStatusMessage] = React.useState<String>("");
-
+    const [requestStatus, setRequestStatus] = React.useState<any>({
+        code: "",
+        message:""
+    });
     const [state, setState] = React.useState<SignupState>({
         open: false,
         vertical: 'bottom',
         horizontal: 'center',
     });
-    const { vertical, horizontal, open } = state;
-
-    
 
     const handleSignup = async () => {
         await store.signup()
         const response = store.serverResponse
+
         switch (response.status) {
             case 400: {
-                setStatusMessage("The email you entered is already in use!")
+                setRequestStatus({
+                    code: 400,
+                    message: "The email you entered is already in use!"
+                })
                 break;
             }
             case 201: {
-                setStatusMessage("Success, check your email to verify your account")
+                setRequestStatus({
+                    code: 201,
+                    message: "Registered! Please check your email to verify your account."
+                })
                 break;
             }
             default: {
-                setStatusMessage("Error in the server")
-                
+                setRequestStatus({
+                    code: response.status,
+                    message: "Sorry, there was an error in the server!"
+                })
                 break;
             }
         }
@@ -169,8 +177,7 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
                 open: true
             }
         });
-    
-      
+     
     }
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -184,7 +191,7 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
                 open: false
             }
         });
-      };
+    };
 
     return <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -217,8 +224,8 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
                     </Link>
                 </Grid>
             </Grid>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}> 
-                <Alert onClose={handleClose} severity={ statusMessage === ("The email you entered is already in use!" || "Error in the server" ) ? "error" : "success"}> {statusMessage} </Alert>       
+            <Snackbar open={state.open} autoHideDuration={6000} onClose={handleClose}> 
+                <Alert onClose={handleClose} severity={ requestStatus.code === 201  ? "success" : "error"}> { requestStatus.message } </Alert>       
             </Snackbar>
         </div>
     </Container>
