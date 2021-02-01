@@ -27,6 +27,6 @@ export class LoginUserDto {
 
     @IsString()
     @IsNotEmpty()
-    @MinLength(8)
+    @MinLength(8, {message: "password too short"})
     readonly password: string;
 }

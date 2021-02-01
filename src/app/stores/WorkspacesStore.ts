@@ -11,7 +11,7 @@ export class WorkspacesStore {
    constructor(private rootStore: RootStore) {
       this.workspaces = new Workspaces()
       this.state = 'unloaded'
-      this.load()
+      // this.load()
    }
 
    load = async () => {

@@ -8,7 +8,7 @@ export class Workspaces{
 
     @observable state: 'loaded'|'error'|'loading'|'unloaded'
 
-    @observable workspaces: Workspace[] = []
+    @observable _workspaces: Workspace[] = []
     constructor(){
         this.state = 'unloaded'
     }
@@ -21,9 +21,12 @@ export class Workspaces{
 
         const workspacesData = await response.json()
         console.log("workspaces", response, workspacesData)
-        this.workspaces = workspacesData.map((data)=>new Workspace(data))
+        this._workspaces = workspacesData.map((data)=>new Workspace(data))
         this.state = 'loaded'
+    }
 
+    get workspaces(){
+        return this._workspaces || []
     }
 }
 
