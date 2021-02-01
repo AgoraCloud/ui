@@ -1,75 +1,72 @@
-import { RootStore } from "app/stores/RootStore";
-import { observable } from "mobx";
-import { SignupFormModel, LoginFormModel } from "app/forms";
+import { RootStore } from 'app/stores/RootStore';
+import { observable } from 'mobx';
+import { SignupFormModel, LoginFormModel, VerifyAccountFormModel } from 'app/forms';
 
 export class AuthStore {
   @observable state: "loading" | "loggedin" | "unauthed";
   @observable serverResponse: Response;
 
-  @observable signupForm: SignupFormModel;
-  @observable loginForm: LoginFormModel;
+  @observable signupForm: SignupFormModel
+  @observable loginForm: LoginFormModel
+  @observable verifyForm: VerifyAccountFormModel
 
   constructor(private rootStore: RootStore) {
-    this.state = "unauthed";
-    this.signupForm = new SignupFormModel();
-    this.loginForm = new LoginFormModel();
-    this.loadUser();
+    this.state = 'unauthed'
+    this.signupForm = new SignupFormModel()
+    this.loginForm = new LoginFormModel()
+    this.verifyForm = new VerifyAccountFormModel()
+
+    this.loadUser()
   }
 
   loadUser = async () => {
-    this.state = "loading";
+    this.state = 'loading'
 
     try {
-      const response = await fetch("/api/user", {
-        method: "GET",
+      const response = await fetch('/api/user', {
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-      });
-      const userDoc = await response.json();
-      console.log("userdoc", userDoc, response.status);
+      })
+      const userDoc = await response.json()
+      // console.log("userdoc", userDoc, response.status)
 
       switch (response.status) {
         case 401: {
-          this.state = "unauthed";
+          this.state = 'unauthed'
           break;
         }
         case 200: {
-          this.state = "loggedin";
+          this.state = 'loggedin'
+          this.rootStore.workspacesStore.load()
           break;
         }
         default: {
-          this.state = "unauthed";
+          this.state = 'unauthed'
           break;
         }
       }
     } catch (e) {
-      this.state = "unauthed";
+      this.state = 'unauthed'
     }
   };
 
   login = async () => {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(this.loginForm.toDB()),
-    });
-
-    console.log("login", response, await response.json());
-    this.loadUser();
-  };
+    const successful = this.loginForm.submit()
+    if (successful) {
+      this.loadUser()
+    }
+  }
 
   signup = async () => {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(this.signupForm.toDB()),
-    });
+    const successful = await this.signupForm.submit()
+    if (successful) {
+      this.loadUser()
+    }
+  }
 
-    this.serverResponse = response;
-  };
+  verify = async () => {
+    return await this.verifyForm.submit()
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "agoracloud_ui",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "AgoraClouds UI",
   "author": "AgoraCloud",
   "private": true,
@@ -61,6 +61,7 @@
     "mobx-persist": "^0.4.1",
     "mobx-react": "^6.1.1",
     "mobx-react-router": "^4.0.7",
+    "qs": "^6.9.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",

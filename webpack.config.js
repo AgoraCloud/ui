@@ -184,7 +184,22 @@ module.exports = {
     historyApiFallback: {
       disableDotRule: true
     },
-
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        "logLevel": "info",
+      },
+      '/proxy': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        "logLevel": "debug",
+      }
+    },
     stats: 'minimal',
     clientLogLevel: 'warning'
   },

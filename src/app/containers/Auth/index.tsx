@@ -2,9 +2,6 @@ import * as React from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField, { StandardTextFieldProps } from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -17,10 +14,13 @@ import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { observer, inject } from 'mobx-react';
 import { AUTH_STORE } from 'app/constants'
 import { AuthStore } from 'app/stores';
-import { BaseFormModel } from 'app/forms';
 
 import { Link } from 'react-router-dom'
+import { Input } from 'app/components/Inputs';
+import { useLocation } from 'react-router';
 
+import qs from 'qs'
+import { CircularProgress } from '@material-ui/core';
 
 
 
@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
 export interface SignupState extends SnackbarOrigin {
     open: boolean;
 }
@@ -55,29 +56,6 @@ export interface SignupState extends SnackbarOrigin {
 function Alert(props: AlertProps) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
-
-interface InputProps extends StandardTextFieldProps {
-    form: BaseFormModel<any, any>
-    id: string
-}
-export const Input = observer((props: InputProps) => {
-    const { form, id, ...rest } = props
-    const val = form.data[id]
-    return <TextField
-        onChange={form.onInputChange(id)}
-        error={form.getError(id) != undefined && val != ""}
-        // helperText={form.getError(id)} // to be implemented (currently all errors are just 'error')
-        value={val}
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        id={id}
-        name={id}
-        {...rest}
-    />
-})
 
 export const Login = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
@@ -95,11 +73,6 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
             </Typography>
             <Input form={form} id="email" label="Email Address" autoFocus />
             <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
-
-            <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-            />
             <Button
                 fullWidth
                 variant="contained"
@@ -240,6 +213,38 @@ export const ChangePassword = () => {
     return null
 }
 
-export const VerifyEmail = () => {
-    return null
+
+function useQuery() {
+    return qs.parse(useLocation().search, { ignoreQueryPrefix: true });
 }
+
+export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
+    const store = props[AUTH_STORE] as AuthStore
+
+    let query = useQuery();
+    const [verified, setVerified] = React.useState(undefined)
+    const { token } = query
+    const form = store.verifyForm
+    React.useEffect(() => {
+        store.verifyForm.data.token = token
+        store.verify().then((v)=>{
+            setVerified(v)
+        })
+    }, [])
+
+
+    if (form.state.loading) return <CircularProgress />
+
+    if (verified) {
+        return <div>
+            Account Succesfully Verified!
+        <Link to="login">
+                Click here to login
+        </Link>
+        </div>
+    }else{
+        return <div>
+            {form.message}
+        </div>
+    }
+}))
