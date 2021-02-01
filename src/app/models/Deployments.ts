@@ -8,7 +8,7 @@ export class Deployments{
 
     @observable state: 'loaded'|'error'|'loading'|'unloaded'
 
-    @observable deployments: Deployment[]
+    @observable _deployments: Deployment[]
     constructor(public workspace: Workspace){
         this.state = 'unloaded'
         this.load()
@@ -20,10 +20,14 @@ export class Deployments{
         const response = await fetch(`/api/workspaces/${wid}/deployments`, {
 
         })
-        const workspacesData = await response.json()
-        console.log("deployments", response, workspacesData)
-        this.deployments = workspacesData.map((data)=>new Deployment(data))
+        const deploymentsData = await response.json()
+        console.log("deployments", response, deploymentsData)
+        this._deployments = deploymentsData.map((data)=>new Deployment(data))
         this.state = 'loaded'
+    }
+
+    get deployments(){
+        return this._deployments || []
     }
 }
 

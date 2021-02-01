@@ -1,6 +1,6 @@
 import { RootStore } from 'app/stores/RootStore';
 import { observable } from 'mobx';
-import { SignupFormModel, LoginFormModel } from 'app/forms';
+import { SignupFormModel, LoginFormModel, VerifyAccountFormModel } from 'app/forms';
 
 export class AuthStore {
 
@@ -10,11 +10,14 @@ export class AuthStore {
 
    @observable signupForm: SignupFormModel
    @observable loginForm: LoginFormModel
+   @observable verifyForm: VerifyAccountFormModel
 
    constructor (private rootStore: RootStore){
       this.state = 'unauthed'
       this.signupForm = new SignupFormModel()
       this.loginForm = new LoginFormModel()
+      this.verifyForm = new VerifyAccountFormModel()
+
       this.loadUser()
    }
 
@@ -29,7 +32,7 @@ export class AuthStore {
             },
          })
          const userDoc = await response.json()
-         console.log("userdoc", userDoc, response.status)
+         // console.log("userdoc", userDoc, response.status)
 
          switch(response.status){
             case 401: {
@@ -38,6 +41,7 @@ export class AuthStore {
             }
             case 200: {
                this.state = 'loggedin'
+               this.rootStore.workspacesStore.load()
                break;
             }
             default: {
@@ -52,20 +56,21 @@ export class AuthStore {
    }
 
    login = async () => {
-      const response = await fetch('/api/auth/login', {
-         method: 'POST',
-         headers: {
-            'Content-Type' : 'application/json'
-         },
-         body: JSON.stringify(this.loginForm.toDB())
-      })
-
-      console.log("login", response, await response.json())
-      this.loadUser()
+      const successful = this.loginForm.submit()
+      if(successful){
+         this.loadUser()
+      }
    }
 
 
    signup = async () => {
+      const successful = await this.signupForm.submit()
+      if(successful){
+         this.loadUser()
+      } 
+   }
 
+   verify = async () => {
+      return await this.verifyForm.submit()
    }
 }

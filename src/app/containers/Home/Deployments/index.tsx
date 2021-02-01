@@ -8,6 +8,8 @@ export const DeploymentsList = inject(WORKSPACES_STORE)(observer((props)=>{
     const store = props[WORKSPACES_STORE] as WorkspacesStore
     if(store.state !== 'loaded') return null
 
+    if(!store.selectedWorkspace) return null
+
     if(store.selectedWorkspace.deployments.state !== 'loaded') return null
 
     

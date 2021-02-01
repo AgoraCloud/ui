@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { WORKSPACES_STORE } from 'app/constants'
-import { observer, inject } from 'mobx-react'
 import { Deployment } from 'app/models'
 import Card from '@material-ui/core/Card'
 

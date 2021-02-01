@@ -47,7 +47,9 @@ export class BaseFormModel<FormInterface, DBInterface>{
     }
 
     @observable
-    response: any
+    _response: Response
+    @observable
+    responseBody: DBInterface = {} as DBInterface
     constructor(private validator?: new () => any){
         this.errors = {} 
         this.data = {
@@ -61,6 +63,28 @@ export class BaseFormModel<FormInterface, DBInterface>{
 
         // this.func = _.debounce(this.validate, 200, {leading: true})
     }
+
+    get response(){
+        return this._response
+    }
+
+    set response(response: Response){
+        this._response = response
+        response.json().then((body)=>{
+            this.responseBody = body
+        }).catch((err)=>{
+            console.warn(err)
+        })
+    }
+
+    get message(){
+        let msg = this.responseBody['message'] || ""
+        if(typeof msg != "string"){
+            msg = msg.join(', ')
+        }
+        return msg
+    }
+
 
     onChange = (key: string) => {
         /**
@@ -111,6 +135,41 @@ export class BaseFormModel<FormInterface, DBInterface>{
         _.merge(this.data, data)
     }
 
+    protected submit = async (url: string, options = {} as RequestInit): any => {
+        /**
+         * To Be Impemented!
+         * 
+         * use to import from db interface
+         */
+        this.state.loading = true
+        try{
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.toDB()),
+                ...options
+            })
+            this.response = response
+            this.state = {
+                loading: false,
+                loaded: true
+            }
+            return this.response.status == 200
+        }catch(e){
+            this.state = {
+                loading: false,
+                loaded: false
+            }
+            return false
+        }finally{
+
+        }
+
+
+    }
+
     validate = _.debounce(async (): Promise<boolean> => {
         // use toDB because the validator is based on the toDB Value
         if(this.validator == undefined){
@@ -124,7 +183,6 @@ export class BaseFormModel<FormInterface, DBInterface>{
         Object.assign(v, data)
         const errors = await getErrors(v)
         this.errors = errors
-        console.warn(errors)
         return Object.keys(errors).length == 0
     }, 200, {leading: true})
 }
