@@ -135,7 +135,7 @@ export class BaseFormModel<FormInterface, DBInterface>{
         _.merge(this.data, data)
     }
 
-    protected submit = async (url: string, options = {} as RequestInit): any => {
+    protected async submit(url: string, options = {} as RequestInit){
         /**
          * To Be Impemented!
          * 
