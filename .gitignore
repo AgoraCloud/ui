@@ -4,3 +4,5 @@ node_modules
 .module-cache
 *.log*
 build
+
+dev/docker-compose.yml
