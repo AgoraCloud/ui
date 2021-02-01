@@ -2,14 +2,12 @@ import * as React from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Checkbox from '@material-ui/core/Checkbox';
 
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { observer, inject } from 'mobx-react'
 import { AUTH_STORE } from 'app/constants'
@@ -65,10 +63,6 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
             <Input form={form} id="email" label="Email Address" autoFocus />
             <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
 
-            <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-            />
             <Button
                 fullWidth
                 variant="contained"
@@ -115,10 +109,7 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
             <Input form={form} id="fullName" label="Full Name" autoFocus />
             <Input form={form} id="email" label="Email Address" />
             <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
-            <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-            />
+
             <Button
                 fullWidth
                 variant="contained"
@@ -159,7 +150,7 @@ export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
 
     let query = useQuery();
-    const [verified, setVerified] = React.useState(undefined)
+    const [verified, setVerified] = React.useState<boolean|undefined>(undefined)
     const { token } = query
     const form = store.verifyForm
     React.useEffect(() => {
