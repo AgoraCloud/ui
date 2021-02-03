@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { observer, inject } from 'mobx-react'
@@ -19,6 +18,7 @@ import { useLocation } from 'react-router';
 
 import qs from 'qs'
 import { CircularProgress } from '@material-ui/core';
+import { AuthPaper } from 'app/components/Paper';
 
 
 
@@ -26,35 +26,15 @@ import { CircularProgress } from '@material-ui/core';
  * Code sourced from https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in
  * https://material-ui.com/getting-started/templates/sign-in/
  */
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
 
 export const Login = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     const form = store.loginForm
-    const classes = useStyles();
 
     return <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
+        <AuthPaper>
+            <Avatar>
                 <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -67,14 +47,14 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
                 onClick={store.login}
+                disabled={!form.isValid}
             >
                 Log In
           </Button>
             <Grid container>
                 <Grid item xs>
-                    <Link href="/forgotPassword">
+                    <Link to="/forgotPassword">
                         Forgot password?
                     </Link>
                 </Grid>
@@ -84,7 +64,7 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
                     </Link>
                 </Grid>
             </Grid>
-        </div>
+        </AuthPaper>
     </Container>
 }))
 
@@ -94,12 +74,11 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
 export const Signup = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     const form = store.signupForm
-    const classes = useStyles();
 
     return <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
+        <AuthPaper>
+            <Avatar>
                 <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -114,8 +93,8 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
                 onClick={store.signup}
+                disabled={!form.isValid}
             >
                 Sign Up
           </Button>
@@ -128,7 +107,7 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
                     </Link>
                 </Grid>
             </Grid>
-        </div>
+        </AuthPaper>
     </Container>
 }))
 

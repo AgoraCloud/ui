@@ -13,7 +13,7 @@ export const Input = observer((props: InputProps) => {
     return <TextField
         onChange={form.onInputChange(id)}
         error={form.getError(id) != undefined && val != ""}
-        // helperText={form.getError(id)} // to be implemented (currently all errors are just 'error')
+        helperText={val != "" ? form.getError(id) : undefined} // to be implemented (currently all errors are just 'error')
         value={val}
         variant="outlined"
         margin="normal"

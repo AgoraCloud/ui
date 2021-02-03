@@ -55,10 +55,19 @@ export class AuthStore {
 
    }
 
-   login = async () => {
-      const successful = this.loginForm.submit()
+   login = async (e) => {
+      const successful = await this.loginForm.submit()
       if(successful){
+         this.rootStore.snackbarStore.push({
+            message: 'Successfully Logged In!',
+            variant: 'success'
+         })
          this.loadUser()
+      }else{
+         this.rootStore.snackbarStore.push({
+            message: 'Failed to Login, ' + this.loginForm.message,
+            variant: 'error'
+         })
       }
    }
 
@@ -67,7 +76,7 @@ export class AuthStore {
       const successful = await this.signupForm.submit()
       if(successful){
          this.loadUser()
-      } 
+      }
    }
 
    verify = async () => {
