@@ -75,7 +75,16 @@ export class AuthStore {
    signup = async () => {
       const successful = await this.signupForm.submit()
       if(successful){
+         this.rootStore.snackbarStore.push({
+            message: 'Successfully Created Account!',
+            variant: 'success'
+         })
          this.loadUser()
+      }else{
+         this.rootStore.snackbarStore.push({
+            message: 'Failed to Signup, ' + this.loginForm.message,
+            variant: 'error'
+         })
       }
    }
 
