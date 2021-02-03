@@ -165,7 +165,7 @@ export class BaseFormModel<FormInterface, DBInterface>{
                 loading: false,
                 loaded: true
             }
-            return this.response.status == 200
+            return this.response.status >= 200 && this.response.status < 300
         }catch(e){
             console.warn("ERROR", e)
             this.state = {
