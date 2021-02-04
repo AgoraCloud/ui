@@ -52,19 +52,40 @@ export class AuthStore {
     }
   };
 
-  login = async () => {
-    const successful = this.loginForm.submit()
-    if (successful) {
-      this.loadUser()
-    }
-  }
+   }
 
-  signup = async () => {
-    const successful = await this.signupForm.submit()
-    if (successful) {
-      this.loadUser()
-    }
-  }
+   login = async (e) => {
+      const successful = await this.loginForm.submit()
+      if(successful){
+         this.rootStore.snackbarStore.push({
+            message: 'Successfully Logged In!',
+            variant: 'success'
+         })
+         this.loadUser()
+      }else{
+         this.rootStore.snackbarStore.push({
+            message: 'Failed to Login, ' + this.loginForm.message,
+            variant: 'error'
+         })
+      }
+   }
+
+
+   signup = async () => {
+      const successful = await this.signupForm.submit()
+      if(successful){
+         this.rootStore.snackbarStore.push({
+            message: 'Successfully Created Account!',
+            variant: 'success'
+         })
+         this.loadUser()
+      }else{
+         this.rootStore.snackbarStore.push({
+            message: 'Failed to Signup, ' + this.loginForm.message,
+            variant: 'error'
+         })
+      }
+   }
 
   verify = async () => {
     return await this.verifyForm.submit()

@@ -1,5 +1,5 @@
 import { BaseFormModel } from 'app/forms/Base';
-import { CreateUserDto } from 'app/forms/validators';
+import { LoginUserDto } from 'app/forms/validators';
 
 interface login_i {
     email: string
@@ -7,7 +7,7 @@ interface login_i {
 }
 export class LoginFormModel extends BaseFormModel<login_i, login_i>{
     constructor() {
-        super(CreateUserDto)
+        super(LoginUserDto)
         this.data = {
             email: "",
             password: ""

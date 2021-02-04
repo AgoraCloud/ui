@@ -3,6 +3,7 @@ import * as _ from "lodash"
 import {classToClass} from 'class-transformer'
 import {validate, ValidationError} from 'class-validator'
 
+
 export const getErrors = async (v: any): Promise<{[key: string]: string}> => {
     /**
      * v is a Validator Class (idk how to type it w/ out the inheritance)
@@ -25,9 +26,14 @@ export const getErrors = async (v: any): Promise<{[key: string]: string}> => {
         for(const error of errors){
             const property = [root, error.property].filter(val=>val!="").join('.')
             recurse(property, error.children)
-            // todo extract the error message from the contraint
-            // const contraints = Object.values(error.constraints || {})
-            out[property] = "error"
+        
+            const constraints = Object.values(error.constraints||{})
+            if(constraints.length > 0){
+                // only shows the first constraint right now
+                out[property] = constraints[0]
+            }else{
+                out[property] = "error"
+            }
         }
     }
     recurse("", errors)
@@ -50,6 +56,9 @@ export class BaseFormModel<FormInterface, DBInterface>{
     _response: Response
     @observable
     responseBody: DBInterface = {} as DBInterface
+
+    @observable
+    isValid: boolean = false
     constructor(private validator?: new () => any){
         this.errors = {} 
         this.data = {
@@ -68,13 +77,13 @@ export class BaseFormModel<FormInterface, DBInterface>{
         return this._response
     }
 
-    set response(response: Response){
+    setResponse = async (response: Response) => {
         this._response = response
-        response.json().then((body)=>{
-            this.responseBody = body
-        }).catch((err)=>{
-            console.warn(err)
-        })
+        try{
+            this.responseBody = await response.json()
+        }catch(e){
+            console.warn(e)
+        }
     }
 
     get message(){
@@ -151,13 +160,14 @@ export class BaseFormModel<FormInterface, DBInterface>{
                 body: JSON.stringify(this.toDB()),
                 ...options
             })
-            this.response = response
+            await this.setResponse(response)
             this.state = {
                 loading: false,
                 loaded: true
             }
-            return this.response.status == 200
+            return this.response.status >= 200 && this.response.status < 300
         }catch(e){
+            console.warn("ERROR", e)
             this.state = {
                 loading: false,
                 loaded: false
@@ -183,6 +193,8 @@ export class BaseFormModel<FormInterface, DBInterface>{
         Object.assign(v, data)
         const errors = await getErrors(v)
         this.errors = errors
-        return Object.keys(errors).length == 0
+        this.isValid = Object.keys(this.errors).length == 0
+        return this.isValid
     }, 200, {leading: true})
+
 }
