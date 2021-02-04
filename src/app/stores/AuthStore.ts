@@ -4,7 +4,6 @@ import { SignupFormModel, LoginFormModel, VerifyAccountFormModel } from 'app/for
 
 export class AuthStore {
   @observable state: "loading" | "loggedin" | "unauthed";
-  @observable serverResponse: Response;
 
   @observable signupForm: SignupFormModel
   @observable loginForm: LoginFormModel
@@ -52,7 +51,6 @@ export class AuthStore {
     }
   };
 
-   }
 
    login = async (e) => {
       const successful = await this.loginForm.submit()
@@ -75,13 +73,12 @@ export class AuthStore {
       const successful = await this.signupForm.submit()
       if(successful){
          this.rootStore.snackbarStore.push({
-            message: 'Successfully Created Account!',
+            message: 'Registered! Please check your email to verify your account.',
             variant: 'success'
          })
-         this.loadUser()
       }else{
          this.rootStore.snackbarStore.push({
-            message: 'Failed to Signup, ' + this.loginForm.message,
+            message: 'Failed to Signup: ' + this.signupForm.message,
             variant: 'error'
          })
       }

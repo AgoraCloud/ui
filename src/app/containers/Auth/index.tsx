@@ -73,66 +73,6 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
 export const Signup = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     const form = store.signupForm
-    
-    // const [requestStatus, setRequestStatus] = React.useState<any>({
-    //     code: "",
-    //     message:""
-    // });
-    // const [state, setState] = React.useState<SignupState>({
-    //     open: false,
-    //     vertical: 'bottom',
-    //     horizontal: 'center',
-    // });
-
-    const handleSignup = async () => {
-        await store.signup()
-        //const response = store.serverResponse
-
-        // switch (response.status) {
-        //     case 400: {
-        //         setRequestStatus({
-        //             code: 400,
-        //             message: "The email you entered is already in use!"
-        //         })
-        //         break;
-        //     }
-        //     case 201: {
-        //         setRequestStatus({
-        //             code: 201,
-        //             message: "Registered! Please check your email to verify your account."
-        //         })
-        //         break;
-        //     }
-        //     default: {
-        //         setRequestStatus({
-        //             code: response.status,
-        //             message: "Sorry, there was an error in the server!"
-        //         })
-        //         break;
-        //     }
-        // }
-
-        // setState(prevValue => {
-        //     return {
-        //         ...prevValue,
-        //         open: true
-        //     }
-        // });
-     
-    }
-
-    // const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-    //     if (reason === 'clickaway') {
-    //       return;
-    //     }
-    
-    //     setState(prevValue => {
-    //         return {
-    //             ...prevValue,
-    //             open: false
-    //         }
-    //     });
-    // };
 
     return <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -151,7 +91,6 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                // onClick={handleSignup}
                 onClick={store.signup}
                 disabled={!form.isValid}
             >
@@ -166,9 +105,6 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
                     </Link>
                 </Grid>
             </Grid>
-            {/* <Snackbar open={state.open} autoHideDuration={6000} onClose={handleClose}> 
-                <Alert onClose={handleClose} severity={ requestStatus.code === 201  ? "success" : "error"}> { requestStatus.message } </Alert>       
-            </Snackbar> */}
         </AuthPaper>
     </Container>
 }))
