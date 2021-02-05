@@ -1,13 +1,12 @@
 import { observable } from "mobx"
+import { OptionsObject } from 'notistack'
 
-export interface alert_i{
+export interface alert_i extends OptionsObject{
     message: string
-    variant: 'success'|'error'|'info'|'default'|''
 }
 
 interface storeAlert_i extends alert_i{
     key: number
-    autoHideDuration: number
 }
 
 export class SnackbarStore{
@@ -19,7 +18,7 @@ export class SnackbarStore{
 
     push(alert: alert_i){
         this.alerts.push({
-            key: new Date().getTime() + Math.random(),
+            key: new Date().getTime() + Math.random() as any, // had to do this to get rid of annoying lint
             autoHideDuration: 6000,
             ...alert
         })

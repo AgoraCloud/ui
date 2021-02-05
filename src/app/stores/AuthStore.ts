@@ -65,7 +65,7 @@ export class AuthStore {
          this.loadUser()
       }else{
          this.rootStore.snackbarStore.push({
-            message: 'Failed to Login, ' + this.loginForm.message,
+            message: 'Failed to Login: ' + this.loginForm.message,
             variant: 'error'
          })
       }
@@ -82,7 +82,7 @@ export class AuthStore {
          this.loadUser()
       }else{
          this.rootStore.snackbarStore.push({
-            message: 'Failed to Signup, ' + this.signupForm.message,
+            message: 'Failed to Signup: ' + this.signupForm.message,
             variant: 'error'
          })
       }
