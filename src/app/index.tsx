@@ -19,6 +19,5 @@ export const App = hot(({ history }: any) => (
       <AuthedRoute path="/changePassword" component={ForgotPassword}/>
       <AuthedRoute path="" component={Home}/>
     </Switch>
-
   </Router>
 ));
