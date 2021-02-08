@@ -1,6 +1,6 @@
 import { RootStore } from 'app/stores/RootStore';
 import { observable } from 'mobx';
-import { SignupFormModel, LoginFormModel, VerifyAccountFormModel } from 'app/forms';
+import { SignupFormModel, LoginFormModel, VerifyAccountFormModel, ForgotPasswordFormModel } from 'app/forms';
 
 export class AuthStore {
   @observable state: "loading" | "loggedin" | "unauthed";
@@ -8,12 +8,14 @@ export class AuthStore {
   @observable signupForm: SignupFormModel
   @observable loginForm: LoginFormModel
   @observable verifyForm: VerifyAccountFormModel
+  @observable forgotPasswordForm: ForgotPasswordFormModel
 
   constructor(private rootStore: RootStore) {
     this.state = 'unauthed'
     this.signupForm = new SignupFormModel()
     this.loginForm = new LoginFormModel()
     this.verifyForm = new VerifyAccountFormModel()
+    this.forgotPasswordForm = new ForgotPasswordFormModel()
 
     this.loadUser()
   }
@@ -83,6 +85,22 @@ export class AuthStore {
          })
       }
    }
+
+   forgotPassword = async () => {
+      const successful = await this.forgotPasswordForm.submit()
+      if(successful){
+          this.rootStore.snackbarStore.push({
+              message: 'Success: Please check your email to reset your password!',
+              variant: 'success'
+          })
+          
+      }else{
+          this.rootStore.snackbarStore.push({
+              message: 'Failure: ' + this.forgotPasswordForm.message,
+              variant: 'error'
+          })
+      }
+    }
 
   verify = async () => {
     return await this.verifyForm.submit()
