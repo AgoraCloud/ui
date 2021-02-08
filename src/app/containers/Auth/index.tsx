@@ -141,32 +141,31 @@ export const ChangePassword = inject(AUTH_STORE)(observer((props) => {
             <CircularProgress />
         </AuthWrapper>
     }
-    if (changePassword) {
-        return <AuthWrapper>
-            <Typography>
-                Account Succesfully Verified!
-            </Typography>
-            <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
+    return <AuthWrapper>
+        <Typography>
+            Change Password
+        </Typography>
+        <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
 
-            <Input form={form} id="confirmpassword" type="password" label="Confirm Password" autoComplete="current-password" />
+        <Input form={form} id="confirmpassword" type="password" label="Confirm Password" autoComplete="current-password" />
 
-            <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                    store.changePassword()
-                }}>
-                Change Password
-                </Button>
-        </AuthWrapper>
-    } else {
-        return <AuthWrapper>
-            <Typography>
-                {form.message}
-            </Typography>
-        </AuthWrapper >
-    }
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => {
+                store.changePassword()
+            }}>
+            Change Password
+            </Button>
+    </AuthWrapper>
+    // } else {
+    //     return <AuthWrapper>
+    //         <Typography>
+    //             {form.message}
+    //         </Typography>
+    //     </AuthWrapper >
+    // }
 }))
 
 

@@ -152,6 +152,13 @@ export class BaseFormModel<FormInterface, DBInterface>{
          */
     }
 
+
+    get success(){
+        if(this.response == undefined){
+            return undefined
+        }
+        return this.response.status >= 200 && this.response.status < 300
+    }
     protected async submit(url: string, options = {} as RequestInit){
         /**
          * To Be Impemented!
@@ -173,7 +180,7 @@ export class BaseFormModel<FormInterface, DBInterface>{
                 loading: false,
                 loaded: true
             }
-            return this.response.status >= 200 && this.response.status < 300
+            return this.success
         }catch(e){
             console.warn("ERROR", e)
             this.state = {
