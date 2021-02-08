@@ -180,9 +180,9 @@ export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
     let query = useQuery();
     const [verified, setVerified] = React.useState<boolean | undefined>(undefined)
     const { token } = query
-    const form = store.changePassword
+    const form = store.verifyForm
     React.useEffect(() => {
-        store.changePassword.data.token = token
+        form.data.token = token
         store.verify().then((v) => {
             setVerified(v)
         })
