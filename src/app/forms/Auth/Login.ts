@@ -17,4 +17,8 @@ export class LoginFormModel extends BaseFormModel<login_i, login_i>{
     submit = async () => {
         return await super.submit('/api/auth/login')
     }
+
+    reset = () => {
+        this.data.password = ""
+    }
 }
