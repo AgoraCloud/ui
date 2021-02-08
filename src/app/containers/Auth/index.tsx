@@ -123,11 +123,51 @@ export const ForgotPassword = () => {
     return null
 }
 
-export const ChangePassword = () => {
+export const ChangePassword = inject(AUTH_STORE)(observer((props) => {
     // two input fields password, confirm password
+    const store = props[AUTH_STORE] as AuthStore
 
-    return null
-}
+    let query = useQuery();
+    const [changePassword, setChangePassword] = React.useState<boolean | undefined>(undefined)
+    const { token } = query
+    const form = store.changePasswordForm
+    React.useEffect(() => {
+        form.data.token = token
+    }, [])
+
+
+    if (form.state.loading) {
+        return <AuthWrapper>
+            <CircularProgress />
+        </AuthWrapper>
+    }
+    if (changePassword) {
+        return <AuthWrapper>
+            <Typography>
+                Account Succesfully Verified!
+            </Typography>
+            <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
+
+            <Input form={form} id="confirmpassword" type="password" label="Confirm Password" autoComplete="current-password" />
+
+            <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                    store.changePassword()
+                }}>
+                Change Password
+                </Button>
+        </AuthWrapper>
+    } else {
+        return <AuthWrapper>
+            <Typography>
+                {form.message}
+            </Typography>
+        </AuthWrapper >
+    }
+}))
 
 
 function useQuery() {
@@ -140,9 +180,9 @@ export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
     let query = useQuery();
     const [verified, setVerified] = React.useState<boolean | undefined>(undefined)
     const { token } = query
-    const form = store.verifyForm
+    const form = store.changePassword
     React.useEffect(() => {
-        store.verifyForm.data.token = token
+        store.changePassword.data.token = token
         store.verify().then((v) => {
             setVerified(v)
         })
