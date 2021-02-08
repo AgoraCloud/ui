@@ -8,7 +8,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import { observer, inject } from 'mobx-react'
+import { observer, inject } from 'mobx-react';
 import { AUTH_STORE } from 'app/constants'
 import { AuthStore } from 'app/stores';
 
@@ -42,7 +42,6 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
             </Typography>
             <Input form={form} id="email" label="Email Address" autoFocus />
             <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
-
             <Button
                 fullWidth
                 variant="contained"
@@ -88,7 +87,6 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
             <Input form={form} id="fullName" label="Full Name" autoFocus />
             <Input form={form} id="email" label="Email Address" />
             <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
-
             <Button
                 fullWidth
                 variant="contained"
@@ -112,9 +110,30 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
 }))
 
 
-export const ForgotPassword = () => {
-    return null
-}
+export const ForgotPassword = inject(AUTH_STORE)(observer((props) => {
+    const store = props[AUTH_STORE] as AuthStore
+    const form = store.forgotPasswordForm
+
+    return <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <AuthPaper>
+            <Typography component="h1" variant="h5">
+                Forgot Password
+            </Typography>
+
+            <Input form={form} id="email" label="Email Address" />
+            <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={store.forgotPassword}
+                disabled={!form.isValid}
+            >
+                Send Reset Link
+          </Button>
+        </AuthPaper>
+    </Container>
+}))
 
 export const ChangePassword = () => {
     return null

@@ -30,3 +30,8 @@ export class LoginUserDto {
     @MinLength(8, {message: "password too short"})
     readonly password: string;
 }
+
+export class ForgotPasswordDto {
+    @IsEmail()
+    readonly email: string
+}
