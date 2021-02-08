@@ -93,17 +93,17 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
             Sign Up
             </Typography>
 
-            <Input form={form} id="fullName" label="Full Name" autoFocus />
-            <Input form={form} id="email" label="Email Address" />
-            <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
-            <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={store.signup}
-                disabled={!form.isValid}
-            >
-                Sign Up
+        <Input form={form} id="fullName" label="Full Name" autoFocus />
+        <Input form={form} id="email" label="Email Address" />
+        <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={store.signup}
+            disabled={!form.isValid}
+        >
+            Sign Up
           </Button>
         <Grid container>
             <Grid item xs>
@@ -148,7 +148,6 @@ export const ChangePassword = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
 
     let query = useQuery();
-    const [changePassword, setChangePassword] = React.useState<boolean | undefined>(undefined)
     const { token } = query
     const form = store.changePasswordForm
     React.useEffect(() => {
@@ -161,31 +160,41 @@ export const ChangePassword = inject(AUTH_STORE)(observer((props) => {
             <CircularProgress />
         </AuthWrapper>
     }
+
+    if (form.success) {
+        return <AuthWrapper>
+            <Typography>
+                Success
+            </Typography>
+            <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                component={Link} to="login">
+                Click here to login
+                </Button>
+        </AuthWrapper>
+    }
+
     return <AuthWrapper>
         <Typography>
             Change Password
         </Typography>
         <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
 
-        <Input form={form} id="confirmpassword" type="password" label="Confirm Password" autoComplete="current-password" />
+        <Input form={form} id="confirmPassword" type="password" label="Confirm Password" autoComplete="current-password" />
 
         <Button
             fullWidth
             variant="contained"
             color="primary"
+            disabled={!form.isValid}
             onClick={() => {
                 store.changePassword()
             }}>
             Change Password
             </Button>
     </AuthWrapper>
-    // } else {
-    //     return <AuthWrapper>
-    //         <Typography>
-    //             {form.message}
-    //         </Typography>
-    //     </AuthWrapper >
-    // }
 }))
 
 
@@ -197,14 +206,11 @@ export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
 
     let query = useQuery();
-    const [verified, setVerified] = React.useState<boolean | undefined>(undefined)
     const { token } = query
     const form = store.verifyForm
     React.useEffect(() => {
         form.data.token = token
-        store.verify().then((v) => {
-            setVerified(v)
-        })
+        store.verify()
     }, [])
 
 
@@ -213,7 +219,7 @@ export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
             <CircularProgress />
         </AuthWrapper>
     }
-    if (verified) {
+    if (form.success) {
         return <AuthWrapper>
             <Typography>
                 Account Succesfully Verified!
@@ -226,11 +232,10 @@ export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
                 Click here to login
                 </Button>
         </AuthWrapper>
-    } else {
-        return <AuthWrapper>
-            <Typography>
+    }
+    return <AuthWrapper>
+            <Typography color="secondary">
                 {form.message}
             </Typography>
         </AuthWrapper >
-    }
 }))

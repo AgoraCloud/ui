@@ -20,9 +20,10 @@ export class ChangePasswordFormModel extends BaseFormModel<changePasswordForm_i,
         }
     }
     toDB = () => {
-        const {password, token} = this.data
+        const {password, confirmPassword, token} = this.data
         return {
             password,
+            confirmPassword,
             token
         }
     }

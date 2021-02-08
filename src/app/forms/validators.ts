@@ -65,5 +65,5 @@ export class ChangePasswordDto {
     readonly password: string;
 
     @Match('password')
-    readonly confirmpassword: string;
+    readonly confirmPassword: string;
 }
