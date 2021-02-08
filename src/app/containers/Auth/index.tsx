@@ -234,8 +234,15 @@ export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
         </AuthWrapper>
     }
     return <AuthWrapper>
-            <Typography color="secondary">
-                {form.message}
-            </Typography>
-        </AuthWrapper >
+        <Typography color="error">
+            {form.message}
+        </Typography>
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            component={Link} to="login">
+            Go back to Log In
+        </Button>
+    </AuthWrapper >
 }))
