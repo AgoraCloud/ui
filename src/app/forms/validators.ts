@@ -53,6 +53,10 @@ export class LoginUserDto {
     readonly password: string;
 }
 
+export class ForgotPasswordDto {
+    @IsEmail()
+    readonly email: string
+}
 
 export class ChangePasswordDto {
     @IsString()
