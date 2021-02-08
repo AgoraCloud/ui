@@ -1,6 +1,6 @@
-# frontend
-
-
+# ui
+## Requirements
+node version > 10
 
 ## Install
 ```

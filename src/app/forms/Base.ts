@@ -144,6 +144,14 @@ export class BaseFormModel<FormInterface, DBInterface>{
         _.merge(this.data, data)
     }
 
+    reset = () => {
+        /**
+         * To Be Implemented!
+         * 
+         * use to reset this.data when needed
+         */
+    }
+
     protected async submit(url: string, options = {} as RequestInit){
         /**
          * To Be Impemented!

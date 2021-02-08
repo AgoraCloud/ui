@@ -27,44 +27,55 @@ import { AuthPaper } from 'app/components/Paper';
  * https://material-ui.com/getting-started/templates/sign-in/
  */
 
+
+export const AuthWrapper = (props) => {
+    const { children } = props
+    return <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <AuthPaper>
+            {children}
+        </AuthPaper>
+
+    </Container>
+}
+
 export const Login = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     const form = store.loginForm
 
-    return <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <AuthPaper>
-            <Avatar>
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                Log in
+    return <AuthWrapper>
+
+        <Avatar>
+            <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+            Log in
             </Typography>
-            <Input form={form} id="email" label="Email Address" autoFocus />
-            <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
-            <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={store.login}
-                disabled={!form.isValid}
-            >
-                Log In
+        <Input form={form} id="email" label="Email Address" autoFocus />
+        <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
+
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={store.login}
+            disabled={!form.isValid}
+        >
+            Log In
           </Button>
-            <Grid container>
-                <Grid item xs>
-                    <Link to="/forgotPassword">
-                        Forgot password?
+        <Grid container>
+            <Grid item xs>
+                <Link to="/forgotPassword">
+                    Forgot password?
                     </Link>
-                </Grid>
-                <Grid item>
-                    <Link to="/signup">
-                        {"Don't have an account? Sign Up"}
-                    </Link>
-                </Grid>
             </Grid>
-        </AuthPaper>
-    </Container>
+            <Grid item>
+                <Link to="/signup">
+                    {"Don't have an account? Sign Up"}
+                </Link>
+            </Grid>
+        </Grid>
+    </AuthWrapper>
 }))
 
 
@@ -74,14 +85,12 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     const form = store.signupForm
 
-    return <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <AuthPaper>
-            <Avatar>
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                Sign Up
+    return <AuthWrapper>
+        <Avatar>
+            <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+            Sign Up
             </Typography>
 
             <Input form={form} id="fullName" label="Full Name" autoFocus />
@@ -96,17 +105,16 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
             >
                 Sign Up
           </Button>
-            <Grid container>
-                <Grid item xs>
-                </Grid>
-                <Grid item>
-                    <Link to="/login">
-                        {"Already have an account? Log In!"}
-                    </Link>
-                </Grid>
+        <Grid container>
+            <Grid item xs>
             </Grid>
-        </AuthPaper>
-    </Container>
+            <Grid item>
+                <Link to="/login">
+                    {"Already have an account? Log In!"}
+                </Link>
+            </Grid>
+        </Grid>
+    </AuthWrapper>
 }))
 
 
@@ -135,9 +143,51 @@ export const ForgotPassword = inject(AUTH_STORE)(observer((props) => {
     </Container>
 }))
 
-export const ChangePassword = () => {
-    return null
-}
+export const ChangePassword = inject(AUTH_STORE)(observer((props) => {
+    // two input fields password, confirm password
+    const store = props[AUTH_STORE] as AuthStore
+
+    let query = useQuery();
+    const [changePassword, setChangePassword] = React.useState<boolean | undefined>(undefined)
+    const { token } = query
+    const form = store.changePasswordForm
+    React.useEffect(() => {
+        form.data.token = token
+    }, [])
+
+
+    if (form.state.loading) {
+        return <AuthWrapper>
+            <CircularProgress />
+        </AuthWrapper>
+    }
+    if (changePassword) {
+        return <AuthWrapper>
+            <Typography>
+                Account Succesfully Verified!
+            </Typography>
+            <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
+
+            <Input form={form} id="confirmpassword" type="password" label="Confirm Password" autoComplete="current-password" />
+
+            <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                    store.changePassword()
+                }}>
+                Change Password
+                </Button>
+        </AuthWrapper>
+    } else {
+        return <AuthWrapper>
+            <Typography>
+                {form.message}
+            </Typography>
+        </AuthWrapper >
+    }
+}))
 
 
 function useQuery() {
@@ -148,29 +198,40 @@ export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
 
     let query = useQuery();
-    const [verified, setVerified] = React.useState<boolean|undefined>(undefined)
+    const [verified, setVerified] = React.useState<boolean | undefined>(undefined)
     const { token } = query
     const form = store.verifyForm
     React.useEffect(() => {
-        store.verifyForm.data.token = token
-        store.verify().then((v)=>{
+        form.data.token = token
+        store.verify().then((v) => {
             setVerified(v)
         })
     }, [])
 
 
-    if (form.state.loading) return <CircularProgress />
-
+    if (form.state.loading) {
+        return <AuthWrapper>
+            <CircularProgress />
+        </AuthWrapper>
+    }
     if (verified) {
-        return <div>
-            Account Succesfully Verified!
-        <Link to="login">
+        return <AuthWrapper>
+            <Typography>
+                Account Succesfully Verified!
+            </Typography>
+            <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                component={Link} to="login">
                 Click here to login
-        </Link>
-        </div>
-    }else{
-        return <div>
-            {form.message}
-        </div>
+                </Button>
+        </AuthWrapper>
+    } else {
+        return <AuthWrapper>
+            <Typography>
+                {form.message}
+            </Typography>
+        </AuthWrapper >
     }
 }))
