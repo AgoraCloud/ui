@@ -16,7 +16,7 @@ export const App = hot(({ history }: any) => (
       <UnauthedRoute path="/signup" component={Signup}/>
       <UnauthedRoute path="/forgotPassword" component={ForgotPassword}/>
       <UnauthedRoute path="/verify-account" component={VerifyAccount}/>
-      <UnauthedRoute path="/forgot-password" component={ChangePassword}/>
+      <UnauthedRoute path="/change-password" component={ChangePassword}/>
       <AuthedRoute path="" component={Home}/>
     </Switch>
   </Router>
