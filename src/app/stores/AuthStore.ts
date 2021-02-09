@@ -75,8 +75,8 @@ export class AuthStore {
    }
 
    signup = async () => {
-      const signupform = this.signupForm
-      const successful = await this.signupForm.submit()
+      const form = this.signupForm
+      const successful = await form.submit()
       if (successful) {
          this.rootStore.snackbarStore.push({
             message: 'Registered! Please check your email to verify your account.',
@@ -88,12 +88,12 @@ export class AuthStore {
             variant: 'error'
          })
       }
-      signupform.reset()
+      form.reset()
    }
 
    forgotPassword = async () => {
-      const forgotPasswordForm = this.forgotPasswordForm
-      const successful = await this.forgotPasswordForm.submit()
+      const form = this.forgotPasswordForm
+      const successful = await form.submit()
       if(successful){
           this.rootStore.snackbarStore.push({
               message: 'Success: Please check your email to reset your password!',
@@ -106,7 +106,7 @@ export class AuthStore {
               variant: 'error'
           })
       }
-      forgotPasswordForm.reset()
+      form.reset()
     }
 
    verify = async () => {
