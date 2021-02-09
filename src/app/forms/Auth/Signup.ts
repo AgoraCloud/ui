@@ -19,4 +19,10 @@ export class SignupFormModel extends BaseFormModel<signup_i, signup_i>{
     submit = async () => {
         return await super.submit('/api/auth/register')
     }
+
+    reset = () => {
+        this.data.fullName = "",
+        this.data.email = "",
+        this.data.password = ""
+    }
 }

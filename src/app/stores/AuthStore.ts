@@ -75,6 +75,7 @@ export class AuthStore {
    }
 
    signup = async () => {
+      const signupform = this.signupForm
       const successful = await this.signupForm.submit()
       if (successful) {
          this.rootStore.snackbarStore.push({
@@ -87,9 +88,11 @@ export class AuthStore {
             variant: 'error'
          })
       }
+      signupform.reset()
    }
 
    forgotPassword = async () => {
+      const forgotPasswordForm = this.forgotPasswordForm
       const successful = await this.forgotPasswordForm.submit()
       if(successful){
           this.rootStore.snackbarStore.push({
@@ -103,6 +106,7 @@ export class AuthStore {
               variant: 'error'
           })
       }
+      forgotPasswordForm.reset()
     }
 
    verify = async () => {
