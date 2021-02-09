@@ -88,6 +88,7 @@ export class AuthStore {
             variant: 'error'
          })
       }
+      form.reset()
    }
 
    forgotPassword = async () => {
@@ -105,6 +106,7 @@ export class AuthStore {
               variant: 'error'
           })
       }
+      form.reset()
     }
 
    verify = async () => {

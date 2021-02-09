@@ -16,4 +16,8 @@ export class ForgotPasswordFormModel extends BaseFormModel<forgotPassword_i, for
         return await super.submit('/api/auth/forgot-password')
     }
 
+    reset = () => {
+        this.data.email = ""
+    }
+
 }
