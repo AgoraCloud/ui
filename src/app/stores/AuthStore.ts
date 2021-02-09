@@ -75,7 +75,8 @@ export class AuthStore {
    }
 
    signup = async () => {
-      const successful = await this.signupForm.submit()
+      const form = this.signupForm
+      const successful = await form.submit()
       if (successful) {
          this.rootStore.snackbarStore.push({
             message: 'Registered! Please check your email to verify your account.',
@@ -83,14 +84,15 @@ export class AuthStore {
          })
       }else{
          this.rootStore.snackbarStore.push({
-            message: 'Failed to Signup: ' + this.signupForm.message,
+            message: 'Failed to Signup: ' + form.message,
             variant: 'error'
          })
       }
    }
 
    forgotPassword = async () => {
-      const successful = await this.forgotPasswordForm.submit()
+      const form = this.forgotPasswordForm
+      const successful = await form.submit()
       if(successful){
           this.rootStore.snackbarStore.push({
               message: 'Success: Please check your email to reset your password!',
@@ -99,29 +101,31 @@ export class AuthStore {
           
       }else{
           this.rootStore.snackbarStore.push({
-              message: 'Failure: ' + this.forgotPasswordForm.message,
+              message: 'Failure: ' + form.message,
               variant: 'error'
           })
       }
     }
 
    verify = async () => {
-      return await this.verifyForm.submit()
+      const form = this.verifyForm
+      return await form.submit()
    }
 
    changePassword = async () => {
-      const successful = await this.changePasswordForm.submit()
+      const form = this.changePasswordForm
+      const successful = await form.submit()
       if (successful) {
          this.rootStore.snackbarStore.push({
             message: 'Successfully Changed Password In!',
             variant: 'success'
          })
-         this.loadUser()
       } else {
          this.rootStore.snackbarStore.push({
-            message: 'Failed to Change Password: ' + this.changePasswordForm.message,
+            message: 'Failed to Change Password: ' + form.message,
             variant: 'error'
          })
       }
+      form.reset()
    }
 }
