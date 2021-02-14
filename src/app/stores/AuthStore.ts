@@ -74,6 +74,24 @@ export class AuthStore {
       }
    }
 
+   logout = async () => {
+      try{
+         const response = await fetch('/api/auth/logout', {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json'
+             }
+         });
+
+         if(response.status === 200 ){
+            this.loadUser()
+         }
+      }catch(e){
+            console.warn("ERROR", e);
+      }
+      
+   }
+
    signup = async () => {
       const form = this.signupForm
       const successful = await form.submit()

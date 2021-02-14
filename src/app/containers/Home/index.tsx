@@ -1,7 +1,11 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
+import { observer, inject } from 'mobx-react';
+import { AUTH_STORE } from 'app/constants'
+import { AuthStore } from 'app/stores';
 // import * as style from './style.scss'
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, fade } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,6 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import InputBase from '@material-ui/core/InputBase';
 
 
 
@@ -21,7 +26,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 // icons
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import DescriptionIcon from '@material-ui/icons/Description';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import CodeIcon from '@material-ui/icons/Code';
 import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import SearchIcon from '@material-ui/icons/Search';
 
 
 
@@ -116,11 +128,67 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
+    search: {
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+          backgroundColor: fade(theme.palette.common.white, 0.25),
+        },
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          marginLeft: theme.spacing(1),
+          width: 'auto',
+        },
+    },
+    searchIcon: {
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    inputRoot: {
+        color: 'inherit',
+    },
+    inputInput: {
+        padding: theme.spacing(1, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          width: '12ch',
+          '&:focus': {
+            width: '20ch',
+          },
+        },
+    },
 }));
 
 
-export const Home = () => {
+export const Home = inject(AUTH_STORE)(observer((props) => {
+    const store = props[AUTH_STORE] as AuthStore
     const classes = useStyles();
+
+    //account logo handlers
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const openAccount = Boolean(anchorEl);
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleSignOut = async () => {
+        await store.logout();
+        setAnchorEl(null);
+    }
+
+    //drawer handlers
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -128,6 +196,7 @@ export const Home = () => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
     return <div className={classes.root}>
         <CssBaseline />
         <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -139,9 +208,51 @@ export const Home = () => {
                     onClick={handleDrawerOpen}
                     className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
                 >
-                    <MenuIcon />
+                <MenuIcon />
                 </IconButton>
                 <WorkspaceSelect/>
+                <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                        <SearchIcon />
+                    </div>
+                    <InputBase
+                    placeholder="Search…"
+                    classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
+                    }}
+                    inputProps={{ 'aria-label': 'search' }}
+                    />
+                </div>
+                <div>
+                    <IconButton
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenu}
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={openAccount}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={handleClose}>My Profile</MenuItem>
+                        <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+                    </Menu>
+                </div>
             </Toolbar>
         </AppBar>
         <Drawer
@@ -162,22 +273,27 @@ export const Home = () => {
                     <ListItemIcon>
                         <DashboardIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Dashboard" />
+                    <ListItemText primary="Deployments" />
                 </ListItem>
             </List>
-            <Divider />
             <List>
-                <ListItem button>
+                <ListItem button component={Link} to="">
                     <ListItemIcon>
-                        <DashboardIcon />
+                        <CodeIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Dashboard" />
+                    <ListItemText primary="Code" />
                 </ListItem>
-                <ListItem button>
+                <ListItem button component={Link} to="">
                     <ListItemIcon>
-                        <DashboardIcon />
+                        <DescriptionIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Dashboard" />
+                    <ListItemText primary="Wiki" />
+                </ListItem>
+                <ListItem button component={Link} to="">
+                    <ListItemIcon>
+                        <FormatListBulletedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Tasks" />
                 </ListItem>
             </List>
         </Drawer>
@@ -189,4 +305,4 @@ export const Home = () => {
             </Container>
         </main>
     </div>
-}
+}))

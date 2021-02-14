@@ -67,7 +67,7 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
             <Grid item xs>
                 <Link to="/forgotPassword">
                     Forgot password?
-                    </Link>
+                </Link>
             </Grid>
             <Grid item>
                 <Link to="/signup">
