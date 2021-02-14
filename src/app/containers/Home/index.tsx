@@ -167,6 +167,10 @@ const useStyles = makeStyles((theme) => ({
           },
         },
     },
+    accountIcon: {
+        position: 'absolute',
+        right: '0px',
+    },
 }));
 
 
@@ -224,7 +228,7 @@ export const Home = inject(AUTH_STORE)(observer((props) => {
                     inputProps={{ 'aria-label': 'search' }}
                     />
                 </div>
-                <div>
+                <div className={classes.accountIcon}>
                     <IconButton
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
@@ -269,14 +273,12 @@ export const Home = inject(AUTH_STORE)(observer((props) => {
             </div>
             <Divider />
             <List>
-                <ListItem button>
+                <ListItem button component={Link} to="">
                     <ListItemIcon>
                         <DashboardIcon />
                     </ListItemIcon>
                     <ListItemText primary="Deployments" />
                 </ListItem>
-            </List>
-            <List>
                 <ListItem button component={Link} to="">
                     <ListItemIcon>
                         <CodeIcon />
