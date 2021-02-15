@@ -1,7 +1,4 @@
 import * as React from 'react'
-import { observer, inject } from 'mobx-react';
-import { AUTH_STORE } from 'app/constants'
-import { AuthStore } from 'app/stores';
 // import * as style from './style.scss'
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -38,17 +35,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const Home = inject(AUTH_STORE)(observer((props) => {
-    const store = props[AUTH_STORE] as AuthStore
+export const Home = () => {
     const classes = useStyles();
-    
-    const processSignOut = async () => {
-        await store.logout();
-    }
 
     return <div className={classes.root}>
         <CssBaseline /> 
-        <TopAndSideBar signOut={processSignOut}>
+        <TopAndSideBar>
             <WorkspaceSelect/>
         </TopAndSideBar>
         <main className={classes.content}>
@@ -59,4 +51,4 @@ export const Home = inject(AUTH_STORE)(observer((props) => {
             </Container>
         </main>
     </div>
-}))
+}

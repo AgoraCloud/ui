@@ -1,5 +1,8 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
+import { observer, inject } from 'mobx-react';
+import { AUTH_STORE } from 'app/constants'
+import { AuthStore } from 'app/stores';
 // import * as style from './style.scss'
 import clsx from 'clsx';
 import { makeStyles, fade } from '@material-ui/core/styles';
@@ -147,10 +150,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const TopAndSideBar = (props) => {
+export const TopAndSideBar = inject(AUTH_STORE)(observer((props) => {
+    const store = props[AUTH_STORE] as AuthStore
     const classes = useStyles();
 
-    //account handlers
+    //account icon handlers
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const openAccount = Boolean(anchorEl);
     const handleAccountMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -159,8 +163,8 @@ export const TopAndSideBar = (props) => {
     const handleIconClose = () => {
         setAnchorEl(null);
     };
-    const handleSignOut = () => {
-        props.signOut();
+    const handleSignOut = async () => {
+        await store.logout();
         setAnchorEl(null);
     }
 
@@ -271,4 +275,4 @@ export const TopAndSideBar = (props) => {
             </List>
         </Drawer>
     </>
-}
+}))
