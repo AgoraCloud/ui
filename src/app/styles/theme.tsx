@@ -19,7 +19,7 @@ export const theme = createMuiTheme({
             light: "#ffa733",
             dark: "#b26500",
             contrastText: "#000"
-        }
+        },
     },
     overrides: {
         MuiAvatar: {
