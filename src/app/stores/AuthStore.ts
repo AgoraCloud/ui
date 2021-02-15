@@ -88,8 +88,7 @@ export class AuthStore {
          }
       }catch(e){
             console.warn("ERROR", e);
-      }
-      
+      }     
    }
 
    signup = async () => {
