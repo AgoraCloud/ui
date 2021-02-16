@@ -18,7 +18,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import InputBase from '@material-ui/core/InputBase';
 
-
+// form dialogue 
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 
 // icons
@@ -32,6 +40,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import MemoryIcon from '@material-ui/icons/Memory';
+import MoneyIcon from '@material-ui/icons/Money';
+import StorageIcon from '@material-ui/icons/Storage';
 
 /**
  * Code Sourced from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
@@ -147,6 +159,9 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         right: '0px',
     },
+    margin: {
+        margin: theme.spacing(1, 0, 1, 0),
+    },
 }));
 
 
@@ -175,6 +190,17 @@ export const TopAndSideBar = inject(AUTH_STORE)(observer((props) => {
     };
     const handleDrawerClose = () => {
         setOpen(false);
+    };
+
+    //form dialog
+    const [openForm, setOpenForm] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpenForm(true);
+    };
+
+    const handleClose = () => {
+        setOpenForm(false);
     };
 
     return <> 
@@ -272,7 +298,87 @@ export const TopAndSideBar = inject(AUTH_STORE)(observer((props) => {
                     </ListItemIcon>
                     <ListItemText primary="Tasks" />
                 </ListItem>
+                <ListItem button onClick={handleClickOpen}>  
+                    <ListItemIcon>
+                        <AddCircleOutlineIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Create Workspace" />    
+                </ListItem>
             </List>
         </Drawer>
+        <Dialog open={openForm} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Create Workspace</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please fill out the form below and press 'Create' to create a workspace.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            className={classes.margin}
+            variant="outlined"
+            margin="dense"
+            id="name"
+            label="Workspace Name"
+            type="text"
+            fullWidth
+          />
+          <TextField
+            className={classes.margin}
+            margin="dense"
+            variant="outlined"
+            id="cpu"
+            label="CPU"
+            type="number"
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <MemoryIcon />
+                    </InputAdornment>
+                ),
+            }}
+            fullWidth
+            />
+            <TextField
+            className={classes.margin}
+            margin="dense"
+            variant="outlined"
+            id="ram"
+            label="RAM"
+            type="number"
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <MoneyIcon />
+                    </InputAdornment>
+                ),
+            }}
+            fullWidth
+            />
+            <TextField
+            className={classes.margin}
+            margin="dense"
+            variant="outlined"
+            id="storage"
+            label="Storage"
+            type="number"
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <StorageIcon />
+                    </InputAdornment>
+                ),
+            }}
+            fullWidth
+            />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Create
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
 }))
