@@ -165,6 +165,9 @@ export class BaseFormModel<FormInterface, DBInterface>{
          * 
          * use to import from db interface
          */
+    
+        console.log(JSON.stringify(this.toDB()))
+
         this.state.loading = true
         try{
             const response = await fetch(url, {

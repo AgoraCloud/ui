@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // my components
 import {WorkspaceSelect} from 'app/components/Inputs'
 import { DeploymentsList } from './Deployments';
-import { TopAndSideBar } from 'app/components/TopAndSideBar';
+import { TopBar } from 'app/components/TopBar';
 
 /**
  * Code Sourced from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
@@ -40,9 +40,9 @@ export const Home = () => {
 
     return <div className={classes.root}>
         <CssBaseline /> 
-        <TopAndSideBar>
+        <TopBar>
             <WorkspaceSelect/>
-        </TopAndSideBar>
+        </TopBar>
         <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <Container maxWidth="lg" className={classes.container}>

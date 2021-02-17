@@ -62,7 +62,7 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
             disabled={!form.isValid}
         >
             Log In
-          </Button>
+        </Button>
         <Grid container>
             <Grid item xs>
                 <Link to="/forgotPassword">

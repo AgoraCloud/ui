@@ -1,4 +1,4 @@
-import {IsEmail, IsNotEmpty, IsString, MinLength, registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface} from 'class-validator';
+import {IsEmail, IsNotEmpty, IsString, MinLength, registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface, IsInt, Min} from 'class-validator';
 
 export function Match(property: string, validationOptions?: ValidationOptions) {
     return (object: any, propertyName: string) => {
@@ -66,4 +66,23 @@ export class ChangePasswordDto {
 
     @Match('password')
     readonly confirmPassword: string;
+}
+
+export class CreateWorkspaceDto {
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(4, {message: "name too short"})
+    readonly name: string;
+
+    // @IsInt()
+    // @Min(1, {message: "CPU count must not be less than 1"})
+    readonly cpuCount: number;
+
+    // @IsInt()
+    // @Min(2, {message: "Memory count must not be less than 2"})
+    readonly memoryCount: number;
+
+    // @IsInt()
+    // @Min(8, {message: "Storage count must not be less than 8"})
+    readonly storageCount: number;
 }
