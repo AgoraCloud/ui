@@ -10,7 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import InputBase from '@material-ui/core/InputBase';
-import { SideBar } from 'app/components/SideBar';
+import { WorkspaceSelect } from 'app/components/Inputs'
 
 
 // icons
@@ -31,6 +31,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
+        marginTop: 5,
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -120,28 +121,18 @@ export const TopBar = inject(AUTH_STORE)(observer((props) => {
         setAnchorEl(null);
     }
 
-    //drawer handlers
-    const [open, setOpen] = React.useState(false);
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
-
-    return <> 
-        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+    return <AppBar position="absolute" className={clsx(classes.appBar, props.open && classes.appBarShift)}>
             <Toolbar className={classes.toolbar}>
                 <IconButton
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
-                    onClick={handleDrawerOpen}
-                    className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                    onClick={props.openDrawer}
+                    className={clsx(classes.menuButton, props.open && classes.menuButtonHidden)}
                 >
                 <MenuIcon />
                 </IconButton>
-                {props.children}
+                <WorkspaceSelect />
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
                         <SearchIcon />
@@ -186,6 +177,4 @@ export const TopBar = inject(AUTH_STORE)(observer((props) => {
                 </div>
             </Toolbar>
         </AppBar>
-        <SideBar open={open} closeDrawer={handleDrawerClose}/>
-    </>
 }))
