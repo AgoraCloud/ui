@@ -55,6 +55,9 @@ export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) =
                 type="text"
                 fullWidth
             />
+            <DialogContentText>
+               Optionally, you can specify the maximum amount of resources the workspace can use.
+            </DialogContentText>
             <Input
                 form={form}
                 className={classes.margin}

@@ -1,5 +1,5 @@
 import { BaseFormModel } from 'app/forms/Base';
-import { CreateWorkspaceDto } from 'app/forms/validators';
+import { CreateWorkspaceDto, CreateWorkspaceResourcesDto } from 'app/forms/validators';
 
 interface create_workspace_i {
     name: string,
@@ -29,25 +29,17 @@ export class CreateWorkspaceFormModel extends BaseFormModel<create_workspace_i, 
 
     toDB = () => {
         let {name, properties} = this.data
-        let newProperties = {resources:{}}
-
-        if(typeof properties.resources.cpuCount != "undefined"){
-            newProperties.resources["cpuCount"] = Number(properties.resources.cpuCount)    
-        } 
-        
-        if(typeof properties.resources.memoryCount != "undefined"){
-            newProperties.resources["memoryCount"] = Number(properties.resources.memoryCount)
-        }
-
-        if(typeof properties.resources.storageCount != "undefined"){
-            newProperties.resources["storageCount"] = Number(properties.resources.storageCount)
-        }
-
-        properties = newProperties
-
+        const resources: CreateWorkspaceResourcesDto = properties?.resources;
+        let newProperties = {
+            resources: {
+                cpuCount: resources?.cpuCount ? Number(resources.cpuCount) : undefined,
+                memoryCount: resources?.memoryCount ? Number(resources.memoryCount) : undefined,
+                storageCount: resources?.storageCount ? Number(resources.storageCount) : undefined,
+            },
+        };
         return {
             name,
-            properties
+            properties: newProperties
         }
     }
 
