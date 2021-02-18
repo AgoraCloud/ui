@@ -2,7 +2,7 @@ import { BaseFormModel } from 'app/forms/Base';
 import { CreateWorkspaceDto } from 'app/forms/validators';
 
 interface create_workspace_i {
-    name: string
+    name: string,
     properties: {
         resources: {
             cpuCount?: number,
@@ -10,6 +10,7 @@ interface create_workspace_i {
             storageCount?: number 
         }
     }
+
 }
 export class CreateWorkspaceFormModel extends BaseFormModel<create_workspace_i, create_workspace_i>{
     constructor() {
@@ -18,16 +19,32 @@ export class CreateWorkspaceFormModel extends BaseFormModel<create_workspace_i, 
             name: "",
             properties: {
                 resources: {
-                    cpuCount: undefined,
-                    memoryCount: undefined,
-                    storageCount: undefined
+                    cpuCount: 1,
+                    memoryCount: 2,
+                    storageCount: 8
                 }
             }
         }
     }
 
+    toDB = () => {
+        let {name, properties} = this.data
+        const numCpuCount = Number(properties.resources.cpuCount)
+        const numMemoryCount = Number(properties.resources.memoryCount)
+        const numStorageCount = Number(properties.resources.storageCount)
+        properties = {resources: {
+            cpuCount: numCpuCount,
+            memoryCount: numMemoryCount,
+            storageCount: numStorageCount,
+        }}
+        return {
+            name,
+            properties
+        }
+    }
+
     submit = async () => {
-        return await super.submit('/api/workspaces')
+        return await super.submit('/api/workspaces')    
     }
 
     reset = () => {

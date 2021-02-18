@@ -37,6 +37,8 @@ export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) =
         success && props.closeForm()
     }
 
+    // console.log("Check this out")
+    // console.log(form)
     return <Dialog open={props.formOpen} onClose={props.closeForm} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Create Workspace</DialogTitle>
         <DialogContent>

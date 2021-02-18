@@ -91,7 +91,7 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
         </Avatar>
         <Typography component="h1" variant="h5">
             Sign Up
-            </Typography>
+        </Typography>
 
         <Input form={form} id="fullName" label="Full Name" autoFocus />
         <Input form={form} id="email" label="Email Address" />
@@ -104,7 +104,7 @@ export const Signup = inject(AUTH_STORE)(observer((props) => {
             disabled={!form.isValid}
         >
             Sign Up
-          </Button>
+        </Button>
         <Grid container>
             <Grid item xs>
             </Grid>
