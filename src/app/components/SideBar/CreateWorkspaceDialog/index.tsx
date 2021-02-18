@@ -14,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { Typography } from '@material-ui/core';
 
 // icons
 import MemoryIcon from '@material-ui/icons/Memory';
@@ -25,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
     margin: {
         margin: theme.spacing(1, 0, 1, 0),
     },
+    subtitle: {
+        margin: theme.spacing(1, 0, 1, 0),
+        color: "inherit",
+        variant: "subtitle1",
+    }
 }));
 
 export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) => {
@@ -55,8 +61,9 @@ export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) =
                 type="text"
                 fullWidth
             />
+            <Typography className={classes.subtitle} >Resources</Typography>
             <DialogContentText>
-               Optionally, you can specify the maximum amount of resources the workspace can use.
+               Optionally, you can specify the maximum amount of resources the workspace can use:
             </DialogContentText>
             <Input
                 form={form}
@@ -71,6 +78,9 @@ export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) =
                             <MemoryIcon />
                         </InputAdornment>
                     ),
+                }}
+                InputLabelProps={{
+                    required: false,
                 }}
                 fullWidth
             />
@@ -88,6 +98,9 @@ export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) =
                         </InputAdornment>
                     ),
                 }}
+                InputLabelProps={{
+                    required: false,
+                }}
                 fullWidth
             />
             <Input
@@ -103,6 +116,9 @@ export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) =
                             <StorageIcon />
                         </InputAdornment>
                     ),
+                }}
+                InputLabelProps={{
+                    required: false,
                 }}
                 fullWidth
             />
