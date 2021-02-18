@@ -19,9 +19,9 @@ export class CreateWorkspaceFormModel extends BaseFormModel<create_workspace_i, 
             name: "",
             properties: {
                 resources: {
-                    cpuCount: 1,
-                    memoryCount: 2,
-                    storageCount: 8
+                    cpuCount: undefined,
+                    memoryCount: undefined,
+                    storageCount: undefined
                 }
             }
         }
@@ -29,14 +29,22 @@ export class CreateWorkspaceFormModel extends BaseFormModel<create_workspace_i, 
 
     toDB = () => {
         let {name, properties} = this.data
-        const numCpuCount = Number(properties.resources.cpuCount)
-        const numMemoryCount = Number(properties.resources.memoryCount)
-        const numStorageCount = Number(properties.resources.storageCount)
-        properties = {resources: {
-            cpuCount: numCpuCount,
-            memoryCount: numMemoryCount,
-            storageCount: numStorageCount,
-        }}
+        let newProperties = {resources:{}}
+
+        if(typeof properties.resources.cpuCount != "undefined"){
+            newProperties.resources["cpuCount"] = Number(properties.resources.cpuCount)    
+        } 
+        
+        if(typeof properties.resources.memoryCount != "undefined"){
+            newProperties.resources["memoryCount"] = Number(properties.resources.memoryCount)
+        }
+
+        if(typeof properties.resources.storageCount != "undefined"){
+            newProperties.resources["storageCount"] = Number(properties.resources.storageCount)
+        }
+
+        properties = newProperties
+
         return {
             name,
             properties
