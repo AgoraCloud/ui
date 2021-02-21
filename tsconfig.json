@@ -5,6 +5,7 @@
     "jsx": "react",
     "module": "es6",
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": false,
     "removeComments": true,
