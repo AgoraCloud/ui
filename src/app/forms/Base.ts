@@ -159,12 +159,16 @@ export class BaseFormModel<FormInterface, DBInterface>{
         }
         return this.response.status >= 200 && this.response.status < 300
     }
+
     protected async submit(url: string, options = {} as RequestInit){
         /**
          * To Be Impemented!
          * 
          * use to import from db interface
          */
+
+        console.log(JSON.stringify(this.toDB()));
+        
         this.state.loading = true
         try{
             const response = await fetch(url, {

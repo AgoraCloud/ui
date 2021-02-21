@@ -1,4 +1,7 @@
-import {IsEmail, IsNotEmpty, IsString, MinLength, registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface} from 'class-validator';
+import {IsEmail, IsNotEmpty, IsString, MinLength, registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraint, 
+    ValidatorConstraintInterface, IsInt, Min, IsOptional, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import "reflect-metadata";
 
 export function Match(property: string, validationOptions?: ValidationOptions) {
     return (object: any, propertyName: string) => {
@@ -66,4 +69,40 @@ export class ChangePasswordDto {
 
     @Match('password')
     readonly confirmPassword: string;
+}
+
+export class CreateWorkspaceResourcesDto {
+    @Min(1, {message: "CPU count must not be less than 1"})
+    @IsInt()
+    @IsOptional()
+    readonly cpuCount?: number;
+
+    @Min(2, {message: "Memory count must not be less than 2"})
+    @IsInt()
+    @IsOptional()
+    readonly memoryCount?: number;
+
+    @Min(8,  {message: "Storage count must not be less than 8"})
+    @IsInt()
+    @IsOptional()
+    readonly storageCount?: number;
+}
+
+export class CreateWorkspacePropertiesDto {
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => CreateWorkspaceResourcesDto)
+    readonly resources?: CreateWorkspaceResourcesDto;
+}
+
+export class CreateWorkspaceDto {
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(4, {message: "name too short"})
+    readonly name: string;
+
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => CreateWorkspacePropertiesDto)
+    readonly properties?: CreateWorkspacePropertiesDto;
 }
