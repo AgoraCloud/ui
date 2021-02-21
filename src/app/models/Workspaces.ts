@@ -8,7 +8,7 @@ export class Workspaces{
 
     @observable state: 'loaded'|'error'|'loading'|'unloaded'
 
-    @observable workspaces: Workspace[] = []
+    @observable _workspaces: Workspace[] = []
     constructor(){
         this.state = 'unloaded'
     }
@@ -21,9 +21,12 @@ export class Workspaces{
 
         const workspacesData = await response.json()
         console.log("workspaces", response, workspacesData)
-        this.workspaces = workspacesData.map((data)=>new Workspace(data))
+        this._workspaces = workspacesData.map((data)=>new Workspace(this, data))
         this.state = 'loaded'
+    }
 
+    get workspaces(){
+        return this._workspaces || []
     }
 }
 
@@ -39,12 +42,12 @@ export class Workspace{
 
 
      deployments: Deployments
-     constructor(public data: workspaceData_i){
+     constructor(public workspaces: Workspaces, public data: workspaceData_i){
         this.deployments = new Deployments(this)
      }
 
 
-     get _id(){
+     get id(){
          return this.data._id
      }
 
@@ -54,5 +57,9 @@ export class Workspace{
 
      get users(){
          return this.data.users
+     }
+
+     get link(){
+         return `/w/${this.id}/`
      }
 }

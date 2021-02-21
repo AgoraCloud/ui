@@ -3,6 +3,7 @@ import * as _ from "lodash"
 import {classToClass} from 'class-transformer'
 import {validate, ValidationError} from 'class-validator'
 
+
 export const getErrors = async (v: any): Promise<{[key: string]: string}> => {
     /**
      * v is a Validator Class (idk how to type it w/ out the inheritance)
@@ -25,9 +26,14 @@ export const getErrors = async (v: any): Promise<{[key: string]: string}> => {
         for(const error of errors){
             const property = [root, error.property].filter(val=>val!="").join('.')
             recurse(property, error.children)
-            // todo extract the error message from the contraint
-            // const contraints = Object.values(error.constraints || {})
-            out[property] = "error"
+        
+            const constraints = Object.values(error.constraints||{})
+            if(constraints.length > 0){
+                // only shows the first constraint right now
+                out[property] = constraints[0]
+            }else{
+                out[property] = "error"
+            }
         }
     }
     recurse("", errors)
@@ -47,7 +53,12 @@ export class BaseFormModel<FormInterface, DBInterface>{
     }
 
     @observable
-    response: any
+    _response: Response
+    @observable
+    responseBody: DBInterface = {} as DBInterface
+
+    @observable
+    isValid: boolean = false
     constructor(private validator?: new () => any){
         this.errors = {} 
         this.data = {
@@ -61,6 +72,28 @@ export class BaseFormModel<FormInterface, DBInterface>{
 
         // this.func = _.debounce(this.validate, 200, {leading: true})
     }
+
+    get response(){
+        return this._response
+    }
+
+    setResponse = async (response: Response) => {
+        this._response = response
+        try{
+            this.responseBody = await response.json()
+        }catch(e){
+            console.warn(e)
+        }
+    }
+
+    get message(){
+        let msg = this.responseBody['message'] || ""
+        if(typeof msg != "string"){
+            msg = msg.join(', ')
+        }
+        return msg
+    }
+
 
     onChange = (key: string) => {
         /**
@@ -111,6 +144,57 @@ export class BaseFormModel<FormInterface, DBInterface>{
         _.merge(this.data, data)
     }
 
+    reset = () => {
+        /**
+         * To Be Implemented!
+         * 
+         * use to reset this.data when needed
+         */
+    }
+
+
+    get success(){
+        if(this.response == undefined){
+            return undefined
+        }
+        return this.response.status >= 200 && this.response.status < 300
+    }
+    protected async submit(url: string, options = {} as RequestInit){
+        /**
+         * To Be Impemented!
+         * 
+         * use to import from db interface
+         */
+        this.state.loading = true
+        try{
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.toDB()),
+                ...options
+            })
+            await this.setResponse(response)
+            this.state = {
+                loading: false,
+                loaded: true
+            }
+            return this.success
+        }catch(e){
+            console.warn("ERROR", e)
+            this.state = {
+                loading: false,
+                loaded: false
+            }
+            return false
+        }finally{
+
+        }
+
+
+    }
+
     validate = _.debounce(async (): Promise<boolean> => {
         // use toDB because the validator is based on the toDB Value
         if(this.validator == undefined){
@@ -124,7 +208,8 @@ export class BaseFormModel<FormInterface, DBInterface>{
         Object.assign(v, data)
         const errors = await getErrors(v)
         this.errors = errors
-        console.warn(errors)
-        return Object.keys(errors).length == 0
+        this.isValid = Object.keys(this.errors).length == 0
+        return this.isValid
     }, 200, {leading: true})
+
 }

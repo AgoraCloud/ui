@@ -2,23 +2,23 @@ import * as React from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField, { StandardTextFieldProps } from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import { observer, inject } from 'mobx-react'
+import { observer, inject } from 'mobx-react';
 import { AUTH_STORE } from 'app/constants'
 import { AuthStore } from 'app/stores';
-import { BaseFormModel } from 'app/forms';
 
 import { Link } from 'react-router-dom'
+import { Input } from 'app/components/Inputs';
+import { useLocation } from 'react-router';
 
+import qs from 'qs'
+import { CircularProgress } from '@material-ui/core';
+import { AuthPaper } from 'app/components/Paper';
 
 
 
@@ -26,94 +26,56 @@ import { Link } from 'react-router-dom'
  * Code sourced from https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in
  * https://material-ui.com/getting-started/templates/sign-in/
  */
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
 
 
+export const AuthWrapper = (props) => {
+    const { children } = props
+    return <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <AuthPaper>
+            {children}
+        </AuthPaper>
 
-interface InputProps extends StandardTextFieldProps {
-    form: BaseFormModel<any, any>
-    id: string
+    </Container>
 }
-export const Input = observer((props: InputProps) => {
-    const { form, id, ...rest } = props
-    const val = form.data[id]
-    return <TextField
-        onChange={form.onInputChange(id)}
-        error={form.getError(id) != undefined && val != ""}
-        // helperText={form.getError(id)} // to be implemented (currently all errors are just 'error')
-        value={val}
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        id={id}
-        name={id}
-        {...rest}
-    />
-})
 
 export const Login = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     const form = store.loginForm
-    const classes = useStyles();
 
-    return <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                Log in
+    return <AuthWrapper>
+
+        <Avatar>
+            <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+            Log in
             </Typography>
-            <Input form={form} id="email" label="Email Address" autoFocus />
-            <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
+        <Input form={form} id="email" label="Email Address" autoFocus />
+        <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
 
-            <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-            />
-            <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={store.login}
-            >
-                Log In
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={store.login}
+            disabled={!form.isValid}
+        >
+            Log In
           </Button>
-            <Grid container>
-                <Grid item xs>
-                    <Link href="/forgotPassword">
-                        Forgot password?
-                    </Link>
-                </Grid>
-                <Grid item>
-                    <Link to="/signup">
-                        {"Don't have an account? Sign Up"}
-                    </Link>
-                </Grid>
+        <Grid container>
+            <Grid item xs>
+                <Link to="/forgotPassword">
+                    Forgot password?
+                </Link>
             </Grid>
-        </div>
-    </Container>
+            <Grid item>
+                <Link to="/signup">
+                    {"Don't have an account? Sign Up"}
+                </Link>
+            </Grid>
+        </Grid>
+    </AuthWrapper>
 }))
 
 
@@ -122,56 +84,165 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
 export const Signup = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     const form = store.signupForm
-    const classes = useStyles();
+
+    return <AuthWrapper>
+        <Avatar>
+            <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+            Sign Up
+            </Typography>
+
+        <Input form={form} id="fullName" label="Full Name" autoFocus />
+        <Input form={form} id="email" label="Email Address" />
+        <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={store.signup}
+            disabled={!form.isValid}
+        >
+            Sign Up
+          </Button>
+        <Grid container>
+            <Grid item xs>
+            </Grid>
+            <Grid item>
+                <Link to="/login">
+                    {"Already have an account? Log In!"}
+                </Link>
+            </Grid>
+        </Grid>
+    </AuthWrapper>
+}))
+
+
+export const ForgotPassword = inject(AUTH_STORE)(observer((props) => {
+    const store = props[AUTH_STORE] as AuthStore
+    const form = store.forgotPasswordForm
 
     return <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-            </Avatar>
+        <AuthPaper>
             <Typography component="h1" variant="h5">
-                Sign Up
+                Forgot Password
             </Typography>
 
-            <Input form={form} id="fullName" label="Full Name" autoFocus />
             <Input form={form} id="email" label="Email Address" />
-            <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
-            <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-            />
             <Button
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
-                onClick={store.signup}
+                onClick={store.forgotPassword}
+                disabled={!form.isValid}
             >
-                Sign Up
+                Send Reset Link
           </Button>
-            <Grid container>
-                <Grid item xs>
-                </Grid>
-                <Grid item>
-                    <Link to="/login">
-                        {"Already have an account? Log In!"}
-                    </Link>
-                </Grid>
-            </Grid>
-        </div>
+        </AuthPaper>
     </Container>
 }))
 
+export const ChangePassword = inject(AUTH_STORE)(observer((props) => {
+    // two input fields password, confirm password
+    const store = props[AUTH_STORE] as AuthStore
 
-export const ForgotPassword = () => {
-    return null
+    let query = useQuery();
+    const { token } = query
+    const form = store.changePasswordForm
+    React.useEffect(() => {
+        form.data.token = token
+    }, [])
+
+
+    if (form.state.loading) {
+        return <AuthWrapper>
+            <CircularProgress />
+        </AuthWrapper>
+    }
+
+    if (form.success) {
+        return <AuthWrapper>
+            <Typography>
+                Success
+            </Typography>
+            <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                component={Link} to="login">
+                Click here to login
+                </Button>
+        </AuthWrapper>
+    }
+
+    return <AuthWrapper>
+        <Typography>
+            Change Password
+        </Typography>
+        <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
+
+        <Input form={form} id="confirmPassword" type="password" label="Confirm Password" autoComplete="current-password" />
+
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={!form.isValid}
+            onClick={() => {
+                store.changePassword()
+            }}>
+            Change Password
+            </Button>
+    </AuthWrapper>
+}))
+
+
+function useQuery() {
+    return qs.parse(useLocation().search, { ignoreQueryPrefix: true });
 }
 
-export const ChangePassword = () => {
-    return null
-}
+export const VerifyAccount = inject(AUTH_STORE)(observer((props) => {
+    const store = props[AUTH_STORE] as AuthStore
 
-export const VerifyEmail = () => {
-    return null
-}
+    let query = useQuery();
+    const { token } = query
+    const form = store.verifyForm
+    React.useEffect(() => {
+        form.data.token = token
+        store.verify()
+    }, [])
+
+
+    if (form.state.loading) {
+        return <AuthWrapper>
+            <CircularProgress />
+        </AuthWrapper>
+    }
+    if (form.success) {
+        return <AuthWrapper>
+            <Typography>
+                Account Succesfully Verified!
+            </Typography>
+            <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                component={Link} to="login">
+                Click here to login
+                </Button>
+        </AuthWrapper>
+    }
+    return <AuthWrapper>
+        <Typography color="error">
+            {form.message}
+        </Typography>
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            component={Link} to="login">
+            Go back to Log In
+        </Button>
+    </AuthWrapper >
+}))
