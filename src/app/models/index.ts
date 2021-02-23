@@ -1,2 +1,3 @@
 export * from './Workspaces'
-export * from './Deployments'
+export * from './Workspaces/Deployments'
+export * from './Workspaces/Wiki'

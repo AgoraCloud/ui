@@ -1,5 +1,7 @@
 import { observable } from "mobx"
 import { Deployments } from "./Deployments"
+import { CreateDeploymentFormModel } from "app/forms/Workspace/Deployments/CreateDeployment"
+import { WikiSections } from "./Wiki"
 
 export class Workspaces{
     /**
@@ -19,21 +21,26 @@ export class Workspaces{
 
         })
 
-        const workspacesData = await response.json()
-        console.log("workspaces", response, workspacesData)
-        this._workspaces = workspacesData.map((data)=>new Workspace(data))
+        const data = await response.json()
+        console.log("workspaces", response, data)
+        this._workspaces = data.map((data)=>new Workspace(this, data))
         this.state = 'loaded'
     }
 
     get workspaces(){
         return this._workspaces || []
     }
+
+
+    getById = (id?: string): Workspace|undefined => {
+        return this.workspaces.filter((w: Workspace)=>w.id === id)[0]
+    }
 }
 
 interface workspaceData_i{
     users: string[]
     name: string
-    _id: string
+    id: string
 }
 export class Workspace{
     /**
@@ -42,13 +49,18 @@ export class Workspace{
 
 
      deployments: Deployments
-     constructor(public data: workspaceData_i){
+     wikiSections: WikiSections
+     createDeploymentForm: CreateDeploymentFormModel
+     constructor(public workspaces: Workspaces, public data: workspaceData_i){
         this.deployments = new Deployments(this)
+        this.createDeploymentForm = new CreateDeploymentFormModel(this)
+        this.wikiSections = new WikiSections(this)
+
      }
 
 
-     get _id(){
-         return this.data._id
+     get id(){
+         return this.data.id
      }
 
      get name(){
@@ -57,5 +69,9 @@ export class Workspace{
 
      get users(){
          return this.data.users
+     }
+
+     get link(){
+         return `/w/${this.id}/`
      }
 }

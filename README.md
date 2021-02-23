@@ -25,6 +25,10 @@ fill in the values in accordance with dev/docker-compose.yml
 ```
 cd ./dev/ docker-compose up -d
 ```
+## Update Dev Server
+```
+docker system prune -a
+```
 
 ## Remove Volumes
 incase you need to remove your account 
