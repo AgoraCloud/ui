@@ -33,19 +33,22 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) => {
+export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props: {
+    open: boolean
+    closeDialog: ()=>any
+}) => {
     const store = props[WORKSPACES_STORE] as WorkspacesStore
     const form = store.createWorkspaceForm
     const classes = useStyles();
-
+    const {open, closeDialog} = props
     const handleFormSubmission = async () => {
         const success = await store.createWorkspace()
-        success && props.closeForm()
+        success && closeDialog()
     }
 
     // console.log("Check this out")
     // console.log(form)
-    return <Dialog open={props.formOpen} onClose={props.closeForm} aria-labelledby="form-dialog-title">
+    return <Dialog open={open} onClose={closeDialog} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Create Workspace</DialogTitle>
         <DialogContent>
             <DialogContentText>
@@ -61,9 +64,9 @@ export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) =
                 type="text"
                 fullWidth
             />
-            <Typography className={classes.subtitle} >Resources</Typography>
+            <Typography className={classes.subtitle} >Resources (optional)</Typography>
             <DialogContentText>
-               Optionally, you can specify the maximum amount of resources the workspace can use:
+               Specify the maximum amount of resources the workspace can use:
             </DialogContentText>
             <Input
                 form={form}
@@ -124,7 +127,7 @@ export const CreateWorkspaceDialog = inject(WORKSPACES_STORE)(observer((props) =
             />
         </DialogContent>
         <DialogActions>
-            <Button onClick={props.closeForm} color="primary">
+            <Button onClick={closeDialog} color="primary">
             Cancel
             </Button>
             <Button onClick={handleFormSubmission} disabled={!form.isValid} color="primary">

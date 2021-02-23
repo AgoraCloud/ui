@@ -12,4 +12,10 @@ export class RouterStore extends BaseRouterStore {
       this.history = syncHistoryWithStore(history, this);
     }
   }
+
+
+  get workspaceUrl(){
+    const wid = this.rootStore.workspacesStore.selectedWorkspace?.id
+    return `/w/${wid}`
+  }
 }

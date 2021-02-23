@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { CreateWorkspaceDialog } from './CreateWorkspaceDialog';
+import { CreateWorkspaceDialog } from '../Forms/Workspace';
 
 
 // icons
@@ -20,6 +20,9 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CodeIcon from '@material-ui/icons/Code';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { inject, observer } from 'mobx-react';
+import { ROUTER_STORE } from 'app/constants';
+import { RouterStore } from 'app/stores';
 
 /**
  * Code Sourced from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
@@ -68,7 +71,8 @@ const useStyles = makeStyles((theme) => ({
 
 // const { forwardRef, useImperativeHandle } = React;
 
-export const SideBar = (props) => {
+export const SideBar = inject(ROUTER_STORE)(observer((props) => {
+    const store = props[ROUTER_STORE] as RouterStore 
     const classes = useStyles();
 
     //form dialog
@@ -96,7 +100,7 @@ export const SideBar = (props) => {
         </div>
         <Divider />
         <List>
-            <ListItem button component={Link} to="">
+            <ListItem button component={Link} to={store.workspaceUrl}>
                 <ListItemIcon>
                     <DashboardIcon />
                 </ListItemIcon>
@@ -108,13 +112,13 @@ export const SideBar = (props) => {
                 </ListItemIcon>
                 <ListItemText primary="Code" />
             </ListItem>
-            <ListItem button component={Link} to="">
+            <ListItem button component={Link} to={store.workspaceUrl + "/wiki"}>
                 <ListItemIcon>
                     <DescriptionIcon />
                 </ListItemIcon>
                 <ListItemText primary="Wiki" />
             </ListItem>
-            <ListItem button component={Link} to="">
+            <ListItem button component={Link} to={store.workspaceUrl + "/tasks"}>
                 <ListItemIcon>
                     <FormatListBulletedIcon />
                 </ListItemIcon>
@@ -128,7 +132,7 @@ export const SideBar = (props) => {
             </ListItem>
         </List>
     </Drawer>
-    <CreateWorkspaceDialog formOpen={openForm} closeForm={handleClose}/>
+    <CreateWorkspaceDialog open={openForm} closeDialog={handleClose}/>
     </>
 
-}
+}))
