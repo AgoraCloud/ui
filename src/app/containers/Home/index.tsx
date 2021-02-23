@@ -5,11 +5,8 @@ import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 // my components
-import { WorkspaceSelect } from 'app/components/Inputs'
 import { DeploymentsList } from './Deployments';
-import { TopAndSideBar } from 'app/components/TopAndSideBar';
-import { Fab } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import { AppMenu } from 'app/components/AppMenu';
 
 /**
  * Code Sourced from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
@@ -17,15 +14,19 @@ import AddIcon from '@material-ui/icons/Add';
  */
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => {
+    console.log(theme.mixins.toolbar)
+    return {
     root: {
         display: 'flex',
     },
-    appBarSpacer: theme.mixins.toolbar,
+    // appBarSpacer: theme.mixins.toolbar,
     content: {
+        overflow: "hidden",
+        marginTop: "64px",
+        boxSizing: "border-box",
         flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
+        height: `calc(100vh - 64px)`
     },
     container: {
         paddingTop: theme.spacing(4),
@@ -34,31 +35,37 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
-}));
+}});
 
 
-export const Home = () => {
+
+export const HomeWrapperBase = (props: { children: React.ReactNode }) => {
     const classes = useStyles();
-
+    const { children } = props
     return <div className={classes.root}>
         <CssBaseline />
-        <TopAndSideBar>
-            <WorkspaceSelect />
-        </TopAndSideBar>
+        <AppMenu />
         <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
-            <Container maxWidth="lg" className={classes.container}>
-                {/* Dashboard Stuff */}
-                <DeploymentsList />
-            </Container>
-
-            <Fab color="secondary" aria-label="add" style={{
-                position: "absolute",
-                bottom: "40px",
-                right: "50px"
-            }}>
-                <AddIcon />
-            </Fab>
+            {/* <div className={classes.appBarSpacer} /> */}
+            {children}
         </main>
     </div>
+}
+
+export const HomeWrapper = (props: { children: React.ReactNode }) => {
+    const classes = useStyles();
+    const { children } = props
+    return <HomeWrapperBase>
+        <Container maxWidth="lg" className={classes.container}>
+            {/* Dashboard Stuff */}
+
+            {children}
+        </Container>
+    </HomeWrapperBase>
+}
+
+export const Home = () => {
+    return <HomeWrapper>
+        <DeploymentsList />
+    </HomeWrapper>
 }

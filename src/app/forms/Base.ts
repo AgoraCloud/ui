@@ -26,7 +26,7 @@ export const getErrors = async (v: any): Promise<{[key: string]: string}> => {
         for(const error of errors){
             const property = [root, error.property].filter(val=>val!="").join('.')
             recurse(property, error.children)
-        
+            
             const constraints = Object.values(error.constraints||{})
             if(constraints.length > 0){
                 // only shows the first constraint right now
@@ -100,7 +100,6 @@ export class BaseFormModel<FormInterface, DBInterface>{
          * key can be nested "contact.phone"
          */
         return (value) => {
-            // console.log(key, value)
             _.set(this.data, key, value)
             this.validate()
         }
@@ -159,12 +158,16 @@ export class BaseFormModel<FormInterface, DBInterface>{
         }
         return this.response.status >= 200 && this.response.status < 300
     }
-    protected async submit(url: string, options = {} as RequestInit){
+
+    public async submit(url: string, options = {} as RequestInit){
         /**
          * To Be Impemented!
          * 
          * use to import from db interface
          */
+
+        console.log(JSON.stringify(this.toDB()));
+        
         this.state.loading = true
         try{
             const response = await fetch(url, {
@@ -209,6 +212,7 @@ export class BaseFormModel<FormInterface, DBInterface>{
         const errors = await getErrors(v)
         this.errors = errors
         this.isValid = Object.keys(this.errors).length == 0
+        // console.log("validate", data, errors, this.isValid)
         return this.isValid
     }, 200, {leading: true})
 

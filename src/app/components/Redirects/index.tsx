@@ -10,7 +10,7 @@ export const FirstWorkspaceRedirect = inject(WORKSPACES_STORE)(observer((props) 
     if(store.state != 'loaded'){
         return null
     }
-    console.log(store.workspaces)
-    const wid = store.workspaces.workspaces[0].id
-    return <Redirect to={`w/${wid}`}/>
+    const wid = store.workspaces?.workspaces[0]?.id
+    if(wid) return <Redirect to={`/w/${wid}`}/>
+    return <Redirect to={`/w/new`}/>
 }))
