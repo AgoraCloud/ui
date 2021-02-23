@@ -1,5 +1,5 @@
 import { observable } from "mobx"
-import { Workspace } from "./Workspaces"
+import { Workspace } from "."
 
 export class Deployments{
     /**
@@ -49,7 +49,7 @@ interface deploymentData_i{
     user: string
     workspace: string
     __v: number
-    _id: string
+    id: string
 }
 export class Deployment{
     /**
@@ -61,7 +61,7 @@ export class Deployment{
 
 
      get id(){
-         return this.data._id
+         return this.data.id
      }
 
      get status(){

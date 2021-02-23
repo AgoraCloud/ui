@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import MemoryIcon from '@material-ui/icons/Memory';
 import MoneyIcon from '@material-ui/icons/Money';
 import StorageIcon from '@material-ui/icons/Storage';
+import { LinkButton } from 'app/components/Inputs'
 
 const chips = {
     'FAILED': <Chip style={{ backgroundColor: 'red' }} label="Error" />,
@@ -25,29 +26,30 @@ export const DeploymentChip = (props: {
 }) => {
 
     const { deployment } = props
-    return chips[deployment.status] || null
+    return <div style={{ paddingTop: "15px" }}>
+        {chips[deployment.status] || null}
+    </div>
 }
 
 export const DeploymentLaunch = (props: {
     deployment: Deployment
 }) => {
     const { deployment } = props
-    return <Button
+    return <LinkButton
         variant="contained"
         color="primary"
         style={{ bottom: 3, right: 3, position: "absolute" }}
-        component={Link} to={deployment.link}>
+        to={deployment.link}>
         Launch
-    </Button>
+    </LinkButton>
 }
 
 export const DeploymentResources = (props: {
     deployment: Deployment
 }) => {
     const { deployment } = props
-    // console.log("DEPLOYMENT", deployment)
     const { cpuCount, memoryCount, storageCount } = deployment
-    return <Grid container style={{paddingTop: "20px"}}>
+    return <Grid container style={{ paddingTop: "20px" }}>
         <Grid item xs={4}>
             <Chip icon={<MemoryIcon />} label={"CPU: " + cpuCount} />
         </Grid>
