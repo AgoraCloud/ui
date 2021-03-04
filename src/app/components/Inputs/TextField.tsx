@@ -24,3 +24,87 @@ export const Input = observer((props: InputProps) => {
         {...rest}
     />
 })
+
+// icons
+import MemoryIcon from '@material-ui/icons/Memory';
+import MoneyIcon from '@material-ui/icons/Money';
+import StorageIcon from '@material-ui/icons/Storage';
+import { InputAdornment, makeStyles } from '@material-ui/core';
+
+
+const useStyles = makeStyles((theme) => ({
+    margin: {
+        margin: theme.spacing(1, 0, 1, 0),
+    },
+    subtitle: {
+        margin: theme.spacing(1, 0, 1, 0),
+        color: "inherit",
+        variant: "subtitle1",
+    }
+}));
+
+export const ResourceInput = (props: {
+    form: BaseFormModel<any, any>
+}) => {
+    const classes = useStyles();
+    const {form} = props
+    return <>
+        <Input
+        form={form}
+        className={classes.margin}
+        margin="dense"
+        id="cpuCount"
+        label="CPU"
+        type="number"
+        InputProps={{
+            startAdornment: (
+                <InputAdornment position="start">
+                    <MemoryIcon />
+                </InputAdornment>
+            ),
+        }}
+        InputLabelProps={{
+            required: false,
+        }}
+        fullWidth
+    />
+    <Input
+        form={form}
+        className={classes.margin}
+        margin="dense"
+        id="memoryCount"
+        label="RAM"
+        type="number"
+        InputProps={{
+            startAdornment: (
+                <InputAdornment position="start">
+                    <MoneyIcon />
+                </InputAdornment>
+            ),
+        }}
+        InputLabelProps={{
+            required: false,
+        }}
+        fullWidth
+    />
+    <Input
+        form={form}
+        className={classes.margin}
+        margin="dense"
+        id="storageCount"
+        label="Storage"
+        type="number"
+        InputProps={{
+            startAdornment: (
+                <InputAdornment position="start">
+                    <StorageIcon />
+                </InputAdornment>
+            ),
+        }}
+        InputLabelProps={{
+            required: false,
+        }}
+        fullWidth
+    />
+</>
+}

@@ -8,7 +8,7 @@ import { Redirect, Route } from 'react-router'
 export const AuthedRoute = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     switch(store.state){
-        case 'unauthed' : return <Redirect to='login'/>
+        case 'unauthed' : return <Redirect to='/login'/>
         case 'loggedin' : return <Route {...props} />
         default: return null;
     }

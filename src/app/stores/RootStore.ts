@@ -14,7 +14,7 @@ export class RootStore {
         this.routerStore = new RouterStore(this, history);
         this.authStore = new AuthStore(this);
         this.workspacesStore = new WorkspacesStore(this)
-        this.snackbarStore = new SnackbarStore(this)
+        this.snackbarStore = new SnackbarStore()
     }
 
     get stores() {

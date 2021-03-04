@@ -14,15 +14,19 @@ import { AppMenu } from 'app/components/AppMenu';
  */
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => {
+    console.log(theme.mixins.toolbar)
+    return {
     root: {
         display: 'flex',
     },
-    appBarSpacer: theme.mixins.toolbar,
+    // appBarSpacer: theme.mixins.toolbar,
     content: {
+        overflow: "hidden",
+        marginTop: "64px",
+        boxSizing: "border-box",
         flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
+        height: `calc(100vh - 64px)`
     },
     container: {
         paddingTop: theme.spacing(4),
@@ -31,21 +35,37 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
-}));
+}});
 
 
-export const Home = () => {
+
+export const HomeWrapperBase = (props: { children: React.ReactNode }) => {
     const classes = useStyles();
-
+    const { children } = props
     return <div className={classes.root}>
-        <CssBaseline /> 
+        <CssBaseline />
         <AppMenu />
         <main className={classes.content}>
-            <div className={classes.appBarSpacer} />
-            <Container maxWidth="lg" className={classes.container}>
-                {/* Dashboard Stuff */}
-                <DeploymentsList/>
-            </Container>
+            {/* <div className={classes.appBarSpacer} /> */}
+            {children}
         </main>
     </div>
+}
+
+export const HomeWrapper = (props: { children: React.ReactNode }) => {
+    const classes = useStyles();
+    const { children } = props
+    return <HomeWrapperBase>
+        <Container maxWidth="lg" className={classes.container}>
+            {/* Dashboard Stuff */}
+
+            {children}
+        </Container>
+    </HomeWrapperBase>
+}
+
+export const Home = () => {
+    return <HomeWrapper>
+        <DeploymentsList />
+    </HomeWrapper>
 }
