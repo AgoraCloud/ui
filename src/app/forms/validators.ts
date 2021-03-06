@@ -107,6 +107,43 @@ export class CreateWorkspaceDto {
     readonly properties?: CreateWorkspacePropertiesDto;
 }
 
+export class UpdateWorkspaceResourcesDto {
+  @Min(0)
+  @IsInt()
+  @IsOptional()
+  readonly cpuCount?: number;
+
+  @Min(0)
+  @IsInt()
+  @IsOptional()
+  readonly memoryCount?: number;
+
+  @Min(0)
+  @IsInt()
+  @IsOptional()
+  readonly storageCount?: number;
+}
+
+export class UpdateWorkspacePropertiesDto {
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => UpdateWorkspaceResourcesDto)
+  readonly resources?: UpdateWorkspaceResourcesDto;
+}
+
+export class UpdateWorkspaceDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4)
+  @IsOptional()
+  readonly name?: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => UpdateWorkspacePropertiesDto)
+  readonly properties?: UpdateWorkspacePropertiesDto;
+}
+
 
 
 // import { deploymentImages } from './../deployment-images';

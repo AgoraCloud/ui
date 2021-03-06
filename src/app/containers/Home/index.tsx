@@ -58,8 +58,6 @@ export const HomeWrapper = (props: { children: React.ReactNode }) => {
     return <HomeWrapperBase>
         <Container maxWidth="lg" className={classes.container}>
             {/* Dashboard Stuff */}
-
-            {children}
         </Container>
     </HomeWrapperBase>
 }

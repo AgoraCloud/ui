@@ -2,6 +2,7 @@ import { RootStore } from 'app/stores/RootStore';
 import { observable } from 'mobx';
 import { Workspaces, Workspace } from 'app/models';
 import { CreateWorkspaceFormModel } from 'app/forms';
+import { UpdateWorkspaceFormModel } from 'app/forms/Workspace/UpdateWorkspace';
 
 export class WorkspacesStore {
 
@@ -9,6 +10,7 @@ export class WorkspacesStore {
    @observable workspaces: Workspaces
    @observable _selectedWorkspace: Workspace
    @observable createWorkspaceForm: CreateWorkspaceFormModel
+   @observable updateWorkspaceForm: UpdateWorkspaceFormModel
    @observable state: 'loading' | 'loaded' | 'unloaded'
 
 
@@ -75,6 +77,25 @@ export class WorkspacesStore {
       if (successful) {
          this.rootStore.snackbarStore.push({
             message: 'Success: Workspace Created!',
+            variant: 'success'
+         })
+         form.reset()
+         this.load()
+      } else {
+         this.rootStore.snackbarStore.push({
+            message: 'Failure: ' + form.message,
+            variant: 'error'
+         })
+      }
+      return successful
+   }
+
+   updateWorkspace = async () => {
+      const form = this.updateWorkspaceForm
+      const successful = await form.submit()
+      if (successful) {
+         this.rootStore.snackbarStore.push({
+            message: 'Success: Workspace Updated!',
             variant: 'success'
          })
          form.reset()
