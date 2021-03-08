@@ -7,7 +7,8 @@ import { Login, Signup, ForgotPassword, VerifyAccount, ChangePassword } from "ap
 import { FirstWorkspaceRedirect } from "./components/Redirects";
 import { FirstWorkspace } from "./containers/Home/FirstWorkspace";
 import { CreateDeployment } from "./containers/Home/Deployments/CreateDeployment";
-//import { UpdateWorkspace } from "./containers/Workspace/UpdateWorkspace";
+import { UpdateWorkspace } from "./containers/Home/UpdateWorkspace";
+import { UserProfile } from "./containers/Home/UserProfile";
 import { WorkspacesLoaded } from "./components/RouteGuards/Workspaces";
 import { WikiRoutes } from "./containers/Home/Wiki";
 
@@ -27,8 +28,9 @@ export const App = hot(({ history }: any) => (
       <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment}/>
       <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes}/>
       <WorkspacesLoaded path="/w/:wid/tasks" component={WikiRoutes}/>
-      {/* <WorkspacesLoaded path="/w/:wid" component={UpdateWorkspace}/> */}
       <WorkspacesLoaded path="/w/:wid" component={Home}/>
+      <WorkspacesLoaded path="/w/:wid/updateworkspace" component={UpdateWorkspace}/>
+      <AuthedRoute path="/my-profile" component={UserProfile}/>
       <AuthedRoute path="" component={FirstWorkspaceRedirect}/>
     </Switch>
   </Router>

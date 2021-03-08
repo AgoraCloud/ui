@@ -144,6 +144,13 @@ export class UpdateWorkspaceDto {
   readonly properties?: UpdateWorkspacePropertiesDto;
 }
 
+export class UpdateUserDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4, {message: "full name too short"})
+  readonly fullName: string;
+}
+
 
 
 // import { deploymentImages } from './../deployment-images';

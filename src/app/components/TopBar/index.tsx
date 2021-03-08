@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react';
 import { AUTH_STORE } from 'app/constants'
 import { AuthStore } from 'app/stores';
@@ -171,7 +172,7 @@ export const TopBar = inject(AUTH_STORE)(observer((props) => {
                         open={openAccount}
                         onClose={handleIconClose}
                     >
-                        <MenuItem onClick={handleIconClose}>My Profile</MenuItem>
+                        <MenuItem button component={Link} to="/my-profile">My Profile</MenuItem>
                         <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
                     </Menu>
                 </div>

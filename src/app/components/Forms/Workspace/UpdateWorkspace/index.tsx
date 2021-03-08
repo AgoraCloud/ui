@@ -25,14 +25,5 @@ export const UpdateWorkspaceForm = inject(ROUTER_STORE)(observer((props: {form: 
             Specify the maximum amount of resources the deployment can use:
         </Typography>
         <ResourceInput form={form}/>
-        <CancelCreateButtons form={form} cancel={()=>{
-            store.replace(form.workspace.link)
-        }}
-        submit={async ()=>{
-            if(await form.submit()){
-                store.replace(form.workspace.link)
-            }
-        }}
-        />
     </div>
 }))

@@ -1,6 +1,5 @@
 import { BaseFormModel } from 'app/forms/Base';
 import { UpdateWorkspaceDto, UpdateWorkspaceResourcesDto } from 'app/forms/validators';
-import { Workspace } from 'app/models';
 
 interface update_workspace_i {
     name: string,
@@ -14,7 +13,7 @@ interface update_workspace_i {
 
 }
 export class UpdateWorkspaceFormModel extends BaseFormModel<update_workspace_i, update_workspace_i>{
-    constructor(public workspace: Workspace) {
+    constructor() {
         super(UpdateWorkspaceDto)
         this.data = {
             name: "",
