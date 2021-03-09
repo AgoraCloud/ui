@@ -16,7 +16,4 @@ export class UpdateUserFormModel extends BaseFormModel<update_user_i, update_use
         return await super.submit('/api/user', {'method': 'PUT'})    
     }
 
-    reset = () => {
-        this.data.fullName = ""
-    }
 }

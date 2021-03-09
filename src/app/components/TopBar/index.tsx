@@ -172,7 +172,7 @@ export const TopBar = inject(AUTH_STORE)(observer((props) => {
                         open={openAccount}
                         onClose={handleIconClose}
                     >
-                        <MenuItem button component={Link} to="/my-profile">My Profile</MenuItem>
+                        <MenuItem button component={Link} to="/edit-profile">My Profile</MenuItem>
                         <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
                     </Menu>
                 </div>

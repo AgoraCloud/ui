@@ -29,6 +29,7 @@ export class UserStore {
    get userFullName(){
        return this.user.fullname
    }
+
    
    updateUser = async () => {
       const form = this.updateUserForm
