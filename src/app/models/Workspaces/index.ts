@@ -1,39 +1,24 @@
-import { observable } from "mobx"
 import { Deployments } from "./Deployments"
 import { CreateDeploymentFormModel } from "app/forms/Workspace/Deployments/CreateDeployment"
 import { WikiSections } from "./Wiki"
+import { BaseModelCollection, BaseModelItem } from "../Base"
 
-export class Workspaces{
+export class Workspaces extends BaseModelCollection<Workspace>{
     /**
      * Collection of workspace objects
      */
 
-    @observable state: 'loaded'|'error'|'loading'|'unloaded'
 
-    @observable _workspaces: Workspace[] = []
     constructor(){
-        this.state = 'unloaded'
+        super(Workspace)
     }
 
     load = async ( ) => {
-        this.state = 'loading'
-        const response = await fetch('/api/workspaces', {
-
-        })
-
-        const data = await response.json()
-        console.log("workspaces", response, data)
-        this._workspaces = data.map((data)=>new Workspace(this, data))
-        this.state = 'loaded'
+        await super.load('/api/workspaces')
     }
 
     get workspaces(){
-        return this._workspaces || []
-    }
-
-
-    getById = (id?: string): Workspace|undefined => {
-        return this.workspaces.filter((w: Workspace)=>w.id === id)[0]
+        return this.collection || []
     }
 }
 
@@ -42,7 +27,7 @@ interface workspaceData_i{
     name: string
     id: string
 }
-export class Workspace{
+export class Workspace extends BaseModelItem<workspaceData_i>{
     /**
      * A single workspace
      */
@@ -52,6 +37,7 @@ export class Workspace{
      wikiSections: WikiSections
      createDeploymentForm: CreateDeploymentFormModel
      constructor(public workspaces: Workspaces, public data: workspaceData_i){
+        super(workspaces, data)
         this.deployments = new Deployments(this)
         this.createDeploymentForm = new CreateDeploymentFormModel(this)
         this.wikiSections = new WikiSections(this)

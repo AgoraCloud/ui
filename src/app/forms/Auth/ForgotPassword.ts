@@ -13,7 +13,7 @@ export class ForgotPasswordFormModel extends BaseFormModel<forgotPassword_i, for
     }
 
     submit = async () => {
-        return await super.submit('/api/auth/forgot-password')
+        return await super.call('/api/auth/forgot-password')
     }
 
     reset = () => {

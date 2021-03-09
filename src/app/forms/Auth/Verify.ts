@@ -12,6 +12,6 @@ export class VerifyAccountFormModel extends BaseFormModel<verify_i, verify_i>{
     }
 
     submit = async () => {
-        return await super.submit('/api/auth/verify-account')
+        return await super.call('/api/auth/verify-account')
     }
 }

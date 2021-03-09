@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { Fab, Button, ButtonProps, Grid } from '@material-ui/core';
+import { Fab, Button, ButtonProps, Grid, IconButton, Menu, MenuItem } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react'
 import { ROUTER_STORE } from 'app/constants'
 import { RouterStore } from 'app/stores';
 import { BaseFormModel } from 'app/forms';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 
 
@@ -13,7 +14,7 @@ export const BaseFAB = (props: {
     onClick: () => any
     children: React.ReactElement
 }) => {
-    const {onClick, children} = props
+    const { onClick, children } = props
     return <Fab color="secondary" aria-label="add" style={{
         position: "absolute",
         bottom: "40px",
@@ -29,7 +30,7 @@ export const AddFAB = inject(ROUTER_STORE)(observer((props: {
     link: string
 }) => {
     const store = props[ROUTER_STORE] as RouterStore
-    const {link} = props
+    const { link } = props
     return <BaseFAB
         onClick={() => {
             store.push(link)
@@ -57,15 +58,15 @@ export const LinkButton = (props: LinkButtonProps) => {
 
 
 export const CancelCreateButtons = observer((props: {
-    form: BaseFormModel<any,any>
+    form: BaseFormModel<any, any>
     cancel: () => any
     submit: () => any
 }) => {
-    const {form, cancel, submit} = props
+    const { form, cancel, submit } = props
     // console.log("isValid2", form.isValid)
-    
-    const {isValid} = form
-    return <div style={{float: 'right'}}>
+
+    const { isValid } = form
+    return <div style={{ float: 'right' }}>
         <Button onClick={cancel} color="primary">
             Cancel
         </Button>
@@ -77,3 +78,54 @@ export const CancelCreateButtons = observer((props: {
         </Button>
     </div>
 })
+
+
+export const MoreMenu = (props: {
+    options: { name: string, onClick: () => any }[]
+}) => {
+    const { options } = props
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl)
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const onClick = (option) => {
+        return () => {
+            option.onClick()
+            handleClose()
+        }
+    }
+    return <>
+        <IconButton
+            aria-label="more"
+            aria-controls="long-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+        >
+            <MoreVertIcon />
+        </IconButton>
+        <Menu
+            id="long-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={open}
+            onClose={handleClose}
+        // PaperProps={{
+        //     style: {
+        //         maxHeight: ITEM_HEIGHT * 4.5,
+        //         width: '20ch',
+        //     },
+        // }}
+        >
+            {options.map((option) => (
+                <MenuItem key={option.name} onClick={onClick(option)}>
+                    {option.name}
+                </MenuItem>
+            ))}
+        </Menu>
+    </>
+}

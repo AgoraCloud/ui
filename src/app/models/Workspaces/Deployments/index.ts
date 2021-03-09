@@ -1,44 +1,35 @@
-import { observable } from "mobx"
-import { Workspace } from "."
+import { observable, computed } from "mobx"
+import { Workspace } from ".."
+import { EditDeploymentFormModel } from "app/forms/Workspace/Deployments/CreateDeployment"
+import { BaseModelCollection, BaseModelItem } from "app/models/Base"
+import { DeploymentMetrics } from "./Metrics"
+import { DeploymentLogs } from "./Logs"
 
-export class Deployments{
+export class Deployments extends BaseModelCollection<Deployment>{
     /**
      * A collection of deployments within a workspace
      */
 
-    @observable state: 'loaded'|'error'|'loading'|'unloaded'
+    constructor(public workspace: Workspace) {
+        super(Deployment)
 
-    @observable _deployments: Deployment[]
-    constructor(public workspace: Workspace){
-        this.state = 'unloaded'
-        this.load()
-    }
-
-    load = async ( ) => {
-        this.state = 'loading'
         const wid = this.workspace.id
-        const response = await fetch(`/api/workspaces/${wid}/deployments`, {
-
-        })
-        const deploymentsData = await response.json()
-        console.log("deployments", response, deploymentsData)
-        this._deployments = deploymentsData.map((data)=>new Deployment(this, data))
-        // this._deployments = [...this._deployments, ...this._deployments, ...this._deployments, ...this._deployments, ...this._deployments,...this._deployments, ...this._deployments, ...this._deployments, ...this._deployments, ...this._deployments]
-        this.state = 'loaded'
+        this.load(`/api/workspaces/${wid}/deployments`)
     }
 
-    get deployments(){
-        return this._deployments || []
+    @computed
+    get deployments() {
+        return this.collection || []
     }
 }
 
 
-interface deploymentData_i{
+interface deploymentData_i {
     name: string
     properties: {
         image: string
         name: string
-        tag: string    
+        tag: string
         resources: {
             cpuCount: number
             memoryCount: number
@@ -51,43 +42,52 @@ interface deploymentData_i{
     __v: number
     id: string
 }
-export class Deployment{
+export class Deployment extends BaseModelItem<deploymentData_i>{
     /**
      * A single deployment
      */
-     constructor(public deployments: Deployments, public data: deploymentData_i){
+    @observable form: EditDeploymentFormModel
 
-     }
+    @observable logs: DeploymentLogs
+    @observable metrics: DeploymentMetrics
+    constructor(public deployments: Deployments, public data: deploymentData_i) {
+        super(deployments, data)
+        this.form = new EditDeploymentFormModel(this)
+        this.form.fromDB(data as any)
+
+        this.logs = new DeploymentLogs(this)
+        this.metrics = new DeploymentMetrics(this)
+    }
 
 
-     get id(){
-         return this.data.id
-     }
+    get id() {
+        return this.data.id
+    }
 
-     get status(){
-         return this.data.status
-     }
+    get status() {
+        return this.data.status
+    }
 
-     get name(){
+    get name() {
         return this.data.name
-     }
+    }
 
 
-     get resources(){
-         return this.data.properties.resources
-     }
-     get cpuCount(){
+    get resources() {
+        return this.data.properties.resources
+    }
+    get cpuCount() {
         return this.resources.cpuCount
 
-     }
-     get memoryCount(){
-         return this.resources.memoryCount
-     }
-     get storageCount(){
-         return this.resources.storageCount || 0
-     }
+    }
+    get memoryCount() {
+        return this.resources.memoryCount
+    }
+    get storageCount() {
+        return this.resources.storageCount || 0
+    }
 
-     get link(){
-         return this.deployments.workspace.link + `d/${this.id}/`
-     }
+    get link() {
+        return this.deployments.workspace.link + `d/${this.id}/`
+    }
 }
