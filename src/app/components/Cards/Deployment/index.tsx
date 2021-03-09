@@ -1,15 +1,24 @@
 import * as React from 'react'
 import { Deployment } from 'app/models'
 import Card from '@material-ui/core/Card'
+<<<<<<< HEAD
 import { Typography, Chip, Grid } from '@material-ui/core'
+=======
+import { Typography, Chip, Button, Grid, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core'
+import { Link } from 'react-router-dom'
+>>>>>>> develop
 
 import MemoryIcon from '@material-ui/icons/Memory';
 import MoneyIcon from '@material-ui/icons/Money';
 import StorageIcon from '@material-ui/icons/Storage';
+<<<<<<< HEAD
 import { LinkButton, MoreMenu } from 'app/components/Inputs'
 import { inject, observer } from 'mobx-react'
 import { ROUTER_STORE } from 'app/constants'
 import { RouterStore } from 'app/stores'
+=======
+import { LinkButton } from 'app/components/Inputs'
+>>>>>>> develop
 
 const chips = {
     'FAILED': <Chip style={{ backgroundColor: 'red' }} label="Error" />,
