@@ -2,7 +2,7 @@ import { BaseFormModel } from 'app/forms/Base';
 import { UpdateWorkspaceDto, UpdateWorkspaceResourcesDto } from 'app/forms/validators';
 
 interface update_workspace_i {
-    name: string,
+    name?: string,
     properties: {
         resources: {
             cpuCount?: number,
@@ -16,7 +16,7 @@ export class UpdateWorkspaceFormModel extends BaseFormModel<update_workspace_i, 
     constructor() {
         super(UpdateWorkspaceDto)
         this.data = {
-            name: "",
+            name: undefined,
             properties: {
                 resources: {
                     cpuCount: undefined,
@@ -29,6 +29,7 @@ export class UpdateWorkspaceFormModel extends BaseFormModel<update_workspace_i, 
 
     toDB = () => {
         let {name, properties} = this.data
+        name = name ? this.data.name : undefined
         const resources: UpdateWorkspaceResourcesDto = properties?.resources;
         let newProperties = {
             resources: {
@@ -43,14 +44,8 @@ export class UpdateWorkspaceFormModel extends BaseFormModel<update_workspace_i, 
         }
     }
 
-    submit = async () => {
-        return await super.submit('/api/workspaces')    
+    submit = async (wid: string) => {
+        return await super.submit(`/api/workspaces/${wid}`, {'method': 'PUT'})  
     }
 
-    reset = () => {
-        this.data.name = ""
-        this.data.properties.resources.cpuCount = undefined
-        this.data.properties.resources.memoryCount = undefined
-        this.data.properties.resources.storageCount = undefined
-    }
 }

@@ -88,23 +88,23 @@ export class WorkspacesStore {
       return successful
    }
 
-   // updateWorkspace = async () => {
-   //    const form = this.updateWorkspaceForm
-   //    const successful = await form.submit()
-   //    if (successful) {
-   //       this.rootStore.snackbarStore.push({
-   //          message: 'Success: Workspace Updated!',
-   //          variant: 'success'
-   //       })
-   //       form.reset()
-   //       this.load()
-   //    } else {
-   //       this.rootStore.snackbarStore.push({
-   //          message: 'Failure: ' + form.message,
-   //          variant: 'error'
-   //       })
-   //    }
-   //    return successful
-   // }
+   updateWorkspace = async () => {
+      const form = this.selectedWorkspace.updateWorkspaceForm
+      const successful = await form.submit(this.selectedWorkspace.id)
+      if (successful) {
+         this.rootStore.snackbarStore.push({
+            message: 'Success: Workspace Updated!',
+            variant: 'success'
+         })
+         
+         this.load()
+      } else {
+         this.rootStore.snackbarStore.push({
+            message: 'Failure: ' + form.message,
+            variant: 'error'
+         })
+      }
+      return successful
+   }
 
 }
