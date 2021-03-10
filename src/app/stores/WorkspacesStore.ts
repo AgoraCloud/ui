@@ -1,5 +1,5 @@
 import { RootStore } from 'app/stores/RootStore';
-import { observable } from 'mobx';
+import { observable, computed } from 'mobx';
 import { Workspaces, Workspace } from 'app/models';
 import { CreateWorkspaceFormModel } from 'app/forms';
 
@@ -9,12 +9,10 @@ export class WorkspacesStore {
    @observable workspaces: Workspaces
    @observable _selectedWorkspace: Workspace
    @observable createWorkspaceForm: CreateWorkspaceFormModel
-   @observable state: 'loading' | 'loaded' | 'unloaded'
 
 
    constructor(private rootStore: RootStore) {
       this.workspaces = new Workspaces()
-      this.state = 'unloaded'
       this.createWorkspaceForm = new CreateWorkspaceFormModel()
       // this.load()
    }
@@ -24,13 +22,37 @@ export class WorkspacesStore {
       return this.selectedWorkspace.createDeploymentForm
    }
 
+   get state(){
+      return this.workspaces.state
+   }
+
    load = async () => {
-      this.state = 'loading'
       await this.workspaces.load()
       this._selectedWorkspace = this.workspaces.workspaces[0]
-      this.state = 'loaded'
    }
+
+
+
    
+   @computed
+   get selectedDeployment(){
+      this.workspaces.workspaces
+      const pathname = this.rootStore.routerStore.location.pathname
+      try{
+         const matches = pathname.match(/\/w\/(?<wid>[a-zA-Z0-9]{24})\/d\/(?<did>[a-zA-Z0-9]{24})/)
+         const {wid, did} = matches?.groups as any
+   
+         const workspace = this.workspaces.getById(wid)
+         const deployment = workspace?.deployments?.getById(did)
+         // const page = section?.wikiPages.getById(pageid)
+   
+         return deployment
+   
+      }catch(e){
+         return undefined
+      }
+   }
+
    get selectedWiki(){
       const pathname = this.rootStore.routerStore.location.pathname
       try{
@@ -54,6 +76,9 @@ export class WorkspacesStore {
       this._selectedWorkspace = workspace || this._selectedWorkspace
       return this._selectedWorkspace
    }
+
+
+   
 
    set selectedWorkspace(workspace: Workspace){
       this._selectedWorkspace = workspace

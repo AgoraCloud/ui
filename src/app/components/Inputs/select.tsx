@@ -88,20 +88,33 @@ interface BaseSelectProps extends SelectProps{
 }
 
 export const BaseSelect = (props: BaseSelectProps) => {
+    /**
+     *  Material UI Select doesn't work well with Objects, as such I've casted them to strings using JSON.stringify() 
+     *  and on change I parse the value back to an object
+     * 
+     *  that means that this only works for Objects currently
+     */
     // const { value, handleChange, options, ...rest } = props
     const { form, id, options, ...rest } = props
     const value = form.data[id]
+    console.log(JSON.stringify(value))
+
+    const onChange = (e) => {
+        form.onChange(id)(JSON.parse(e.target.value))
+    }
+
     return <Select
         // native
-        value={value}
+        value={JSON.stringify(value)}
         style={{ width: "100%" }}
-        onChange={form.onInputChange(id)}
+        onChange={onChange}
 
         variant="outlined"
         {...rest}
     >
         {options.map((option)=>{
-            return <MenuItem key={option.label} value={option.value}>
+            console.log(option)
+            return <MenuItem key={option.label} value={JSON.stringify(option.value)}>
                 {option.label}
             </MenuItem>
         })}
@@ -125,6 +138,6 @@ export const ImageSelect = (props: {
 
     return <BaseSelect {...props}
     label="Image"
-    defaultValue=""
+    defaultValue={images[0]}
     options={images}/>
 }
