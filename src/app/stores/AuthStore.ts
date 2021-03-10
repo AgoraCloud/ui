@@ -42,6 +42,7 @@ export class AuthStore {
             }
             case 200: {
                this.state = 'loggedin'
+               this.rootStore.userStore.load()
                this.rootStore.workspacesStore.load()
                break;
             }
