@@ -17,7 +17,7 @@ export class SignupFormModel extends BaseFormModel<signup_i, signup_i>{
     }
 
     submit = async () => {
-        return await super.submit('/api/auth/register')
+        return await super.call('/api/auth/register')
     }
 
     reset = () => {
