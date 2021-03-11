@@ -1,2 +1,2 @@
-export * from "./CreateWorkspace";
-export * from "./UpdateWorkspace";
+export * from './CreateWorkspace'
+export * from './UpdateWorkspace'

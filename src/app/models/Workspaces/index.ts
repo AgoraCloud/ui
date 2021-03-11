@@ -1,7 +1,9 @@
 import { observable } from "mobx"
 import { Deployments } from "./Deployments"
 import { CreateDeploymentFormModel } from "app/forms/Workspace/Deployments/CreateDeployment"
+import { UpdateWorkspaceFormModel } from "app/forms/Workspace/UpdateWorkspace"
 import { WikiSections } from "./Wiki"
+import { UpdateWorkspaceResourcesDto } from "app/forms/validators"
 
 export class Workspaces{
     /**
@@ -40,6 +42,13 @@ export class Workspaces{
 interface workspaceData_i{
     users: string[]
     name: string
+    properties: {
+        resources: {
+            cpuCount: number,
+            memoryCount: number,
+            storageCount: number 
+        }
+    }
     id: string
 }
 export class Workspace{
@@ -51,9 +60,11 @@ export class Workspace{
      deployments: Deployments
      wikiSections: WikiSections
      createDeploymentForm: CreateDeploymentFormModel
+     updateWorkspaceForm: UpdateWorkspaceFormModel
      constructor(public workspaces: Workspaces, public data: workspaceData_i){
         this.deployments = new Deployments(this)
         this.createDeploymentForm = new CreateDeploymentFormModel(this)
+        this.updateWorkspaceForm = new UpdateWorkspaceFormModel()
         this.wikiSections = new WikiSections(this)
 
      }
@@ -73,5 +84,32 @@ export class Workspace{
 
      get link(){
          return `/w/${this.id}/`
+     }
+
+     get workspaceData() {
+        //  return {name: this.data.name, 
+        //             properties: {
+        //                 resources: {
+        //                     cpuCount: this.data.properties.resources.cpuCount,
+        //                     memoryCount: this.data.properties.resources.memoryCount,
+        //                     storageCount: this.data.properties.resources.storageCount, 
+        //                 }
+        //             }
+        //         }
+
+        let {name, properties} = this.data
+        name = name ? this.data.name : ""
+        const resources: UpdateWorkspaceResourcesDto = properties?.resources;
+        let newProperties = {
+            resources: {
+                cpuCount: resources?.cpuCount ? Number(resources.cpuCount) : undefined,
+                memoryCount: resources?.memoryCount ? Number(resources.memoryCount) : undefined,
+                storageCount: resources?.storageCount ? Number(resources.storageCount) : undefined,
+            },
+        };
+        return {
+            name,
+            properties: newProperties
+        }
      }
 }
