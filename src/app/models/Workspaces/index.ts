@@ -3,6 +3,7 @@ import { Deployments } from "./Deployments"
 import { CreateDeploymentFormModel } from "app/forms/Workspace/Deployments/CreateDeployment"
 import { UpdateWorkspaceFormModel } from "app/forms/Workspace/UpdateWorkspace"
 import { WikiSections } from "./Wiki"
+import { UpdateWorkspaceResourcesDto } from "app/forms/validators"
 
 export class Workspaces{
     /**
@@ -86,14 +87,29 @@ export class Workspace{
      }
 
      get workspaceData() {
-         return {name: this.data.name, 
-                    properties: {
-                        resources: {
-                            cpuCount: this.data.properties.resources.cpuCount,
-                            memoryCount: this.data.properties.resources.memoryCount,
-                            storageCount: this.data.properties.resources.storageCount, 
-                        }
-                    }
-                }
+        //  return {name: this.data.name, 
+        //             properties: {
+        //                 resources: {
+        //                     cpuCount: this.data.properties.resources.cpuCount,
+        //                     memoryCount: this.data.properties.resources.memoryCount,
+        //                     storageCount: this.data.properties.resources.storageCount, 
+        //                 }
+        //             }
+        //         }
+
+        let {name, properties} = this.data
+        name = name ? this.data.name : ""
+        const resources: UpdateWorkspaceResourcesDto = properties?.resources;
+        let newProperties = {
+            resources: {
+                cpuCount: resources?.cpuCount ? Number(resources.cpuCount) : undefined,
+                memoryCount: resources?.memoryCount ? Number(resources.memoryCount) : undefined,
+                storageCount: resources?.storageCount ? Number(resources.storageCount) : undefined,
+            },
+        };
+        return {
+            name,
+            properties: newProperties
+        }
      }
 }

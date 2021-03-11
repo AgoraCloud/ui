@@ -116,6 +116,15 @@ export const UpdateWorkspace = inject(WORKSPACES_STORE, ROUTER_STORE)(observer((
             }}
             fullWidth
         />
+        <div style={{float: 'left'}}>
+            <Button onClick={async ()=>{
+                if(await workspaceStore.deleteWorkspace()){
+                    routerStore.replace("/")
+                }
+            }} color="secondary">
+                Delete
+            </Button>
+        </div>
         <div style={{float: 'right'}}>
             <Button onClick={()=>{
                 routerStore.replace(workspaceStore.selectedWorkspace.link)}} color="primary">

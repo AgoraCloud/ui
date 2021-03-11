@@ -107,4 +107,23 @@ export class WorkspacesStore {
       return successful
    }
 
+   deleteWorkspace = async () => {
+      const form = this.selectedWorkspace.updateWorkspaceForm
+      const successful = await form.delete(this.selectedWorkspace.id)
+      if (successful) {
+         this.rootStore.snackbarStore.push({
+            message: 'Success: Workspace Deleted!',
+            variant: 'success'
+         })
+         
+         this.load()
+      } else {
+         this.rootStore.snackbarStore.push({
+            message: 'Failure: ' + form.message,
+            variant: 'error'
+         })
+      }
+      return successful
+   }
+
 }
