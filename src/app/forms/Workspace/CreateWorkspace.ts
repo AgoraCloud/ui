@@ -44,7 +44,7 @@ export class CreateWorkspaceFormModel extends BaseFormModel<create_workspace_i, 
     }
 
     submit = async () => {
-        return await super.submit('/api/workspaces')    
+        return await super.call('/api/workspaces')    
     }
 
     reset = () => {

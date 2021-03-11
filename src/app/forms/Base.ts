@@ -41,6 +41,13 @@ export const getErrors = async (v: any): Promise<{[key: string]: string}> => {
 }
 
 
+interface meta_i{
+    conversions?: {
+        to:   string|{key: string, cast: any}
+        from: string|{key: string, cast: any}
+    }[]
+}
+
 export class BaseFormModel<FormInterface, DBInterface>{
     @observable errors: {}
     @observable data: FormInterface
@@ -59,6 +66,8 @@ export class BaseFormModel<FormInterface, DBInterface>{
 
     @observable
     isValid: boolean = false
+
+    meta: meta_i
     constructor(private validator?: new () => any){
         this.errors = {} 
         this.data = {
@@ -69,6 +78,8 @@ export class BaseFormModel<FormInterface, DBInterface>{
             loaded: false,
             loading: false
         }
+
+
 
         // this.func = _.debounce(this.validate, 200, {leading: true})
     }
@@ -125,14 +136,50 @@ export class BaseFormModel<FormInterface, DBInterface>{
         }
     }
 
+    convert = (data, to: boolean, shouldCast=true) => {
+        /**
+         * takes the meta values and converts to / from server data model
+         */
+        const [key1, key2] = to ?  ['to', 'from'] : ['from', 'to']
+        if(this.meta?.conversions){
+            // TODO figure out a way to get all the keys that are not listed in conversions to be present in 'out'
+            // sufficient for now, but wasteful, therea re better ways to do this
+            // let out = _.cloneDeep(data) as DBInterface
+            let out = {}
+
+           const {conversions} = this.meta
+
+           // all the keys in conversion
+           for (const c of conversions){
+               
+               const dkey1 = typeof c[key1] == 'object' ? c[key1].key : c[key1]
+               const dkey2 = typeof c[key2] == 'object' ? c[key2].key : c[key2]
+               const cast = c[key2].cast
+               const d = _.get(data, dkey1)
+               const value = shouldCast ? (cast ? cast(d) : d) : d
+               value ? _.set(out, dkey2, value) : null // only set the value if defined
+            //    out[dkey2] = value
+           }
+
+           // all the keys in data not in conversions
+        //    for(const d of Object.keys(data)){
+        //        console.log(d)
+        //    }
+
+           return out
+        }
+        return data
+    }
+
     toDB = (): DBInterface => {
         /**
          * To Be Impemented!
          * 
          * use to export to db interface
          */
-        return (this.data as unknown) as DBInterface
 
+        let out = this.convert(this.data, false) as DBInterface
+        return out
     }
     fromDB = (data: DBInterface) => {
         /**
@@ -140,7 +187,11 @@ export class BaseFormModel<FormInterface, DBInterface>{
          * 
          * use to import from db interface
          */
-        _.merge(this.data, data)
+
+        let out = this.convert(data, true) as DBInterface
+        console.log("OUT", out, data)
+        _.merge(this.data, out)
+        return out
     }
 
     reset = () => {
@@ -159,7 +210,7 @@ export class BaseFormModel<FormInterface, DBInterface>{
         return this.response.status >= 200 && this.response.status < 300
     }
 
-    public async submit(url: string, options = {} as RequestInit){
+    public async call(url: string, options = {} as RequestInit){
         /**
          * To Be Impemented!
          * 
@@ -210,7 +261,8 @@ export class BaseFormModel<FormInterface, DBInterface>{
         const v = new this.validator()
         Object.assign(v, data)
         const errors = await getErrors(v)
-        this.errors = errors
+        this.errors = this.convert(errors, true, false)
+        console.log(errors, this.errors)
         this.isValid = Object.keys(this.errors).length == 0
         // console.log("validate", data, errors, this.isValid)
         return this.isValid

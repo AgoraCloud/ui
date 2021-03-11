@@ -13,3 +13,14 @@ export const WorkspacesLoaded = inject(WORKSPACES_STORE)(observer((props) => {
         default: return null;
     }
 }))
+
+export const DeploymentLoaded = inject(WORKSPACES_STORE)(observer((props)=>{
+    const store = props[WORKSPACES_STORE] as WorkspacesStore
+    const workspace = store.selectedWorkspace
+    if(workspace == undefined) return null
+    switch(workspace.deployments.state){
+        // case 'unauthed' : return <Redirect to='/login'/>
+        case 'loaded' : return <AuthedRoute {...props} />
+        default: return null;
+    }
+}))

@@ -1,7 +1,8 @@
 import { observable } from "mobx"
 import { Workspace } from ".."
+import { BaseModelItem, BaseModelCollection } from "app/models/Base"
 
-export class WikiSections{
+export class WikiSections extends BaseModelCollection<WikiSection>{
     /**
      * Collection of Wiki Sections
      */
@@ -10,29 +11,12 @@ export class WikiSections{
 
     @observable _wikiSections: WikiSection[] = []
     constructor(public workspace: Workspace){
-        this.state = 'unloaded'
-        this.load()
-    }
-
-    load = async ( ) => {
-        this.state = 'loading'
-        const response = await fetch(`/api/workspaces/${this.workspace.id}/sections`, {
-
-        })
-
-        const data = await response.json()
-        console.log("wikis", response, data)
-        this._wikiSections = data.map((data)=>new WikiSection(this, data))
-        this.state = 'loaded'
+        super(WikiSection)
+        this.load(`/api/workspaces/${this.workspace.id}/sections`)
     }
 
     get sections(){
-        return this._wikiSections || []
-    }
-
-
-    getById = (id?: string): WikiSection|undefined => {
-        return this.sections.filter((w: WikiSection)=>w.id === id)[0]
+        return this.collection || []
     }
 }
 
@@ -40,12 +24,13 @@ interface wikiSectionData_i{
     name: string
     id: string
 }
-export class WikiSection{
+export class WikiSection extends BaseModelItem<wikiSectionData_i>{
     /**
      * A single wiki section
      */
     public _wikiPages: WikiPages
     constructor(public wikiSections: WikiSections, public data: wikiSectionData_i){
+        super(wikiSections, data)
         this._wikiPages = new WikiPages(this)
     }
 
@@ -67,39 +52,23 @@ export class WikiSection{
 }
 
 
-export class WikiPages{
+export class WikiPages extends BaseModelCollection<WikiPage>{
     /**
      * A collection of wiki pages
      */
 
     @observable state: 'loaded'|'error'|'loading'|'unloaded'
 
-    @observable _wikiPages: WikiPage[] = []
     constructor(public wikiSection: WikiSection){
-        this.state = 'unloaded'
-        this.load()
+        super(WikiPage)
+        const wid = this.wikiSection.wikiSections.workspace.id
+        this.load(`/api/workspaces/${wid}/sections/${this.wikiSection.id}/pages`)
     }
 
     get pages(){
-        return this._wikiPages
+        return this.collection || []
     }
 
-    load = async ( ) => {
-        this.state = 'loading'
-        const wid = this.wikiSection.wikiSections.workspace.id
-        const response = await fetch(`/api/workspaces/${wid}/sections/${this.wikiSection.id}/pages`, {
-
-        })
-
-        const data = await response.json()
-        console.log("wikis", response, data)
-        this._wikiPages = data.map((data)=>new WikiPage(this, data))
-        this.state = 'loaded'
-    }
-
-    getById = (id?: string): WikiPage|undefined => {
-        return this.pages.filter((w: WikiPage)=>w.id === id)[0]
-    }
 }
 
 interface wikiPageData_i{
@@ -108,13 +77,13 @@ interface wikiPageData_i{
     body: string
 }
 
-export class WikiPage{
+export class WikiPage extends BaseModelItem<wikiPageData_i>{
     /**
      * A single wiki page
      */
 
     constructor(public wikiPages: WikiPages, public data: wikiPageData_i){
-
+        super(wikiPages, data)
     }
 
     get body(){

@@ -11,9 +11,9 @@ export const DeploymentsList = inject(WORKSPACES_STORE)(observer((props) => {
     const workspace = store.selectedWorkspace
     const deployments = workspace.deployments.deployments
     return <>
-        <Grid container direction={'row'} spacing={3}>
+        <Grid container direction={'row'} spacing={3} style={{marginLeft: 0}}>
             {deployments.map((deployment) => (
-                <Grid item xs={12} sm={6} md={4} lg={4} key={deployment.id}>
+                <Grid item xs={12} sm={12} md={6} lg={4} xl={4} key={deployment.id}>
                     <DeploymentCard deployment={deployment} />
                 </Grid>
             ))}

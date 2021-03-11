@@ -15,17 +15,17 @@ import { AppMenu } from 'app/components/AppMenu';
 
 
 const useStyles = makeStyles((theme) => {
-    console.log(theme.mixins.toolbar)
     return {
     root: {
         display: 'flex',
     },
     // appBarSpacer: theme.mixins.toolbar,
     content: {
-        overflow: "hidden",
+        overflow: "auto",
         marginTop: "64px",
         boxSizing: "border-box",
-        flexGrow: 1,
+        // flexGrow: 0,
+        width: "100%",
         height: `calc(100vh - 64px)`
     },
     container: {
@@ -56,7 +56,7 @@ export const HomeWrapper = (props: { children: React.ReactNode }) => {
     const classes = useStyles();
     const { children } = props
     return <HomeWrapperBase>
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth={false} className={classes.container}>
             {/* Dashboard Stuff */}
 
             {children}

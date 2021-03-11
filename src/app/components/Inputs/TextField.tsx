@@ -47,64 +47,75 @@ export const ResourceInput = (props: {
     form: BaseFormModel<any, any>
 }) => {
     const classes = useStyles();
+    const { form } = props
+    return <>
+        <CPUMemoryInput form={form}/>
+        <Input
+            form={form}
+            className={classes.margin}
+            margin="dense"
+            id="storageCount"
+            label="Storage"
+            type="number"
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <StorageIcon />
+                    </InputAdornment>
+                ),
+            }}
+            InputLabelProps={{
+                required: false,
+            }}
+            fullWidth
+        />
+    </>
+}
+
+
+export const CPUMemoryInput = (props: {
+    form: BaseFormModel<any, any>
+}) => {
+    const classes = useStyles();
     const {form} = props
     return <>
         <Input
-        form={form}
-        className={classes.margin}
-        margin="dense"
-        id="cpuCount"
-        label="CPU"
-        type="number"
-        InputProps={{
-            startAdornment: (
-                <InputAdornment position="start">
-                    <MemoryIcon />
-                </InputAdornment>
-            ),
-        }}
-        InputLabelProps={{
-            required: false,
-        }}
-        fullWidth
-    />
-    <Input
-        form={form}
-        className={classes.margin}
-        margin="dense"
-        id="memoryCount"
-        label="RAM"
-        type="number"
-        InputProps={{
-            startAdornment: (
-                <InputAdornment position="start">
-                    <MoneyIcon />
-                </InputAdornment>
-            ),
-        }}
-        InputLabelProps={{
-            required: false,
-        }}
-        fullWidth
-    />
-    <Input
-        form={form}
-        className={classes.margin}
-        margin="dense"
-        id="storageCount"
-        label="Storage"
-        type="number"
-        InputProps={{
-            startAdornment: (
-                <InputAdornment position="start">
-                    <StorageIcon />
-                </InputAdornment>
-            ),
-        }}
-        InputLabelProps={{
-            required: false,
-        }}
-        fullWidth
-    />
-</>
+            form={form}
+            className={classes.margin}
+            margin="dense"
+            id="cpuCount"
+            label="CPU"
+            type="number"
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <MemoryIcon />
+                    </InputAdornment>
+                ),
+            }}
+            InputLabelProps={{
+                required: false,
+            }}
+            fullWidth
+        />
+        <Input
+            form={form}
+            className={classes.margin}
+            margin="dense"
+            id="memoryCount"
+            label="RAM"
+            type="number"
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <MoneyIcon />
+                    </InputAdornment>
+                ),
+            }}
+            InputLabelProps={{
+                required: false,
+            }}
+            fullWidth
+        />
+    </>
 }
