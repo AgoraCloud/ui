@@ -13,7 +13,7 @@ export class UpdateUserFormModel extends BaseFormModel<update_user_i, update_use
     }
 
     submit = async () => {
-        return await super.submit('/api/user', {'method': 'PUT'})    
+        return await super.call('/api/user', {'method': 'PUT'})    
     }
 
 }
