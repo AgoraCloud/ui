@@ -255,3 +255,36 @@ export class CreateDeploymentDto {
   @Type(() => CreateDeploymentPropertiesDto)
   properties: CreateDeploymentPropertiesDto;
 }
+
+
+export class UpdateDeploymentResourcesDto {
+  @Min(1)
+  @IsInt()
+  @IsOptional()
+  cpuCount: number;
+
+  @Min(2)
+  @IsInt()
+  @IsOptional()
+  memoryCount: number;
+}
+
+export class UpdateDeploymentPropertiesDto {
+  @ValidateNested()
+  @Type(() => UpdateDeploymentResourcesDto)
+  @IsOptional()
+  resources: UpdateDeploymentResourcesDto;
+}
+
+export class UpdateDeploymentDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4)
+  @IsOptional()
+  name: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => UpdateDeploymentPropertiesDto)
+  properties?: UpdateDeploymentPropertiesDto;
+}

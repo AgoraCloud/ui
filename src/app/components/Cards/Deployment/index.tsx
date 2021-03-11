@@ -1,13 +1,15 @@
 import * as React from 'react'
 import { Deployment } from 'app/models'
 import Card from '@material-ui/core/Card'
-import { Typography, Chip, Button, Grid, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { Typography, Chip, Grid } from '@material-ui/core'
 
 import MemoryIcon from '@material-ui/icons/Memory';
 import MoneyIcon from '@material-ui/icons/Money';
 import StorageIcon from '@material-ui/icons/Storage';
-import { LinkButton } from 'app/components/Inputs'
+import { LinkButton, MoreMenu } from 'app/components/Inputs'
+import { inject, observer } from 'mobx-react'
+import { ROUTER_STORE } from 'app/constants'
+import { RouterStore } from 'app/stores'
 
 const chips = {
     'FAILED': <Chip style={{ backgroundColor: 'red' }} label="Error" />,
@@ -60,25 +62,47 @@ export const DeploymentResources = (props: {
             <Chip icon={<StorageIcon />} label={"Storage: " + storageCount} />
         </Grid>
     </Grid>
-    // return <div>
-    //     <Table size="small">
-    //         <TableHead>
-    //             <TableRow>
-    //                 <TableCell>CPU</TableCell>
-    //                 <TableCell>RAM</TableCell>
-    //                 <TableCell>STORAGE</TableCell>
-    //             </TableRow>
-    //         </TableHead>
-    //         <TableBody>
-    //             <TableRow>
-    //                 <TableCell>{cpuCount}</TableCell>
-    //                 <TableCell>{memoryCount}</TableCell>
-    //                 <TableCell>{storageCount}</TableCell>
-    //             </TableRow>
-    //         </TableBody>
-    //     </Table>
-    // </div>
 }
+
+
+export const DeploymentMenu = inject(ROUTER_STORE)(observer((props: {
+    deployment: Deployment
+}) => {
+    const { deployment } = props
+    const store = props[ROUTER_STORE] as RouterStore
+    return <div style={{
+        position: "absolute",
+        top: "2%",
+        right: "2%"
+    }}>
+        <MoreMenu options={[
+            {
+                name: "Edit",
+                onClick: () => {
+                    store.push(deployment.link + 'edit/')
+                }
+            },
+            {
+                name: "Metrics",
+                onClick: () => {
+                    store.push(deployment.link + 'metrics/')
+                }
+            },
+            {
+                name: "Logs",
+                onClick: () => {
+                    store.push(deployment.link + 'logs/')
+                }
+            },
+            {
+                name: "Delete",
+                onClick: () => {
+
+                }
+            }
+        ]} />
+    </div>
+}))
 
 export const DeploymentCard = (props: {
     deployment: Deployment
@@ -86,13 +110,15 @@ export const DeploymentCard = (props: {
     const { deployment } = props
     return <Card style={{
         width: "100%",
+        minWidth: "333px",
         height: "256px",
         padding: "20px",
         position: "relative"
     }}>
-        <Typography variant="h4" color="primary">
+        <Typography variant="h4" color="primary" noWrap>
             {deployment.name}
         </Typography>
+        <DeploymentMenu deployment={deployment} />
         <DeploymentChip deployment={deployment} />
         <DeploymentResources deployment={deployment} />
         <DeploymentLaunch deployment={deployment} />

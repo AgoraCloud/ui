@@ -34,6 +34,6 @@ export class ChangePasswordFormModel extends BaseFormModel<changePassword_i, cha
     }
 
     submit = async () => {
-        return await super.submit('/api/auth/change-password')
+        return await super.call('/api/auth/change-password')
     }
 }

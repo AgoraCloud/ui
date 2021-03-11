@@ -45,11 +45,11 @@ export class UpdateWorkspaceFormModel extends BaseFormModel<update_workspace_i, 
     }
 
     submit = async (wid: string) => {
-        return await super.submit(`/api/workspaces/${wid}`, {'method': 'PUT'})  
+        return await super.call(`/api/workspaces/${wid}`, {'method': 'PUT'})  
     }
 
     delete = async (wid: string) => {
-        return await super.submit(`/api/workspaces/${wid}`, {'method': 'DELETE'})  
+        return await super.call(`/api/workspaces/${wid}`, {'method': 'DELETE'})  
     }
 
 }
