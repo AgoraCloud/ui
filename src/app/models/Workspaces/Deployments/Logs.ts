@@ -19,13 +19,13 @@ export class DeploymentLogs extends BaseModel<string>{
             this.load()
             return ""
         }
-
+        if(typeof this.responseData === "object") return JSON.stringify(this.responseData)
         return this.responseData
     }
 
     public async load (){
         const did = this.deployment.id
         const wid = this.deployment.deployments.workspace.id
-        super.load(`/api/workspaces/${wid}/deployments/${did}/logs`)
+        await super.load(`/api/workspaces/${wid}/deployments/${did}/logs`, false)
     }
 }

@@ -10,6 +10,7 @@ import { RouterStore } from 'app/stores'
 export const CreateDeploymentForm = inject(ROUTER_STORE)(observer((props: {form: CreateDeploymentFormModel}) => {
     const store = props[ROUTER_STORE] as RouterStore
     const {form} = props 
+    
     return <div>
         <Typography variant="h6">
             Deployment Name
@@ -66,6 +67,7 @@ export const EditDeploymentForm = inject(ROUTER_STORE)(observer((props: {form: E
                 store.replace(form.workspace.link)
             }
         }}
+        labels={['Cancel', 'Edit']}
         />
     </div>
 }))

@@ -107,11 +107,57 @@ export class CreateWorkspaceDto {
     readonly properties?: CreateWorkspacePropertiesDto;
 }
 
+export class UpdateWorkspaceResourcesDto {
+  @Min(0)
+  @IsInt()
+  @IsOptional()
+  readonly cpuCount?: number;
+
+  @Min(0)
+  @IsInt()
+  @IsOptional()
+  readonly memoryCount?: number;
+
+  @Min(0)
+  @IsInt()
+  @IsOptional()
+  readonly storageCount?: number;
+}
+
+export class UpdateWorkspacePropertiesDto {
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => UpdateWorkspaceResourcesDto)
+  readonly resources?: UpdateWorkspaceResourcesDto;
+}
+
+export class UpdateWorkspaceDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4)
+  @IsOptional()
+  readonly name?: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => UpdateWorkspacePropertiesDto)
+  readonly properties?: UpdateWorkspacePropertiesDto;
+}
+
+export class UpdateUserDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4, {message: "full name too short"})
+  readonly fullName: string;
+}
+
 
 
 // import { deploymentImages } from './../deployment-images';
 // import { DeploymentImage } from './../schemas/deployment.schema';
 export const deploymentImages: DeploymentImage[] = [
+    { name: 'linuxserver/code-server', tag: 'version-v3.9.1' },
+    { name: 'linuxserver/code-server', tag: 'version-v3.9.0' },
     { name: 'linuxserver/code-server', tag: 'version-v3.8.1' },
     { name: 'linuxserver/code-server', tag: 'version-v3.8.0' },
     { name: 'linuxserver/code-server', tag: 'version-v3.7.4' },
@@ -243,4 +289,12 @@ export class UpdateDeploymentDto {
   @ValidateNested()
   @Type(() => UpdateDeploymentPropertiesDto)
   properties?: UpdateDeploymentPropertiesDto;
+}
+
+
+export class ConfirmDeleteValidator {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
 }
