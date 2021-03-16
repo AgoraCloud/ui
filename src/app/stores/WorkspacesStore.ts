@@ -12,7 +12,7 @@ export class WorkspacesStore {
 
 
    constructor(private rootStore: RootStore) {
-      this.workspaces = new Workspaces()
+      this.workspaces = new Workspaces(this)
       this.createWorkspaceForm = new CreateWorkspaceFormModel()
       // this.load()
    }

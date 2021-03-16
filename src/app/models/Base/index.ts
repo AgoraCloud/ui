@@ -16,10 +16,11 @@ export class BaseModel<T>{
         return this.response?.status
     }
 
-    public async load(url: string) {
+    public async load(url: string, json=true) {
         this.state = 'loading'
         this.response = await fetch(url, this.options)
-        this.responseData = await this.response.json()
+        if(json) this.responseData = await this.response.json() 
+        else this.responseData = await this.response.text() as any
 
         if (this.response.status >= 200 && this.response.status < 300) {
             this.state = 'loaded'

@@ -13,8 +13,8 @@ import { CreateDeployment, EditDeployment } from "app/containers/Home/Deployment
 import { WorkspacesLoaded, DeploymentLoaded } from "app/components/RouteGuards/Workspaces";
 import { WikiRoutes } from "app/containers/Home/Wiki";
 import { DeploymentProxy } from "app/containers/Home/Deployments/Proxy";
-import { DeploymentMetricsPage } from "app/containers/Home/Deployments/Metrics";
-import { DeploymentLogsPage } from "app/containers/Home/Deployments/Logs";
+import { DeploymentInfoPage } from "./containers/Home/Deployments/Info";
+
 
 // http://localhost:3000/verify-account?token=60142f350efcef0018872610
 
@@ -32,9 +32,8 @@ export const App = hot(({ history }: any) => (
       <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
       <WorkspacesLoaded path="/w/:wid/tasks" component={WikiRoutes} />
       <WorkspacesLoaded path="/w/:wid/edit-workspace" component={UpdateWorkspace} />
+      <DeploymentLoaded path="/w/:wid/d/:did/info" component={DeploymentInfoPage}/>
       <DeploymentLoaded path="/w/:wid/d/:did/edit" component={EditDeployment} />
-      <DeploymentLoaded path="/w/:wid/d/:did/metrics" component={DeploymentMetricsPage} />
-      <DeploymentLoaded path="/w/:wid/d/:did/logs" component={DeploymentLogsPage} />
       <DeploymentLoaded path="/w/:wid/d/:did/" component={DeploymentProxy} />
       <WorkspacesLoaded path="/w/:wid" component={Home} />
       <UserLoaded path="/edit-profile" component={UserProfile} />

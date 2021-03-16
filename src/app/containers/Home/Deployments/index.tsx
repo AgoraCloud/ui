@@ -11,13 +11,15 @@ export const DeploymentsList = inject(WORKSPACES_STORE)(observer((props) => {
     const workspace = store.selectedWorkspace
     const deployments = workspace.deployments.deployments
     return <>
-        <Grid container direction={'row'} spacing={3} style={{marginLeft: 0}}>
+        <Grid container direction={'row'} spacing={5} alignItems="flex-start"
+            justify="flex-start" >
             {deployments.map((deployment) => (
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={4} key={deployment.id}>
+                <Grid item key={deployment.id}>
+                    {/* xs={12} sm={12} md={6} lg={2} xl={4}  */}
                     <DeploymentCard deployment={deployment} />
                 </Grid>
             ))}
         </Grid>
-        <AddFAB link={workspace.link + 'new'}/>
+        <AddFAB link={workspace.link + 'new'} />
     </>
 }))

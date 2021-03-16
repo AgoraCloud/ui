@@ -156,6 +156,8 @@ export class UpdateUserDto {
 // import { deploymentImages } from './../deployment-images';
 // import { DeploymentImage } from './../schemas/deployment.schema';
 export const deploymentImages: DeploymentImage[] = [
+    { name: 'linuxserver/code-server', tag: 'version-v3.9.1' },
+    { name: 'linuxserver/code-server', tag: 'version-v3.9.0' },
     { name: 'linuxserver/code-server', tag: 'version-v3.8.1' },
     { name: 'linuxserver/code-server', tag: 'version-v3.8.0' },
     { name: 'linuxserver/code-server', tag: 'version-v3.7.4' },
@@ -287,4 +289,12 @@ export class UpdateDeploymentDto {
   @ValidateNested()
   @Type(() => UpdateDeploymentPropertiesDto)
   properties?: UpdateDeploymentPropertiesDto;
+}
+
+
+export class ConfirmDeleteValidator {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
 }
