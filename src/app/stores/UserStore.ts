@@ -15,6 +15,7 @@ export class UserStore {
       this.user = new User()
       this.state = 'unloaded'
       this.updateUserForm = new UpdateUserFormModel()
+      // this.updateUserForm = new UpdateUserFormModel(this.user)
       //this.load()
    }
 

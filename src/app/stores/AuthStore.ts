@@ -57,7 +57,7 @@ export class AuthStore {
   };
 
 
-   login = async (e) => {
+   login = async () => {
       const form = this.loginForm
       const successful = await form.submit()
       if (successful) {

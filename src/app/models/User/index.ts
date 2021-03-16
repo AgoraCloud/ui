@@ -1,22 +1,38 @@
 import { observable } from "mobx"
 import { UpdateUserFormModel } from "app/forms/User"
+// import { BaseModel } from "../Base"
 
+// interface userData_i{
+//     id: string
+//     fullName: string
+//     email: string
 
-export class User{
+// } 
+
+// export class User extends BaseModel<userData_i> {
+
+export class User {
     /**
      * A user
      */
-    
+
      @observable fullName: String
      @observable state: 'loaded'|'error'|'loading'|'unloaded'
+    //  @observable updateUserForm: UpdateUserFormModel
      updateUserForm: UpdateUserFormModel
      constructor(){
+        // super()
         this.fullName = ''
         this.state = 'unloaded'
+        // this.updateUserForm = new UpdateUserFormModel(this)
         this.updateUserForm = new UpdateUserFormModel()
      }
 
-     load = async ( ) => {
+    //  load = async ( ) => {
+    //     await super.load("/api/user")
+    // }
+
+    load = async ( ) => {
         this.state = 'loading'
         const response = await fetch('/api/user', {
 
@@ -28,7 +44,13 @@ export class User{
         this.state = 'loaded'
     }
 
+
+
+    //  get fullname(){
+    //      return this.responseData.fullName
+    //  }
+
      get fullname(){
-         return this.fullName
-     }
+        return this.fullName
+    }
 }

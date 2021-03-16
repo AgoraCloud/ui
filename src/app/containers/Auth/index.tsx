@@ -43,6 +43,11 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
     const store = props[AUTH_STORE] as AuthStore
     const form = store.loginForm
 
+    // const onFormSubmit = (e) => {
+    //     e.preventDefault();
+    //     store.login();
+    // }
+
     return <AuthWrapper>
 
         <Avatar>
@@ -50,7 +55,8 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
         </Avatar>
         <Typography component="h1" variant="h5">
             Log in
-            </Typography>
+        </Typography>
+        {/* <form onSubmit={onFormSubmit}> */}
         <Input form={form} id="email" label="Email Address" autoFocus />
         <Input form={form} id="password" type="password" label="Password" autoComplete="current-password" />
 
@@ -58,11 +64,13 @@ export const Login = inject(AUTH_STORE)(observer((props) => {
             fullWidth
             variant="contained"
             color="primary"
+            type="submit"
             onClick={store.login}
             disabled={!form.isValid}
         >
             Log In
         </Button>
+        {/* </form> */}
         <Grid container>
             <Grid item xs>
                 <Link to="/forgotPassword">

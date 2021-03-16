@@ -19,6 +19,7 @@ export const UpdateUserForm = inject(USER_STORE, ROUTER_STORE)(observer((props) 
         await store.updateUser()
         routerStore.replace("/")    
     }
+    // console.log(form.data)
     return <div>
         <Typography variant="h4">
             Edit Profile
@@ -31,6 +32,7 @@ export const UpdateUserForm = inject(USER_STORE, ROUTER_STORE)(observer((props) 
             error={form.getError("fullName") != undefined && form.data["fullName"] != ""}
             helperText={form.data["fullName"] != "" ? form.getError("fullName") : undefined} // to be implemented (currently all errors are just 'error')
             defaultValue={store.userFullName}
+            //value={form.data["fullName"]}
             variant="outlined"
             margin="dense"
             type="text"
@@ -40,6 +42,7 @@ export const UpdateUserForm = inject(USER_STORE, ROUTER_STORE)(observer((props) 
             id="fullName"
             name="fullName"
         />
+        
         <div style={{float: 'right'}}>
             <Button onClick={()=>{
                 routerStore.replace("/")
