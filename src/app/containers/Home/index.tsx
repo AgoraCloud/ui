@@ -7,9 +7,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // my components
 import { DeploymentsList } from './Deployments';
 import { AppMenu } from 'app/components/AppMenu';
-
-
 import {ConfirmDeleteDialog} from 'app/components/Inputs'
+
 
 /**
  * Code Sourced from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard

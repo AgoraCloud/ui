@@ -61,7 +61,6 @@ export const EditDeploymentForm = inject(ROUTER_STORE)(observer((props: {form: E
         <CPUMemoryInput form={form}/>
         <CancelCreateButtons form={form} cancel={()=>{
             store.replace(form.workspace.link)
-            console.log("HELLO", form.workspace.link)
         }}
         submit={async ()=>{
             if(await form.submit()){

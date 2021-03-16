@@ -27,6 +27,5 @@ export class DeploymentLogs extends BaseModel<string>{
         const did = this.deployment.id
         const wid = this.deployment.deployments.workspace.id
         await super.load(`/api/workspaces/${wid}/deployments/${did}/logs`, false)
-        console.log(this.responseData)
     }
 }

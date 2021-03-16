@@ -59,7 +59,6 @@ export class Deployment extends BaseModelItem<deploymentData_i>{
         this.metrics = new DeploymentMetrics(this)
     }
 
-
     get id() {
         return this.data.id
     }

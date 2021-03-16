@@ -69,12 +69,7 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
     public async load() {
         const did = this.deployment.id
         const wid = this.deployment.deployments.workspace.id
-        // this.state = 'loaded'
         await super.load(`/api/workspaces/${wid}/deployments/${did}/metrics`)
-        // this.responseData = {
-        //     cpu: '50m',
-        //     memory: '143928Ki'
-        // }
         console.log(this.responseData)
     }
 }

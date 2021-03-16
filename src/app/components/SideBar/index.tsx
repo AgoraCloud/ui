@@ -20,6 +20,8 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CodeIcon from '@material-ui/icons/Code';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import SettingsIcon from '@material-ui/icons/Settings';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 import { inject, observer } from 'mobx-react';
 import { ROUTER_STORE } from 'app/constants';
 import { RouterStore } from 'app/stores';
@@ -100,6 +102,27 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
         </div>
         <Divider />
         <List>
+            <ListItem button onClick={handleClickOpen}>  
+                <ListItemIcon>
+                    <AddCircleOutlineIcon />
+                </ListItemIcon>
+                <ListItemText primary="Create Workspace" />    
+            </ListItem>
+            <ListItem button component={Link} to={store.workspaceUrl + "/edit-workspace"}>
+                <ListItemIcon>
+                    <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Workspace Settings" />
+            </ListItem>
+            <ListItem button component={Link} to="">
+                <ListItemIcon>
+                    <AssessmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Metrics" />
+            </ListItem>
+        </List>
+        <Divider />
+        <List>
             <ListItem button component={Link} to={store.workspaceUrl}>
                 <ListItemIcon>
                     <DashboardIcon />
@@ -123,12 +146,6 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
                     <FormatListBulletedIcon />
                 </ListItemIcon>
                 <ListItemText primary="Tasks" />
-            </ListItem>
-            <ListItem button onClick={handleClickOpen}>  
-                <ListItemIcon>
-                    <AddCircleOutlineIcon />
-                </ListItemIcon>
-                <ListItemText primary="Create Workspace" />    
             </ListItem>
         </List>
     </Drawer>

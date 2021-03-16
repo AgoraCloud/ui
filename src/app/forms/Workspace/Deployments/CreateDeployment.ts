@@ -47,9 +47,9 @@ export class DeploymentFormModel<T1, T2> extends BaseFormModel<T1, T2>{
     }
 }
 
-export class CreateDeploymentFormModel extends BaseFormModel<createDeploymentFormDB_i, createDeploymentFormDB_i>{
+export class CreateDeploymentFormModel extends DeploymentFormModel<createDeploymentFormDB_i, createDeploymentFormDB_i>{
     constructor(public workspace: Workspace) {
-        super(CreateDeploymentDto)
+        super(workspace, CreateDeploymentDto)
 
         this.data = {
             sudoPassword: "",

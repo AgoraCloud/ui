@@ -9,8 +9,7 @@ import StorageIcon from '@material-ui/icons/Storage';
 import { LinkButton, MoreMenu } from 'app/components/Inputs'
 import { inject, observer } from 'mobx-react'
 import { ROUTER_STORE, UI_STORE } from 'app/constants'
-import { RouterStore } from 'app/stores'
-import { UIStore } from 'app/stores/UIStore';
+import { RouterStore, UIStore } from 'app/stores'
 
 const chips = {
     'FAILED': <Chip style={{ backgroundColor: 'red' }} label="Error" />,
