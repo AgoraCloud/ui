@@ -107,9 +107,9 @@ export const DeploymentCard = (props: {
 }) => {
     const { deployment } = props
     return <Card style={{
-        width: "100%",
-        minWidth: "333px",
-        maxWidth: "333px",
+        width: "400px",
+        minWidth: "400px",
+        // maxWidth: "333px",
         height: "256px",
         padding: "20px",
         position: "relative"

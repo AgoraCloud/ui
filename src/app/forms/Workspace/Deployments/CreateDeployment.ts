@@ -34,7 +34,7 @@ interface createDeploymentFormDB_i extends deploymentForm_i {
     sudoPassword: string
     cpuCount: number
     memoryCount: number
-    storageCount: number
+    storageCount?: number
     image?: {
         name: string
         tag: string
@@ -56,7 +56,7 @@ export class CreateDeploymentFormModel extends DeploymentFormModel<createDeploym
             name: "",
             cpuCount: 1,
             memoryCount: 2,
-            storageCount: 8,
+            storageCount: undefined,
         }
 
         this.meta = {
