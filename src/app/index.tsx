@@ -22,9 +22,6 @@ export const App = hot(({ history }: any) => (
   <Router history={history}>
     <Switch>
       {/* Signup / Login Paths */}
-      <DeploymentLoaded path="/w/:wid/d/:did/" component={DeploymentProxy}/>
-      <WorkspacesLoaded path="/w/:wid" component={Home}/>
-      <AuthedRoute path="" component={FirstWorkspaceRedirect}/>
       <UnauthedRoute path="/login" component={Login} />
       <UnauthedRoute path="/signup" component={Signup} />
       <UnauthedRoute path="/forgotPassword" component={ForgotPassword} />
@@ -34,10 +31,10 @@ export const App = hot(({ history }: any) => (
       <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
       <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
       <WorkspacesLoaded path="/w/:wid/tasks" component={WikiRoutes} />
+      <WorkspacesLoaded path="/w/:wid/edit-workspace" component={UpdateWorkspace} />
       <DeploymentLoaded path="/w/:wid/d/:did/info" component={DeploymentInfoPage}/>
       <DeploymentLoaded path="/w/:wid/d/:did/edit" component={EditDeployment} />
       <DeploymentLoaded path="/w/:wid/d/:did/" component={DeploymentProxy} />
-      <WorkspacesLoaded path="/w/:wid/edit-workspace" component={UpdateWorkspace} />
       <WorkspacesLoaded path="/w/:wid" component={Home} />
       <UserLoaded path="/edit-profile" component={UserProfile} />
       <AuthedRoute path="" component={FirstWorkspaceRedirect} />
