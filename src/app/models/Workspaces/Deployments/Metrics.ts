@@ -18,21 +18,24 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
     get data() {
         if (this.state == 'unloaded') {
             this.load()
-            return {}
+            return {} as metricsData_i
         }
 
         return this.responseData
     }
 
     get memory(){
-        if(this.data?.memory) return Number(this.data.memory.replace('Ki', ''))/1048576
-        return 0
+        let out = 0;
+        if(this.data?.memory) out = Number(this.data.memory.replace('Ki', ''))/1048576
+        return out
     }
 
     get cpu(){
         // 1000m = 1 cpu core
-        if(this.data?.cpu) return Number(this.data.cpu.replace('m', ''))/1000
-        return 0
+        let out = 0;
+        if(this.data?.cpu) out = Number(this.data.cpu.replace('m', ''))/1000
+        if(this.data?.cpu && !out) out = Number(this.data.cpu.replace('n', ''))/10000000
+        return out
     }
 
     get cpuChart() {
@@ -68,10 +71,10 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
         const wid = this.deployment.deployments.workspace.id
         // this.state = 'loaded'
         await super.load(`/api/workspaces/${wid}/deployments/${did}/metrics`)
-        this.responseData = {
-            cpu: '50m',
-            memory: '143928Ki'
-        }
+        // this.responseData = {
+        //     cpu: '50m',
+        //     memory: '143928Ki'
+        // }
         console.log(this.responseData)
     }
 }

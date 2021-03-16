@@ -24,6 +24,43 @@ insure docker and docker-compose are installed
 fill in the values in accordance with dev/docker-compose.yml
 ```
 cd ./dev/ docker-compose up -d
+
+## Proxy
+```
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        "logLevel": "info",
+      },
+      '/proxy': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        "logLevel": "debug",
+      }
+    },
+    proxy: {
+      '/api': {
+        target: 'https://agoracloud.civo.saidghamra.com',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        "logLevel": "info",
+      },
+      '/proxy': {
+        target: 'https://agoracloud.civo.saidghamra.com',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        "logLevel": "debug",
+      }
+    },
+```
+
 ```
 ## Update Dev Server
 ```

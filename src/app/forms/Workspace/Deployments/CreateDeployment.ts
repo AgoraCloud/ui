@@ -40,6 +40,13 @@ interface createDeploymentFormDB_i extends deploymentForm_i {
         tag: string
     }
 }
+
+export class DeploymentFormModel<T1, T2> extends BaseFormModel<T1, T2>{
+    constructor(public workspace: Workspace, validator: any) {
+        super(validator)
+    }
+}
+
 export class CreateDeploymentFormModel extends BaseFormModel<createDeploymentFormDB_i, createDeploymentFormDB_i>{
     constructor(public workspace: Workspace) {
         super(CreateDeploymentDto)
@@ -70,11 +77,10 @@ export class CreateDeploymentFormModel extends BaseFormModel<createDeploymentFor
     }
 }
 
-export class EditDeploymentFormModel extends BaseFormModel<deploymentForm_i, deploymentFormDB_i>{
-    workspace: Workspace
+export class EditDeploymentFormModel extends DeploymentFormModel<deploymentForm_i, deploymentFormDB_i>{
     constructor(public deployment: Deployment) {
-        super(UpdateDeploymentDto)
-        this.workspace = this.deployment.deployments.workspace
+        super(deployment.deployments.workspace, UpdateDeploymentDto)
+        // this.workspace = this.deployment.deployments.workspace
 
         this.data = {
             name: "",

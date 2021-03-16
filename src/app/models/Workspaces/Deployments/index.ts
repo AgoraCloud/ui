@@ -90,4 +90,16 @@ export class Deployment extends BaseModelItem<deploymentData_i>{
     get link() {
         return this.deployments.workspace.link + `d/${this.id}/`
     }
+
+
+    delete = async () => {
+        try {
+            const wid = this.deployments.workspace.id
+            const did = this.id
+            const res = await fetch(`api/workspaces/${wid}/deployments/${did}`, {method: 'DELETE'})
+        } catch (e) {
+            console.warn(e)
+        }
+    }
+
 }

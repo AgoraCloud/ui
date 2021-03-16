@@ -8,8 +8,9 @@ import MoneyIcon from '@material-ui/icons/Money';
 import StorageIcon from '@material-ui/icons/Storage';
 import { LinkButton, MoreMenu } from 'app/components/Inputs'
 import { inject, observer } from 'mobx-react'
-import { ROUTER_STORE } from 'app/constants'
+import { ROUTER_STORE, UI_STORE } from 'app/constants'
 import { RouterStore } from 'app/stores'
+import { UIStore } from 'app/stores/UIStore';
 
 const chips = {
     'FAILED': <Chip style={{ backgroundColor: 'red' }} label="Error" />,
@@ -21,8 +22,8 @@ const chips = {
     'UPDATING': <Chip color="secondary" label="UPDATING" />,
     'DELETING': <Chip style={{ backgroundColor: 'red' }} label="DELETING" />,
     'UNKNOWN': <Chip style={{ backgroundColor: 'purple' }} label="UNKNOWN" />,
-
 }
+
 export const DeploymentChip = (props: {
     deployment: Deployment
 }) => {
@@ -41,8 +42,10 @@ export const DeploymentLaunch = (props: {
         variant="contained"
         color="primary"
         style={{ bottom: 3, right: 3, position: "absolute" }}
-        to={deployment.link}>
-        Launch
+        to={deployment.link}
+        disabled={deployment.status !== 'RUNNING'}
+        >
+        Launch 🚀
     </LinkButton>
 }
 
@@ -65,11 +68,12 @@ export const DeploymentResources = (props: {
 }
 
 
-export const DeploymentMenu = inject(ROUTER_STORE)(observer((props: {
+export const DeploymentMenu = inject(ROUTER_STORE, UI_STORE)(observer((props: {
     deployment: Deployment
 }) => {
     const { deployment } = props
     const store = props[ROUTER_STORE] as RouterStore
+    const uistore = props[UI_STORE] as UIStore
     return <div style={{
         position: "absolute",
         top: "2%",
@@ -83,21 +87,16 @@ export const DeploymentMenu = inject(ROUTER_STORE)(observer((props: {
                 }
             },
             {
-                name: "Metrics",
+                name: "Info",
                 onClick: () => {
-                    store.push(deployment.link + 'metrics/')
-                }
-            },
-            {
-                name: "Logs",
-                onClick: () => {
-                    store.push(deployment.link + 'logs/')
+                    store.push(deployment.link + 'info/')
                 }
             },
             {
                 name: "Delete",
                 onClick: () => {
-
+                    // deployment.delete()
+                    uistore.setDeleteTarget(deployment.name, deployment.delete)
                 }
             }
         ]} />
@@ -111,6 +110,7 @@ export const DeploymentCard = (props: {
     return <Card style={{
         width: "100%",
         minWidth: "333px",
+        maxWidth: "333px",
         height: "256px",
         padding: "20px",
         position: "relative"

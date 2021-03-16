@@ -10,6 +10,7 @@ import { RouterStore } from 'app/stores'
 export const CreateDeploymentForm = inject(ROUTER_STORE)(observer((props: {form: CreateDeploymentFormModel}) => {
     const store = props[ROUTER_STORE] as RouterStore
     const {form} = props 
+    
     return <div>
         <Typography variant="h6">
             Deployment Name
@@ -60,12 +61,14 @@ export const EditDeploymentForm = inject(ROUTER_STORE)(observer((props: {form: E
         <CPUMemoryInput form={form}/>
         <CancelCreateButtons form={form} cancel={()=>{
             store.replace(form.workspace.link)
+            console.log("HELLO", form.workspace.link)
         }}
         submit={async ()=>{
             if(await form.submit()){
                 store.replace(form.workspace.link)
             }
         }}
+        labels={['Cancel', 'Edit']}
         />
     </div>
 }))
