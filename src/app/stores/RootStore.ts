@@ -1,6 +1,7 @@
-import { ROUTER_STORE, AUTH_STORE, WORKSPACES_STORE, SNACKBAR_STORE, USER_STORE } from 'app/constants';
+import { ROUTER_STORE, AUTH_STORE, WORKSPACES_STORE, SNACKBAR_STORE, UI_STORE, USER_STORE } from 'app/constants';
 import { createBrowserHistory } from 'history';
 import {RouterStore, AuthStore, WorkspacesStore, SnackbarStore, UserStore} from 'app/stores';
+import { UIStore } from 'app/stores';
 
 
 export class RootStore {
@@ -10,12 +11,14 @@ export class RootStore {
     public authStore: AuthStore
     public workspacesStore: WorkspacesStore
     public snackbarStore: SnackbarStore
+    public uiStore: UIStore
     public userStore: UserStore
     constructor(history) {
         this.routerStore = new RouterStore(this, history);
         this.authStore = new AuthStore(this);
         this.workspacesStore = new WorkspacesStore(this)
         this.snackbarStore = new SnackbarStore()
+        this.uiStore = new UIStore(this);
         this.userStore = new UserStore(this)
     }
 
@@ -25,7 +28,8 @@ export class RootStore {
             [AUTH_STORE]: this.authStore,
             [WORKSPACES_STORE]: this.workspacesStore,
             [SNACKBAR_STORE]: this.snackbarStore,
-            [USER_STORE]: this.userStore
+            [UI_STORE]: this.uiStore,
+            [USER_STORE]: this.userStore,
         };
     }
 

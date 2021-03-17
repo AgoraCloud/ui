@@ -3,6 +3,8 @@ import { Deployments } from "./Deployments"
 import { CreateDeploymentFormModel } from "app/forms/Workspace/Deployments/CreateDeployment"
 import { UpdateWorkspaceFormModel } from "app/forms/Workspace/UpdateWorkspace"
 import { WikiSections } from "./Wiki"
+import { WorkspacesStore } from "app/stores"
+import { DeploymentImages } from "./Images"
 import { UpdateWorkspaceResourcesDto } from "app/forms/validators"
 
 export class Workspaces{
@@ -13,7 +15,7 @@ export class Workspaces{
     @observable state: 'loaded'|'error'|'loading'|'unloaded'
 
     @observable _workspaces: Workspace[] = []
-    constructor(){
+    constructor(public workspacesStore: WorkspacesStore){
         this.state = 'unloaded'
     }
 
@@ -60,13 +62,14 @@ export class Workspace{
      deployments: Deployments
      wikiSections: WikiSections
      createDeploymentForm: CreateDeploymentFormModel
+     deploymentImages: DeploymentImages
      updateWorkspaceForm: UpdateWorkspaceFormModel
      constructor(public workspaces: Workspaces, public data: workspaceData_i){
         this.deployments = new Deployments(this)
         this.createDeploymentForm = new CreateDeploymentFormModel(this)
         this.updateWorkspaceForm = new UpdateWorkspaceFormModel()
         this.wikiSections = new WikiSections(this)
-
+        this.deploymentImages = new DeploymentImages(this)
      }
 
 

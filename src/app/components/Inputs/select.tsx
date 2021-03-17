@@ -8,6 +8,7 @@ import { Workspace } from "app/models";
 import { makeStyles } from "@material-ui/core/styles";
 import { Select, MenuItem, SelectProps } from "@material-ui/core";
 import { BaseFormModel } from "app/forms";
+import { DeploymentFormModel } from "app/forms/Workspace/Deployments/CreateDeployment";
 
 
 
@@ -131,13 +132,16 @@ const images = [
         }
     }
 ]
-export const ImageSelect = (props: {
-    form: BaseFormModel<any, any>
+export const ImageSelect = observer((props: {
+    form: DeploymentFormModel<any, any>
     id: string
+    // workspace: Workspace
 }) => {
-
+    const {form} = props
+    const images = form!.workspace.deploymentImages.images
+    
     return <BaseSelect {...props}
     label="Image"
     defaultValue={images[0]}
     options={images}/>
-}
+})

@@ -8,7 +8,7 @@ interface InputProps extends StandardTextFieldProps {
     id: string
 }
 export const Input = observer((props: InputProps) => {
-    const { form, id, ...rest } = props
+    const { form, id, children, ...rest } = props
     const val = form.data[id]
     return <TextField
         onChange={form.onInputChange(id)}
@@ -22,14 +22,16 @@ export const Input = observer((props: InputProps) => {
         id={id}
         name={id}
         {...rest}
-    />
+    >
+        {children}
+    </TextField>
 })
 
 // icons
 import MemoryIcon from '@material-ui/icons/Memory';
 import MoneyIcon from '@material-ui/icons/Money';
 import StorageIcon from '@material-ui/icons/Storage';
-import { InputAdornment, makeStyles } from '@material-ui/core';
+import { InputAdornment, makeStyles, Checkbox, Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,9 +50,26 @@ export const ResourceInput = (props: {
 }) => {
     const classes = useStyles();
     const { form } = props
+
+    const [persist, setPersist] = React.useState(false)
+
+    const handleCheckbox = () => {
+        form.onChange("storageCount")(persist ? undefined : 8)
+        setPersist(!persist)
+    }
+
     return <>
-        <CPUMemoryInput form={form}/>
-        <Input
+        <CPUMemoryInput form={form} />
+        <Typography>
+            <Checkbox
+                checked={persist}
+                onChange={handleCheckbox}
+                name="checkedB"
+                color="primary"
+            />
+            Persist deployment
+        </Typography>
+        {persist ? <Input
             form={form}
             className={classes.margin}
             margin="dense"
@@ -68,7 +87,7 @@ export const ResourceInput = (props: {
                 required: false,
             }}
             fullWidth
-        />
+        /> : null } 
     </>
 }
 
@@ -77,7 +96,7 @@ export const CPUMemoryInput = (props: {
     form: BaseFormModel<any, any>
 }) => {
     const classes = useStyles();
-    const {form} = props
+    const { form } = props
     return <>
         <Input
             form={form}
@@ -92,9 +111,6 @@ export const CPUMemoryInput = (props: {
                         <MemoryIcon />
                     </InputAdornment>
                 ),
-            }}
-            InputLabelProps={{
-                required: false,
             }}
             fullWidth
         />
@@ -111,9 +127,6 @@ export const CPUMemoryInput = (props: {
                         <MoneyIcon />
                     </InputAdornment>
                 ),
-            }}
-            InputLabelProps={{
-                required: false,
             }}
             fullWidth
         />

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Fab, Button, ButtonProps, Grid, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Fab, Button, ButtonProps, IconButton, Menu, MenuItem } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react'
@@ -61,20 +61,22 @@ export const CancelCreateButtons = observer((props: {
     form: BaseFormModel<any, any>
     cancel: () => any
     submit: () => any
+    labels?: string[]
 }) => {
-    const { form, cancel, submit } = props
+    const { form, cancel, submit, labels } = props
+    const [label1, label2] = labels || ['Cancel', 'Create']
     // console.log("isValid2", form.isValid)
 
     const { isValid } = form
     return <div style={{ float: 'right' }}>
         <Button onClick={cancel} color="primary">
-            Cancel
+            {label1}
         </Button>
 
         {/*  */}
         {/* fix the forms before doing this */}
         <Button onClick={submit} disabled={!isValid} color="primary">
-            Create
+            {label2}
         </Button>
     </div>
 })
