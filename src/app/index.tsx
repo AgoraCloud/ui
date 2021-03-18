@@ -27,7 +27,7 @@ export const App = hot(({ history }: any) => (
       <UnauthedRoute path="/forgotPassword" component={ForgotPassword} />
       <UnauthedRoute path="/verify-account" component={VerifyAccount} />
       <UnauthedRoute path="/change-password" component={ChangePassword} />
-      <WorkspacesLoaded path="/w/new" component={FirstWorkspace} />
+      <AuthedRoute path="/w/new" component={FirstWorkspace} />
       <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
       <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
       <WorkspacesLoaded path="/w/:wid/tasks" component={WikiRoutes} />

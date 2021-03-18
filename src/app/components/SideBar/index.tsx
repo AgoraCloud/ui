@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { CreateWorkspaceDialog } from '../Forms/Workspace';
 
 
 // icons
@@ -77,16 +76,16 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
     const store = props[ROUTER_STORE] as RouterStore 
     const classes = useStyles();
 
-    //form dialog
-    const [openForm, setOpenForm] = React.useState(false);
+    // //form dialog
+    // const [openForm, setOpenForm] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpenForm(true);
-    };
+    // const handleClickOpen = () => {
+    //     setOpenForm(true);
+    // };
 
-    const handleClose = () => {
-        setOpenForm(false);
-    };
+    // const handleClose = () => {
+    //     setOpenForm(false);
+    // };
 
     return <> <Drawer
         variant="permanent"
@@ -102,7 +101,7 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
         </div>
         <Divider />
         <List>
-            <ListItem button onClick={handleClickOpen}>  
+            <ListItem button component={Link} to={"/w/new"}>  
                 <ListItemIcon>
                     <AddCircleOutlineIcon />
                 </ListItemIcon>
@@ -149,7 +148,6 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
             </ListItem>
         </List>
     </Drawer>
-    <CreateWorkspaceDialog open={openForm} closeDialog={handleClose}/>
     </>
 
 }))
