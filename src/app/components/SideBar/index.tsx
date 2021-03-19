@@ -15,9 +15,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import DescriptionIcon from '@material-ui/icons/Description';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CodeIcon from '@material-ui/icons/Code';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AssessmentIcon from '@material-ui/icons/Assessment';
@@ -142,9 +142,9 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
             </ListItem>
             <ListItem button component={Link} to={store.workspaceUrl + "/tasks"}>
                 <ListItemIcon>
-                    <FormatListBulletedIcon />
+                    <ListAltIcon />
                 </ListItemIcon>
-                <ListItemText primary="Tasks" />
+                <ListItemText primary="Projects" />
             </ListItem>
         </List>
     </Drawer>
