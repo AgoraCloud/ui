@@ -46,7 +46,7 @@ export class EditProjectFormModel extends BaseFormModel<updateProjectForm_i, upd
     }
 
     submit = async () => {
-        const wid = this.project.projects.workspace
+        const wid = this.project.projects.workspace.id
         const pid = this.project.id
         return await super.call(`/api/workspaces/${wid}/projects/${pid}`, { method: 'PUT' })
     }

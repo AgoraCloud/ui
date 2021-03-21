@@ -22,6 +22,10 @@ export class WorkspacesStore {
       return this.selectedWorkspace.createDeploymentForm
    }
 
+   get createProjectForm(){
+      return this.selectedWorkspace.createProjectForm
+   }
+
    get state(){
       return this.workspaces.state
    }
@@ -47,6 +51,25 @@ export class WorkspacesStore {
          // const page = section?.wikiPages.getById(pageid)
    
          return deployment
+   
+      }catch(e){
+         return undefined
+      }
+   }
+
+   @computed
+   get selectedProject(){
+      this.workspaces.workspaces
+      const pathname = this.rootStore.routerStore.location.pathname
+      try{
+         const matches = pathname.match(/\/w\/(?<wid>[a-zA-Z0-9]{24})\/p\/(?<pid>[a-zA-Z0-9]{24})/)
+         const {wid, pid} = matches?.groups as any
+   
+         const workspace = this.workspaces.getById(wid)
+         const project = workspace?.projects?.getById(pid)
+         // const page = section?.wikiPages.getById(pageid)
+   
+         return project
    
       }catch(e){
          return undefined

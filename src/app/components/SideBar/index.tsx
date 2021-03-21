@@ -140,7 +140,7 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
                 </ListItemIcon>
                 <ListItemText primary="Wiki" />
             </ListItem>
-            <ListItem button component={Link} to={store.workspaceUrl + "/tasks"}>
+            <ListItem button component={Link} to={store.workspaceUrl + "/projects"}>
                 <ListItemIcon>
                     <ListAltIcon />
                 </ListItemIcon>

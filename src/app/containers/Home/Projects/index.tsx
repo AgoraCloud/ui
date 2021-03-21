@@ -1,25 +1,153 @@
-// import * as React from 'react'
-// import { WORKSPACES_STORE } from 'app/constants'
-// import { observer, inject } from 'mobx-react'
-// import { WorkspacesStore } from 'app/stores'
-// import { DeploymentCard } from 'app/components/Cards/Deployment'
-// import { Grid } from '@material-ui/core'
-// import { AddFAB } from 'app/components/Inputs'
+import * as React from 'react'
+import { WORKSPACES_STORE, ROUTER_STORE } from 'app/constants'
+import { observer, inject } from 'mobx-react'
+import { WorkspacesStore, RouterStore } from 'app/stores'
+import { MoreMenu } from 'app/components/Inputs'
+import { AddFAB } from 'app/components/Inputs'
+import { HomeWrapper } from 'app/containers/Home';
+import { Typography } from '@material-ui/core'
+import Button from '@material-ui/core/Button';
 
-// export const DeploymentsList = inject(WORKSPACES_STORE)(observer((props) => {
-//     const store = props[WORKSPACES_STORE] as WorkspacesStore
-//     const workspace = store.selectedWorkspace
-//     const deployments = workspace.deployments.deployments
-//     return <>
-//         <Grid container direction={'row'} spacing={5} alignItems="flex-start"
-//             justify="flex-start" >
-//             {deployments.map((deployment) => (
-//                 <Grid item key={deployment.id}>
-//                     {/* xs={12} sm={12} md={6} lg={2} xl={4}  */}
-//                     <DeploymentCard deployment={deployment} />
-//                 </Grid>
-//             ))}
-//         </Grid>
-//         <AddFAB link={workspace.link + 'new'} />
-//     </>
-// }))
+// Table imports
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+
+
+interface Column {
+  id: 'name' | 'description' | 'edit';
+  label: string;
+  minWidth?: number;
+  align?: 'right';
+  format?: (value: number) => string;
+}
+
+const columns: Column[] = [
+  { id: 'name', label: 'Name', minWidth: 100 },
+  { id: 'description', label: 'Description', minWidth: 300 },
+  { id: 'edit', label: '', minWidth: 50, align: 'right' },
+];
+
+interface Data {
+  id: string;
+  name: string;
+  description: string;
+  edit: JSX.Element;
+}
+
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+  },
+  container: {
+    maxHeight: 580,
+  },
+  heading: {
+    marginBottom: "20px"
+  },
+});
+
+export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE)(observer((props) => {
+
+    const store = props[WORKSPACES_STORE] as WorkspacesStore
+    const routerStore = props[ROUTER_STORE] as RouterStore
+    const workspace = store.selectedWorkspace
+    const projects = workspace.projects.projects
+    var rows: Data[] = [];
+
+    projects.forEach((project) => (
+        rows.push({id: project.data.id, name:project.data.name, description: project.data.description, edit: <MoreMenu options={[
+          {
+              name: "Edit",
+              onClick: () => {
+                  routerStore.push(project.link + 'edit/')
+                 
+              }
+          },
+          {
+              name: "Delete",
+              onClick: () => {
+                  project.delete()
+              }
+          }
+        ]} />
+        })
+    ))
+
+    // console.log("YOOOO")
+    // console.log(rows)
+
+    const classes = useStyles();
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const handleChangePage = (event: unknown, newPage: number) => {
+      setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+    };
+
+    return <HomeWrapper>
+      <Typography variant="h4" className={classes.heading}>
+          Projects
+      </Typography>
+      {/* <Button variant="contained" color="primary" style={{ position: "absolute", top: "88px", right: "20px" }} onClick={() => { routerStore.push(workspace.link + 'p/new')}}>
+        New Project
+      </Button> */}
+      <Paper className={classes.root}>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {column.format && typeof value === 'number' ? column.format(value) : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
+      <AddFAB link={workspace.link + 'p/new'} />
+    </HomeWrapper>
+}))
+
