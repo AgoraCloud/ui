@@ -78,15 +78,12 @@ export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE, UI_STORE)(obse
               name: "Delete",
               onClick: () => {
                   uistore.setDeleteTarget(project.name, project.delete)
-                  // console.log("notif!")
               }
           }
         ]} />
         })
     ))
 
-    // console.log("YOOOO")
-    // console.log(rows)
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -103,9 +100,9 @@ export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE, UI_STORE)(obse
       <Typography variant="h4" className={classes.heading}>
           Projects
       </Typography>
-      {/* <Button variant="contained" color="primary" style={{ position: "absolute", top: "88px", right: "20px" }} onClick={() => { routerStore.push(workspace.link + 'p/new')}}>
+      <Button variant="contained" color="primary" style={{ position: "absolute", top: "88px", right: "20px" }} onClick={() => { routerStore.push(workspace.link + 'p/new')}}>
         New Project
-      </Button> */}
+      </Button>
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
