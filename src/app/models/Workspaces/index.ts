@@ -7,6 +7,7 @@ import { UpdateWorkspaceFormModel } from "app/forms/Workspace/UpdateWorkspace"
 import { WikiSections } from "./Wiki"
 import { WorkspacesStore } from "app/stores"
 import { DeploymentImages } from "./Images"
+import { WorkspaceMetrics } from "./Metrics"
 import { UpdateWorkspaceResourcesDto } from "app/forms/validators"
 
 export class Workspaces{
@@ -68,6 +69,7 @@ export class Workspace{
      createProjectForm: CreateProjectFormModel
      deploymentImages: DeploymentImages
      updateWorkspaceForm: UpdateWorkspaceFormModel
+     @observable metrics: WorkspaceMetrics
      constructor(public workspaces: Workspaces, public data: workspaceData_i){
         this.deployments = new Deployments(this)
         this.projects = new Projects(this)
@@ -76,6 +78,7 @@ export class Workspace{
         this.updateWorkspaceForm = new UpdateWorkspaceFormModel()
         this.wikiSections = new WikiSections(this)
         this.deploymentImages = new DeploymentImages(this)
+        this.metrics = new WorkspaceMetrics(this)
      }
 
 
@@ -90,6 +93,20 @@ export class Workspace{
      get users(){
          return this.data.users
      }
+
+     get resources() {
+        return this.data.properties.resources
+    }
+    get cpuCount() {
+        return this.resources.cpuCount
+
+    }
+    get memoryCount() {
+        return this.resources.memoryCount
+    }
+    get storageCount() {
+        return this.resources.storageCount || 0
+    }
 
      get link(){
          return `/w/${this.id}/`

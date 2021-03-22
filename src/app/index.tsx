@@ -16,6 +16,7 @@ import { WorkspacesLoaded, DeploymentLoaded, ProjectLoaded } from "app/component
 import { WikiRoutes } from "app/containers/Home/Wiki";
 import { DeploymentProxy } from "app/containers/Home/Deployments/Proxy";
 import { DeploymentInfoPage } from "./containers/Home/Deployments/Info";
+import { WorkspaceMetricsPage } from "./containers/Home/WorkspaceMetrics"
 
 
 // http://localhost:3000/verify-account?token=60142f350efcef0018872610
@@ -32,7 +33,7 @@ export const App = hot(({ history }: any) => (
       <AuthedRoute path="/w/new" component={FirstWorkspace} />
       <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
       <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
-      <WorkspacesLoaded path="/w/:wid/tasks" component={WikiRoutes} />
+      <WorkspacesLoaded path="/w/:wid/metrics" component={WorkspaceMetricsPage} />
       <ProjectLoaded path="/w/:wid/projects" component={ProjectList} />
       <ProjectLoaded path="/w/:wid/p/new" component={CreateProject} />
       <ProjectLoaded path="/w/:wid/p/:pid/edit" component={EditProject} />

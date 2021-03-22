@@ -78,15 +78,12 @@ export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE, UI_STORE)(obse
               name: "Delete",
               onClick: () => {
                   uistore.setDeleteTarget(project.name, project.delete)
-                  // console.log("notif!")
               }
           }
         ]} />
         })
     ))
 
-    // console.log("YOOOO")
-    // console.log(rows)
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
