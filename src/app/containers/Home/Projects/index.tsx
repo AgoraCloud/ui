@@ -1,11 +1,13 @@
 import * as React from 'react'
-import { WORKSPACES_STORE, ROUTER_STORE } from 'app/constants'
+import { WORKSPACES_STORE, ROUTER_STORE, UI_STORE } from 'app/constants'
 import { observer, inject } from 'mobx-react'
-import { WorkspacesStore, RouterStore } from 'app/stores'
+import { WorkspacesStore, RouterStore, UIStore } from 'app/stores'
 import { MoreMenu } from 'app/components/Inputs'
 import { AddFAB } from 'app/components/Inputs'
 import { HomeWrapper } from 'app/containers/Home';
 import { Typography } from '@material-ui/core'
+import {ConfirmDeleteDialog} from 'app/components/Inputs'
+import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 
 // Table imports
@@ -36,7 +38,7 @@ const columns: Column[] = [
 
 interface Data {
   id: string;
-  name: string;
+  name: JSX.Element;
   description: string;
   edit: JSX.Element;
 }
@@ -49,20 +51,22 @@ const useStyles = makeStyles({
     maxHeight: 580,
   },
   heading: {
-    marginBottom: "20px"
+    marginBottom: "20px",
   },
 });
 
-export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE)(observer((props) => {
+export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE, UI_STORE)(observer((props) => {
 
     const store = props[WORKSPACES_STORE] as WorkspacesStore
     const routerStore = props[ROUTER_STORE] as RouterStore
+    const uistore = props[UI_STORE] as UIStore
     const workspace = store.selectedWorkspace
     const projects = workspace.projects.projects
+    const classes = useStyles();
     var rows: Data[] = [];
 
     projects.forEach((project) => (
-        rows.push({id: project.data.id, name:project.data.name, description: project.data.description, edit: <MoreMenu options={[
+        rows.push({id: project.data.id, name: <Link href="/" color="inherit"> {project.data.name} </Link>, description: project.data.description, edit: <MoreMenu options={[
           {
               name: "Edit",
               onClick: () => {
@@ -73,7 +77,8 @@ export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE)(observer((prop
           {
               name: "Delete",
               onClick: () => {
-                  project.delete()
+                  uistore.setDeleteTarget(project.name, project.delete)
+                  // console.log("notif!")
               }
           }
         ]} />
@@ -82,8 +87,6 @@ export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE)(observer((prop
 
     // console.log("YOOOO")
     // console.log(rows)
-
-    const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -147,6 +150,7 @@ export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE)(observer((prop
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
+      <ConfirmDeleteDialog />
       <AddFAB link={workspace.link + 'p/new'} />
     </HomeWrapper>
 }))

@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 import { WORKSPACES_STORE, ROUTER_STORE } from 'app/constants'
 import { WorkspacesStore, RouterStore } from 'app/stores'
 import { HomeWrapper } from 'app/containers/Home'
+import {ConfirmDeleteDialog} from 'app/components/Inputs'
 import { CancelCreateButtons } from 'app/components/Inputs'
 import { Typography, TextField, Button } from '@material-ui/core'
 

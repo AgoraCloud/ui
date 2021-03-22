@@ -19,7 +19,7 @@ export const CreateProjectForm = inject(ROUTER_STORE)(observer((props: {form: Cr
         <Typography variant="h6">
             Description
         </Typography>
-        <Input form={form} id="description" label="Description" />
+        <Input form={form} id="description" label="Description" InputLabelProps={{required: false,}} />
         <CancelCreateButtons form={form} cancel={()=>{
             store.replace(form.workspace.link + 'projects')
         }}
