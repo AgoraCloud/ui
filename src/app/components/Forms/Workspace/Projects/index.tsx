@@ -22,10 +22,12 @@ export const CreateProjectForm = inject(ROUTER_STORE)(observer((props: {form: Cr
         <Input form={form} id="description" label="Description" InputLabelProps={{required: false,}} />
         <CancelCreateButtons form={form} cancel={()=>{
             store.replace(form.workspace.link + 'projects')
+            form.reset()
         }}
         submit={async ()=>{
             if(await form.submit()){
                 store.replace(form.workspace.link + 'projects')
+                form.reset()
             }
         }}
         />
@@ -44,7 +46,7 @@ export const EditProjectForm = inject(ROUTER_STORE)(observer((props: {form: Edit
         <Typography variant="h6">
             Description
         </Typography>
-        <Input form={form} id="description" label="Description" />
+        <Input form={form} id="description" label="Description" InputLabelProps={{required: false,}} />
         <CancelCreateButtons form={form} cancel={()=>{
             store.replace(form.project.projects.workspace.link + 'projects')
         }}

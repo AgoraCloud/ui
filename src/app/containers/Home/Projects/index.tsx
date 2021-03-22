@@ -100,9 +100,9 @@ export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE, UI_STORE)(obse
       <Typography variant="h4" className={classes.heading}>
           Projects
       </Typography>
-      {/* <Button variant="contained" color="primary" style={{ position: "absolute", top: "88px", right: "20px" }} onClick={() => { routerStore.push(workspace.link + 'p/new')}}>
+      <Button variant="contained" color="primary" style={{ position: "absolute", top: "88px", right: "20px" }} onClick={() => { routerStore.push(workspace.link + 'p/new')}}>
         New Project
-      </Button> */}
+      </Button>
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">

@@ -24,7 +24,7 @@ export const EditProject = inject(WORKSPACES_STORE)(observer((props) => {
     if(!form) return null // TODO figure out what to do here (no deployment by id...)
     return <HomeWrapper>
         <Typography variant="h4">
-            Edit Deployment
+            Edit Project
         </Typography>
         <EditProjectForm form={form}/>
     </HomeWrapper>

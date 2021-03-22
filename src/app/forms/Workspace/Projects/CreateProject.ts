@@ -50,4 +50,9 @@ export class EditProjectFormModel extends BaseFormModel<updateProjectForm_i, upd
         const pid = this.project.id
         return await super.call(`/api/workspaces/${wid}/projects/${pid}`, { method: 'PUT' })
     }
+
+    reset = () => {
+        this.data.name = ""
+        this.data.description = ""
+    }
 }
