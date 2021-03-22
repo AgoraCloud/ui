@@ -10,11 +10,12 @@ export class WorkspacesStore {
    @observable _selectedWorkspace: Workspace
    @observable createWorkspaceForm: CreateWorkspaceFormModel
 
-
+   @observable wikiEdit: boolean
    constructor(private rootStore: RootStore) {
       this.workspaces = new Workspaces(this)
       this.createWorkspaceForm = new CreateWorkspaceFormModel()
       // this.load()
+      this.wikiEdit = false
    }
 
 

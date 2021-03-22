@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as style from './style.scss'
 import { List, ListItem, ListItemText, Collapse, makeStyles, InputBase, IconButton, Input, Tooltip } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { WORKSPACES_STORE } from 'app/constants'
+import { WORKSPACES_STORE, UI_STORE } from 'app/constants'
 import { observer, inject } from 'mobx-react'
 
 // icons
@@ -10,8 +10,9 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Edit'
-import { WorkspacesStore } from 'app/stores'
-import { WikiPages, WikiSection, WikiPage } from 'app/models'
+import { WorkspacesStore, UIStore } from 'app/stores'
+import { WikiSectionModel, WikiPageModel } from 'app/models'
+import { ContextMenu } from 'app/components/Inputs/ContextMenu'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,31 +31,53 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const PageButton = (props: {
-    page: WikiPage
+
+
+
+export const PageButton = inject(UI_STORE)(observer((props: {
+    page: WikiPageModel
 }) => {
     const { page } = props
     const classes = useStyles()
-    return <li>
-        <ListItem button component={Link} to={page.link} className={classes.nested}>
-            <ListItemText primary={page.title} />
-        </ListItem>
-    </li>
-}
+    const store = props[UI_STORE] as UIStore
 
-export const SectionButton = (props: {
-    section: WikiSection
+
+    const menuItems = [
+        {
+            label: 'Delete',
+            onClick: () => {store.setDeleteTarget(page.title, page.delete)}
+        }
+    ]
+
+    return <li>
+        <ContextMenu menuItems={menuItems}>
+            <ListItem button component={Link} to={page.link} className={classes.nested}>
+                <ListItemText primary={page.title} />
+            </ListItem>
+        </ContextMenu>
+
+    </li>
+}))
+
+export const SectionButton = observer((props: {
+    section: WikiSectionModel
     open: boolean
     onClick: () => any
 }) => {
     const { section, open, onClick } = props
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            section.onSubmitNameChange()
+        }
+    }
     return (
         <ListItem>
             <ListItemText>
-                <InputBase value={section.name} />
+                <InputBase value={section.editableName} onChange={section.onNameChange} onKeyDown={handleKeyDown} />
             </ListItemText>
             <Tooltip title="Add Page To Section" aria-label="Add Page To Section">
-                <IconButton>
+                <IconButton onClick={section.onAddPage}>
                     <AddIcon color="primary" />
                 </IconButton>
             </Tooltip>
@@ -65,10 +88,10 @@ export const SectionButton = (props: {
             </div>
         </ListItem>
     );
-}
+})
 
-export const WikiSectionList = (props: {
-    section: WikiSection
+export const WikiSectionList = observer((props: {
+    section: WikiSectionModel
 }) => {
     const { section } = props
     const pages = section.wikiPages
@@ -86,7 +109,7 @@ export const WikiSectionList = (props: {
             </List>
         </Collapse>
     </>
-}
+})
 
 
 export const WikiList = inject(WORKSPACES_STORE)(observer((props) => {
@@ -99,12 +122,14 @@ export const WikiList = inject(WORKSPACES_STORE)(observer((props) => {
             <ListItem>
                 <Input placeholder="Search..." />
                 <Tooltip title="Add Section" aria-label="Add Section">
-                    <IconButton>
+                    <IconButton onClick={wikiSections.onAddSection}>
                         <AddIcon color="primary" />
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Edit Selected Wiki Page" aria-label="Edit Selected Wiki Page">
-                    <IconButton color="primary" disabled={selectedWiki == undefined}>
+                    <IconButton color="primary" disabled={selectedWiki == undefined} onClick={() => {
+                        store.wikiEdit = !store.wikiEdit
+                    }}>
                         <EditIcon />
                     </IconButton>
                 </Tooltip>

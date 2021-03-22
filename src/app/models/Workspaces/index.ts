@@ -4,7 +4,7 @@ import { Projects } from "./Projects"
 import { CreateDeploymentFormModel } from "app/forms/Workspace/Deployments/CreateDeployment"
 import { CreateProjectFormModel } from "app/forms/Workspace/Projects/CreateProject"
 import { UpdateWorkspaceFormModel } from "app/forms/Workspace/UpdateWorkspace"
-import { WikiSections } from "./Wiki"
+import { WikiSectionsModel } from "./Wiki"
 import { WorkspacesStore } from "app/stores"
 import { DeploymentImages } from "./Images"
 import { UpdateWorkspaceResourcesDto } from "app/forms/validators"
@@ -63,7 +63,7 @@ export class Workspace{
 
      deployments: Deployments
      projects: Projects
-     wikiSections: WikiSections
+     wikiSections: WikiSectionsModel
      createDeploymentForm: CreateDeploymentFormModel
      createProjectForm: CreateProjectFormModel
      deploymentImages: DeploymentImages
@@ -74,7 +74,7 @@ export class Workspace{
         this.createDeploymentForm = new CreateDeploymentFormModel(this)
         this.createProjectForm = new CreateProjectFormModel(this)
         this.updateWorkspaceForm = new UpdateWorkspaceFormModel()
-        this.wikiSections = new WikiSections(this)
+        this.wikiSections = new WikiSectionsModel(this)
         this.deploymentImages = new DeploymentImages(this)
      }
 
@@ -92,7 +92,17 @@ export class Workspace{
      }
 
      get link(){
+         /**
+          * @info has trailing slash
+          */
          return `/w/${this.id}/`
+     }
+
+     get api(){
+        /**
+         * /api/workspaces/{wid}/
+         */
+         return `/api/workspaces/${this.id}/`
      }
 
      get workspaceData() {

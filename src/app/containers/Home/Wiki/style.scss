@@ -14,3 +14,14 @@
 .nested{
     padding-left: 80px;
 }
+
+#editorWrapper{
+    height: 80vh;
+    width: 100%;
+}
+#wrapper{
+    width: calc(100% - 300px);
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 20px;
+}

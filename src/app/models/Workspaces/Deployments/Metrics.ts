@@ -4,8 +4,8 @@ import { BaseModel } from "app/models/Base";
 
 
 interface metricsData_i {
-    cpu: string
-    memory: string
+    cpu: number
+    memory: number
 }
 
 export class DeploymentMetrics extends BaseModel<metricsData_i>{
@@ -25,17 +25,12 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
     }
 
     get memory(){
-        let out = 0;
-        if(this.data?.memory) out = Number(this.data.memory.replace('Ki', ''))/1048576
-        return out
+        return this.data.memory
     }
 
     get cpu(){
         // 1000m = 1 cpu core
-        let out = 0;
-        if(this.data?.cpu) out = Number(this.data.cpu.replace('m', ''))/1000
-        if(this.data?.cpu && !out) out = Number(this.data.cpu.replace('n', ''))/10000000
-        return out
+        return this.data.cpu
     }
 
     get cpuChart() {
@@ -43,11 +38,13 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
             data: [{
                 value: this.cpu,
                 gauge: {
-                    axis: { range: [0, this.deployment.cpuCount] },
+                    axis: { range: [0, 100]},
                 },
+                number: { suffix: "%" },
                 title: { text: "CPU Usage" },
                 type: "indicator",
-                mode: "gauge+number"
+                mode: "gauge+number",
+
             }]
         }
     }
@@ -57,8 +54,9 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
             data: [{
                 value: this.memory,
                 gauge: {
-                    axis: { range: [0, this.deployment.memoryCount] },
+                    axis: { range: [0, 100] },
                 },
+                number: { suffix: "%" },
                 title: { text: "Memory Usage" },
                 type: "indicator",
                 mode: "gauge+number"
