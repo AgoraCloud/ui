@@ -43,8 +43,9 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
             data: [{
                 value: this.cpu,
                 gauge: {
-                    axis: { range: [0, this.deployment.cpuCount] },
+                    axis: { range: [0, 100] },
                 },
+                number: { suffix: "%" },
                 title: { text: "CPU Usage" },
                 type: "indicator",
                 mode: "gauge+number"
@@ -57,8 +58,9 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
             data: [{
                 value: this.memory,
                 gauge: {
-                    axis: { range: [0, this.deployment.memoryCount] },
+                    axis: { range: [0, 100] },
                 },
+                number: { suffix: "%" },
                 title: { text: "Memory Usage" },
                 type: "indicator",
                 mode: "gauge+number"

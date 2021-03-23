@@ -6,6 +6,8 @@ import { BaseModel } from "app/models/Base";
 interface metricsData_i {
     cpu: string
     memory: string
+    storage: string
+    status: string
 }
 
 export class WorkspaceMetrics extends BaseModel<metricsData_i>{
@@ -25,14 +27,17 @@ export class WorkspaceMetrics extends BaseModel<metricsData_i>{
     }
 
     get memory(){
-        if(this.data?.memory) return Number(this.data.memory.replace('Ki', ''))/1048576
-        return 0
+        return this.data.memory
     }
 
     get cpu(){
         // 1000m = 1 cpu core
-        if(this.data?.cpu) return Number(this.data.cpu.replace('m', ''))/1000
-        return 0
+        return this.data.cpu
+    }
+
+    get storage(){
+        // 1000m = 1 cpu core
+        return this.data.storage
     }
 
     get cpuChart() {
@@ -40,8 +45,9 @@ export class WorkspaceMetrics extends BaseModel<metricsData_i>{
             data: [{
                 value: this.cpu,
                 gauge: {
-                    axis: { range: [0, this.workspace.cpuCount] },
+                    axis: { range: [0, 100] },
                 },
+                number: { suffix: "%" },
                 title: { text: "CPU Usage" },
                 type: "indicator",
                 mode: "gauge+number"
@@ -54,9 +60,25 @@ export class WorkspaceMetrics extends BaseModel<metricsData_i>{
             data: [{
                 value: this.memory,
                 gauge: {
-                    axis: { range: [0, this.workspace.memoryCount] },
+                    axis: { range: [0, 100] },
                 },
+                number: { suffix: "%" },
                 title: { text: "Memory Usage" },
+                type: "indicator",
+                mode: "gauge+number"
+            }]
+        }
+    }
+
+    get storageChart() {
+        return {
+            data: [{
+                value: this.storage,
+                gauge: {
+                    axis: { range: [0, 100] },
+                },
+                number: { suffix: "%" },
+                title: { text: "Storage Usage" },
                 type: "indicator",
                 mode: "gauge+number"
             }]
@@ -65,12 +87,8 @@ export class WorkspaceMetrics extends BaseModel<metricsData_i>{
 
     public async load() {
         const wid = this.workspace.id
-        // this.state = 'loaded'
         await super.load(`/api/workspaces/${wid}/metrics`)
-        this.responseData = {
-            cpu: '50m',
-            memory: '143928Ki'
-        }
+        console.log("joking reeee")
         console.log(this.responseData)
     }
 }
