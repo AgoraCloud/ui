@@ -1,10 +1,13 @@
 import { observable } from "mobx"
 import { Deployments } from "./Deployments"
+import { Projects } from "./Projects"
 import { CreateDeploymentFormModel } from "app/forms/Workspace/Deployments/CreateDeployment"
+import { CreateProjectFormModel } from "app/forms/Workspace/Projects/CreateProject"
 import { UpdateWorkspaceFormModel } from "app/forms/Workspace/UpdateWorkspace"
-import { WikiSections } from "./Wiki"
+import { WikiSectionsModel } from "./Wiki"
 import { WorkspacesStore } from "app/stores"
 import { DeploymentImages } from "./Images"
+import { WorkspaceMetrics } from "./Metrics"
 import { UpdateWorkspaceResourcesDto } from "app/forms/validators"
 
 export class Workspaces{
@@ -60,16 +63,22 @@ export class Workspace{
 
 
      deployments: Deployments
-     wikiSections: WikiSections
+     projects: Projects
+     wikiSections: WikiSectionsModel
      createDeploymentForm: CreateDeploymentFormModel
+     createProjectForm: CreateProjectFormModel
      deploymentImages: DeploymentImages
      updateWorkspaceForm: UpdateWorkspaceFormModel
+     @observable metrics: WorkspaceMetrics
      constructor(public workspaces: Workspaces, public data: workspaceData_i){
         this.deployments = new Deployments(this)
+        this.projects = new Projects(this)
         this.createDeploymentForm = new CreateDeploymentFormModel(this)
+        this.createProjectForm = new CreateProjectFormModel(this)
         this.updateWorkspaceForm = new UpdateWorkspaceFormModel()
-        this.wikiSections = new WikiSections(this)
+        this.wikiSections = new WikiSectionsModel(this)
         this.deploymentImages = new DeploymentImages(this)
+        this.metrics = new WorkspaceMetrics(this)
      }
 
 
@@ -85,21 +94,36 @@ export class Workspace{
          return this.data.users
      }
 
+     get resources() {
+        return this.data.properties.resources
+    }
+    get cpuCount() {
+        return this.resources.cpuCount
+
+    }
+    get memoryCount() {
+        return this.resources.memoryCount
+    }
+    get storageCount() {
+        return this.resources.storageCount || 0
+    }
+
      get link(){
+         /**
+          * @info has trailing slash
+          */
          return `/w/${this.id}/`
      }
 
-     get workspaceData() {
-        //  return {name: this.data.name, 
-        //             properties: {
-        //                 resources: {
-        //                     cpuCount: this.data.properties.resources.cpuCount,
-        //                     memoryCount: this.data.properties.resources.memoryCount,
-        //                     storageCount: this.data.properties.resources.storageCount, 
-        //                 }
-        //             }
-        //         }
+     get api(){
+        /**
+         * /api/workspaces/{wid}/
+         */
+         return `/api/workspaces/${this.id}/`
+     }
 
+     get workspaceData() {
+        
         let {name, properties} = this.data
         name = name ? this.data.name : ""
         const resources: UpdateWorkspaceResourcesDto = properties?.resources;

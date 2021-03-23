@@ -51,6 +51,7 @@ export const HomeWrapperBase = (props: { children: React.ReactNode }) => {
             {/* <div className={classes.appBarSpacer} /> */}
             {children}
         </main>
+        <ConfirmDeleteDialog/>
     </div>
 }
 
@@ -69,6 +70,5 @@ export const HomeWrapper = (props: { children: React.ReactNode }) => {
 export const Home = () => {
     return <HomeWrapper>
         <DeploymentsList />
-        <ConfirmDeleteDialog/>
     </HomeWrapper>
 }

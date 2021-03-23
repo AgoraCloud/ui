@@ -14,7 +14,12 @@ export const GaugeChart = (props) => {
         mode: "gauge+number"
       }
     ]}
-    layout={{ paper_bgcolor: "transparent", autosize: true }}
+    layout={{
+      paper_bgcolor: "transparent", autosize: true, xaxis: {
+        // showticksuffix: 'all',
+        ticksuffix: '%',
+      }
+    }}
     // style={{ width: width, height: height }}
     useResizeHandler={true}
     style={{ width: "100%", height: "100%" }}

@@ -1,7 +1,7 @@
 import { observable, action } from "mobx";
 
 
-export class BaseModel<T>{
+export class BaseModel<T extends {id: string}>{
     @observable state: 'loaded' | 'error' | 'loading' | 'unloaded'
     @observable response: Response
     @observable options: RequestInit
@@ -11,6 +11,9 @@ export class BaseModel<T>{
         this.options = {}
     }
 
+    get id(){
+        return this.responseData.id
+    }
 
     get status() {
         return this.response?.status

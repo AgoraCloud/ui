@@ -9,16 +9,15 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { CreateWorkspaceDialog } from '../Forms/Workspace';
 
 
 // icons
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import DescriptionIcon from '@material-ui/icons/Description';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CodeIcon from '@material-ui/icons/Code';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AssessmentIcon from '@material-ui/icons/Assessment';
@@ -77,16 +76,16 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
     const store = props[ROUTER_STORE] as RouterStore 
     const classes = useStyles();
 
-    //form dialog
-    const [openForm, setOpenForm] = React.useState(false);
+    // //form dialog
+    // const [openForm, setOpenForm] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpenForm(true);
-    };
+    // const handleClickOpen = () => {
+    //     setOpenForm(true);
+    // };
 
-    const handleClose = () => {
-        setOpenForm(false);
-    };
+    // const handleClose = () => {
+    //     setOpenForm(false);
+    // };
 
     return <> <Drawer
         variant="permanent"
@@ -102,7 +101,7 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
         </div>
         <Divider />
         <List>
-            <ListItem button onClick={handleClickOpen}>  
+            <ListItem button component={Link} to={"/w/new"}>  
                 <ListItemIcon>
                     <AddCircleOutlineIcon />
                 </ListItemIcon>
@@ -114,11 +113,11 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
                 </ListItemIcon>
                 <ListItemText primary="Workspace Settings" />
             </ListItem>
-            <ListItem button component={Link} to="">
+            <ListItem button component={Link} to={store.workspaceUrl + "/metrics"}>
                 <ListItemIcon>
                     <AssessmentIcon />
                 </ListItemIcon>
-                <ListItemText primary="Metrics" />
+                <ListItemText primary="Workspace Metrics" />
             </ListItem>
         </List>
         <Divider />
@@ -141,15 +140,14 @@ export const SideBar = inject(ROUTER_STORE)(observer((props) => {
                 </ListItemIcon>
                 <ListItemText primary="Wiki" />
             </ListItem>
-            <ListItem button component={Link} to={store.workspaceUrl + "/tasks"}>
+            <ListItem button component={Link} to={store.workspaceUrl + "/projects"}>
                 <ListItemIcon>
-                    <FormatListBulletedIcon />
+                    <ListAltIcon />
                 </ListItemIcon>
-                <ListItemText primary="Tasks" />
+                <ListItemText primary="Projects" />
             </ListItem>
         </List>
     </Drawer>
-    <CreateWorkspaceDialog open={openForm} closeDialog={handleClose}/>
     </>
 
 }))

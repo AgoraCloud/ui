@@ -95,10 +95,8 @@ export const BaseSelect = (props: BaseSelectProps) => {
      * 
      *  that means that this only works for Objects currently
      */
-    // const { value, handleChange, options, ...rest } = props
     const { form, id, options, ...rest } = props
     const value = form.data[id]
-    console.log(JSON.stringify(value))
 
     const onChange = (e) => {
         form.onChange(id)(JSON.parse(e.target.value))
@@ -114,7 +112,6 @@ export const BaseSelect = (props: BaseSelectProps) => {
         {...rest}
     >
         {options.map((option)=>{
-            console.log(option)
             return <MenuItem key={option.label} value={JSON.stringify(option.value)}>
                 {option.label}
             </MenuItem>

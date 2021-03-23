@@ -1,15 +1,18 @@
-import { Deployment } from "app/models";
+import { Workspace } from "app/models";
+import { observable } from "mobx";
 import { BaseModel } from "app/models/Base";
 
 
 interface metricsData_i {
-    cpu: number
-    memory: number
+    cpu: string
+    memory: string
+    storage: string
+    status: string
 }
 
-export class DeploymentMetrics extends BaseModel<metricsData_i>{
+export class WorkspaceMetrics extends BaseModel<metricsData_i>{
 
-    constructor(public deployment: Deployment) {
+    constructor(public workspace: Workspace) {
         super()
     }
 
@@ -32,18 +35,22 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
         return this.data.cpu
     }
 
+    get storage(){
+        // 1000m = 1 cpu core
+        return this.data.storage
+    }
+
     get cpuChart() {
         return {
             data: [{
                 value: this.cpu,
                 gauge: {
-                    axis: { range: [0, 100]},
+                    axis: { range: [0, 100] },
                 },
                 number: { suffix: "%" },
                 title: { text: "CPU Usage" },
                 type: "indicator",
-                mode: "gauge+number",
-
+                mode: "gauge+number"
             }]
         }
     }
@@ -63,10 +70,25 @@ export class DeploymentMetrics extends BaseModel<metricsData_i>{
         }
     }
 
+    get storageChart() {
+        return {
+            data: [{
+                value: this.storage,
+                gauge: {
+                    axis: { range: [0, 100] },
+                },
+                number: { suffix: "%" },
+                title: { text: "Storage Usage" },
+                type: "indicator",
+                mode: "gauge+number"
+            }]
+        }
+    }
+
     public async load() {
-        const did = this.deployment.id
-        const wid = this.deployment.deployments.workspace.id
-        await super.load(`/api/workspaces/${wid}/deployments/${did}/metrics`)
+        const wid = this.workspace.id
+        await super.load(`/api/workspaces/${wid}/metrics`)
+        console.log("joking reeee")
         console.log(this.responseData)
     }
 }

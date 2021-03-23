@@ -15,7 +15,7 @@ export const BaseFAB = (props: {
     children: React.ReactElement
 }) => {
     const { onClick, children } = props
-    return <Fab color="secondary" aria-label="add" style={{
+    return <Fab color="primary" aria-label="add" style={{
         position: "absolute",
         bottom: "40px",
         right: "50px"

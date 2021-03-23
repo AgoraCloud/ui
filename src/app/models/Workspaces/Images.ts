@@ -25,7 +25,5 @@ export class DeploymentImages extends BaseModel<images_i[]>{
     public async load (){
         const wid = this.workspace.id
         await super.load(`/api/workspaces/${wid}/deployments/images`)
-        console.log(JSON.stringify(this.responseData))
-        console.log(this.images)
     }
 }

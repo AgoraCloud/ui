@@ -2,6 +2,7 @@ import { RootStore } from 'app/stores/RootStore';
 import { observable, computed } from 'mobx';
 import { Workspaces, Workspace } from 'app/models';
 import { CreateWorkspaceFormModel } from 'app/forms';
+import { events, eventTypes } from 'app/constants';
 
 export class WorkspacesStore {
 
@@ -10,16 +11,23 @@ export class WorkspacesStore {
    @observable _selectedWorkspace: Workspace
    @observable createWorkspaceForm: CreateWorkspaceFormModel
 
-
+   @observable wikiEdit: boolean
    constructor(private rootStore: RootStore) {
       this.workspaces = new Workspaces(this)
       this.createWorkspaceForm = new CreateWorkspaceFormModel()
       // this.load()
+      this.wikiEdit = false
+
+      this.initEvents()
    }
 
 
    get createDeploymentForm(){
       return this.selectedWorkspace.createDeploymentForm
+   }
+
+   get createProjectForm(){
+      return this.selectedWorkspace.createProjectForm
    }
 
    get state(){
@@ -47,6 +55,25 @@ export class WorkspacesStore {
          // const page = section?.wikiPages.getById(pageid)
    
          return deployment
+   
+      }catch(e){
+         return undefined
+      }
+   }
+
+   @computed
+   get selectedProject(){
+      this.workspaces.workspaces
+      const pathname = this.rootStore.routerStore.location.pathname
+      try{
+         const matches = pathname.match(/\/w\/(?<wid>[a-zA-Z0-9]{24})\/p\/(?<pid>[a-zA-Z0-9]{24})/)
+         const {wid, pid} = matches?.groups as any
+   
+         const workspace = this.workspaces.getById(wid)
+         const project = workspace?.projects?.getById(pid)
+         // const page = section?.wikiPages.getById(pageid)
+   
+         return project
    
       }catch(e){
          return undefined
@@ -98,17 +125,10 @@ export class WorkspacesStore {
       const form = this.createWorkspaceForm
       const successful = await form.submit()
       if (successful) {
-         this.rootStore.snackbarStore.push({
-            message: 'Success: Workspace Created!',
-            variant: 'success'
-         })
+         events.emit(eventTypes.WORKSPACE_CRUD, 'created')
          form.reset()
-         this.load()
       } else {
-         this.rootStore.snackbarStore.push({
-            message: 'Failure: ' + form.message,
-            variant: 'error'
-         })
+         events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
       return successful
    }
@@ -117,17 +137,9 @@ export class WorkspacesStore {
       const form = this.selectedWorkspace.updateWorkspaceForm
       const successful = await form.submit(this.selectedWorkspace.id)
       if (successful) {
-         this.rootStore.snackbarStore.push({
-            message: 'Success: Workspace Updated!',
-            variant: 'success'
-         })
-         
-         this.load()
+         events.emit(eventTypes.WORKSPACE_CRUD, 'updated')
       } else {
-         this.rootStore.snackbarStore.push({
-            message: 'Failure: ' + form.message,
-            variant: 'error'
-         })
+         events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
       return successful
    }
@@ -136,19 +148,18 @@ export class WorkspacesStore {
       const form = this.selectedWorkspace.updateWorkspaceForm
       const successful = await form.delete(this.selectedWorkspace.id)
       if (successful) {
-         this.rootStore.snackbarStore.push({
-            message: 'Success: Workspace Deleted!',
-            variant: 'success'
-         })
-         
-         this.load()
+         events.emit(eventTypes.WORKSPACE_CRUD, 'deleted')
       } else {
-         this.rootStore.snackbarStore.push({
-            message: 'Failure: ' + form.message,
-            variant: 'error'
-         })
+         events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
       return successful
+   }
+
+
+   initEvents = () => {
+      events.on(eventTypes.WORKSPACE_CRUD, ()=>{
+         this.load()
+      })
    }
 
 }
