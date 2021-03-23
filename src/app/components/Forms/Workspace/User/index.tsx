@@ -31,7 +31,7 @@ export const UpdateUserForm = inject(USER_STORE, ROUTER_STORE)(observer((props) 
             onChange={form.onInputChange("fullName")}
             error={form.getError("fullName") != undefined && form.data["fullName"] != ""}
             helperText={form.data["fullName"] != "" ? form.getError("fullName") : undefined} // to be implemented (currently all errors are just 'error')
-            defaultValue={store.userFullName}
+            defaultValue={store.user.fullName}
             //value={form.data["fullName"]}
             variant="outlined"
             margin="dense"

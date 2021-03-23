@@ -2,33 +2,31 @@ import { RootStore } from 'app/stores/RootStore';
 import { observable } from 'mobx';
 import { User } from 'app/models';
 import { UpdateUserFormModel } from 'app/forms/User';
+import { events, eventTypes } from 'app/constants';
 
 export class UserStore {
 
 
    @observable user: User
    @observable updateUserForm: UpdateUserFormModel
-   @observable state: 'loading' | 'loaded' | 'unloaded'
 
 
    constructor(private rootStore: RootStore) {
       this.user = new User()
-      this.state = 'unloaded'
       this.updateUserForm = new UpdateUserFormModel()
       // this.updateUserForm = new UpdateUserFormModel(this.user)
       //this.load()
+      events.on(eventTypes.USER_CRUD, ()=>{
+         this.load()
+      })
    }
 
-
+   get state(){
+      return this.user.state
+   }
 
    load = async () => {
-      this.state = 'loading'
       await this.user.load()
-      this.state = 'loaded'
-   }
-
-   get userFullName(){
-       return this.user.fullname
    }
 
    
@@ -36,16 +34,9 @@ export class UserStore {
       const form = this.updateUserForm
       const successful = await form.submit()
       if (successful) {
-         this.rootStore.snackbarStore.push({
-            message: 'Success: Information Updated!',
-            variant: 'success'
-         })
-         this.load()
+         events.emit(eventTypes.USER_CRUD, 'updated')
       } else {
-         this.rootStore.snackbarStore.push({
-            message: 'Failure: ' + form.message,
-            variant: 'error'
-         })
+         events.emit(eventTypes.USER_ERR, form.message)
       }
       return successful
    }

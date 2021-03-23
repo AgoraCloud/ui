@@ -1,5 +1,6 @@
 import { observable } from "mobx"
 import { UpdateUserFormModel } from "app/forms/User"
+import { BaseModel, BaseModelItem, BaseModelCollection } from "app/models/Base"
 // import { BaseModel } from "../Base"
 
 // interface userData_i{
@@ -11,46 +12,49 @@ import { UpdateUserFormModel } from "app/forms/User"
 
 // export class User extends BaseModel<userData_i> {
 
-export class User {
+
+interface user_i {
+    email: string
+    fullName: string
+    id: string
+}
+
+export class User extends BaseModel<user_i>{
     /**
      * A user
      */
 
-     @observable fullName: String
-     @observable state: 'loaded'|'error'|'loading'|'unloaded'
-    //  @observable updateUserForm: UpdateUserFormModel
-     updateUserForm: UpdateUserFormModel
-     constructor(){
-        // super()
-        this.fullName = ''
-        this.state = 'unloaded'
-        // this.updateUserForm = new UpdateUserFormModel(this)
+    updateUserForm: UpdateUserFormModel
+    constructor() {
+        super()
         this.updateUserForm = new UpdateUserFormModel()
-     }
-
-    //  load = async ( ) => {
-    //     await super.load("/api/user")
-    // }
-
-    load = async ( ) => {
-        this.state = 'loading'
-        const response = await fetch('/api/user', {
-
-        })
-
-        const data = await response.json()
-        console.log("user", response, data)
-        this.fullName = data.fullName
-        this.state = 'loaded'
+    }
+    get fullName() {
+        return this.responseData.fullName
     }
 
+    public async load() {
+        await super.load('/api/user')
+    }
 
-
-    //  get fullname(){
-    //      return this.responseData.fullName
-    //  }
-
-     get fullname(){
+    get fullname() {
         return this.fullName
     }
+}
+
+
+export class UsersModel extends BaseModelCollection<UserModel>{
+
+
+    public async load() {
+        await super.load('/api/users')
+    }
+}
+
+interface userModel_i extends user_i {
+    isEnabled: boolean
+    isVerified: boolean
+}
+export class UserModel extends BaseModelItem<userModel_i>{
+
 }

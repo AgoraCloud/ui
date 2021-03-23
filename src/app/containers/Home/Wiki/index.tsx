@@ -107,16 +107,16 @@ export const WikiSections = () => {
     return null
 }
 
-const path = `/w/:wid/wiki`
+const path = `/w/:wid/wiki/`
 export const WikiRoutes = () => {
     return <HomeWrapperBase>
         <WikiList />
         <Switch>
-            <Route path={`${path}/:sectionId/pages/:pageId/`} component={WikiPage} />
+            <Route path={`${path}:sectionId/pages/:pageId/`} component={WikiPage} />
             {/* <Route path={`${path}/:sectionId/pages/new`} component={WikiCreatePage} /> */}
-            <Route path={`${path}/:sectionId/pages`} component={WikiPages} />
+            <Route path={`${path}:sectionId/pages`} component={WikiPages} />
             {/* <Route path={`${path}/new`} component={WikiCreateSection} /> */}
-            <Route path={`${path}/`} component={WikiSections} />
+            <Route path={`${path}`} component={WikiSections} />
         </Switch>
     </HomeWrapperBase>
 }

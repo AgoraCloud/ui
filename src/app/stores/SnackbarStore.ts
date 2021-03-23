@@ -54,5 +54,12 @@ export class SnackbarStore{
         events.on(eventTypes.WORKSPACE_ERR, (data)=>{
             this.push({message: `Workspace Failure: ${data}`, variant: 'error'})
         })
+
+        events.on(eventTypes.USER_CRUD, (data)=>{
+            this.push({message: `User successfully ${data}`, variant: 'success'})
+        })
+        events.on(eventTypes.USER_ERR, (data)=>{
+            this.push({message: `User Failure: ${data}`, variant: 'error'})
+        })
     }
 }

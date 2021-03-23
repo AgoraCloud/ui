@@ -10,6 +10,8 @@ export const eventTypes = {
     DEPLOYMENT_ERR: 'DEPLOYMENT_CRUD',
     WIKI_CRUD: 'WIKI_CRUD',
     WIKI_ERR: 'WIKI_CRUD',
+    USER_CRUD: 'USER_CRUD',
+    USER_ERR: 'USER_ERR'
     
 }
 

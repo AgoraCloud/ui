@@ -17,6 +17,7 @@ import { WikiRoutes } from "app/containers/Home/Wiki";
 import { DeploymentProxy } from "app/containers/Home/Deployments/Proxy";
 import { DeploymentInfoPage } from "./containers/Home/Deployments/Info";
 import { WorkspaceMetricsPage } from "./containers/Home/WorkspaceMetrics"
+import { AdminRoutes } from "./containers/Admin";
 
 
 // http://localhost:3000/verify-account?token=60142f350efcef0018872610
@@ -42,6 +43,7 @@ export const App = hot(({ history }: any) => (
       <DeploymentLoaded path="/w/:wid/d/:did/edit" component={EditDeployment} />
       <DeploymentLoaded path="/w/:wid/d/:did/" component={DeploymentProxy} />
       <WorkspacesLoaded path="/w/:wid" component={Home} />
+      <AuthedRoute path="/admin" component={AdminRoutes} />
       <UserLoaded path="/edit-profile" component={UserProfile} />
       <AuthedRoute path="" component={FirstWorkspaceRedirect} />
     </Switch>

@@ -186,14 +186,14 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://localhost:3001',
+        target: 'https://agoracloud.civo.saidghamra.com',
         changeOrigin: true,
         secure: false,
         ws: true,
         "logLevel": "info",
       },
       '/proxy': {
-        target: 'http://localhost:3001',
+        target: 'https://agoracloud.civo.saidghamra.com',
         changeOrigin: true,
         secure: false,
         ws: true,
