@@ -2,7 +2,6 @@ import * as React from 'react'
 import * as style from './style.scss'
 import { Switch, Route } from "react-router";
 import { HomeWrapperBase } from 'app/containers/Home';
-import { AddFAB } from 'app/components/Inputs';
 import { WikiList } from './List';
 import { WORKSPACES_STORE } from 'app/constants';
 import { observer, inject } from 'mobx-react';
@@ -102,28 +101,10 @@ export const WikiPage = inject(WORKSPACES_STORE)(observer((props) => {
 }))
 
 export const WikiPages = () => {
-    return <div>
-        wiki pages
-    </div>
+    return null
 }
 export const WikiSections = () => {
-    return <div>
-        {/* <WikiList/> */}
-        <AddFAB link={'wiki.link'} />
-    </div>
-}
-
-
-export const WikiCreateSection = () => {
-    return <div>
-        create wiki section
-    </div>
-}
-
-export const WikiCreatePage = () => {
-    return <div>
-        create wiki page
-    </div>
+    return null
 }
 
 const path = `/w/:wid/wiki`
@@ -132,9 +113,9 @@ export const WikiRoutes = () => {
         <WikiList />
         <Switch>
             <Route path={`${path}/:sectionId/pages/:pageId/`} component={WikiPage} />
-            <Route path={`${path}/:sectionId/pages/new`} component={WikiCreatePage} />
+            {/* <Route path={`${path}/:sectionId/pages/new`} component={WikiCreatePage} /> */}
             <Route path={`${path}/:sectionId/pages`} component={WikiPages} />
-            <Route path={`${path}/new`} component={WikiCreateSection} />
+            {/* <Route path={`${path}/new`} component={WikiCreateSection} /> */}
             <Route path={`${path}/`} component={WikiSections} />
         </Switch>
     </HomeWrapperBase>

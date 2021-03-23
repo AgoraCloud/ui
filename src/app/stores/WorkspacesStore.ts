@@ -2,6 +2,7 @@ import { RootStore } from 'app/stores/RootStore';
 import { observable, computed } from 'mobx';
 import { Workspaces, Workspace } from 'app/models';
 import { CreateWorkspaceFormModel } from 'app/forms';
+import { events, eventTypes } from 'app/constants';
 
 export class WorkspacesStore {
 
@@ -16,6 +17,8 @@ export class WorkspacesStore {
       this.createWorkspaceForm = new CreateWorkspaceFormModel()
       // this.load()
       this.wikiEdit = false
+
+      this.initEvents()
    }
 
 
@@ -122,17 +125,10 @@ export class WorkspacesStore {
       const form = this.createWorkspaceForm
       const successful = await form.submit()
       if (successful) {
-         this.rootStore.snackbarStore.push({
-            message: 'Success: Workspace Created!',
-            variant: 'success'
-         })
+         events.emit(eventTypes.WORKSPACE_CRUD, 'created')
          form.reset()
-         this.load()
       } else {
-         this.rootStore.snackbarStore.push({
-            message: 'Failure: ' + form.message,
-            variant: 'error'
-         })
+         events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
       return successful
    }
@@ -141,17 +137,9 @@ export class WorkspacesStore {
       const form = this.selectedWorkspace.updateWorkspaceForm
       const successful = await form.submit(this.selectedWorkspace.id)
       if (successful) {
-         this.rootStore.snackbarStore.push({
-            message: 'Success: Workspace Updated!',
-            variant: 'success'
-         })
-         
-         this.load()
+         events.emit(eventTypes.WORKSPACE_CRUD, 'updated')
       } else {
-         this.rootStore.snackbarStore.push({
-            message: 'Failure: ' + form.message,
-            variant: 'error'
-         })
+         events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
       return successful
    }
@@ -160,19 +148,18 @@ export class WorkspacesStore {
       const form = this.selectedWorkspace.updateWorkspaceForm
       const successful = await form.delete(this.selectedWorkspace.id)
       if (successful) {
-         this.rootStore.snackbarStore.push({
-            message: 'Success: Workspace Deleted!',
-            variant: 'success'
-         })
-         
-         this.load()
+         events.emit(eventTypes.WORKSPACE_CRUD, 'deleted')
       } else {
-         this.rootStore.snackbarStore.push({
-            message: 'Failure: ' + form.message,
-            variant: 'error'
-         })
+         events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
       return successful
+   }
+
+
+   initEvents = () => {
+      events.on(eventTypes.WORKSPACE_CRUD, ()=>{
+         this.load()
+      })
    }
 
 }

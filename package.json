@@ -58,6 +58,7 @@
     "@types/jest": "^24.0.15",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
+    "events": "^3.3.0",
     "mobx": "^5.11.0",
     "mobx-persist": "^0.4.1",
     "mobx-react": "^6.1.1",

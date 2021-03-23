@@ -4,6 +4,7 @@ import { EditDeploymentFormModel } from "app/forms/Workspace/Deployments/CreateD
 import { BaseModelCollection, BaseModelItem } from "app/models/Base"
 import { DeploymentMetrics } from "./Metrics"
 import { DeploymentLogs } from "./Logs"
+import { events, eventTypes } from "app/constants"
 
 export class Deployments extends BaseModelCollection<Deployment>{
     /**
@@ -13,8 +14,16 @@ export class Deployments extends BaseModelCollection<Deployment>{
     constructor(public workspace: Workspace) {
         super(Deployment)
 
-        const wid = this.workspace.id
-        this.load(`/api/workspaces/${wid}/deployments`)
+        this.load()
+
+        events.on(eventTypes.DEPLOYMENT_CRUD, () => {
+            this.load()
+        })
+    }
+
+
+    public async load() {
+        await super.load(`${this.workspace.api}deployments`)
     }
 
     @computed
@@ -95,9 +104,11 @@ export class Deployment extends BaseModelItem<deploymentData_i>{
         try {
             const wid = this.deployments.workspace.id
             const did = this.id
-            const res = await fetch(`api/workspaces/${wid}/deployments/${did}`, {method: 'DELETE'})
+            const res = await fetch(`api/workspaces/${wid}/deployments/${did}`, { method: 'DELETE' })
+            events.emit(eventTypes.DEPLOYMENT_CRUD, 'deleted')
         } catch (e) {
             console.warn(e)
+            events.emit(eventTypes.DEPLOYMENT_ERR, 'failed to delete')
         }
     }
 
