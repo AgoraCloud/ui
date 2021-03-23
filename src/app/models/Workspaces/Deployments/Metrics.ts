@@ -1,5 +1,4 @@
 import { Deployment } from "app/models";
-import { observable } from "mobx";
 import { BaseModel } from "app/models/Base";
 
 
