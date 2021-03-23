@@ -21,7 +21,7 @@ interface user_i {
 
 export class User extends BaseModel<user_i>{
     /**
-     * A user
+     * logged in user
      */
 
     updateUserForm: UpdateUserFormModel
@@ -44,10 +44,22 @@ export class User extends BaseModel<user_i>{
 
 
 export class UsersModel extends BaseModelCollection<UserModel>{
-
-
+    /**
+     * collection of users
+     */
+    constructor(){
+        super(UserModel)
+        this.load()
+    }
+    
     public async load() {
         await super.load('/api/users')
+        console.log(this.response, this.responseData)
+    }
+
+
+    get users(){
+        return this.collection
     }
 }
 
@@ -56,5 +68,20 @@ interface userModel_i extends user_i {
     isVerified: boolean
 }
 export class UserModel extends BaseModelItem<userModel_i>{
+    /**
+     * user as seen by admin
+     */
 
+     get email(){
+         return this.data.email
+     }
+     get fullName(){
+         return this.data.fullName
+     }
+     get isEnabled(){
+         return this.data.isEnabled
+     }
+     get isVerified(){
+         return this.data.isVerified
+     }
 }

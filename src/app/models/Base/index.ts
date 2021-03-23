@@ -51,7 +51,7 @@ export class BaseModelCollection<C extends BaseModelItem<any>> extends BaseModel
 
         if (this.response.status >= 200 && this.response.status < 300) {
             this.collection = this.responseData.map((data) => new this.ItemModel(this, data))
-            console.log(url, this.collection)
+            // console.log(url, this.collection)
             this.state = 'loaded'
         } else {
             this.state = 'error'
