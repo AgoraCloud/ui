@@ -6,7 +6,7 @@ import { MoreMenu } from 'app/components/Inputs'
 import { AddFAB } from 'app/components/Inputs'
 import { HomeWrapper } from 'app/containers/Home';
 import { Typography } from '@material-ui/core'
-import {ConfirmDeleteDialog} from 'app/components/Inputs'
+import { ConfirmDeleteDialog } from 'app/components/Inputs'
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 
@@ -57,98 +57,99 @@ const useStyles = makeStyles({
 
 export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE, UI_STORE)(observer((props) => {
 
-    const store = props[WORKSPACES_STORE] as WorkspacesStore
-    const routerStore = props[ROUTER_STORE] as RouterStore
-    const uistore = props[UI_STORE] as UIStore
-    const workspace = store.selectedWorkspace
-    const projects = workspace.projects.projects
-    const classes = useStyles();
-    var rows: Data[] = [];
+  const store = props[WORKSPACES_STORE] as WorkspacesStore
+  const routerStore = props[ROUTER_STORE] as RouterStore
+  const uistore = props[UI_STORE] as UIStore
+  const workspace = store.selectedWorkspace
+  const projects = workspace.projects.projects
+  const classes = useStyles();
+  var rows: Data[] = [];
 
-    projects.forEach((project) => (
-        rows.push({id: project.data.id, name: <Link href="/" color="inherit"> {project.data.name} </Link>, description: project.data.description, edit: <MoreMenu options={[
-          {
-              name: "Edit",
-              onClick: () => {
-                  routerStore.push(project.link + 'edit/')
-                 
-              }
-          },
-          {
-              name: "Delete",
-              onClick: () => {
-                  uistore.setDeleteTarget(project.name, project.delete)
-              }
+  projects.forEach((project) => (
+    rows.push({
+      id: project.data.id, name: <Link href="/" color="inherit"> {project.data.name} </Link>, description: project.data.description, edit: <MoreMenu options={[
+        {
+          name: "Edit",
+          onClick: () => {
+            routerStore.push(project.link + 'edit/')
+
           }
-        ]} />
-        })
-    ))
+        },
+        {
+          name: "Delete",
+          onClick: () => {
+            uistore.setDeleteTarget(project.name, project.delete)
+          }
+        }
+      ]} />
+    })
+  ))
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-      setPage(newPage);
-    };
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setRowsPerPage(+event.target.value);
-      setPage(0);
-    };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
-    return <HomeWrapper>
-      <Typography variant="h4" className={classes.heading}>
-          Projects
+  return <HomeWrapper>
+    <Typography variant="h4" className={classes.heading}>
+      Projects
       </Typography>
-      <Button variant="contained" color="primary" style={{ position: "absolute", top: "88px", right: "20px" }} onClick={() => { routerStore.push(workspace.link + 'p/new')}}>
+    {/* <Button variant="contained" color="primary" style={{ position: "absolute", top: "88px", right: "20px" }} onClick={() => { routerStore.push(workspace.link + 'p/new')}}>
         New Project
-      </Button>
-      <Paper className={classes.root}>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number' ? column.format(value) : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <ConfirmDeleteDialog />
-      <AddFAB link={workspace.link + 'p/new'} />
-    </HomeWrapper>
+      </Button> */}
+    <Paper className={classes.root}>
+      <TableContainer className={classes.container}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+              return (
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                  {columns.map((column) => {
+                    const value = row[column.id];
+                    return (
+                      <TableCell key={column.id} align={column.align}>
+                        {column.format && typeof value === 'number' ? column.format(value) : value}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
+    </Paper>
+    <ConfirmDeleteDialog />
+    <AddFAB link={workspace.link + 'p/new'} />
+  </HomeWrapper>
 }))
 
