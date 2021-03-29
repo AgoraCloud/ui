@@ -1,5 +1,6 @@
 import { observable, computed } from "mobx"
 import { Workspace } from ".."
+import { Lanes } from "./Lanes"
 import { EditProjectFormModel } from "app/forms/Workspace/Projects/CreateProject"
 import { BaseModelCollection, BaseModelItem } from "app/models/Base"
 
@@ -51,9 +52,12 @@ export class Project extends BaseModelItem<projectData_i>{
     /**
      * A single project
      */
+
+    lanes: Lanes
     @observable form: EditProjectFormModel
     constructor(public projects: Projects, public data: projectData_i) {
         super(projects, data)
+        this.lanes = new Lanes(this, this.projects.workspace)
         this.form = new EditProjectFormModel(this)
         this.form.fromDB(data as any)
     }
