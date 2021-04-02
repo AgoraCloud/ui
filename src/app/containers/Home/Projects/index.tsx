@@ -67,7 +67,7 @@ export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE, UI_STORE)(obse
 
   projects.forEach((project) => (
     rows.push({
-      id: project.data.id, name: <Link href="/" color="inherit"> {project.data.name} </Link>, description: project.data.description, edit: <MoreMenu options={[
+      id: project.data.id, name: <Button style={{textTransform: 'none'}} onClick={()=>{routerStore.push(workspace.link + 'p/' + project.id + '/lanes')}} color="inherit"> {project.data.name} </Button>, description: project.data.description, edit: <MoreMenu options={[
         {
           name: "Edit",
           onClick: () => {

@@ -1,6 +1,7 @@
 import { BaseFormModel } from 'app/forms/Base';
 import { CreateProjectDto, UpdateProjectDto } from 'app/forms/validators';
 import { Workspace, Project } from 'app/models';
+import { events, eventTypes } from "app/constants"
 
 interface createProjectForm_i {
     name: string
@@ -20,7 +21,9 @@ export class CreateProjectFormModel extends BaseFormModel<createProjectForm_i, c
 
     public async submit() {
         const wid = this.workspace.id
-        return await super.call(`/api/workspaces/${wid}/projects`)
+        const res = await super.call(`/api/workspaces/${wid}/projects`)
+        res && events.emit(eventTypes.PROJECT_CRUD, 'created') 
+        return res
     }
 
     reset = () => {
@@ -48,7 +51,9 @@ export class EditProjectFormModel extends BaseFormModel<updateProjectForm_i, upd
     submit = async () => {
         const wid = this.project.projects.workspace.id
         const pid = this.project.id
-        return await super.call(`/api/workspaces/${wid}/projects/${pid}`, { method: 'PUT' })
+        const res = await super.call(`/api/workspaces/${wid}/projects/${pid}`, { method: 'PUT' })
+        res && events.emit(eventTypes.PROJECT_CRUD, 'updated') 
+        return res
     }
 
     reset = () => {

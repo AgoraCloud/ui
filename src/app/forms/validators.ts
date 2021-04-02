@@ -319,8 +319,19 @@ export class UpdateProjectDto {
   readonly name: string;
 
   @IsString()
-  @IsNotEmpty()
   @MinLength(1)
   @IsOptional()
   readonly description?: string;
+}
+
+export class CreateProjectLaneDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly name: string;
+}
+
+export class UpdateProjectLaneDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly name: string;
 }

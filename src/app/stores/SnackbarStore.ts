@@ -48,6 +48,18 @@ export class SnackbarStore{
         events.on(eventTypes.DEPLOYMENT_CRUD, (data)=>{
             this.push({message: `Deployment Failure: ${data}`, variant: 'error'})
         })
+        events.on(eventTypes.PROJECT_CRUD, (data)=>{
+            this.push({message: `Project successfully ${data}`, variant: 'success'})
+        })
+        events.on(eventTypes.PROJECT_ERR, (data)=>{
+            this.push({message: `Project Failure: ${data}`, variant: 'error'})
+        })
+        events.on(eventTypes.PROJECT_LANE_CRUD, (data)=>{
+            this.push({message: `Lane successfully ${data}`, variant: 'success'})
+        })
+        events.on(eventTypes.PROJECT_LANE_ERR, (data)=>{
+            this.push({message: `Lane Failure: ${data}`, variant: 'error'})
+        })
         events.on(eventTypes.WORKSPACE_CRUD, (data)=>{
             this.push({message: `Workspace successfully ${data}`, variant: 'success'})
         })

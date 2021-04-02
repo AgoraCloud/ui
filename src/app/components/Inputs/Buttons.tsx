@@ -40,6 +40,15 @@ export const AddFAB = inject(ROUTER_STORE)(observer((props: {
     </BaseFAB>
 }))
 
+export const AddLaneFAB = (props: {onClick: () => any}) => {
+    const { onClick } = props
+    return <BaseFAB
+        onClick={onClick}
+    >
+        <AddIcon />
+    </BaseFAB>
+}
+
 
 
 interface LinkButtonProps extends ButtonProps {
