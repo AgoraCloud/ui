@@ -320,7 +320,6 @@ export class UpdateProjectDto {
   readonly name: string;
 
   @IsString()
-  @IsNotEmpty()
   @MinLength(1)
   @IsOptional()
   readonly description?: string;
@@ -329,13 +328,11 @@ export class UpdateProjectDto {
 export class CreateProjectLaneDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(1)
   readonly name: string;
 }
 
 export class UpdateProjectLaneDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(1)
   readonly name: string;
 }

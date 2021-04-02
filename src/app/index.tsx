@@ -13,7 +13,7 @@ import { FirstWorkspace } from "app/containers/Home/FirstWorkspace";
 import { CreateDeployment, EditDeployment } from "app/containers/Home/Deployments/CreateDeployment";
 import { CreateProject, EditProject } from "app/containers/Home/Projects/CreateProject";
 import { Lanes } from "app/containers/Home/Projects/Lanes";
-import { WorkspacesLoaded, DeploymentLoaded, ProjectLoaded } from "app/components/RouteGuards/Workspaces";
+import { WorkspacesLoaded, DeploymentLoaded, ProjectsLoaded, LanesLoaded } from "app/components/RouteGuards/Workspaces";
 import { WikiRoutes } from "app/containers/Home/Wiki";
 import { DeploymentProxy } from "app/containers/Home/Deployments/Proxy";
 import { DeploymentInfoPage } from "./containers/Home/Deployments/Info";
@@ -36,12 +36,10 @@ export const App = hot(({ history }: any) => (
       <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
       <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
       <WorkspacesLoaded path="/w/:wid/metrics" component={WorkspaceMetricsPage} />
-      <ProjectLoaded path="/w/:wid/projects" component={ProjectList} />
-      <ProjectLoaded path="/w/:wid/p/new" component={CreateProject} />
-      <ProjectLoaded path="/w/:wid/p/:pid/edit" component={EditProject} />
-      <ProjectLoaded path="/w/:wid/p/:pid/lanes" component={Lanes} />
-      <ProjectLoaded path="/w/:wid/p/:pid/l/new" component={null} />
-      <ProjectLoaded path="/w/:wid/p/:pid/l/:lid/edit" component={null} />
+      <ProjectsLoaded path="/w/:wid/projects" component={ProjectList} />
+      <ProjectsLoaded path="/w/:wid/p/new" component={CreateProject} />
+      <ProjectsLoaded path="/w/:wid/p/:pid/edit" component={EditProject} />
+      <LanesLoaded path="/w/:wid/p/:pid/lanes" component={Lanes} />
       <WorkspacesLoaded path="/w/:wid/edit-workspace" component={UpdateWorkspace} />
       <DeploymentLoaded path="/w/:wid/d/:did/info" component={DeploymentInfoPage}/>
       <DeploymentLoaded path="/w/:wid/d/:did/edit" component={EditDeployment} />

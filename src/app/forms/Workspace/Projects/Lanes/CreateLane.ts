@@ -1,6 +1,7 @@
 import { BaseFormModel } from 'app/forms/Base';
 import { CreateProjectLaneDto, UpdateProjectLaneDto } from 'app/forms/validators';
 import { Workspace, Project, Lane } from 'app/models';
+import { events, eventTypes } from "app/constants"
 
 interface createLaneForm_i {
     name: string
@@ -19,7 +20,9 @@ export class CreateLaneFormModel extends BaseFormModel<createLaneForm_i, createL
     public async submit() {
         const wid = this.workspace.id
         const pid = this.project.id
-        return await super.call(`/api/workspaces/${wid}/projects/${pid}/lanes`)
+        const res = await super.call(`/api/workspaces/${wid}/projects/${pid}/lanes`)
+        res && events.emit(eventTypes.PROJECT_LANE_CRUD, 'created') 
+        return res
     }
 
     reset = () => {
@@ -45,10 +48,8 @@ export class EditLaneFormModel extends BaseFormModel<updateLaneForm_i, updateLan
         const wid = this.project.projects.workspace.id
         const pid = this.project.id
         const lid = this.lane.id
-        return await super.call(`/api/workspaces/${wid}/projects/${pid}/lanes/${lid}`, { method: 'PUT' })
-    }
-
-    reset = () => {
-        this.data.name = ""
+        const res = await super.call(`/api/workspaces/${wid}/projects/${pid}/lanes/${lid}`, { method: 'PUT' })
+        res && events.emit(eventTypes.PROJECT_LANE_CRUD, 'updated') 
+        return res
     }
 }

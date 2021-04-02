@@ -3,16 +3,26 @@ import { Workspace } from "../.."
 import { Project } from ".."
 import { EditLaneFormModel } from "app/forms/Workspace/Projects/Lanes/CreateLane"
 import { BaseModelCollection, BaseModelItem } from "app/models/Base"
+import { events, eventTypes } from "app/constants"
 
 export class Lanes extends BaseModelCollection<Lane>{
 
     constructor(public project: Project, public workspace: Workspace) {
         super(Lane)
 
-        const wid = this.workspace.id
-        const pid = this.project.id
-        this.load(`/api/workspaces/${wid}/projects/${pid}/lanes`)
+        this.load()
+
+        events.on(eventTypes.PROJECT_LANE_CRUD, () => {
+            this.project.projects.load()
+            this.load()
+        })
     }
+
+    public async load() {
+      const wid = this.workspace.id
+      const pid = this.project.id
+      await super.load(`/api/workspaces/${wid}/projects/${pid}/lanes`)
+  }
 
     @computed
     get lanes() {
@@ -106,8 +116,10 @@ export class Lane extends BaseModelItem<laneData_i>{
             const pid = this.lanes.project.id
             const lid = this.id
             const res = await fetch(`api/workspaces/${wid}/projects/${pid}/lanes/${lid}`, {method: 'DELETE'})
+            res && events.emit(eventTypes.PROJECT_LANE_CRUD, 'deleted')
         } catch (e) {
             console.warn(e)
+            events.emit(eventTypes.PROJECT_LANE_ERR, 'failed to delete')
         }
     }
 
