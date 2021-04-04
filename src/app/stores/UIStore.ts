@@ -14,7 +14,6 @@ export class UIStore{
     setDeleteTarget = (name, callBack) => {
         this.confirmDelete = new ConfirmDelete(name, callBack)
         this.open = true
+        this.confirmDelete.dialog.onOpen()
     }
-
-
 }

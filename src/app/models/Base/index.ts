@@ -2,7 +2,7 @@ import { observable, action } from "mobx";
 
 
 export class BaseModel<T extends {id: string}>{
-    @observable state: 'loaded' | 'error' | 'loading' | 'unloaded'
+    @observable state: 'loaded' | 'error' | 'loading' | 'unloaded' | 'reloading'
     @observable response: Response
     @observable options: RequestInit
     @observable responseData: T = {} as T
@@ -45,7 +45,9 @@ export class BaseModelCollection<C extends BaseModelItem<any>> extends BaseModel
 
     public async load(url: string) {
         // await super.load(url) // Can't do this because it sets the loaded flag before it's actually loaded
-        this.state = 'loading'
+        this.state = this.state === 'loaded' ? 'reloading' : 'loading'
+        // this.state = 'loading'
+
         this.response = await fetch(url, this.options)
         this.responseData = await this.response.json()
 
@@ -78,5 +80,22 @@ export class BaseModelItem<T extends { id: string }> {
 
     get id() {
         return this.data.id
+    }
+}
+
+
+
+/**
+ * Playing around with an idea to replace all the fetch functions in the models
+ * ex. Deployment.delete, UserModel.verify...
+ */
+export class ApiCallsBase{
+    meta: any 
+    constructor(url: string){
+        this.meta = {
+            calls: {
+                'DELETE' : {options: {method: 'DELETE'}}
+            }
+        }
     }
 }

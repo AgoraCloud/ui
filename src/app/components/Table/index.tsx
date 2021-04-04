@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Table, Typography, Paper, TableContainer, TableHead, TableRow, TableCell, TableBody, makeStyles, TablePagination } from '@material-ui/core'
+import { Table, Typography, Paper, TableContainer, TableHead, TableRow, TableCell, TableBody, makeStyles, TablePagination, TableCellProps } from '@material-ui/core'
 
 
 
@@ -17,12 +17,12 @@ const useStyles = makeStyles({
 });
 
 
-interface Column {
+interface Column extends TableCellProps{
     id: string;
     label: string;
     minWidth?: number;
-    align?: string; // was throwing an error when defined as 'right'
-    format?: (value: number) => string;
+    // align?: "right" | "inherit" | "left" | "center" | "justify" | undefined; // was throwing an error when defined as 'right'
+    // format?: (value: number) => string;
 }
 
 interface Row{

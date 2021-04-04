@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { CreateDeploymentFormModel, EditDeploymentFormModel } from 'app/forms/Workspace/Deployments/CreateDeployment'
-import { Input, ImageSelect, ResourceInput, CancelCreateButtons, CPUMemoryInput } from 'app/components/Inputs'
+import { Input, ImageSelect, ResourceInput, CancelCreateButtons, CPUMemoryInput, Label } from 'app/components/Inputs'
 import { Typography } from '@material-ui/core'
 import { inject, observer } from 'mobx-react'
 
@@ -12,21 +12,21 @@ export const CreateDeploymentForm = inject(ROUTER_STORE)(observer((props: {form:
     const {form} = props 
     
     return <div>
-        <Typography variant="h6">
+        <Label>
             Deployment Name
-        </Typography>
-        <Input form={form} id="name" label="name" />
-        <Typography variant="h6">
+        </Label>
+        <Input form={form} id="name" label="name" autoComplete='off'/>
+        <Label>
             Sudo Password
-        </Typography>
+        </Label>
         <Input form={form} id="sudoPassword" type="password" label="Sudo Password" autoComplete="current-password" />
-        <Typography variant="h6">
+        <Label>
             Container Image
-        </Typography>
+        </Label>
         <ImageSelect form={form} id="image"/>
-        <Typography variant="h6">
+        <Label>
             Resources
-        </Typography>
+        </Label>
         <Typography variant="body1">
             Specify the maximum amount of resources the deployment can use:
         </Typography>
@@ -48,13 +48,13 @@ export const EditDeploymentForm = inject(ROUTER_STORE)(observer((props: {form: E
     const store = props[ROUTER_STORE] as RouterStore
     const {form} = props 
     return <div>
-        <Typography variant="h6">
+        <Label>
             Deployment Name
-        </Typography>
-        <Input form={form} id="name" label="name" />
-        <Typography variant="h6">
+        </Label>
+        <Input form={form} id="name" label="name" autoComplete='off' />
+        <Label>
             Resources
-        </Typography>
+        </Label>
         <Typography variant="body1">
             Specify the maximum amount of resources the deployment can use:
         </Typography>

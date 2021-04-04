@@ -21,8 +21,8 @@ export class SignupFormModel extends BaseFormModel<signup_i, signup_i>{
     }
 
     reset = () => {
-        this.data.fullName = "",
-        this.data.email = "",
+        this.data.fullName = ""
+        this.data.email = ""
         this.data.password = ""
     }
 }

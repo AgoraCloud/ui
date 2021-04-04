@@ -25,19 +25,29 @@ export const BaseFAB = (props: {
         {children}
     </Fab>
 }
-
+export const AddFABBase = (props: {
+    onClick: () => any
+}) => {
+    const { onClick } = props
+    return <Fab color="primary" aria-label="add" style={{
+        position: "absolute",
+        bottom: "40px",
+        right: "50px"
+    }}
+        onClick={onClick}
+    >
+        <AddIcon />
+    </Fab>
+}
 export const AddFAB = inject(ROUTER_STORE)(observer((props: {
     link: string
 }) => {
     const store = props[ROUTER_STORE] as RouterStore
     const { link } = props
-    return <BaseFAB
+    return <AddFABBase
         onClick={() => {
             store.push(link)
-        }}
-    >
-        <AddIcon />
-    </BaseFAB>
+        }}/>
 }))
 
 
@@ -68,6 +78,7 @@ export const CancelCreateButtons = observer((props: {
     // console.log("isValid2", form.isValid)
 
     const { isValid } = form
+    console.log('is valid', isValid)
     return <div style={{ float: 'right' }}>
         <Button onClick={cancel} color="primary">
             {label1}

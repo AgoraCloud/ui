@@ -12,6 +12,7 @@ import Editor from "@monaco-editor/react";
 import * as monaco from 'monaco-editor'
 import * as Markdown from 'react-markdown';
 import SaveIcon from '@material-ui/icons/Save';
+import { WikiLoaded } from 'app/components/RouteGuards/Workspaces';
 
 
 
@@ -91,7 +92,7 @@ export const WikiPage = inject(WORKSPACES_STORE)(observer((props) => {
     const store = props[WORKSPACES_STORE] as WorkspacesStore
     const page = store.selectedWiki
 
-    // console.log("PAGE", page)
+    console.log("PAGE", page)
     if (page == undefined) {
         return <div>Wiki page not found</div>
     }
@@ -112,7 +113,7 @@ export const WikiRoutes = () => {
     return <HomeWrapperBase>
         <WikiList />
         <Switch>
-            <Route path={`${path}:sectionId/pages/:pageId/`} component={WikiPage} />
+            <WikiLoaded path={`${path}:sectionId/pages/:pageId/`} component={WikiPage} />
             {/* <Route path={`${path}/:sectionId/pages/new`} component={WikiCreatePage} /> */}
             <Route path={`${path}:sectionId/pages`} component={WikiPages} />
             {/* <Route path={`${path}/new`} component={WikiCreateSection} /> */}
