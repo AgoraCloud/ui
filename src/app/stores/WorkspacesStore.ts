@@ -1,6 +1,6 @@
 import { RootStore } from 'app/stores/RootStore';
 import { observable, computed } from 'mobx';
-import { Workspaces, Workspace } from 'app/models';
+import { Workspaces, Workspace, Project } from 'app/models';
 import { CreateWorkspaceFormModel } from 'app/forms';
 import { events, eventTypes } from 'app/constants';
 
@@ -68,14 +68,12 @@ export class WorkspacesStore {
       try{
          const matches = pathname.match(/\/w\/(?<wid>[a-zA-Z0-9]{24})\/p\/(?<pid>[a-zA-Z0-9]{24})/)
          const {wid, pid} = matches?.groups as any
-   
+
          const workspace = this.workspaces.getById(wid)
          const project = workspace?.projects?.getById(pid)
-         // const page = section?.wikiPages.getById(pageid)
-   
          return project
-   
-      }catch(e){
+
+      } catch(e){
          return undefined
       }
    }

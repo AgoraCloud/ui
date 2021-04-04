@@ -46,9 +46,10 @@ export const DeploymentLoaded = inject(WORKSPACES_STORE)(observer((props)=>{
     }
 }))
 
-export const ProjectLoaded = inject(WORKSPACES_STORE)(observer((props)=>{
+export const ProjectsLoaded = inject(WORKSPACES_STORE)(observer((props)=>{
     const store = props[WORKSPACES_STORE] as WorkspacesStore
     const workspace = store.selectedWorkspace
+
     if(workspace == undefined) return null
     switch(workspace.projects.state){
         // case 'unauthed' : return <Redirect to='/login'/>
@@ -68,4 +69,28 @@ export const WikiLoaded = inject(WORKSPACES_STORE)(observer((props)=>{
         case 'loaded' : return <AuthedRoute {...props} />
         default: return null;
     }
+}))
+
+export const LanesLoaded = inject(WORKSPACES_STORE)(observer((props)=>{
+    const store = props[WORKSPACES_STORE] as WorkspacesStore
+    const workspace = store.selectedWorkspace
+    
+    if(workspace == undefined) return null
+    switch(workspace.projects.state){
+        // case 'unauthed' : return <Redirect to='/login'/>
+        case 'loaded' : 
+            const project = store.selectedProject
+            if(project == undefined){
+                console.log('PROJECT UNDEFINED')
+                return null
+            }
+            switch(project.lanes.state){
+                // case 'unauthed' : return <Redirect to='/login'/>
+                case 'loaded' : return <AuthedRoute {...props} />
+                default: return null;
+            }
+
+        default: return null;
+    }  
+
 }))

@@ -4,8 +4,8 @@ import { Input, ImageSelect, ResourceInput, CancelCreateButtons, CPUMemoryInput,
 import { Typography } from '@material-ui/core'
 import { inject, observer } from 'mobx-react'
 
-import { ROUTER_STORE } from 'app/constants'
-import { RouterStore } from 'app/stores'
+import { ROUTER_STORE } from "app/constants";
+import { RouterStore } from "app/stores";
 
 export const CreateDeploymentForm = inject(ROUTER_STORE)(observer((props: {form: CreateDeploymentFormModel}) => {
     const store = props[ROUTER_STORE] as RouterStore
@@ -28,21 +28,23 @@ export const CreateDeploymentForm = inject(ROUTER_STORE)(observer((props: {form:
             Resources
         </Label>
         <Typography variant="body1">
-            Specify the maximum amount of resources the deployment can use:
+          Specify the maximum amount of resources the deployment can use.
         </Typography>
-        <ResourceInput form={form}/>
-        <CancelCreateButtons form={form} cancel={()=>{
-            store.replace(form.workspace.link)
-        }}
-        submit={async ()=>{
-            if(await form.submit()){
-                store.replace(form.workspace.link)
+        <ResourceInput form={form} />
+        <CancelCreateButtons
+          form={form}
+          cancel={() => {
+            store.replace(form.workspace.link);
+          }}
+          submit={async () => {
+            if (await form.submit()) {
+              store.replace(form.workspace.link);
             }
-        }}
+          }}
         />
-    </div>
-}))
-
+      </div>
+  })
+)
 
 export const EditDeploymentForm = inject(ROUTER_STORE)(observer((props: {form: EditDeploymentFormModel}) => {
     const store = props[ROUTER_STORE] as RouterStore
@@ -56,18 +58,21 @@ export const EditDeploymentForm = inject(ROUTER_STORE)(observer((props: {form: E
             Resources
         </Label>
         <Typography variant="body1">
-            Specify the maximum amount of resources the deployment can use:
+          Specify the maximum amount of resources the deployment can use:
         </Typography>
-        <CPUMemoryInput form={form}/>
-        <CancelCreateButtons form={form} cancel={()=>{
-            store.replace(form.workspace.link)
-        }}
-        submit={async ()=>{
-            if(await form.submit()){
-                store.replace(form.workspace.link)
+        <CPUMemoryInput form={form} />
+        <CancelCreateButtons
+          form={form}
+          cancel={() => {
+            store.replace(form.workspace.link);
+          }}
+          submit={async () => {
+            if (await form.submit()) {
+              store.replace(form.workspace.link);
             }
-        }}
-        labels={['Cancel', 'Edit']}
+          }}
+          labels={["Cancel", "Edit"]}
         />
-    </div>
-}))
+      </div>
+  })
+)

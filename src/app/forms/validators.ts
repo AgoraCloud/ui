@@ -1,8 +1,20 @@
 import {
-  IsEmail, IsNotEmpty, IsString, MinLength, registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraint,
-  ValidatorConstraintInterface, IsInt, Min, IsOptional, ValidateNested, IsBoolean
-} from 'class-validator';
-import { Type } from 'class-transformer';
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+  registerDecorator,
+  ValidationArguments,
+  ValidationOptions,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  IsInt,
+  Min,
+  IsOptional,
+  ValidateNested,
+  IsBoolean,
+} from "class-validator";
+import { Type } from "class-transformer";
 import "reflect-metadata";
 
 export function Match(property: string, validationOptions?: ValidationOptions) {
@@ -17,17 +29,14 @@ export function Match(property: string, validationOptions?: ValidationOptions) {
   };
 }
 
-@ValidatorConstraint({ name: 'Match' })
+@ValidatorConstraint({ name: "Match" })
 export class MatchConstraint implements ValidatorConstraintInterface {
-
   validate(value: any, args: ValidationArguments) {
     const [relatedPropertyName] = args.constraints;
     const relatedValue = (args.object as any)[relatedPropertyName];
     return value === relatedValue;
   }
-
 }
-
 
 export class CreateUserDto {
   // constructor(data: any){Object.assign(this, data)}
@@ -46,30 +55,28 @@ export class CreateUserDto {
   readonly password: string;
 }
 
-
-
 export class LoginUserDto {
   @IsEmail()
   readonly email: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(8, { message: "password too short" })
+  @MinLength(8, { message: "Password too short" })
   readonly password: string;
 }
 
 export class ForgotPasswordDto {
   @IsEmail()
-  readonly email: string
+  readonly email: string;
 }
 
 export class ChangePasswordDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(8, { message: "password too short" })
+  @MinLength(8, { message: "Password too short" })
   readonly password: string;
 
-  @Match('password')
+  @Match("password")
   readonly confirmPassword: string;
 }
 
@@ -100,7 +107,7 @@ export class CreateWorkspacePropertiesDto {
 export class CreateWorkspaceDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(4, { message: "name too short" })
+  @MinLength(4, { message: "Name too short" })
   readonly name: string;
 
   @IsOptional()
@@ -149,11 +156,9 @@ export class UpdateWorkspaceDto {
 export class UpdateUserDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(4, { message: "full name too short" })
+  @MinLength(4, { message: "Full name too short" })
   readonly fullName: string;
 }
-
-
 
 // import { deploymentImages } from './../deployment-images';
 // import { DeploymentImage } from './../schemas/deployment.schema';
@@ -180,29 +185,24 @@ export class DeploymentImage {
   }
 }
 
-import {
-  IsDefined,
-  Validate,
-} from 'class-validator';
+import { IsDefined, Validate } from "class-validator";
 
 /**
  * Validates the given deployment image
  */
-@ValidatorConstraint({ name: 'isValidDeploymentImage', async: false })
+@ValidatorConstraint({ name: "isValidDeploymentImage", async: false })
 class IsValidDeploymentImage implements ValidatorConstraintInterface {
   validate(image: DeploymentImage) {
     return (
       image &&
       image.name &&
       image.tag &&
-      deploymentImages.findIndex(
-        (i) => i.name === image.name && i.tag === image.tag,
-      ) !== -1
+      deploymentImages.findIndex((i) => i.name === image.name && i.tag === image.tag) !== -1
     );
   }
 
   defaultMessage() {
-    return 'image is not one of the allowed deployment images';
+    return "Image is not one of the allowed deployment images";
   }
 }
 
@@ -261,7 +261,6 @@ export class CreateDeploymentDto {
   properties: CreateDeploymentPropertiesDto;
 }
 
-
 export class UpdateDeploymentResourcesDto {
   @Min(1)
   @IsInt()
@@ -294,12 +293,10 @@ export class UpdateDeploymentDto {
   properties?: UpdateDeploymentPropertiesDto;
 }
 
-
 export class ConfirmDeleteValidator {
   @IsString()
   @IsNotEmpty()
   name: string;
-
 }
 
 export class CreateProjectDto {
@@ -323,7 +320,6 @@ export class UpdateProjectDto {
   readonly name: string;
 
   @IsString()
-  @IsNotEmpty()
   @MinLength(1)
   @IsOptional()
   readonly description?: string;
@@ -354,4 +350,15 @@ export class AdminUpdateUserDto {
   @IsOptional()
   @IsBoolean()
   readonly isEnabled: boolean
+}
+export class CreateProjectLaneDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly name: string;
+}
+
+export class UpdateProjectLaneDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly name: string;
 }
