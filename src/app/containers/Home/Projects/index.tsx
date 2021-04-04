@@ -5,7 +5,7 @@ import { WorkspacesStore, RouterStore, UIStore } from 'app/stores'
 import { MoreMenu } from 'app/components/Inputs'
 import { AddFAB } from 'app/components/Inputs'
 import { HomeWrapper } from 'app/containers/Home';
-import { Typography } from '@material-ui/core'
+import { Typography, makeStyles } from '@material-ui/core'
 import {ConfirmDeleteDialog} from 'app/components/Dialogs'
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';

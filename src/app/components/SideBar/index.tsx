@@ -177,6 +177,7 @@ export const SideBar = inject(ROUTER_STORE)(
             <ListItem
               button
               component={Link}
+              to={'/admin/users'}
               selected={store.selected === 6}
               onClick={(event) => handleListItemClick(6)}
             >
