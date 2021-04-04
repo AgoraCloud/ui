@@ -19,6 +19,15 @@ export class CreateProjectFormModel extends BaseFormModel<createProjectForm_i, c
 
     }
 
+    toDB = () => {
+        let {name, description} = this.data
+        
+        return {
+            name,
+            description: description || undefined
+        }
+    }
+
     public async submit() {
         const wid = this.workspace.id
         const res = await super.call(`/api/workspaces/${wid}/projects`)
@@ -28,7 +37,7 @@ export class CreateProjectFormModel extends BaseFormModel<createProjectForm_i, c
 
     reset = () => {
         this.data.name = ""
-        this.data.description = ""
+        this.data.description = undefined
     }
 }
 

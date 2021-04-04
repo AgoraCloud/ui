@@ -31,6 +31,14 @@ export class Workspaces{
         const data = await response.json()
         console.log("workspaces", response, data)
         this._workspaces = data.map((data)=>new Workspace(this, data))
+        this._workspaces.forEach(workspace => {
+            workspace.projects.load()
+        })
+        const selectedProject = this.workspacesStore.selectedProject
+
+        if(selectedProject){
+            selectedProject.load()
+        }
         this.state = 'loaded'
     }
 

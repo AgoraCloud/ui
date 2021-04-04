@@ -1,6 +1,8 @@
 import { observable, computed } from "mobx"
 import { Workspace } from "../.."
 import { Project } from ".."
+import { Tasks } from "./Tasks"
+import { CreateTaskFormModel } from "app/forms/Workspace/Projects/Lanes/Tasks/CreateTask"
 import { EditLaneFormModel } from "app/forms/Workspace/Projects/Lanes/CreateLane"
 import { BaseModelCollection, BaseModelItem } from "app/models/Base"
 import { events, eventTypes } from "app/constants"
@@ -13,7 +15,6 @@ export class Lanes extends BaseModelCollection<Lane>{
         this.load()
 
         events.on(eventTypes.PROJECT_LANE_CRUD, () => {
-            this.project.projects.load()
             this.load()
         })
     }
@@ -90,9 +91,14 @@ export class Lane extends BaseModelItem<laneData_i>{
     /**
      * A single project
      */
+
+    tasks: Tasks
+    createTaskForm: CreateTaskFormModel
     @observable form: EditLaneFormModel
     constructor(public lanes: Lanes, public data: laneData_i) {
         super(lanes, data)
+        this.tasks = new Tasks(this, this.lanes.project)
+        this.createTaskForm = new CreateTaskFormModel(this.lanes.project, this)
         this.form = new EditLaneFormModel(this.lanes.project, this)
         this.form.fromDB(data as any)
     }

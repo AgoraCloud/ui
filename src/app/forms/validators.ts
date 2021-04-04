@@ -12,6 +12,7 @@ import {
   Min,
   IsOptional,
   ValidateNested,
+  IsMongoId,
 } from "class-validator";
 import { Type } from "class-transformer";
 import "reflect-metadata";
@@ -334,4 +335,44 @@ export class UpdateProjectLaneDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
+}
+
+export class CreateProjectTaskDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(1)
+  readonly title: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(1)
+  @IsOptional()
+  readonly description?: string;
+}
+
+export class UpdateProjectTaskLaneDto {
+  @IsString()
+  @IsMongoId()
+  @IsNotEmpty()
+  @IsOptional()
+  readonly id?: string;
+}
+
+export class UpdateProjectTaskDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(1)
+  @IsOptional()
+  readonly title?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(1)
+  @IsOptional()
+  readonly description?: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => UpdateProjectTaskLaneDto)
+  readonly lane?: UpdateProjectTaskLaneDto;
 }

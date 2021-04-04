@@ -11,37 +11,86 @@ interface ILane {
   itemsIds: string[];
 }
 
+interface ITask {
+  id: string;
+  content: string;
+}
+
 
 export const Lanes = inject(WORKSPACES_STORE)(observer((props) => {
 
   const store = props[WORKSPACES_STORE] as WorkspacesStore
   const project = store.selectedProject
-  const lanes = project?.lanes.lanes
+  const lanes = project?.lanes
+  var tasks: {[taskId: string]: ITask;} = {}
 
   if(!project || !lanes) return null
 
+  const givenboardData = {
+  items: {
+    'item-1': { id: 'item-1', content: 'Content of item 1.'},
+    'item-2': { id: 'item-2', content: 'Content of item 2.'},
+    'item-3': { id: 'item-3', content: 'Content of item 3.'},
+    'item-4': { id: 'item-4', content: 'Content of item 4.'},
+    'item-5': { id: 'item-5', content: 'Content of item 5.'},
+    'item-6': { id: 'item-6', content: 'Content of item 6.'},
+    'item-7': { id: 'item-7', content: 'Content of item 7.'}
+  },
+  columns: {
+    'column-1': {
+      id: 'column-1',
+      title: 'Column 1',
+      itemsIds: ['item-1', 'item-2', 'item-3', 'item-4', 'item-5', 'item-6', 'item-7']
+    },
+    'column-2': {
+      id: 'column-2',
+      title: 'Column 2',
+      itemsIds: []
+    },
+    'column-3': {
+      id: 'column-3',
+      title: 'Column 3',
+      itemsIds: []
+    },
+    'column-4': {
+      id: 'column-4',
+      title: 'Column 4',
+      itemsIds: []
+    }
+  },
+  columnsOrder: ['column-1', 'column-2', 'column-3', 'column-4']
+}
+
+  
+  lanes.collection.forEach(lane => {
+    lane.tasks.tasks.forEach(task => {
+      tasks[task.id] = {id: task.id, content: task.title}
+    })
+  })
+
+  console.log("LOOK AT THIS")
+  console.log(tasks)
   var data: { [laneName: string]: ILane; } = {}
   var lanesOrder: string[] = []
 
-  lanes.forEach(lane => {
-    data[lane.name] = {id: lane.id, title: lane.name, itemsIds: []}
+  lanes.collection.forEach(lane => {
+    data[lane.name] = {id: lane.id, title: lane.name, itemsIds: lane.tasks.taskIds}
     lanesOrder.push(lane.name)
   })
 
+  console.log("Check this data out")
+  console.log(data)
+
+  
+
   var boardData = {
-    items: {
-      'item-1': { id: 'item-1', content: 'Content of item 1.'},
-      'item-2': { id: 'item-2', content: 'Content of item 2.'},
-      'item-3': { id: 'item-3', content: 'Content of item 3.'},
-      'item-4': { id: 'item-4', content: 'Content of item 4.'},
-      'item-5': { id: 'item-5', content: 'Content of item 5.'},
-      'item-6': { id: 'item-6', content: 'Content of item 6.'},
-      'item-7': { id: 'item-7', content: 'Content of item 7.'}
-    },
+    items: tasks,
     columns: data,
     columnsOrder: lanesOrder
 
   }
+
+  console.log(givenboardData.items, 'COMPARISON', boardData.items)
 
   //work in the projects model and send data from there
 

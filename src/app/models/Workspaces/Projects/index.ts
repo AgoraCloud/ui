@@ -6,26 +6,42 @@ import { CreateLaneFormModel } from "app/forms/Workspace/Projects/Lanes/CreateLa
 import { BaseModelCollection, BaseModelItem } from "app/models/Base"
 import { events, eventTypes } from "app/constants"
 
-export class Projects extends BaseModelCollection<Project>{
+export class Projects {
 
+    @observable state: 'loaded'|'error'|'loading'|'unloaded'
+
+    @observable _projects: Project[] = []
     constructor(public workspace: Workspace) {
-        super(Project)
-        this.load()
+        this.state = 'unloaded'
 
         events.on(eventTypes.PROJECT_CRUD, () => {
             this.load()
         })
     }
 
-    public async load() {
-        await super.load(`${this.workspace.api}projects`)
+    load = async ( ) => {
+        this.state = 'loading'
+        const response = await fetch(`${this.workspace.api}projects`, {
+
+        })
+
+        const data = await response.json()
+        console.log("workspaces", response, data)
+        this._projects = data.map((data)=>new Project(this, data))
+        this.state = 'loaded'
     }
 
-    @computed
-    get projects() {
-        return this.collection || []
+
+    get projects(){
+        return this._projects || []
     }
+
+    getById = (id?: string): Project|undefined => {
+        return this.projects.filter((p: Project)=>p.id === id)[0]
+    }
+
 }
+
 
 
 interface projectData_i {
@@ -56,16 +72,17 @@ interface projectData_i {
     }
     id: string
 }
-export class Project extends BaseModelItem<projectData_i>{
+export class Project {
     /**
      * A single project
      */
 
+    @observable state: 'loaded'|'error'|'loading'|'unloaded'
     lanes: Lanes
     createLaneForm: CreateLaneFormModel
     @observable form: EditProjectFormModel
     constructor(public projects: Projects, public data: projectData_i) {
-        super(projects, data)
+        this.state = 'unloaded'
         this.lanes = new Lanes(this, this.projects.workspace)
         this.createLaneForm = new CreateLaneFormModel(this.projects.workspace, this)
         this.form = new EditProjectFormModel(this)
@@ -86,6 +103,11 @@ export class Project extends BaseModelItem<projectData_i>{
 
     get link() {
         return this.projects.workspace.link + `p/${this.id}/`
+    }
+
+    load = async ( ) => {
+        this.lanes.load()
+        this.state = 'loaded'
     }
 
 
