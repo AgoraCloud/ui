@@ -13,6 +13,7 @@ import {
   IsOptional,
   ValidateNested,
   IsMongoId,
+  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
 import "reflect-metadata";
@@ -163,15 +164,15 @@ export class UpdateUserDto {
 // import { deploymentImages } from './../deployment-images';
 // import { DeploymentImage } from './../schemas/deployment.schema';
 export const deploymentImages: DeploymentImage[] = [
-  { name: "linuxserver/code-server", tag: "version-v3.9.2" },
-  { name: "linuxserver/code-server", tag: "version-v3.9.1" },
-  { name: "linuxserver/code-server", tag: "version-v3.9.0" },
-  { name: "linuxserver/code-server", tag: "version-v3.8.1" },
-  { name: "linuxserver/code-server", tag: "version-v3.8.0" },
-  { name: "linuxserver/code-server", tag: "version-v3.7.4" },
-  { name: "linuxserver/code-server", tag: "version-v3.7.3" },
-  { name: "linuxserver/code-server", tag: "version-v3.7.2" },
-  { name: "linuxserver/code-server", tag: "version-v3.7.1" },
+  { name: 'linuxserver/code-server', tag: 'version-v3.9.2' },
+  { name: 'linuxserver/code-server', tag: 'version-v3.9.1' },
+  { name: 'linuxserver/code-server', tag: 'version-v3.9.0' },
+  { name: 'linuxserver/code-server', tag: 'version-v3.8.1' },
+  { name: 'linuxserver/code-server', tag: 'version-v3.8.0' },
+  { name: 'linuxserver/code-server', tag: 'version-v3.7.4' },
+  { name: 'linuxserver/code-server', tag: 'version-v3.7.3' },
+  { name: 'linuxserver/code-server', tag: 'version-v3.7.2' },
+  { name: 'linuxserver/code-server', tag: 'version-v3.7.1' },
 ];
 export class DeploymentImage {
   // @Prop({ required: true })
@@ -325,6 +326,32 @@ export class UpdateProjectDto {
   readonly description?: string;
 }
 
+
+export class AdminUpdateUserDto {
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4)
+  readonly fullName: string;
+
+  @IsOptional()
+  @IsEmail()
+  readonly email: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(8)
+  readonly password: string;
+
+  @IsOptional()
+  @IsBoolean()
+  readonly isVerified: boolean
+  
+  @IsOptional()
+  @IsBoolean()
+  readonly isEnabled: boolean
+}
 export class CreateProjectLaneDto {
   @IsString()
   @IsNotEmpty()

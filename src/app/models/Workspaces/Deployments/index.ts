@@ -19,6 +19,10 @@ export class Deployments extends BaseModelCollection<Deployment>{
         events.on(eventTypes.DEPLOYMENT_CRUD, () => {
             this.load()
         })
+
+        setInterval(async ()=> {
+            this.load()
+        }, 5000)
     }
 
 
@@ -107,7 +111,7 @@ export class Deployment extends BaseModelItem<deploymentData_i>{
             const res = await fetch(`api/workspaces/${wid}/deployments/${did}`, { method: 'DELETE' })
             events.emit(eventTypes.DEPLOYMENT_CRUD, 'deleted')
         } catch (e) {
-            console.warn(e)
+            console.warn("delete err", e)
             events.emit(eventTypes.DEPLOYMENT_ERR, 'failed to delete')
         }
     }

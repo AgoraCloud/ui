@@ -45,7 +45,7 @@ export class SnackbarStore{
         events.on(eventTypes.DEPLOYMENT_CRUD, (data)=>{
             this.push({message: `Deployment successfully ${data}`, variant: 'success'})
         })
-        events.on(eventTypes.DEPLOYMENT_CRUD, (data)=>{
+        events.on(eventTypes.DEPLOYMENT_ERR, (data)=>{
             this.push({message: `Deployment Failure: ${data}`, variant: 'error'})
         })
         events.on(eventTypes.PROJECT_CRUD, (data)=>{

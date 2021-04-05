@@ -5,13 +5,12 @@ import { WorkspacesStore, RouterStore, UIStore } from 'app/stores'
 import { MoreMenu } from 'app/components/Inputs'
 import { AddFAB } from 'app/components/Inputs'
 import { HomeWrapper } from 'app/containers/Home';
-import { Typography } from '@material-ui/core'
-import { ConfirmDeleteDialog } from 'app/components/Inputs'
+import { Typography, makeStyles } from '@material-ui/core'
+import {ConfirmDeleteDialog} from 'app/components/Dialogs'
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 
 // Table imports
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

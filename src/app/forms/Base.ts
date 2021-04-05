@@ -189,7 +189,7 @@ export class BaseFormModel<FormInterface, DBInterface>{
          */
 
         let out = this.convert(data, true) as DBInterface
-        console.log("OUT", out, data)
+        // console.log("OUT", out, data)
         _.merge(this.data, out)
         return out
     }
@@ -217,7 +217,7 @@ export class BaseFormModel<FormInterface, DBInterface>{
          * use to import from db interface
          */
 
-        console.log(JSON.stringify(this.toDB()));
+        // console.log(JSON.stringify(this.toDB()));
         
         this.state.loading = true
         try{
@@ -254,6 +254,7 @@ export class BaseFormModel<FormInterface, DBInterface>{
         if(this.validator == undefined){
             // if you can't validate form
             // i.e. public user info form
+            this.isValid = true
             return true
         }
 

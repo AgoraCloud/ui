@@ -1,7 +1,7 @@
 import * as React from "react"
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import { WORKSPACES_STORE } from "app/constants";
+import { WORKSPACES_STORE, roles } from "app/constants";
 import { observer, inject } from "mobx-react";
 import { WorkspacesStore } from "app/stores";
 import { Workspace } from "app/models";
@@ -96,17 +96,14 @@ export const BaseSelect = (props: BaseSelectProps) => {
      *  that means that this only works for Objects currently
      */
     const { form, id, options, ...rest } = props
-    const value = form.data[id]
+    const value = form.get(id)
 
-    const onChange = (e) => {
-        form.onChange(id)(JSON.parse(e.target.value))
-    }
-
+    // console.log("VALUE", value, typeof value)
     return <Select
         // native
-        value={JSON.stringify(value)}
+        value={value}
         style={{ width: "100%" }}
-        onChange={onChange}
+        onChange={form.onChange(id)}
 
         variant="outlined"
         {...rest}
@@ -134,11 +131,24 @@ export const ImageSelect = observer((props: {
     id: string
     // workspace: Workspace
 }) => {
-    const {form} = props
+    const {form, id} = props
     const images = form!.workspace.deploymentImages.images
-    
+    const onChange = (e) => {
+        form.onChange(id)(JSON.parse(e.target.value))
+    }
+    const value = form.get(id)
     return <BaseSelect {...props}
     label="Image"
     defaultValue={images[0]}
-    options={images}/>
+    options={images}
+    onChange={onChange}
+    value={JSON.stringify(value)}
+    />
+})
+
+
+export const RolesSelect = observer((props: {
+    form: BaseFormModel<{roles: string[]},{roles: string[]}>
+}) => {
+    return <BaseSelect {...props} id="roles" options={roles} multiple/>
 })
