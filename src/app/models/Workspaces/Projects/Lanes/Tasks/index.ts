@@ -186,12 +186,10 @@ export class Task {
             const lid = this.tasks.lane.id
             const tid = this.id
             const res = await fetch(`api/workspaces/${wid}/projects/${pid}/lanes/${lid}/tasks/${tid}`, {method: 'DELETE'})
-            // res && events.emit(eventTypes.LANE_TASKS_CRUD, 'deleted')
-            res && events.emit(eventTypes.PROJECT_LANE_CRUD, 'deleted')
+            res && events.emit(eventTypes.LANE_TASKS_CRUD, 'deleted')
         } catch (e) {
             console.warn(e)
-            events.emit(eventTypes.PROJECT_LANE_ERR, 'failed to delete')
-            // events.emit(eventTypes.LANE_TASKS_ERR, 'failed to delete')
+            events.emit(eventTypes.LANE_TASKS_ERR, 'failed to delete')
         }
     }
 
@@ -201,14 +199,10 @@ export class Task {
           const pid = this.tasks.project.id
           const lid = this.tasks.lane.id
           const tid = this.id
-          console.log("this is the lane id I recevied here: ", toLane)
           const res = await fetch(`/api/workspaces/${wid}/projects/${pid}/lanes/${lid}/tasks/${tid}`, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title: ptitle, description: pdescription, lane: {id: toLane}}) })
-          // res && events.emit(eventTypes.LANE_TASKS_CRUD, 'deleted')
-          res && events.emit(eventTypes.PROJECT_LANE_CRUD, 'updated')
+          res && events.emit(eventTypes.LANE_TASK_MOVED)
       } catch (e) {
           console.warn(e)
-          events.emit(eventTypes.PROJECT_LANE_ERR, 'failed to update')
-          // events.emit(eventTypes.LANE_TASKS_ERR, 'failed to delete')
       }
   }
 
