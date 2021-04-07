@@ -65,7 +65,6 @@
     "mobx": "^5.11.0",
     "mobx-persist": "^0.4.1",
     "mobx-react": "^6.1.1",
-    "mobx-react-lite": "^3.2.0",
     "mobx-react-router": "^4.0.7",
     "monaco-editor": "^0.23.0",
     "notistack": "^1.0.3",
