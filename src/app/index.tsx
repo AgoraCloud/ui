@@ -35,11 +35,11 @@ export const App = hot(({ history }: any) => (
       <AuthedRoute path="/w/new" component={FirstWorkspace} />
       <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
       <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
-      <WorkspacesLoaded path="/w/:wid/metrics" component={WorkspaceMetricsPage} />
-      <ProjectsLoaded path="/w/:wid/projects" component={ProjectList} />
-      <ProjectsLoaded path="/w/:wid/p/new" component={CreateProject} />
-      <ProjectsLoaded path="/w/:wid/p/:pid/edit" component={EditProject} />
+      <WorkspacesLoaded path="/w/:wid/metrics" component={WorkspaceMetricsPage} /> 
       <LanesLoaded path="/w/:wid/p/:pid/lanes" component={Lanes} />
+      <ProjectsLoaded path="/w/:wid/p/:pid/edit" component={EditProject} />
+      <ProjectsLoaded path="/w/:wid/p/new" component={CreateProject} />
+      <ProjectsLoaded path="/w/:wid/p" component={ProjectList} />
       <WorkspacesLoaded path="/w/:wid/edit-workspace" component={UpdateWorkspace} />
       <DeploymentLoaded path="/w/:wid/d/:did/info" component={DeploymentInfoPage}/>
       <DeploymentLoaded path="/w/:wid/d/:did/edit" component={EditDeployment} />

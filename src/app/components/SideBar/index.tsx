@@ -111,7 +111,7 @@ export const SideBar = inject(ROUTER_STORE)(
             <ListItem
               button
               component={Link}
-              to={store.workspaceUrl + "/projects"}
+              to={store.workspaceUrl + "/p"}
               selected={store.selected === 1}
               onClick={(event) => handleListItemClick(1)}
             >
@@ -134,7 +134,7 @@ export const SideBar = inject(ROUTER_STORE)(
             </ListItem>
           </List>
           <Divider />
-          <List subheader={<ListSubheader>Workspace</ListSubheader>}>
+          <List subheader={ <ListSubheader>{props.open && 'Workspace'}</ListSubheader>}>
             <ListItem
               button
               component={Link}
@@ -173,7 +173,7 @@ export const SideBar = inject(ROUTER_STORE)(
             </ListItem>
           </List>
           <Divider />
-          <List subheader={<ListSubheader>Admin</ListSubheader>}>
+          <List subheader={<ListSubheader>{props.open && 'Admin'}</ListSubheader>}>
             <ListItem
               button
               component={Link}
