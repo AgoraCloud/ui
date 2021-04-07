@@ -99,13 +99,6 @@ export class Project extends BaseModelItem<projectData_i>{
         return this.projects.workspace.link + `p/${this.id}/`
     }
 
-    // load = async ( ) => {
-    //     this.state = 'loading'
-    //     await this.lanes.load()
-    //     this.state = 'loaded'
-    // }
-
-
     delete = async () => {
         try {
             const wid = this.projects.workspace.id

@@ -20,33 +20,6 @@ export const CreateProjectForm = inject(ROUTER_STORE)(observer((props: {form: Cr
             Description
         </Typography>
         <Input form={form} id="description" label="Description" InputLabelProps={{required: false,}} />
-        {/* <TextField
-            onChange={form.onInputChange("name")}
-            error={form.getError("name") != undefined}
-            helperText={form.getError("name") != undefined ? form.getError("name") : undefined} // to be implemented (currently all errors are just 'error')
-            defaultValue={form.data.name}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="name"
-            label="Name"
-            name="name"
-        />
-        <Typography variant="h6">
-            Description
-        </Typography>
-        <TextField
-            onChange={form.onInputChange("description")}
-            error={form.getError("description") != undefined}
-            helperText={form.getError("description") != undefined ? form.getError("description") : undefined} // to be implemented (currently all errors are just 'error')
-            defaultValue={form.data.description}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="description"
-            label="Description"
-            name="name"
-        /> */}
         <CancelCreateButtons form={form} cancel={()=>{
             store.replace(form.workspace.link + 'p')
             form.reset()
@@ -82,7 +55,7 @@ export const EditProjectForm = inject(ROUTER_STORE)(observer((props: {form: Edit
                 store.replace(form.project.projects.workspace.link + 'p')
             }
         }}
-        labels={['Cancel', 'Edit']}
+        labels={['Cancel', 'Save']}
         />
     </div>
 }))

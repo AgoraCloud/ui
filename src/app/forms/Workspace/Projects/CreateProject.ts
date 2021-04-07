@@ -57,6 +57,15 @@ export class EditProjectFormModel extends BaseFormModel<updateProjectForm_i, upd
 
     }
 
+    toDB = () => {
+        let {name, description} = this.data
+        
+        return {
+            name,
+            description: description || undefined
+        }
+    }
+
     submit = async () => {
         const wid = this.project.projects.workspace.id
         const pid = this.project.id

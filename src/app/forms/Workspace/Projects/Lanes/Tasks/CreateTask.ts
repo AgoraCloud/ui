@@ -20,13 +20,21 @@ export class CreateTaskFormModel extends BaseFormModel<createTaskForm_i, createT
 
     }
 
+    toDB = () => {
+        let {title, description} = this.data
+        
+        return {
+            title,
+            description: description || undefined
+        }
+    }
+
     public async submit() {
         const wid = this.project.projects.workspace.id
         const pid = this.project.id
         const lid = this.lane.id
         const res = await super.call(`/api/workspaces/${wid}/projects/${pid}/lanes/${lid}/tasks`)
-        // res && events.emit(eventTypes.LANE_TASKS_CRUD, 'created') 
-        res && events.emit(eventTypes.PROJECT_LANE_CRUD, 'created') 
+        res && events.emit(eventTypes.LANE_TASKS_CRUD, 'created') 
         return res
     }
 
@@ -37,7 +45,7 @@ export class CreateTaskFormModel extends BaseFormModel<createTaskForm_i, createT
 }
 
 interface updateLaneForm_i {
-    name: string
+    title: string
     description?: string
     lane?: UpdateProjectTaskLaneDto
 }
@@ -47,10 +55,19 @@ export class EditTaskFormModel extends BaseFormModel<updateLaneForm_i, updateLan
         super(UpdateProjectTaskDto)
 
         this.data = {
-            name: "",
+            title: "",
             description: undefined
         }
 
+    }
+
+    toDB = () => {
+        let {title, description} = this.data
+        
+        return {
+            title,
+            description: description || undefined
+        }
     }
 
     submit = async () => {
@@ -59,8 +76,7 @@ export class EditTaskFormModel extends BaseFormModel<updateLaneForm_i, updateLan
         const lid = this.lane.id
         const tid = this.task.id
         const res = await super.call(`/api/workspaces/${wid}/projects/${pid}/lanes/${lid}/tasks/${tid}`, { method: 'PUT' })
-        // res && events.emit(eventTypes.LANE_TASKS_CRUD, 'updated') 
-        res && events.emit(eventTypes.PROJECT_LANE_CRUD, 'updated') 
+        res && events.emit(eventTypes.LANE_TASKS_CRUD, 'updated')
         return res
     }
 }
