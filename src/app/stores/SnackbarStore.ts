@@ -66,7 +66,10 @@ export class SnackbarStore{
         events.on(eventTypes.LANE_TASKS_ERR, (data)=>{
             this.push({message: `Task Failure: ${data}`, variant: 'error'})
         })
-        events.on(eventTypes.WORKSPACE_CRUD, (data)=>{
+        events.on(eventTypes.WORKSPACE_CREATED, (data)=>{
+            this.push({message: `Workspace successfully ${data}`, variant: 'success'})
+        })
+        events.on(eventTypes.WORKSPACE_RUD, (data)=>{
             this.push({message: `Workspace successfully ${data}`, variant: 'success'})
         })
         events.on(eventTypes.WORKSPACE_ERR, (data)=>{
