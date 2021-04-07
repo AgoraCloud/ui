@@ -6,7 +6,7 @@ import { MoreMenu } from 'app/components/Inputs'
 import { AddFAB } from 'app/components/Inputs'
 import { HomeWrapper } from 'app/containers/Home';
 import { Typography, makeStyles } from '@material-ui/core'
-import {ConfirmDeleteDialog} from 'app/components/Dialogs'
+import {ConfirmDeleteDialog} from 'app/components/Dialogs/ConfirmDelete'
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 

@@ -6,38 +6,30 @@ import { CreateLaneFormModel } from "app/forms/Workspace/Projects/Lanes/CreateLa
 import { BaseModelCollection, BaseModelItem } from "app/models/Base"
 import { events, eventTypes } from "app/constants"
 
-export class Projects {
+export class Projects extends BaseModelCollection<Project>{
 
-    @observable state: 'loaded'|'error'|'loading'|'unloaded'
+    /**
+     * A collection of deployments within a workspace
+     */
 
-    @observable _projects: Project[] = []
-    constructor(public workspace: Workspace) {
-        this.state = 'unloaded'
+     constructor(public workspace: Workspace) {
+        super(Project)
+
+        this.load()
 
         events.on(eventTypes.PROJECT_CRUD, () => {
             this.load()
         })
     }
 
-    load = async ( ) => {
-        this.state = 'loading'
-        const response = await fetch(`${this.workspace.api}projects`, {
 
-        })
-
-        const data = await response.json()
-        console.log("workspaces", response, data)
-        this._projects = data.map((data)=>new Project(this, data))
-        this.state = 'loaded'
+    public async load() {
+        await super.load(`${this.workspace.api}projects`)
     }
 
-
-    get projects(){
-        return this._projects || []
-    }
-
-    getById = (id?: string): Project|undefined => {
-        return this.projects.filter((p: Project)=>p.id === id)[0]
+    @computed
+    get projects() {
+        return this.collection || []
     }
 
 }
@@ -72,17 +64,19 @@ interface projectData_i {
     }
     id: string
 }
-export class Project {
+export class Project extends BaseModelItem<projectData_i>{
     /**
      * A single project
      */
 
-    @observable state: 'loaded'|'error'|'loading'|'unloaded'
+    //  @observable state: 'loaded'|'error'|'loading'|'unloaded'
+
     lanes: Lanes
     createLaneForm: CreateLaneFormModel
     @observable form: EditProjectFormModel
     constructor(public projects: Projects, public data: projectData_i) {
-        this.state = 'unloaded'
+        super(projects, data)
+        // this.state = 'unloaded'
         this.lanes = new Lanes(this, this.projects.workspace)
         this.createLaneForm = new CreateLaneFormModel(this.projects.workspace, this)
         this.form = new EditProjectFormModel(this)
@@ -105,10 +99,11 @@ export class Project {
         return this.projects.workspace.link + `p/${this.id}/`
     }
 
-    load = async ( ) => {
-        this.lanes.load()
-        this.state = 'loaded'
-    }
+    // load = async ( ) => {
+    //     this.state = 'loading'
+    //     await this.lanes.load()
+    //     this.state = 'loaded'
+    // }
 
 
     delete = async () => {

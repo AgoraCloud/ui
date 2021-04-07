@@ -5,38 +5,42 @@ import { EditTaskFormModel } from "app/forms/Workspace/Projects/Lanes/Tasks/Crea
 import { BaseModelCollection, BaseModelItem } from "app/models/Base"
 import { events, eventTypes } from "app/constants"
 
-export class Tasks extends BaseModelCollection<Task>{
+export class Tasks {
+
+    @observable state: 'loaded'|'error'|'loading'|'unloaded'
+
+    @observable _tasks: Task[] = []
 
     constructor(public lane: Lane, public project: Project) {
-        super(Task)
+        this.state = 'unloaded'
 
-        this.load()
-
-        events.on(eventTypes.LANE_TASKS_CRUD, () => {
-            this.load()
-        })
+        // events.on(eventTypes.LANE_TASKS_CRUD, () => {
+        //     this.load()
+        // })
     }
 
-    public async load() {
+    load = async ( ) => {
+      this.state = 'loading'
       const wid = this.project.projects.workspace.id
       const pid = this.project.id
       const lid = this.lane.id
-      await super.load(`/api/workspaces/${wid}/projects/${pid}/lanes/${lid}/tasks`)
-  }
+      const response = await fetch(`/api/workspaces/${wid}/projects/${pid}/lanes/${lid}/tasks`, {
 
-    @computed
-    get tasks() {
-        return this.collection || []
-    }
-
-    @computed
-    get taskIds() {
-      const ids: string[] = []
-      this.tasks.forEach(task => {
-        ids.push(task.id)
       })
 
-      return ids
+      const data = await response.json()
+      console.log("tasks", response, data)
+      this._tasks = data.map((data)=>new Task(this, data))
+      
+      this.state = 'loaded'
+    }
+
+    get tasks() {
+      return this._tasks || []
+    }
+
+    getById = (id?: string): Task|undefined => {
+      return this.tasks.filter((t: Task)=>t.id === id)[0]
     }
 }
 
@@ -152,13 +156,12 @@ interface taskData_i {
     }
     id: string
   }
-export class Task extends BaseModelItem<taskData_i>{
+export class Task {
     /**
      * A single project
      */
     @observable form: EditTaskFormModel
     constructor(public tasks: Tasks, public data: taskData_i) {
-        super(tasks, data)
         this.form = new EditTaskFormModel(this.tasks.lane, this)
         this.form.fromDB(data as any)
     }
@@ -183,11 +186,30 @@ export class Task extends BaseModelItem<taskData_i>{
             const lid = this.tasks.lane.id
             const tid = this.id
             const res = await fetch(`api/workspaces/${wid}/projects/${pid}/lanes/${lid}/tasks/${tid}`, {method: 'DELETE'})
-            res && events.emit(eventTypes.LANE_TASKS_CRUD, 'deleted')
+            // res && events.emit(eventTypes.LANE_TASKS_CRUD, 'deleted')
+            res && events.emit(eventTypes.PROJECT_LANE_CRUD, 'deleted')
         } catch (e) {
             console.warn(e)
-            events.emit(eventTypes.LANE_TASKS_ERR, 'failed to delete')
+            events.emit(eventTypes.PROJECT_LANE_ERR, 'failed to delete')
+            // events.emit(eventTypes.LANE_TASKS_ERR, 'failed to delete')
         }
     }
+
+    changeLane = async (ptitle: string, pdescription: string, toLane: string) => {
+      try {
+          const wid = this.tasks.project.projects.workspace.id
+          const pid = this.tasks.project.id
+          const lid = this.tasks.lane.id
+          const tid = this.id
+          console.log("this is the lane id I recevied here: ", toLane)
+          const res = await fetch(`/api/workspaces/${wid}/projects/${pid}/lanes/${lid}/tasks/${tid}`, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title: ptitle, description: pdescription, lane: {id: toLane}}) })
+          // res && events.emit(eventTypes.LANE_TASKS_CRUD, 'deleted')
+          res && events.emit(eventTypes.PROJECT_LANE_CRUD, 'updated')
+      } catch (e) {
+          console.warn(e)
+          events.emit(eventTypes.PROJECT_LANE_ERR, 'failed to update')
+          // events.emit(eventTypes.LANE_TASKS_ERR, 'failed to delete')
+      }
+  }
 
 }

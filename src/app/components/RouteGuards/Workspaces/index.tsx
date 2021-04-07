@@ -77,30 +77,22 @@ export const LanesLoaded = inject(WORKSPACES_STORE)(observer((props)=>{
     
     if(workspace == undefined) return null
     switch(workspace.projects.state){
-        // case 'unauthed' : return <Redirect to='/login'/>
         case 'loaded' : 
             const project = store.selectedProject
             if(project == undefined){
                 console.log('PROJECT UNDEFINED')
                 return null
             }
-            // switch(project.lanes.state){
-                // case 'unauthed' : return <Redirect to='/login'/>
-                // case 'loaded' : 
-                    const lane = project.lanes.lanes[0]
-                    if(!lane) {
-                        console.log('LANE UNDEFINED')
-                        return null
-                    }
-                    switch(lane.tasks.state){
-                        // case 'unauthed' : return <Redirect to='/login'/>
-                        case 'loaded' : return <AuthedRoute {...props} />
-                        default: return null;
-                    }
-                    
-            //     default: return null;
+            // const lane = project.lanes.lanes[0]
+            // if(!lane) {
+            //     console.log('LANE UNDEFINED')
+            //     return null
             // }
-
+            switch(project.lanes.state){
+                // case 'unauthed' : return <Redirect to='/login'/>
+                case 'loaded' : return <AuthedRoute {...props} />
+                default: return null;
+            }
         default: return null;
     }  
 

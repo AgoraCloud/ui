@@ -59,6 +59,13 @@ export const AddLaneFAB = (props: {onClick: () => any}) => {
     </BaseFAB>
 }
 
+export const AddTaskFAB = (props: {onClick: () => any}) => {
+    const { onClick } = props
+    return <Fab color="primary" aria-label="add" onClick={onClick} size="small">
+        <AddIcon />
+    </Fab>
+}
+
 
 
 interface LinkButtonProps extends ButtonProps {
