@@ -40,7 +40,7 @@ const BoardColumnWrapper = styled.div`
 `
 
 
-export const BoardColumnOptions = inject(WORKSPACES_STORE)(observer((props) => {
+export const BoardColumnOptions = inject(WORKSPACES_STORE, UI_STORE)(observer((props) => {
   const store = props[WORKSPACES_STORE] as WorkspacesStore
   const uistore = props[UI_STORE] as UIStore
   const project = store.selectedProject!
@@ -68,7 +68,7 @@ export const BoardColumnOptions = inject(WORKSPACES_STORE)(observer((props) => {
         {
             name: "Delete",
             onClick: () => {
-                lane.delete()
+                uistore.setDeleteTarget(lane.name, lane.delete)
             }
         }
     ]} />

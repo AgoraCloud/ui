@@ -3,14 +3,15 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { inject, observer } from 'mobx-react'
-import { WORKSPACES_STORE } from 'app/constants'
-import { WorkspacesStore } from 'app/stores'
+import { WORKSPACES_STORE, UI_STORE } from 'app/constants'
+import { WorkspacesStore, UIStore } from 'app/stores'
 import { MoreMenu } from 'app/components/Inputs'
 import { EditTaskDialog } from "app/components/Inputs/Modal"
 import { Grid } from '@material-ui/core';
 
-export const CardOptions = inject(WORKSPACES_STORE)(observer((props) => {
+export const CardOptions = inject(WORKSPACES_STORE, UI_STORE)(observer((props) => {
     const store = props[WORKSPACES_STORE] as WorkspacesStore
+    const uistore = props[UI_STORE] as UIStore
     const project = store.selectedProject
   
     if(!project) return null
@@ -44,7 +45,7 @@ export const CardOptions = inject(WORKSPACES_STORE)(observer((props) => {
                 {
                     name: "Delete",
                     onClick: () => {
-                        task.delete()
+                        uistore.setDeleteTarget(task.title, task.delete)
                     }
                 }
             ]} />
