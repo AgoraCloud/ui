@@ -71,13 +71,16 @@ const useStyles = makeStyles((theme) => ({
 
 // const { forwardRef, useImperativeHandle } = React;
 
-export const SideBar = inject(ROUTER_STORE, WORKSPACES_STORE)(
+export const SideBar = inject(
+  ROUTER_STORE,
+  WORKSPACES_STORE
+)(
   observer((props) => {
-    const store = props[ROUTER_STORE] as RouterStore
-    const workspacesStore = props[WORKSPACES_STORE] as WorkspacesStore
+    const store = props[ROUTER_STORE] as RouterStore;
+    const workspacesStore = props[WORKSPACES_STORE] as WorkspacesStore;
     const classes = useStyles();
 
-    const selectedWorkspace = workspacesStore.selectedWorkspace
+    const selectedWorkspace = workspacesStore.selectedWorkspace;
 
     const handleListItemClick = (index: number) => {
       store.selected = index;
@@ -138,7 +141,13 @@ export const SideBar = inject(ROUTER_STORE, WORKSPACES_STORE)(
             </ListItem>
           </List>
           <Divider />
-          <List subheader={<RenderIf if={props.open}><ListSubheader>Workspace</ListSubheader></RenderIf>}>
+          <List
+            subheader={
+              <RenderIf if={props.open}>
+                <ListSubheader>Workspace</ListSubheader>
+              </RenderIf>
+            }
+          >
             <ListItem
               button
               component={Link}
@@ -175,10 +184,7 @@ export const SideBar = inject(ROUTER_STORE, WORKSPACES_STORE)(
               </ListItemIcon>
               <ListItemText primary="Metrics" />
             </ListItem>
-            <RenderIfRole 
-            roles={[Role.WorkspaceAdmin, Role.SuperAdmin]}
-            wid={selectedWorkspace.id}
-            >
+            <RenderIfRole roles={[Role.WorkspaceAdmin, Role.SuperAdmin]} wid={selectedWorkspace.id}>
               <ListItem
                 button
                 component={Link}
@@ -195,13 +201,19 @@ export const SideBar = inject(ROUTER_STORE, WORKSPACES_STORE)(
           </List>
           <Divider />
           <RenderIfRole roles={[Role.SuperAdmin]}>
-            <List subheader={<RenderIf if={props.open}><ListSubheader>Admin</ListSubheader></RenderIf>}>
+            <List
+              subheader={
+                <RenderIf if={props.open}>
+                  <ListSubheader>Admin</ListSubheader>
+                </RenderIf>
+              }
+            >
               <ListItem
                 button
                 component={Link}
-                to={'/admin/users'}
-                selected={store.selected === 6}
-                onClick={(event) => handleListItemClick(6)}
+                to={"/admin/users"}
+                selected={store.selected === 7}
+                onClick={(event) => handleListItemClick(7)}
               >
                 <ListItemIcon>
                   <PeopleIcon />
@@ -210,7 +222,6 @@ export const SideBar = inject(ROUTER_STORE, WORKSPACES_STORE)(
               </ListItem>
             </List>
           </RenderIfRole>
-
         </Drawer>
       </>
     );
