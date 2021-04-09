@@ -189,8 +189,8 @@ export const SideBar = inject(
                 button
                 component={Link}
                 to={`${store.workspaceUrl}/admin/users`}
-                selected={store.selected === 7}
-                onClick={(event) => handleListItemClick(7)}
+                selected={store.selected === 6}
+                onClick={(event) => handleListItemClick(6)}
               >
                 <ListItemIcon>
                   <PeopleIcon />

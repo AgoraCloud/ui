@@ -27,6 +27,7 @@ export const PermissionsDialog = observer((props: {
             cancel={dialog.onClose}
             submit={async ()=>{
                 if(await form.submit()){
+                    dialog.onClose()
                     events.emit(eventTypes.USER_CRUD, 'edited permissions')
                 }else events.emit(eventTypes.USER_ERR, 'error')
             }}

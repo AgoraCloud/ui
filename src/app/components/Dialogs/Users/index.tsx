@@ -58,7 +58,7 @@ return <BaseDialog dialog={createUserDialog}>
             <Label>
                 Password
             </Label>
-            <Input form={form} id="password" />
+            <Input form={form} id="password" type="password"/>
         </DialogContent>
         <DialogActions>
             <CancelCreateButtons form={form} cancel={() => {

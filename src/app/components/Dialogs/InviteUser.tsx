@@ -26,6 +26,7 @@ export const InviteUserDialog = observer((props: {
                 cancel={dialog.onClose}
                 submit={async () => {
                     await form.submit()
+                    dialog.onClose()
                 }}
             />
 
