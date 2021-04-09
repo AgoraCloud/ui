@@ -11,6 +11,12 @@ export const AuthedRoute = inject(AUTH_STORE, USER_STORE)(observer((props) => {
 
     if(store.state == 'unauthed') return <Redirect to='/login'/>
     if(userStore.state != 'loaded') return null
+
+    // if(props.path === "/w/new"){
+    //     routerStore.selected = 3
+    // } else if (props.path.includes("/admin")){
+    //     routerStore.selected = 6
+    // }
     
     switch(store.state){
         // case 'unauthed' : return <Redirect to='/login'/>
