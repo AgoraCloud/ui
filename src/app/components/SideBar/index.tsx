@@ -183,13 +183,13 @@ export const SideBar = inject(ROUTER_STORE, WORKSPACES_STORE)(
                 button
                 component={Link}
                 to={`${store.workspaceUrl}/admin/users`}
-                selected={store.selected === 6}
-                onClick={(event) => handleListItemClick(6)}
+                selected={store.selected === 7}
+                onClick={(event) => handleListItemClick(7)}
               >
                 <ListItemIcon>
                   <PeopleIcon />
                 </ListItemIcon>
-                <ListItemText primary="Users" />
+                <ListItemText primary="Workspace Users" />
               </ListItem>
             </RenderIfRole>
           </List>
