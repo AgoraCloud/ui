@@ -8,14 +8,20 @@ import { events, eventTypes } from "app/constants"
 
 export class Projects extends BaseModelCollection<Project>{
 
-    constructor(public workspace: Workspace) {
+    /**
+     * A collection of deployments within a workspace
+     */
+
+     constructor(public workspace: Workspace) {
         super(Project)
+
         this.load()
 
         events.on(eventTypes.PROJECT_CRUD, () => {
             this.load()
         })
     }
+
 
     public async load() {
         await super.load(`${this.workspace.api}projects`)
@@ -25,7 +31,9 @@ export class Projects extends BaseModelCollection<Project>{
     get projects() {
         return this.collection || []
     }
+
 }
+
 
 
 interface projectData_i {
@@ -61,11 +69,14 @@ export class Project extends BaseModelItem<projectData_i>{
      * A single project
      */
 
+    //  @observable state: 'loaded'|'error'|'loading'|'unloaded'
+
     lanes: Lanes
     createLaneForm: CreateLaneFormModel
     @observable form: EditProjectFormModel
     constructor(public projects: Projects, public data: projectData_i) {
         super(projects, data)
+        // this.state = 'unloaded'
         this.lanes = new Lanes(this, this.projects.workspace)
         this.createLaneForm = new CreateLaneFormModel(this.projects.workspace, this)
         this.form = new EditProjectFormModel(this)
@@ -87,7 +98,6 @@ export class Project extends BaseModelItem<projectData_i>{
     get link() {
         return this.projects.workspace.link + `p/${this.id}/`
     }
-
 
     delete = async () => {
         try {

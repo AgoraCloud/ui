@@ -1,33 +1,57 @@
 import { observable, computed } from "mobx"
 import { Workspace } from "../.."
 import { Project } from ".."
+import { Tasks } from "./Tasks"
+import { CreateTaskFormModel } from "app/forms/Workspace/Projects/Lanes/Tasks/CreateTask"
 import { EditLaneFormModel } from "app/forms/Workspace/Projects/Lanes/CreateLane"
 import { BaseModelCollection, BaseModelItem } from "app/models/Base"
 import { events, eventTypes } from "app/constants"
 
-export class Lanes extends BaseModelCollection<Lane>{
+export class Lanes {
 
+    @observable state: 'loaded'|'error'|'loading'|'unloaded'|'reloading'
+
+    @observable _lanes: Lane[] = []
     constructor(public project: Project, public workspace: Workspace) {
-        super(Lane)
-
+        this.state = 'unloaded'
         this.load()
 
         events.on(eventTypes.PROJECT_LANE_CRUD, () => {
-            this.project.projects.load()
             this.load()
         })
+        events.on(eventTypes.LANE_TASKS_CRUD, ()=>{
+          this.load()
+        })
+        events.on(eventTypes.LANE_TASK_MOVED, ()=>{
+          this.load()
+        })
     }
-
-    public async load() {
+    load = async ( ) => {
+      this.state = this.state === 'loaded' ? 'reloading' : 'loading'
       const wid = this.workspace.id
       const pid = this.project.id
-      await super.load(`/api/workspaces/${wid}/projects/${pid}/lanes`)
-  }
+      const response = await fetch(`/api/workspaces/${wid}/projects/${pid}/lanes`, {
 
-    @computed
-    get lanes() {
-        return this.collection || []
+      })
+
+      const data = await response.json()
+      console.log("lanes", response, data)
+      this._lanes = data.map((data)=>new Lane(this, data))
+
+      for (const lane of this._lanes) {
+        await lane.load()
+      }
+      
+      this.state = 'loaded'
     }
+
+    get lanes() {
+        return this._lanes || []
+    }
+
+    getById = (id?: string): Lane|undefined => {
+      return this.lanes.filter((l: Lane)=>l.id === id)[0]
+  }
 }
 
 
@@ -86,13 +110,19 @@ interface laneData_i {
     }
     id: string
 }
-export class Lane extends BaseModelItem<laneData_i>{
+export class Lane {
     /**
      * A single project
      */
+
+    @observable state: 'loaded'|'error'|'loading'|'unloaded'
+    tasks: Tasks
+    createTaskForm: CreateTaskFormModel
     @observable form: EditLaneFormModel
     constructor(public lanes: Lanes, public data: laneData_i) {
-        super(lanes, data)
+        this.state = 'unloaded'
+        this.tasks = new Tasks(this, this.lanes.project)
+        this.createTaskForm = new CreateTaskFormModel(this.lanes.project, this)
         this.form = new EditLaneFormModel(this.lanes.project, this)
         this.form.fromDB(data as any)
     }
@@ -109,6 +139,11 @@ export class Lane extends BaseModelItem<laneData_i>{
         return this.lanes.workspace.link + `p/${this.lanes.project.id}/l/${this.id}`
     }
 
+    load = async ( ) => {
+      this.state = 'loading'
+      if(this.tasks.state != 'loaded') await this.tasks.load()
+      this.state = 'loaded'
+    }
 
     delete = async () => {
         try {

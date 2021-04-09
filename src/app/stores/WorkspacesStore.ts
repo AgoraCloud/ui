@@ -125,7 +125,7 @@ export class WorkspacesStore {
       const form = this.createWorkspaceForm
       const successful = await form.submit()
       if (successful) {
-         events.emit(eventTypes.WORKSPACE_CRUD, 'created')
+         events.emit(eventTypes.WORKSPACE_CREATED, 'created')
          form.reset()
       } else {
          events.emit(eventTypes.WORKSPACE_ERR, form.message)
@@ -137,7 +137,7 @@ export class WorkspacesStore {
       const form = this.selectedWorkspace.updateWorkspaceForm
       const successful = await form.submit(this.selectedWorkspace.id)
       if (successful) {
-         events.emit(eventTypes.WORKSPACE_CRUD, 'updated')
+         events.emit(eventTypes.WORKSPACE_RUD, 'updated')
       } else {
          events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
@@ -148,7 +148,7 @@ export class WorkspacesStore {
       const form = this.selectedWorkspace.updateWorkspaceForm
       const successful = await form.delete(this.selectedWorkspace.id)
       if (successful) {
-         events.emit(eventTypes.WORKSPACE_CRUD, 'deleted')
+         events.emit(eventTypes.WORKSPACE_RUD, 'deleted')
       } else {
          events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
@@ -157,8 +157,13 @@ export class WorkspacesStore {
 
 
    initEvents = () => {
-      events.on(eventTypes.WORKSPACE_CRUD, ()=>{
+      events.on(eventTypes.WORKSPACE_RUD, ()=>{
          this.load()
+      })
+      events.on(eventTypes.WORKSPACE_CREATED, async ()=>{
+         await this.load()
+         const newPath = `/w/${this.workspaces.workspaces[this.workspaces.workspaces.length - 1].id}/`
+         this.rootStore.routerStore.replace(newPath)
       })
    }
 

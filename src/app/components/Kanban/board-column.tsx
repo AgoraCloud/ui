@@ -9,6 +9,10 @@ import { EditLaneDialog } from "app/components/Inputs/Modal"
 import { inject, observer } from 'mobx-react'
 import { WORKSPACES_STORE, UI_STORE } from 'app/constants'
 import { WorkspacesStore, UIStore } from 'app/stores'
+import { AddTaskFAB } from "app/components/Inputs/Buttons"
+import { CreateTaskDialog } from "app/components/Inputs/Modal"
+import IconButton from '@material-ui/core/IconButton';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 // Define types for board column element properties
 type BoardColumnProps = {
@@ -36,7 +40,7 @@ const BoardColumnWrapper = styled.div`
 `
 
 
-export const BoardColumnOptions = inject(WORKSPACES_STORE)(observer((props) => {
+export const BoardColumnOptions = inject(WORKSPACES_STORE, UI_STORE)(observer((props) => {
   const store = props[WORKSPACES_STORE] as WorkspacesStore
   const uistore = props[UI_STORE] as UIStore
   const project = store.selectedProject!
@@ -64,7 +68,7 @@ export const BoardColumnOptions = inject(WORKSPACES_STORE)(observer((props) => {
         {
             name: "Delete",
             onClick: () => {
-                lane.delete()
+                uistore.setDeleteTarget(lane.name, lane.delete)
             }
         }
     ]} />
@@ -86,7 +90,7 @@ export const BoardColumnHeader = (props) => {
           </div>
         </Grid>
       </Grid>
-        
+      
     </div>
 }
 
@@ -100,6 +104,14 @@ const BoardColumnContent = styled.div<BoardColumnContentStylesProps>`
 
 // Create and export the BoardColumn component
 export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return(
     <BoardColumnWrapper>
       <BoardColumnHeader title = {props.column.title} id={props.column.id} />
@@ -111,8 +123,12 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
             isDraggingOver={snapshot.isDraggingOver}
           >
             {/* All board items belong into specific column. */}
-            {props.items.map((item: any, index: number) => <BoardItem key={item.id} item={item} index={index} />)}
+            {props.items.map((item: any, index: number) => <BoardItem key={item.id} laneId={props.column.id} item={item} index={index} />)}
             {provided.placeholder}
+            <div style={{float:"right", marginTop:"10px", marginBottom: "6px"}}>
+              <AddTaskFAB onClick={handleClickOpen} />
+            </div>
+            <CreateTaskDialog isOpen={open} close={handleClose} columnId={props.column.id} /> 
           </BoardColumnContent>
         )}
       </Droppable>

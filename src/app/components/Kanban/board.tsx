@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import { CreateLaneDialog } from "app/components/Inputs/Modal"
 import { AddLaneFAB } from "app/components/Inputs/Buttons"
 // Import BoardColumn component
 import { BoardColumn } from './board-column'
+import { observer } from 'mobx-react'
 
 // Create styles board element properties
 const BoardEl = styled.div`
@@ -48,13 +49,16 @@ const BoardEl = styled.div`
 //   columnsOrder: ['column-1', 'column-2', 'column-3', 'column-4']
 // }
 
-// console.log("This is original board data")
-// console.log(givenBoardData)
-
 export const Board = (props) => {
 
-  const [state, setState] = useState(props.data);
+  const providedData = props.data
+  // console.log("This is the data: ", providedData)
+  const [state, setState] = useState(providedData);
   const [open, setOpen] = useState(false);
+
+  // useEffect(()=>{
+  //   setState(providedData)
+  // }, [providedData])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,6 +71,8 @@ export const Board = (props) => {
   // Handle drag & drop
   const onDragEnd = (result: any) => {
     const { source, destination, draggableId } = result
+
+    // console.log('This is the result: ', result)
 
     // Do nothing if item is dropped outside the list
     if (!destination) {
@@ -149,6 +155,7 @@ export const Board = (props) => {
       }
 
       // Update the board state with new data
+      props.changeLane(source.droppableId, destination.droppableId, draggableId)
       setState(newState)
     }
   }

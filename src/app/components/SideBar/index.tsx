@@ -115,7 +115,7 @@ export const SideBar = inject(ROUTER_STORE, WORKSPACES_STORE)(
             <ListItem
               button
               component={Link}
-              to={store.workspaceUrl + "/projects"}
+              to={store.workspaceUrl + "/p"}
               selected={store.selected === 1}
               onClick={(event) => handleListItemClick(1)}
             >

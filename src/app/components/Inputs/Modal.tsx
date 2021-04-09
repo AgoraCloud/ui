@@ -8,7 +8,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import { Input } from 'app/components/Inputs'
 
@@ -19,11 +18,7 @@ export const CreateLaneDialog = inject(WORKSPACES_STORE)(observer((props) => {
   if(!project) return null
 
   const form = project.createLaneForm
-  const name = form.data.name
-  // console.log("Thissssssssssss is the name")
-  // console.log(name)
-  // console.log("THISSSSS IS THE FORM ERROR:")
-  // console.log(form.getError("name"))
+
 return (
   <div>
     <Dialog open={props.isOpen} onClose={props.close} aria-labelledby="form-dialog-title">
@@ -37,19 +32,6 @@ return (
           Lane Name
         </Typography>
         <Input form={form} id="name" label="Name" />
-        {/* <TextField
-            onChange={form.onInputChange("name")}
-            error={form.getError("name") != undefined}
-            helperText={form.getError("name") != undefined ? form.getError("name") : undefined} // to be implemented (currently all errors are just 'error')
-            defaultValue={name}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="name"
-            label="Lane Name"
-            name="name"
-        /> */}
-
       </DialogContent>
       <DialogActions>
         <Button onClick={() => {
@@ -79,10 +61,7 @@ export const EditLaneDialog = inject(WORKSPACES_STORE)(observer((props) => {
 
     const lane = project.lanes.getById(props.columnId)!
     const form = lane.form
-    const name = form.data.name
-    // console.log("Thissssssssssss is the name")
-    // console.log(name)
-    
+
   return (
     <div>
       <Dialog open={props.isOpen} onClose={props.close} aria-labelledby="form-dialog-title">
@@ -96,19 +75,6 @@ export const EditLaneDialog = inject(WORKSPACES_STORE)(observer((props) => {
             Lane Name
           </Typography>
           <Input form={form} id="name" label="Name" />
-          {/* <TextField
-            onChange={form.onInputChange("name")}
-            error={form.getError("name") != undefined}
-            helperText={form.getError("name") != undefined ? form.getError("name") : undefined} // to be implemented (currently all errors are just 'error')
-            defaultValue={name}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="name"
-            label="Lane Name"
-            name="name"
-        /> */}
-
         </DialogContent>
         <DialogActions>
           <Button onClick={props.close} color="primary">
@@ -125,3 +91,91 @@ export const EditLaneDialog = inject(WORKSPACES_STORE)(observer((props) => {
     </div>
   );
 }))
+
+export const CreateTaskDialog = inject(WORKSPACES_STORE)(observer((props) => {
+  const store = props[WORKSPACES_STORE] as WorkspacesStore
+  const project = store.selectedProject
+
+  if(!project) return null
+
+  const lane = project.lanes.getById(props.columnId)
+
+  if (!lane) return null
+
+  const form = lane.createTaskForm
+
+return (
+  <div>
+    <Dialog open={props.isOpen} onClose={props.close} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Create Task</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Enter the information below and then click the 'Create' button below!
+        </DialogContentText>
+
+        <Typography variant="subtitle1">
+          Title
+        </Typography>
+        <Input form={form} id="title" label="Title" />
+        <Typography variant="subtitle1">
+          Description
+        </Typography>
+        <Input form={form} id="description" label="Description" InputLabelProps={{required: false,}} />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => {
+          props.close()
+          form.reset()
+        }} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={async() => {
+            props.close()
+            await form.submit()
+            form.reset()
+            }} color="primary" disabled={!form.isValid}>
+          Create
+        </Button>
+      </DialogActions>
+    </Dialog>
+  </div>
+);
+}))
+
+export const EditTaskDialog = observer((props) => {
+  const task = props.task
+  const form = task.form
+  
+return (
+  <div>
+    <Dialog open={props.isOpen} onClose={props.close} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Edit Task</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Modify the information below and then click the 'Save' button below!
+        </DialogContentText>
+
+        <Typography variant="subtitle1">
+          Title
+        </Typography>
+        <Input form={form} id="title" label="Title" />
+        <Typography variant="subtitle1">
+          Description
+        </Typography>
+        <Input form={form} id="description" label="Description" InputLabelProps={{required: false,}} />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={props.close} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={async() => {
+            props.close()
+            await form.submit()
+            }} color="primary" disabled={!form.isValid}>
+          Save
+        </Button>
+      </DialogActions>
+    </Dialog>
+  </div>
+);
+})
