@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(6),
     },
+    selected: {
+        paddingLeft: theme.spacing(6),
+        backgroundColor: "#e3e3e3"
+    }
 }));
 
 
@@ -48,10 +52,10 @@ export const PageButton = inject(UI_STORE)(observer((props: {
             onClick: () => {store.setDeleteTarget(page.title, page.delete)}
         }
     ]
-
+    
     return <li>
         <ContextMenu menuItems={menuItems}>
-            <ListItem button component={Link} to={page.link} className={classes.nested}>
+            <ListItem button component={Link} to={page.link} className={page.selected ? classes.selected : classes.nested}>
                 <ListItemText primary={page.title} />
             </ListItem>
         </ContextMenu>
@@ -96,6 +100,9 @@ export const WikiSectionList = observer((props: {
     const { section } = props
     const pages = section.wikiPages
     const [open, setOpen] = React.useState(false)
+    React.useEffect(()=>{
+        setOpen(section.selected || open)
+    }, [section.selected])
     const onClick = () => {
         setOpen(!open)
     }

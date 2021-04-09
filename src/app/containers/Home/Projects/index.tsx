@@ -5,13 +5,12 @@ import { WorkspacesStore, RouterStore, UIStore } from 'app/stores'
 import { MoreMenu } from 'app/components/Inputs'
 import { AddFAB } from 'app/components/Inputs'
 import { HomeWrapper } from 'app/containers/Home';
-import { Typography } from '@material-ui/core'
-import { ConfirmDeleteDialog } from 'app/components/Inputs'
+import { Typography, makeStyles } from '@material-ui/core'
+import {ConfirmDeleteDialog} from 'app/components/Dialogs/ConfirmDelete'
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 
 // Table imports
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -67,7 +66,7 @@ export const ProjectList = inject(WORKSPACES_STORE, ROUTER_STORE, UI_STORE)(obse
 
   projects.forEach((project) => (
     rows.push({
-      id: project.data.id, name: <Link href="/" color="inherit"> {project.data.name} </Link>, description: project.data.description, edit: <MoreMenu options={[
+      id: project.data.id, name: <Button style={{textTransform: 'none'}} onClick={()=>{routerStore.push(workspace.link + 'p/' + project.id + '/lanes')}} color="inherit"> {project.data.name} </Button>, description: project.data.description, edit: <MoreMenu options={[
         {
           name: "Edit",
           onClick: () => {

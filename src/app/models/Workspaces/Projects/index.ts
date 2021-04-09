@@ -1,22 +1,39 @@
 import { observable, computed } from "mobx"
 import { Workspace } from ".."
+import { Lanes } from "./Lanes"
 import { EditProjectFormModel } from "app/forms/Workspace/Projects/CreateProject"
+import { CreateLaneFormModel } from "app/forms/Workspace/Projects/Lanes/CreateLane"
 import { BaseModelCollection, BaseModelItem } from "app/models/Base"
+import { events, eventTypes } from "app/constants"
 
 export class Projects extends BaseModelCollection<Project>{
 
-    constructor(public workspace: Workspace) {
+    /**
+     * A collection of deployments within a workspace
+     */
+
+     constructor(public workspace: Workspace) {
         super(Project)
 
-        const wid = this.workspace.id
-        this.load(`/api/workspaces/${wid}/projects`)
+        this.load()
+
+        events.on(eventTypes.PROJECT_CRUD, () => {
+            this.load()
+        })
+    }
+
+
+    public async load() {
+        await super.load(`${this.workspace.api}projects`)
     }
 
     @computed
     get projects() {
         return this.collection || []
     }
+
 }
+
 
 
 interface projectData_i {
@@ -51,9 +68,17 @@ export class Project extends BaseModelItem<projectData_i>{
     /**
      * A single project
      */
+
+    //  @observable state: 'loaded'|'error'|'loading'|'unloaded'
+
+    lanes: Lanes
+    createLaneForm: CreateLaneFormModel
     @observable form: EditProjectFormModel
     constructor(public projects: Projects, public data: projectData_i) {
         super(projects, data)
+        // this.state = 'unloaded'
+        this.lanes = new Lanes(this, this.projects.workspace)
+        this.createLaneForm = new CreateLaneFormModel(this.projects.workspace, this)
         this.form = new EditProjectFormModel(this)
         this.form.fromDB(data as any)
     }
@@ -74,14 +99,15 @@ export class Project extends BaseModelItem<projectData_i>{
         return this.projects.workspace.link + `p/${this.id}/`
     }
 
-
     delete = async () => {
         try {
             const wid = this.projects.workspace.id
             const pid = this.id
             const res = await fetch(`api/workspaces/${wid}/projects/${pid}`, {method: 'DELETE'})
+            res && events.emit(eventTypes.PROJECT_CRUD, 'deleted')           
         } catch (e) {
             console.warn(e)
+            events.emit(eventTypes.PROJECT_ERR, 'failed to delete')
         }
     }
 

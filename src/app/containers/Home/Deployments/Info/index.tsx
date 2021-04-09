@@ -19,7 +19,6 @@ export const DeploymentLogs = observer((props: { deployment?: Deployment }) => {
     const logs = deployment.logs
 
     let logText = logs.logs
-    console.log("Log Text", logText, logs)
     return <>
         <Typography variant="h4">
             Logs

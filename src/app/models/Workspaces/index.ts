@@ -5,7 +5,7 @@ import { CreateDeploymentFormModel } from "app/forms/Workspace/Deployments/Creat
 import { CreateProjectFormModel } from "app/forms/Workspace/Projects/CreateProject"
 import { UpdateWorkspaceFormModel } from "app/forms/Workspace/UpdateWorkspace"
 import { WikiSectionsModel } from "./Wiki"
-import { WorkspacesStore } from "app/stores"
+import { WorkspacesStore, WorkspaceAdminStore } from "app/stores"
 import { DeploymentImages } from "./Images"
 import { WorkspaceMetrics } from "./Metrics"
 import { UpdateWorkspaceResourcesDto } from "app/forms/validators"
@@ -70,6 +70,8 @@ export class Workspace{
      deploymentImages: DeploymentImages
      updateWorkspaceForm: UpdateWorkspaceFormModel
      @observable metrics: WorkspaceMetrics
+
+     workspaceAdminStore: WorkspaceAdminStore
      constructor(public workspaces: Workspaces, public data: workspaceData_i){
         this.deployments = new Deployments(this)
         this.projects = new Projects(this)
@@ -79,6 +81,8 @@ export class Workspace{
         this.wikiSections = new WikiSectionsModel(this)
         this.deploymentImages = new DeploymentImages(this)
         this.metrics = new WorkspaceMetrics(this)
+
+        this.workspaceAdminStore = new WorkspaceAdminStore(this)
      }
 
 

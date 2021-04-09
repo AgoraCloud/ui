@@ -8,11 +8,15 @@ import { HomeWrapperBase } from 'app/containers/Home'
 
 export const DeploymentProxy = inject(WORKSPACES_STORE)(observer((props) => { 
     const store = props[WORKSPACES_STORE] as WorkspacesStore
+    const [state, setState] = React.useState('loading')
+    console.log("iframe state", state)
     const deployment = store.selectedDeployment
     if(!deployment) return null
     const did = deployment.id
     return <HomeWrapperBase>
-        <iframe id={style.iframe} src={`/proxy/${did}/`}/>
+        <iframe id={style.iframe} src={`/proxy/${did}/`} onLoad={()=>{
+            setState('loaded')
+        }}/>
     </HomeWrapperBase>
 }))
 

@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react'
 import { UI_STORE } from 'app/constants'
 import { UIStore } from 'app/stores/UIStore'
 import { Input } from 'app/components/Inputs'
+import { BaseDialog } from 'app/components/Dialogs'
 
 
 
@@ -12,10 +13,10 @@ export const ConfirmDeleteDialog = inject(UI_STORE)(observer((props) => {
 
     const form = store.confirmDelete
     if(!form) return null
-    const {open, closeDialog, submit, name} = form
+    const {dialog, submit, name} = form
 
-    return <Dialog open={open} onClose={closeDialog} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Confirm Delete</DialogTitle>
+    return <BaseDialog dialog={dialog}>
+        <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
             <DialogContentText>
                 Are you sure you want to delete 
@@ -35,12 +36,12 @@ export const ConfirmDeleteDialog = inject(UI_STORE)(observer((props) => {
             />
         </DialogContent>
         <DialogActions>
-            <Button onClick={closeDialog} color="secondary">
+            <Button onClick={dialog.onClose} color="secondary">
                 Cancel
         </Button>
             <Button onClick={submit} disabled={!form.valid} color="primary">
                 Delete
             </Button>
         </DialogActions>
-    </Dialog>
+    </BaseDialog>
 }))

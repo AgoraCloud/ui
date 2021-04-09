@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // my components
 import { DeploymentsList } from './Deployments';
 import { AppMenu } from 'app/components/AppMenu';
-import {ConfirmDeleteDialog} from 'app/components/Inputs'
+import {ConfirmDeleteDialog} from 'app/components/Dialogs'
 
 
 /**
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => {
     // appBarSpacer: theme.mixins.toolbar,
     content: {
         overflow: "auto",
-        marginTop: "64px",
+        marginTop: "69px",
         boxSizing: "border-box",
         // flexGrow: 0,
         width: "100%",

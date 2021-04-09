@@ -8,21 +8,33 @@ export class WikiSectionsModel extends BaseModelCollection<WikiSectionModel>{
      */
 
     @observable _wikiSections: WikiSectionModel[] = []
-    constructor(public workspace: Workspace){
+    constructor(public workspace: Workspace) {
         super(WikiSectionModel)
         this.load()
     }
 
-    get sections(){
+    selectPage = (selected: WikiPageModel) => {
+        for (const sec of this.sections) {
+            sec.deselect()
+            for (const page of sec.wikiPages.pages) {
+                if (page === selected) {
+                    page.select()
+                    sec.select()
+                }else page.deselect();
+            }
+        }
+    }
+
+    get sections() {
         return this.collection || []
     }
 
-    public async load(){
+    public async load() {
         await super.load(`/api/workspaces/${this.workspace.id}/sections`)
     }
 
 
-    get api(){
+    get api() {
         /**
          * /api/workspaces/{wid}/sections/
          */
@@ -35,7 +47,7 @@ export class WikiSectionsModel extends BaseModelCollection<WikiSectionModel>{
         const body = {
             name: 'New Section'
         }
-        try{
+        try {
             await fetch(`/api/workspaces/${wid}/sections`, {
                 method: 'POST',
                 headers: {
@@ -44,14 +56,14 @@ export class WikiSectionsModel extends BaseModelCollection<WikiSectionModel>{
                 body: JSON.stringify(body),
             })
             await this.load()
-        }catch(e){
+        } catch (e) {
             console.error(e)
         }
 
     }
 }
 
-interface wikiSectionData_i{
+interface wikiSectionData_i {
     name: string
     id: string
 }
@@ -60,34 +72,44 @@ export class WikiSectionModel extends BaseModelItem<wikiSectionData_i>{
      * A single wiki section
      */
     public _wikiPages: WikiPagesModel
+    @observable selected: boolean
     @observable public editableName: string
-    constructor(public wikiSections: WikiSectionsModel, public data: wikiSectionData_i){
+    constructor(public wikiSections: WikiSectionsModel, public data: wikiSectionData_i) {
         super(wikiSections, data)
         this._wikiPages = new WikiPagesModel(this)
         this.editableName = this.data.name
+        this.selected = false
     }
 
-    get wikiPages(){
+
+    get wikiPages() {
         return this._wikiPages
     }
 
-    get name(){
+    get name() {
         return this.data.name
     }
 
-    get id(){
+    get id() {
         return this.data.id
     }
 
-    get link(){
+    get link() {
         return `${this.wikiSections.workspace.link}wiki/${this.id}/`
     }
 
-    get api(){
+    get api() {
         /**
          * /api/workspaces/{wid}/sections/{sid}/
          */
         return `${this.wikiSections.api}${this.id}/`
+    }
+
+    select = () => {
+        this.selected = true
+    }
+    deselect = () => {
+        this.selected = false
     }
 
     onNameChange = (e) => {
@@ -95,11 +117,11 @@ export class WikiSectionModel extends BaseModelItem<wikiSectionData_i>{
     }
 
     onSubmitNameChange = async () => {
-        if(this.editableName.length > 1){
+        if (this.editableName.length > 1) {
             const body = {
                 name: this.editableName
             }
-            try{
+            try {
                 await fetch(this.api, {
                     method: 'PUT',
                     headers: {
@@ -109,7 +131,7 @@ export class WikiSectionModel extends BaseModelItem<wikiSectionData_i>{
                 })
 
                 // await this.load()
-            }catch(e){
+            } catch (e) {
                 console.error(e)
             }
         }
@@ -121,7 +143,7 @@ export class WikiSectionModel extends BaseModelItem<wikiSectionData_i>{
             title: 'New Page',
             body: '# New Page!'
         }
-        try{
+        try {
             await fetch(this.wikiPages.api, {
                 method: 'POST',
                 headers: {
@@ -130,7 +152,7 @@ export class WikiSectionModel extends BaseModelItem<wikiSectionData_i>{
                 body: JSON.stringify(body),
             })
             await this.wikiPages.load()
-        }catch(e){
+        } catch (e) {
             console.error(e)
         }
     }
@@ -142,26 +164,24 @@ export class WikiPagesModel extends BaseModelCollection<WikiPageModel>{
      * A collection of wiki pages
      */
 
-    @observable state: 'loaded'|'error'|'loading'|'unloaded'
-
-    constructor(public wikiSection: WikiSectionModel){
+    constructor(public wikiSection: WikiSectionModel) {
         super(WikiPageModel)
         this.load()
     }
 
 
-    get pages(){
+    get pages() {
         return this.collection || []
     }
 
-    get api(){
+    get api() {
         /**
          * /api/workspaces/{wid}/sections/{sid}/pages
          */
         return `${this.wikiSection.api}pages/`
     }
 
-    public async load(){
+    public async load() {
         const wid = this.wikiSection.wikiSections.workspace.id
         await super.load(`/api/workspaces/${wid}/sections/${this.wikiSection.id}/pages`)
     }
@@ -170,7 +190,7 @@ export class WikiPagesModel extends BaseModelCollection<WikiPageModel>{
 
 }
 
-interface wikiPageData_i{
+interface wikiPageData_i {
     id: string
     title: string
     body: string
@@ -180,42 +200,49 @@ export class WikiPageModel extends BaseModelItem<wikiPageData_i>{
     /**
      * A single wiki page
      */
+    @observable selected: boolean
     @observable editableText
     @observable editableTitle
-    constructor(public wikiPages: WikiPagesModel, public data: wikiPageData_i){
+    constructor(public wikiPages: WikiPagesModel, public data: wikiPageData_i) {
         super(wikiPages, data)
-        this.editableText = data.body 
+        this.editableText = data.body
         this.editableTitle = data.title
+        this.selected = false
     }
 
-    get body(){
+    get body() {
         return this.data.body
     }
 
-    get title(){
+    get title() {
         return this.editableTitle
     }
 
-    get id(){
+    get id() {
         return this.data.id
     }
-    get link(){
+    get link() {
         return `${this.wikiPages.wikiSection.link}pages/${this.id}/`
     }
 
-    get api(){
+    get api() {
         /**
          * /api/workspaces/{wid}/sections/{sid}/pages/{pid}
          */
         return `${this.wikiPages.api}${this.id}`
     }
-
+    select = () => {
+        this.selected = true
+    }
+    deselect = () => {
+        this.selected = false
+    }
     onSave = async () => {
         const body = {
             title: this.editableTitle,
             body: this.editableText
         }
-        try{
+        try {
             await fetch(this.api, {
                 method: 'PUT',
                 headers: {
@@ -224,18 +251,18 @@ export class WikiPageModel extends BaseModelItem<wikiPageData_i>{
                 body: JSON.stringify(body),
             })
             await this.wikiPages.load()
-        }catch(e){
+        } catch (e) {
             console.error(e)
         }
     }
 
     delete = async () => {
-        try{
+        try {
             await fetch(this.api, {
                 method: 'DELETE'
             })
             await this.wikiPages.load()
-        }catch(e){
+        } catch (e) {
             console.error(e)
         }
     }

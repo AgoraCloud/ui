@@ -137,7 +137,7 @@ export class AuthStore {
       const successful = await form.submit()
       if (successful) {
          this.rootStore.snackbarStore.push({
-            message: 'Successfully Changed Password In!',
+            message: 'Successfully Changed Password',
             variant: 'success'
          })
       } else {

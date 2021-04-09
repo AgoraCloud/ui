@@ -1,6 +1,6 @@
 import { RootStore } from 'app/stores/RootStore';
 import { observable, computed } from 'mobx';
-import { Workspaces, Workspace } from 'app/models';
+import { Workspaces, Workspace, Project } from 'app/models';
 import { CreateWorkspaceFormModel } from 'app/forms';
 import { events, eventTypes } from 'app/constants';
 
@@ -68,18 +68,17 @@ export class WorkspacesStore {
       try{
          const matches = pathname.match(/\/w\/(?<wid>[a-zA-Z0-9]{24})\/p\/(?<pid>[a-zA-Z0-9]{24})/)
          const {wid, pid} = matches?.groups as any
-   
+
          const workspace = this.workspaces.getById(wid)
          const project = workspace?.projects?.getById(pid)
-         // const page = section?.wikiPages.getById(pageid)
-   
          return project
-   
-      }catch(e){
+
+      } catch(e){
          return undefined
       }
    }
 
+   
    get selectedWiki(){
       const pathname = this.rootStore.routerStore.location.pathname
       try{
@@ -88,8 +87,9 @@ export class WorkspacesStore {
    
          const workspace = this.workspaces.getById(wid)
          const section = workspace?.wikiSections.getById(sectionid)
+         if(section?.wikiPages?.state != 'loaded') return undefined
          const page = section?.wikiPages.getById(pageid)
-   
+         if(page) workspace?.wikiSections.selectPage(page)
          return page
    
       }catch(e){
@@ -125,7 +125,7 @@ export class WorkspacesStore {
       const form = this.createWorkspaceForm
       const successful = await form.submit()
       if (successful) {
-         events.emit(eventTypes.WORKSPACE_CRUD, 'created')
+         events.emit(eventTypes.WORKSPACE_CREATED, 'created')
          form.reset()
       } else {
          events.emit(eventTypes.WORKSPACE_ERR, form.message)
@@ -137,7 +137,7 @@ export class WorkspacesStore {
       const form = this.selectedWorkspace.updateWorkspaceForm
       const successful = await form.submit(this.selectedWorkspace.id)
       if (successful) {
-         events.emit(eventTypes.WORKSPACE_CRUD, 'updated')
+         events.emit(eventTypes.WORKSPACE_RUD, 'updated')
       } else {
          events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
@@ -148,7 +148,7 @@ export class WorkspacesStore {
       const form = this.selectedWorkspace.updateWorkspaceForm
       const successful = await form.delete(this.selectedWorkspace.id)
       if (successful) {
-         events.emit(eventTypes.WORKSPACE_CRUD, 'deleted')
+         events.emit(eventTypes.WORKSPACE_RUD, 'deleted')
       } else {
          events.emit(eventTypes.WORKSPACE_ERR, form.message)
       }
@@ -157,8 +157,13 @@ export class WorkspacesStore {
 
 
    initEvents = () => {
-      events.on(eventTypes.WORKSPACE_CRUD, ()=>{
+      events.on(eventTypes.WORKSPACE_RUD, ()=>{
          this.load()
+      })
+      events.on(eventTypes.WORKSPACE_CREATED, async ()=>{
+         await this.load()
+         const newPath = `/w/${this.workspaces.workspaces[this.workspaces.workspaces.length - 1].id}/`
+         this.rootStore.routerStore.replace(newPath)
       })
    }
 
