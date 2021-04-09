@@ -20,10 +20,11 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import { inject, observer } from "mobx-react";
-import { ROUTER_STORE } from "app/constants";
-import { RouterStore } from "app/stores";
+import { ROUTER_STORE, Role, WORKSPACES_STORE } from "app/constants";
+import { RouterStore, WorkspacesStore } from "app/stores";
 import { ListSubheader } from "@material-ui/core";
 import PeopleIcon from "@material-ui/icons/People";
+import { RenderIf, RenderIfRole } from "../Guards";
 
 /**
  * Code Sourced from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
@@ -70,10 +71,13 @@ const useStyles = makeStyles((theme) => ({
 
 // const { forwardRef, useImperativeHandle } = React;
 
-export const SideBar = inject(ROUTER_STORE)(
+export const SideBar = inject(ROUTER_STORE, WORKSPACES_STORE)(
   observer((props) => {
-    const store = props[ROUTER_STORE] as RouterStore;
+    const store = props[ROUTER_STORE] as RouterStore
+    const workspacesStore = props[WORKSPACES_STORE] as WorkspacesStore
     const classes = useStyles();
+
+    const selectedWorkspace = workspacesStore.selectedWorkspace
 
     const handleListItemClick = (index: number) => {
       store.selected = index;
@@ -134,7 +138,7 @@ export const SideBar = inject(ROUTER_STORE)(
             </ListItem>
           </List>
           <Divider />
-          <List subheader={<ListSubheader>Workspace</ListSubheader>}>
+          <List subheader={<RenderIf if={props.open}><ListSubheader>Workspace</ListSubheader></RenderIf>}>
             <ListItem
               button
               component={Link}
@@ -171,22 +175,42 @@ export const SideBar = inject(ROUTER_STORE)(
               </ListItemIcon>
               <ListItemText primary="Metrics" />
             </ListItem>
+            <RenderIfRole 
+            roles={[Role.WorkspaceAdmin, Role.SuperAdmin]}
+            wid={selectedWorkspace.id}
+            >
+              <ListItem
+                button
+                component={Link}
+                to={`${store.workspaceUrl}/admin/users`}
+                selected={store.selected === 6}
+                onClick={(event) => handleListItemClick(6)}
+              >
+                <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Users" />
+              </ListItem>
+            </RenderIfRole>
           </List>
           <Divider />
-          <List subheader={<ListSubheader>Admin</ListSubheader>}>
-            <ListItem
-              button
-              component={Link}
-              to={'/admin/users'}
-              selected={store.selected === 6}
-              onClick={(event) => handleListItemClick(6)}
-            >
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Users" />
-            </ListItem>
-          </List>
+          <RenderIfRole roles={[Role.SuperAdmin]}>
+            <List subheader={<RenderIf if={props.open}><ListSubheader>Admin</ListSubheader></RenderIf>}>
+              <ListItem
+                button
+                component={Link}
+                to={'/admin/users'}
+                selected={store.selected === 6}
+                onClick={(event) => handleListItemClick(6)}
+              >
+                <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Users" />
+              </ListItem>
+            </List>
+          </RenderIfRole>
+
         </Drawer>
       </>
     );

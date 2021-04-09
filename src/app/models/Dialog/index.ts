@@ -28,5 +28,7 @@ export class UserDialogModel extends DialogModel{
 }
 
 export class PermissionsDialogModel extends UserDialogModel{
-
+    constructor(public permissions: string[], public roles: string[]){
+        super()
+    }
 }

@@ -20,6 +20,10 @@ const columns = [
         label: 'Email'
     },
     {
+        id: 'id',
+        label: 'User ID'
+    },
+    {
         id: 'isEnabled',
         label: 'Enabled'
     },
@@ -43,6 +47,7 @@ export const UsersTable = inject(ADMIN_STORE)(observer((props: { users: UsersMod
         return {
             email: user.email,
             fullName: user.fullName,
+            id: user.id,
             isEnabled: user.isEnabled ? 'True' : 'False',
             isVerified: user.isVerified ? 'True' : 'False',
             menu: <MoreMenu options={[
@@ -107,15 +112,10 @@ export const AdminUsersPage = inject(ADMIN_STORE)(observer((props) => {
     const users = store.users
     return <div>
         <UsersTable users={users} />
-        <PermissionsDialog/>
+        <PermissionsDialog dialog={store.permissionsDialog}/>
         <EditUserDialog/>
         <CreateUserDialog/>
         <AddFABBase onClick={store.createUserDialog.onOpen}/>
     </div>
 }))
 
-export const AdminPage = () => {
-    return <div>
-        admin home page
-    </div>
-}

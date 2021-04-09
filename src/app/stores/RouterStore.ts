@@ -5,7 +5,7 @@ import { RootStore } from "app/stores/RootStore";
 export class RouterStore extends BaseRouterStore {
   private selectedIndex = 0;
 
-  constructor(private rootStore: RootStore, history?: History) {
+  constructor(public rootStore: RootStore, history?: History) {
     super();
     if (history) {
       this.history = syncHistoryWithStore(history, this);

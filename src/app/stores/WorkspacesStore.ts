@@ -78,6 +78,7 @@ export class WorkspacesStore {
       }
    }
 
+   
    get selectedWiki(){
       const pathname = this.rootStore.routerStore.location.pathname
       try{
@@ -86,8 +87,9 @@ export class WorkspacesStore {
    
          const workspace = this.workspaces.getById(wid)
          const section = workspace?.wikiSections.getById(sectionid)
+         if(section?.wikiPages?.state != 'loaded') return undefined
          const page = section?.wikiPages.getById(pageid)
-   
+         if(page) workspace?.wikiSections.selectPage(page)
          return page
    
       }catch(e){

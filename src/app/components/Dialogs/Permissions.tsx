@@ -1,29 +1,30 @@
 import * as React from 'react'
 import { BaseDialog } from 'app/components/Dialogs'
-import { inject, observer } from 'mobx-react'
-import { ADMIN_STORE, events, eventTypes } from 'app/constants'
-import { AdminStore } from 'app/stores'
+import { observer } from 'mobx-react'
+import { events, eventTypes } from 'app/constants'
 import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core'
 import { PermissionsForm, RolesForm } from '../Forms/Permissions'
-import { CancelCreateButtons, RolesSelect } from 'app/components/Inputs'
+import { CancelCreateButtons } from 'app/components/Inputs'
+import { PermissionsDialogModel } from 'app/models/Dialog'
 
-export const PermissionsDialog = inject(ADMIN_STORE)(observer((props) => {
-    const store = props[ADMIN_STORE] as AdminStore
-    const { permissionsDialog } = store
-    const { user } = permissionsDialog
+export const PermissionsDialog = observer((props: {
+    dialog: PermissionsDialogModel
+}) => {
+    const {dialog} = props
+    const { user } = dialog
     if (!user) return null
     const form = user.permissions.form
-    return <BaseDialog dialog={permissionsDialog}>
+    return <BaseDialog dialog={dialog}>
         <DialogTitle>Permissions: {user.fullName}</DialogTitle>
         <DialogContent>
-            <RolesForm form={form}/>
-            <PermissionsForm form={form} />
+            <RolesForm form={form} roles={dialog.roles}/>
+            <PermissionsForm form={form} permissions={dialog.permissions}/>
         </DialogContent>
         <DialogActions>
             <CancelCreateButtons
             form={form}
             labels={['Cancel', 'Edit']}
-            cancel={permissionsDialog.onClose}
+            cancel={dialog.onClose}
             submit={async ()=>{
                 if(await form.submit()){
                     events.emit(eventTypes.USER_CRUD, 'edited permissions')
@@ -33,4 +34,4 @@ export const PermissionsDialog = inject(ADMIN_STORE)(observer((props) => {
 
         </DialogActions>
     </BaseDialog>
-}))
+})

@@ -3,7 +3,8 @@ import { UpdateUserFormModel, AdminUpdateUserFormModel, AdminDeleteUserFormModel
 import { BaseModel, BaseModelItem, BaseModelCollection } from "app/models/Base"
 import { rootStore } from "app/stores"
 import { events, eventTypes } from "app/constants"
-import { UserPermissionsModel } from "./Permission"
+import { UserPermissionsModel, WorkspacePermissionsModel, UserPermissions } from "./Permission"
+import { Workspace } from "../Workspaces"
 
 // import { BaseModel } from "../Base"
 
@@ -29,9 +30,12 @@ export class User extends BaseModel<user_i>{
      */
 
     updateUserForm: UpdateUserFormModel
+    permissions: UserPermissions
     constructor() {
         super()
         this.updateUserForm = new UpdateUserFormModel()
+        this.permissions = new UserPermissions(this)
+        this.dependents = [this.permissions]
     }
     get fullName() {
         return this.responseData.fullName
@@ -39,6 +43,7 @@ export class User extends BaseModel<user_i>{
 
     public async load() {
         await super.load('/api/user')
+        return true
     }
 
     get fullname() {
@@ -86,7 +91,6 @@ export class UserModel extends BaseModelItem<userModel_i>{
      */
 
 
-    perissions: UserPermissionsModel
     updateUserForm: AdminUpdateUserFormModel
     deleteUserForm: AdminDeleteUserFormModel
     permissions: UserPermissionsModel
@@ -143,5 +147,47 @@ export class UserModel extends BaseModelItem<userModel_i>{
             body: JSON.stringify({ email: this.email }),
         })
     }
+}
+export class WorkspaceUsersModel extends BaseModelCollection<WorkspaceUserModel>{
+    constructor(public workspace: Workspace){
+        super(WorkspaceUserModel)
+        this.iteratorKey = 'users'
+        this.load()
+        events.on(`WORKSPACE_USERS_CRUD`, ()=>{
+            this.load()
+        })
+    }
 
+    get api() {
+        return `${this.workspace.api}users/`
+    }
+
+    get users() {
+        return this.collection
+    }
+
+    public async load() {
+        await super.load(this.api)
+    }
+}
+
+export class WorkspaceUserModel extends BaseModelItem<user_i>{
+    permissions: WorkspacePermissionsModel
+    constructor(public parent: WorkspaceUsersModel, data){
+        super(parent, data)
+        this.permissions = new WorkspacePermissionsModel(this, parent.workspace)
+    }
+    get email() {
+        return this.data.email
+    }
+    get fullName() {
+        return this.data.fullName
+    }
+
+    onRemove = async () => {
+        const res = await fetch(`${this.parent.api}${this.id}`, {method: 'DELETE'})
+        if(res) events.emit(eventTypes.WORKSPACE_USER_CRUD, 'removed')
+        else events.emit(eventTypes.WORKSPACE_USER_ERR, 'error removing user')
+        return res
+    }
 }

@@ -109,7 +109,8 @@ export class Deployment extends BaseModelItem<deploymentData_i>{
             const wid = this.deployments.workspace.id
             const did = this.id
             const res = await fetch(`api/workspaces/${wid}/deployments/${did}`, { method: 'DELETE' })
-            events.emit(eventTypes.DEPLOYMENT_CRUD, 'deleted')
+            if(res) events.emit(eventTypes.DEPLOYMENT_CRUD, 'deleted')
+            else events.emit(eventTypes.DEPLOYMENT_ERR, 'failed to delete')
         } catch (e) {
             console.warn("delete err", e)
             events.emit(eventTypes.DEPLOYMENT_ERR, 'failed to delete')

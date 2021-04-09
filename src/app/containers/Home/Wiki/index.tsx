@@ -12,7 +12,7 @@ import Editor from "@monaco-editor/react";
 import * as monaco from 'monaco-editor'
 import * as Markdown from 'react-markdown';
 import SaveIcon from '@material-ui/icons/Save';
-import { WikiLoaded } from 'app/components/RouteGuards/Workspaces';
+import { WikiLoaded } from 'app/components/Guards/RouteGuards/Workspaces';
 
 
 
