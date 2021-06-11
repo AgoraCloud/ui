@@ -22,7 +22,7 @@ export class CreateProjectFormModel extends BaseFormModel<
   }
 
   toDB = () => {
-    let { name, description } = this.data;
+    const { name, description } = this.data;
 
     return {
       name,
@@ -62,7 +62,7 @@ export class EditProjectFormModel extends BaseFormModel<
   }
 
   toDB = () => {
-    let { name, description } = this.data;
+    const { name, description } = this.data;
 
     return {
       name,

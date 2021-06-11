@@ -65,7 +65,7 @@ export const ProjectList = inject(
     const workspace = store.selectedWorkspace;
     const projects = workspace.projects.projects;
     const classes = useStyles();
-    var rows: Data[] = [];
+    const rows: Data[] = [];
 
     projects.forEach((project) =>
       rows.push({

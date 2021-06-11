@@ -20,7 +20,7 @@ const columns = [
 export const PermissionsForm = observer(
   (props: { form: PermissionsFormModel; permissions: string[] }) => {
     const { form, permissions } = props;
-    let rows: any[] = [];
+    const rows: any[] = [];
     for (const value of permissions) {
       // const value = WorkspaceActions[key]
       rows.push({
@@ -46,7 +46,7 @@ export const RolesForm = observer(
   (props: { form: PermissionsFormModel; roles: string[] }) => {
     const { form, roles } = props;
 
-    let rows: any[] = [];
+    const rows: any[] = [];
     for (const value of roles) {
       // const value = Role[key]
       rows.push({

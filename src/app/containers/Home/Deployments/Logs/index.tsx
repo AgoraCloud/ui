@@ -12,7 +12,7 @@ export const DeploymentLogsPage = inject(WORKSPACES_STORE)(
     const deployment = store.selectedDeployment;
     const logs = deployment.logs;
 
-    let logText = logs.logs;
+    const logText = logs.logs;
 
     return (
       <HomeWrapper>

@@ -20,7 +20,7 @@ export const getErrors = async (v: any): Promise<{ [key: string]: string }> => {
    */
   const c = classToClass(v);
   const errors = await validate(c);
-  let out: any = {};
+  const out: any = {};
   const recurse = (root: string, errors: ValidationError[]) => {
     for (const error of errors) {
       const property = [root, error.property]
@@ -65,7 +65,7 @@ export class BaseFormModel<FormInterface, DBInterface> {
   responseBody: DBInterface = {} as DBInterface;
 
   @observable
-  isValid: boolean = false;
+  isValid = false;
 
   meta: meta_i;
   constructor(private validator?: new () => any) {
@@ -139,7 +139,7 @@ export class BaseFormModel<FormInterface, DBInterface> {
       // TODO figure out a way to get all the keys that are not listed in conversions to be present in 'out'
       // sufficient for now, but wasteful, therea re better ways to do this
       // let out = _.cloneDeep(data) as DBInterface
-      let out = {};
+      const out = {};
 
       const { conversions } = this.meta;
 
@@ -171,7 +171,7 @@ export class BaseFormModel<FormInterface, DBInterface> {
      * use to export to db interface
      */
 
-    let out = this.convert(this.data, false) as DBInterface;
+    const out = this.convert(this.data, false) as DBInterface;
     return out;
   };
   fromDB = (data: DBInterface) => {
@@ -181,7 +181,7 @@ export class BaseFormModel<FormInterface, DBInterface> {
      * use to import from db interface
      */
 
-    let out = this.convert(data, true) as DBInterface;
+    const out = this.convert(data, true) as DBInterface;
     // console.log("OUT", out, data)
     _.merge(this.data, out);
     return out;

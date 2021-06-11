@@ -22,7 +22,7 @@ export const Lanes = inject(WORKSPACES_STORE)(
     const store = props[WORKSPACES_STORE] as WorkspacesStore;
     const project = store.selectedProject;
     const lanes = project?.lanes;
-    var tasks: { [taskId: string]: ITask } = {};
+    const tasks: { [taskId: string]: ITask } = {};
 
     if (!project || !lanes) return null;
 
@@ -50,8 +50,8 @@ export const Lanes = inject(WORKSPACES_STORE)(
 
     // console.log("LOOK AT THIS")
     // console.log(tasks)
-    var data: { [laneName: string]: ILane } = {};
-    var lanesOrder: string[] = [];
+    const data: { [laneName: string]: ILane } = {};
+    const lanesOrder: string[] = [];
 
     lanes.lanes.forEach((lane) => {
       const collectedTasks: string[] = [];
@@ -66,7 +66,7 @@ export const Lanes = inject(WORKSPACES_STORE)(
       lanesOrder.push(lane.id);
     });
 
-    var boardData = {
+    const boardData = {
       items: tasks,
       columns: data,
       columnsOrder: lanesOrder,

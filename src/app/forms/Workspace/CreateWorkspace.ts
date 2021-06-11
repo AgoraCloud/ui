@@ -33,9 +33,9 @@ export class CreateWorkspaceFormModel extends BaseFormModel<
   }
 
   toDB = () => {
-    let { name, properties } = this.data;
+    const { name, properties } = this.data;
     const resources: CreateWorkspaceResourcesDto = properties?.resources;
-    let newProperties = {
+    const newProperties = {
       resources: {
         cpuCount: resources?.cpuCount ? Number(resources.cpuCount) : undefined,
         memoryCount: resources?.memoryCount

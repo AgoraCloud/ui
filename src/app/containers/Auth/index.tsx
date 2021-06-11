@@ -164,7 +164,7 @@ export const ChangePassword = inject(AUTH_STORE)(
     // two input fields password, confirm password
     const store = props[AUTH_STORE] as AuthStore;
 
-    let query = useQuery();
+    const query = useQuery();
     const { token } = query;
     const form = store.changePasswordForm;
     React.useEffect(() => {
@@ -239,7 +239,7 @@ export const VerifyAccount = inject(AUTH_STORE)(
   observer((props) => {
     const store = props[AUTH_STORE] as AuthStore;
 
-    let query = useQuery();
+    const query = useQuery();
     const { token } = query;
     const form = store.verifyForm;
     React.useEffect(() => {

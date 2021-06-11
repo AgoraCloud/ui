@@ -124,7 +124,7 @@ export class Workspace {
     let { name, properties } = this.data;
     name = name ? this.data.name : '';
     const resources: UpdateWorkspaceResourcesDto = properties?.resources;
-    let newProperties = {
+    const newProperties = {
       resources: {
         cpuCount: resources?.cpuCount ? Number(resources.cpuCount) : undefined,
         memoryCount: resources?.memoryCount

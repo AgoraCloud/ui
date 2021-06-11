@@ -26,7 +26,7 @@ export class CreateTaskFormModel extends BaseFormModel<
   }
 
   toDB = () => {
-    let { title, description } = this.data;
+    const { title, description } = this.data;
 
     return {
       title,
@@ -71,7 +71,7 @@ export class EditTaskFormModel extends BaseFormModel<
   }
 
   toDB = () => {
-    let { title, description } = this.data;
+    const { title, description } = this.data;
 
     return {
       title,

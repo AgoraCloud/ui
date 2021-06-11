@@ -8,7 +8,7 @@ export const WorkspaceRole = [Role.SuperAdmin, Role.User];
 
 export const InWorkspaceRole = [Role.WorkspaceAdmin, Role.User];
 
-export let roles: any = [];
+export const roles: any = [];
 for (const key in Role) {
   roles.push({ label: key, value: Role[key] });
 }

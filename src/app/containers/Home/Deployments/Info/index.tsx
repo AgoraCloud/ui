@@ -16,7 +16,7 @@ export const DeploymentLogs = observer((props: { deployment?: Deployment }) => {
   if (!deployment) return null;
   const logs = deployment.logs;
 
-  let logText = logs.logs;
+  const logText = logs.logs;
   return (
     <>
       <Typography variant="h4">Logs</Typography>
