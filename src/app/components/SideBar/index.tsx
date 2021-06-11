@@ -1,30 +1,30 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import * as React from 'react';
+import { Link } from 'react-router-dom';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 // icons
 
-import AppsIcon from "@material-ui/icons/Apps";
-import NotesIcon from "@material-ui/icons/Notes";
-import ListItemText from "@material-ui/core/ListItemText";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import SettingsIcon from "@material-ui/icons/Settings";
-import AssessmentIcon from "@material-ui/icons/Assessment";
-import { inject, observer } from "mobx-react";
-import { ROUTER_STORE, Role, WORKSPACES_STORE } from "app/constants";
-import { RouterStore, WorkspacesStore } from "app/stores";
-import { ListSubheader } from "@material-ui/core";
-import PeopleIcon from "@material-ui/icons/People";
-import { RenderIf, RenderIfRole } from "../Guards";
+import AppsIcon from '@material-ui/icons/Apps';
+import NotesIcon from '@material-ui/icons/Notes';
+import ListItemText from '@material-ui/core/ListItemText';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import SettingsIcon from '@material-ui/icons/Settings';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import { inject, observer } from 'mobx-react';
+import { ROUTER_STORE, Role, WORKSPACES_STORE } from 'app/constants';
+import { RouterStore, WorkspacesStore } from 'app/stores';
+import { ListSubheader } from '@material-ui/core';
+import PeopleIcon from '@material-ui/icons/People';
+import { RenderIf, RenderIfRole } from '../Guards';
 
 /**
  * Code Sourced from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
@@ -35,37 +35,37 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
     ...theme.mixins.toolbar,
   },
   drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
+    position: 'relative',
+    whiteSpace: 'nowrap',
     width: drawerWidth,
-    transition: theme.transitions.create("width", {
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9),
     },
   },
   paper: {
     padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column",
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
   },
 }));
 
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const SideBar = inject(
   ROUTER_STORE,
-  WORKSPACES_STORE
+  WORKSPACES_STORE,
 )(
   observer((props) => {
     const store = props[ROUTER_STORE] as RouterStore;
@@ -88,11 +88,14 @@ export const SideBar = inject(
 
     return (
       <>
-        {" "}
+        {' '}
         <Drawer
           variant="permanent"
           classes={{
-            paper: clsx(classes.drawerPaper, !props.open && classes.drawerPaperClose),
+            paper: clsx(
+              classes.drawerPaper,
+              !props.open && classes.drawerPaperClose,
+            ),
           }}
           open={props.open}
         >
@@ -118,7 +121,7 @@ export const SideBar = inject(
             <ListItem
               button
               component={Link}
-              to={store.workspaceUrl + "/p"}
+              to={store.workspaceUrl + '/p'}
               selected={store.selected === 1}
               onClick={(event) => handleListItemClick(1)}
             >
@@ -130,7 +133,7 @@ export const SideBar = inject(
             <ListItem
               button
               component={Link}
-              to={store.workspaceUrl + "/wiki"}
+              to={store.workspaceUrl + '/wiki'}
               selected={store.selected === 2}
               onClick={(event) => handleListItemClick(2)}
             >
@@ -151,7 +154,7 @@ export const SideBar = inject(
             <ListItem
               button
               component={Link}
-              to={"/w/new"}
+              to={'/w/new'}
               selected={store.selected === 3}
               onClick={(event) => handleListItemClick(3)}
             >
@@ -163,7 +166,7 @@ export const SideBar = inject(
             <ListItem
               button
               component={Link}
-              to={store.workspaceUrl + "/edit-workspace"}
+              to={store.workspaceUrl + '/edit-workspace'}
               selected={store.selected === 4}
               onClick={(event) => handleListItemClick(4)}
             >
@@ -175,7 +178,7 @@ export const SideBar = inject(
             <ListItem
               button
               component={Link}
-              to={store.workspaceUrl + "/metrics"}
+              to={store.workspaceUrl + '/metrics'}
               selected={store.selected === 5}
               onClick={(event) => handleListItemClick(5)}
             >
@@ -184,7 +187,10 @@ export const SideBar = inject(
               </ListItemIcon>
               <ListItemText primary="Metrics" />
             </ListItem>
-            <RenderIfRole roles={[Role.WorkspaceAdmin, Role.SuperAdmin]} wid={selectedWorkspace.id}>
+            <RenderIfRole
+              roles={[Role.WorkspaceAdmin, Role.SuperAdmin]}
+              wid={selectedWorkspace.id}
+            >
               <ListItem
                 button
                 component={Link}
@@ -211,7 +217,7 @@ export const SideBar = inject(
               <ListItem
                 button
                 component={Link}
-                to={"/admin/users"}
+                to={'/admin/users'}
                 selected={store.selected === 7}
                 onClick={(event) => handleListItemClick(7)}
               >
@@ -225,5 +231,5 @@ export const SideBar = inject(
         </Drawer>
       </>
     );
-  })
+  }),
 );

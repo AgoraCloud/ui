@@ -1,9 +1,9 @@
-import * as React from 'react'
-import { WORKSPACES_STORE } from 'app/constants'
-import { observer, inject } from 'mobx-react'
-import { WorkspacesStore } from 'app/stores'
+import * as React from 'react';
+import { WORKSPACES_STORE } from 'app/constants';
+import { observer, inject } from 'mobx-react';
+import { WorkspacesStore } from 'app/stores';
 import { HomeWrapper } from 'app/containers/Home';
-import { Board } from 'app/components/Kanban/board'
+import { Board } from 'app/components/Kanban/board';
 
 interface ILane {
   id: string;
@@ -17,55 +17,65 @@ interface ITask {
   description: string;
 }
 
+export const Lanes = inject(WORKSPACES_STORE)(
+  observer((props) => {
+    const store = props[WORKSPACES_STORE] as WorkspacesStore;
+    const project = store.selectedProject;
+    const lanes = project?.lanes;
+    var tasks: { [taskId: string]: ITask } = {};
 
-export const Lanes = inject(WORKSPACES_STORE)(observer((props) => {
+    if (!project || !lanes) return null;
 
-  const store = props[WORKSPACES_STORE] as WorkspacesStore
-  const project = store.selectedProject
-  const lanes = project?.lanes
-  var tasks: {[taskId: string]: ITask;} = {}
+    const handleLaneChange = async (
+      from: string,
+      to: string,
+      taskId: string,
+    ) => {
+      // console.log("THIS IS THE DATA RECEVIED: ", from, to, taskId)
+      const lane = lanes.getById(from);
+      const task = lane?.tasks.getById(taskId);
+      // console.log("This is what I found: ", lane, task)
+      await task?.changeLane(task.title, task.description, to);
+    };
 
-  if(!project || !lanes) return null
+    lanes.lanes.forEach((lane) => {
+      lane.tasks.tasks.forEach((task) => {
+        tasks[task.id] = {
+          id: task.id,
+          title: task.title,
+          description: task.description,
+        };
+      });
+    });
 
-  const handleLaneChange = async (from: string, to: string, taskId: string) => {
-    // console.log("THIS IS THE DATA RECEVIED: ", from, to, taskId)
-    const lane = lanes.getById(from)
-    const task = lane?.tasks.getById(taskId)
-    // console.log("This is what I found: ", lane, task)
-    await task?.changeLane(task.title, task.description, to)
-  };
-  
-  lanes.lanes.forEach(lane => {
-    lane.tasks.tasks.forEach(task => {
-      tasks[task.id] = {id: task.id, title: task.title, description: task.description}
-    })
-  })
+    // console.log("LOOK AT THIS")
+    // console.log(tasks)
+    var data: { [laneName: string]: ILane } = {};
+    var lanesOrder: string[] = [];
 
-  // console.log("LOOK AT THIS")
-  // console.log(tasks)
-  var data: { [laneName: string]: ILane; } = {}
-  var lanesOrder: string[] = []
+    lanes.lanes.forEach((lane) => {
+      const collectedTasks: string[] = [];
+      lane.tasks.tasks.forEach((task) => {
+        collectedTasks.push(task.id);
+      });
+      data[lane.id] = {
+        id: lane.id,
+        title: lane.name,
+        itemsIds: collectedTasks,
+      };
+      lanesOrder.push(lane.id);
+    });
 
-  lanes.lanes.forEach(lane => {
-    const collectedTasks: string[] = []
-    lane.tasks.tasks.forEach(task => {
-      collectedTasks.push(task.id)
-    })
-    data[lane.id] = {id: lane.id, title: lane.name, itemsIds: collectedTasks}
-    lanesOrder.push(lane.id)
-  })
+    var boardData = {
+      items: tasks,
+      columns: data,
+      columnsOrder: lanesOrder,
+    };
 
-  
-
-  var boardData = {
-    items: tasks,
-    columns: data,
-    columnsOrder: lanesOrder
-
-  }
-
-  return <HomeWrapper>
-    <Board data={boardData} changeLane={handleLaneChange} />
-  </HomeWrapper>
-}))
-
+    return (
+      <HomeWrapper>
+        <Board data={boardData} changeLane={handleLaneChange} />
+      </HomeWrapper>
+    );
+  }),
+);

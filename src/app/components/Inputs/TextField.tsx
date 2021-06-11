@@ -1,7 +1,7 @@
-import * as React from "react";
-import TextField, { StandardTextFieldProps } from "@material-ui/core/TextField";
-import { BaseFormModel } from "app/forms";
-import { observer } from "mobx-react";
+import * as React from 'react';
+import TextField, { StandardTextFieldProps } from '@material-ui/core/TextField';
+import { BaseFormModel } from 'app/forms';
+import { observer } from 'mobx-react';
 
 interface InputProps extends StandardTextFieldProps {
   form: BaseFormModel<any, any>;
@@ -13,8 +13,8 @@ export const Input = observer((props: InputProps) => {
   return (
     <TextField
       onChange={form.onInputChange(id)}
-      error={form.getError(id) != undefined && val != ""}
-      helperText={val != "" ? form.getError(id) : undefined} // to be implemented (currently all errors are just 'error')
+      error={form.getError(id) != undefined && val != ''}
+      helperText={val != '' ? form.getError(id) : undefined} // to be implemented (currently all errors are just 'error')
       value={val}
       variant="outlined"
       margin="normal"
@@ -30,10 +30,15 @@ export const Input = observer((props: InputProps) => {
 });
 
 // icons
-import MemoryIcon from "@material-ui/icons/Memory";
-import MoneyIcon from "@material-ui/icons/Money";
-import StorageIcon from "@material-ui/icons/Storage";
-import { InputAdornment, makeStyles, Checkbox, Typography } from "@material-ui/core";
+import MemoryIcon from '@material-ui/icons/Memory';
+import MoneyIcon from '@material-ui/icons/Money';
+import StorageIcon from '@material-ui/icons/Storage';
+import {
+  InputAdornment,
+  makeStyles,
+  Checkbox,
+  Typography,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -41,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
   },
   subtitle: {
     margin: theme.spacing(1, 0, 1, 0),
-    color: "inherit",
-    variant: "subtitle1",
+    color: 'inherit',
+    variant: 'subtitle1',
   },
 }));
 
@@ -53,7 +58,7 @@ export const ResourceInput = (props: { form: BaseFormModel<any, any> }) => {
   const [persist, setPersist] = React.useState(true);
 
   const handleCheckbox = () => {
-    form.onChange("storageCount")(persist ? undefined : 8);
+    form.onChange('storageCount')(persist ? undefined : 8);
     setPersist(!persist);
   };
 
@@ -61,7 +66,12 @@ export const ResourceInput = (props: { form: BaseFormModel<any, any> }) => {
     <>
       <CPUMemoryInput form={form} />
       <Typography>
-        <Checkbox checked={persist} onChange={handleCheckbox} name="checkedB" color="primary" />
+        <Checkbox
+          checked={persist}
+          onChange={handleCheckbox}
+          name="checkedB"
+          color="primary"
+        />
         Persist deployment
       </Typography>
       {persist ? (

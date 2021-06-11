@@ -10,11 +10,10 @@ import { SnackbarManager } from 'app/components/SnackbarManager';
 // render react DOM
 ReactDOM.render(
   <Provider {...rootStore.stores}>
-      <ThemeProvider theme={theme}>
-        <App history={history} />
-      </ThemeProvider>
-    <SnackbarManager/>
+    <ThemeProvider theme={theme}>
+      <App history={history} />
+    </ThemeProvider>
+    <SnackbarManager />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
-

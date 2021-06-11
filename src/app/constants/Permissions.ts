@@ -4,19 +4,13 @@ export enum Role {
   WorkspaceAdmin = 'workspace_admin',
 }
 
-export const WorkspaceRole = [
-  Role.SuperAdmin,
-  Role.User
-]
+export const WorkspaceRole = [Role.SuperAdmin, Role.User];
 
-export const InWorkspaceRole = [
-  Role.WorkspaceAdmin,
-  Role.User
-]
+export const InWorkspaceRole = [Role.WorkspaceAdmin, Role.User];
 
-export let roles: any = []
+export let roles: any = [];
 for (const key in Role) {
-  roles.push({ label: key, value: Role[key] })
+  roles.push({ label: key, value: Role[key] });
 }
 
 export enum Action {

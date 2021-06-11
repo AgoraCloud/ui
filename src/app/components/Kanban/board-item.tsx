@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Draggable } from "react-beautiful-dnd";
-import styled from "styled-components";
-import { CustomCard } from "./card";
+import * as React from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
+import { CustomCard } from './card';
 
 // Define types for board item element properties
 type BoardItemProps = {
@@ -19,7 +19,7 @@ type BoardItemStylesProps = {
 // Create style for board item element
 const BoardItemEl = styled.div<BoardItemStylesProps>`
   padding: 8px;
-  background-color: ${(props) => (props.isDragging ? "#d3e4ee" : "none")};
+  background-color: ${(props) => (props.isDragging ? '#d3e4ee' : 'none')};
   border-radius: 4px;
   transition: background-color 0.25s ease-out;
 

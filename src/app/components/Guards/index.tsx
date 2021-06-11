@@ -1,68 +1,86 @@
-import * as React from 'react'
-import { USER_STORE } from 'app/constants'
-import { observer, inject } from 'mobx-react'
-import { UserStore } from 'app/stores'
-import { PermissionsBase } from 'app/models/User/Permission'
+import * as React from 'react';
+import { USER_STORE } from 'app/constants';
+import { observer, inject } from 'mobx-react';
+import { UserStore } from 'app/stores';
+import { PermissionsBase } from 'app/models/User/Permission';
 
 export const RenderIf = (props: {
-    if: boolean
-    children: React.ReactElement
+  if: boolean;
+  children: React.ReactElement;
 }) => {
-    if (!props.if) return null
-    return props.children
-}
-
+  if (!props.if) return null;
+  return props.children;
+};
 
 export const RenderIfHas = (props: {
-    array: string[]
-    permissions: PermissionsBase
-    children: React.ReactElement
-} ) => {
-    const {array, permissions} = props
-    let allow = false
-    for (const perm of array) {
-        console.log(permissions.has(perm))
-        if (permissions.has(perm)) {
-            allow = true
-            break
-        }
-    }
-
-    if (allow) return props.children
-    return null
-}
-
-export const RenderIfRole = inject(USER_STORE)(observer((props: {
-    roles: string[]
-    children: React.ReactElement
-    wid?: string
+  array: string[];
+  permissions: PermissionsBase;
+  children: React.ReactElement;
 }) => {
-    const store = props[USER_STORE] as UserStore
-    const { roles, wid } = props
-    console.log(store.user.state, store.user.permissions, store.user.permissions?.state)
-    let perms: PermissionsBase = store.user.permissions.roles
-    if(wid){
-        perms = store.user.permissions.getWorkspacePermission(wid)?.roles || perms
+  const { array, permissions } = props;
+  let allow = false;
+  for (const perm of array) {
+    console.log(permissions.has(perm));
+    if (permissions.has(perm)) {
+      allow = true;
+      break;
     }
+  }
 
-    return <RenderIfHas array={roles} permissions={perms}>
-        {props.children}
-    </RenderIfHas>
-}))
+  if (allow) return props.children;
+  return null;
+};
 
-export const RenderIfPermission = inject(USER_STORE)(observer((props: {
-    permissions: string[]
-    children: React.ReactElement
-    wid?: string
-}) => {
-    const store = props[USER_STORE] as UserStore
-    const { permissions, wid } = props
-    let perms: PermissionsBase = store.user.permissions.permissions
-    if(wid){
-        perms = store.user.permissions.getWorkspacePermission(wid)?.permissions || perms
-    }
+export const RenderIfRole = inject(USER_STORE)(
+  observer(
+    (props: {
+      roles: string[];
+      children: React.ReactElement;
+      wid?: string;
+    }) => {
+      const store = props[USER_STORE] as UserStore;
+      const { roles, wid } = props;
+      console.log(
+        store.user.state,
+        store.user.permissions,
+        store.user.permissions?.state,
+      );
+      let perms: PermissionsBase = store.user.permissions.roles;
+      if (wid) {
+        perms =
+          store.user.permissions.getWorkspacePermission(wid)?.roles || perms;
+      }
 
-    return <RenderIfHas array={permissions} permissions={perms}>
-        {props.children}
-    </RenderIfHas>
-}))
+      return (
+        <RenderIfHas array={roles} permissions={perms}>
+          {props.children}
+        </RenderIfHas>
+      );
+    },
+  ),
+);
+
+export const RenderIfPermission = inject(USER_STORE)(
+  observer(
+    (props: {
+      permissions: string[];
+      children: React.ReactElement;
+      wid?: string;
+    }) => {
+      const store = props[USER_STORE] as UserStore;
+      const { permissions, wid } = props;
+      let perms: PermissionsBase = store.user.permissions.permissions;
+      if (wid) {
+        perms =
+          store.user.permissions.getWorkspacePermission(wid)?.permissions ||
+          perms;
+      }
+
+      return (
+        <RenderIfHas array={permissions} permissions={perms}>
+          {props.children}
+        </RenderIfHas>
+      );
+    },
+  ),
+);

@@ -1,14 +1,8 @@
-const dev = {
-};
-const prod = {
-};
+const dev = {};
+const prod = {};
 
-
-const config = process.env.REACT_APP_STAGE === 'prod'
-  ? prod
-  : dev;
+const config = process.env.REACT_APP_STAGE === 'prod' ? prod : dev;
 
 export default {
-  ...config
+  ...config,
 };
-

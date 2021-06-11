@@ -1,6 +1,6 @@
-import { BaseFormModel } from "app/forms/Base";
-import { CreateDeploymentDto, UpdateDeploymentDto } from "app/forms/validators";
-import { Workspace, Deployment } from "app/models";
+import { BaseFormModel } from 'app/forms/Base';
+import { CreateDeploymentDto, UpdateDeploymentDto } from 'app/forms/validators';
+import { Workspace, Deployment } from 'app/models';
 
 interface deploymentForm_i {
   name: string;
@@ -55,8 +55,8 @@ export class CreateDeploymentFormModel extends DeploymentFormModel<
     super(workspace, CreateDeploymentDto);
 
     this.data = {
-      sudoPassword: "",
-      name: "",
+      sudoPassword: '',
+      name: '',
       cpuCount: 1,
       memoryCount: 2,
       storageCount: 8,
@@ -64,12 +64,21 @@ export class CreateDeploymentFormModel extends DeploymentFormModel<
 
     this.meta = {
       conversions: [
-        { from: "name", to: "name" },
-        { from: "sudoPassword", to: "properties.sudoPassword" },
-        { from: "image", to: "properties.image" },
-        { from: "cpuCount", to: { key: "properties.resources.cpuCount", cast: Number } },
-        { from: "memoryCount", to: { key: "properties.resources.memoryCount", cast: Number } },
-        { from: "storageCount", to: { key: "properties.resources.storageCount", cast: Number } },
+        { from: 'name', to: 'name' },
+        { from: 'sudoPassword', to: 'properties.sudoPassword' },
+        { from: 'image', to: 'properties.image' },
+        {
+          from: 'cpuCount',
+          to: { key: 'properties.resources.cpuCount', cast: Number },
+        },
+        {
+          from: 'memoryCount',
+          to: { key: 'properties.resources.memoryCount', cast: Number },
+        },
+        {
+          from: 'storageCount',
+          to: { key: 'properties.resources.storageCount', cast: Number },
+        },
       ],
     };
   }
@@ -89,16 +98,22 @@ export class EditDeploymentFormModel extends DeploymentFormModel<
     // this.workspace = this.deployment.deployments.workspace
 
     this.data = {
-      name: "",
+      name: '',
       cpuCount: 1,
       memoryCount: 2,
     };
 
     this.meta = {
       conversions: [
-        { from: "name", to: "name" },
-        { from: "cpuCount", to: { key: "properties.resources.cpuCount", cast: Number } },
-        { from: "memoryCount", to: { key: "properties.resources.memoryCount", cast: Number } },
+        { from: 'name', to: 'name' },
+        {
+          from: 'cpuCount',
+          to: { key: 'properties.resources.cpuCount', cast: Number },
+        },
+        {
+          from: 'memoryCount',
+          to: { key: 'properties.resources.memoryCount', cast: Number },
+        },
       ],
     };
   }
@@ -106,6 +121,8 @@ export class EditDeploymentFormModel extends DeploymentFormModel<
   submit = async () => {
     const wid = this.workspace.id;
     const did = this.deployment.id;
-    return await super.call(`/api/workspaces/${wid}/deployments/${did}`, { method: "PUT" });
+    return await super.call(`/api/workspaces/${wid}/deployments/${did}`, {
+      method: 'PUT',
+    });
   };
 }

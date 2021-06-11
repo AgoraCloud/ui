@@ -1,33 +1,33 @@
-import * as React from "react";
-import { observer, inject } from "mobx-react";
-import { WORKSPACES_STORE, ROUTER_STORE } from "app/constants";
-import { WorkspacesStore, RouterStore } from "app/stores";
-import { makeStyles } from "@material-ui/core/styles";
+import * as React from 'react';
+import { observer, inject } from 'mobx-react';
+import { WORKSPACES_STORE, ROUTER_STORE } from 'app/constants';
+import { WorkspacesStore, RouterStore } from 'app/stores';
+import { makeStyles } from '@material-ui/core/styles';
 
 // form dialogue
-import Button from "@material-ui/core/Button";
-import { Input } from "app/components/Inputs";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { Typography } from "@material-ui/core";
+import Button from '@material-ui/core/Button';
+import { Input } from 'app/components/Inputs';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { Typography } from '@material-ui/core';
 
 // icons
-import MemoryIcon from "@material-ui/icons/Memory";
-import MoneyIcon from "@material-ui/icons/Money";
-import StorageIcon from "@material-ui/icons/Storage";
+import MemoryIcon from '@material-ui/icons/Memory';
+import MoneyIcon from '@material-ui/icons/Money';
+import StorageIcon from '@material-ui/icons/Storage';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1, 0, 1, 0),
   },
   description: {
-    paddingTop: "10px",
-    paddingBottom: "5px",
+    paddingTop: '10px',
+    paddingBottom: '5px',
   },
 }));
 
 export const CreateWorkspaceForm = inject(
   WORKSPACES_STORE,
-  ROUTER_STORE
+  ROUTER_STORE,
 )(
   observer((props) => {
     const routerStore = props[ROUTER_STORE] as RouterStore;
@@ -40,7 +40,8 @@ export const CreateWorkspaceForm = inject(
       <div>
         <Typography variant="h4">Create Workspace</Typography>
         <Typography variant="body1" className={classes.description}>
-          Please fill out the form below and press 'Create' to create a workspace.
+          Please fill out the form below and press 'Create' to create a
+          workspace.
         </Typography>
         <Input
           autoFocus
@@ -54,7 +55,8 @@ export const CreateWorkspaceForm = inject(
         />
         <Typography variant="h6">Resources</Typography>
         <Typography variant="body1" className={classes.description}>
-          Optionally, specify the maximum amount of resources the workspace can use.
+          Optionally, specify the maximum amount of resources the workspace can
+          use.
         </Typography>
         <Input
           form={form}
@@ -116,7 +118,7 @@ export const CreateWorkspaceForm = inject(
         {wid && (
           <Button
             onClick={() => {
-              routerStore.replace("/");
+              routerStore.replace('/');
             }}
             color="primary"
           >
@@ -126,7 +128,7 @@ export const CreateWorkspaceForm = inject(
         <Button
           onClick={async () => {
             if (await store.createWorkspace()) {
-              routerStore.replace("/");
+              routerStore.replace('/');
             }
           }}
           disabled={!form.isValid}
@@ -136,5 +138,5 @@ export const CreateWorkspaceForm = inject(
         </Button>
       </div>
     );
-  })
+  }),
 );
