@@ -1,7 +1,9 @@
-<div style="text-align: center">
-  <p><img src="https://user-images.githubusercontent.com/35788699/116828155-ed3ccd00-ab6a-11eb-9327-4d99bd169bdc.png" alt="Logo Cropped"></p>
-  <p><a href="https://github.com/AgoraCloud/ui/issues"><img src="https://img.shields.io/github/issues/AgoraCloud/ui" alt="GitHub issues"></a> <a href="https://github.com/AgoraCloud/ui/blob/main/LICENSE"><img src="https://img.shields.io/github/license/AgoraCloud/ui" alt="GitHub license"></a> <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/AgoraCloud/ui"> <img src="https://img.shields.io/github/release-date/AgoraCloud/ui" alt="GitHub Release Date"> <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/agoracloud/ui"> <img src="https://img.shields.io/github/workflow/status/AgoraCloud/ui/main_versioned_push" alt="GitHub Workflow Status"> <img src="https://img.shields.io/github/contributors/AgoraCloud/ui" alt="GitHub contributors"> <img src="https://img.shields.io/github/commit-activity/m/AgoraCloud/ui" alt="GitHub commit activity"></p>
-</div>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/35788699/116828155-ed3ccd00-ab6a-11eb-9327-4d99bd169bdc.png" alt="Logo Cropped">
+</p>
+<p align="center">
+  <a href="https://github.com/AgoraCloud/ui/issues"><img src="https://img.shields.io/github/issues/AgoraCloud/ui" alt="GitHub issues"></a> <a href="https://github.com/AgoraCloud/ui/blob/main/LICENSE"><img src="https://img.shields.io/github/license/AgoraCloud/ui" alt="GitHub license"></a> <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/AgoraCloud/ui"> <img src="https://img.shields.io/github/release-date/AgoraCloud/ui" alt="GitHub Release Date"> <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/agoracloud/ui"> <img src="https://img.shields.io/github/workflow/status/AgoraCloud/ui/main_versioned_push" alt="GitHub Workflow Status"> <img src="https://img.shields.io/github/contributors/AgoraCloud/ui" alt="GitHub contributors"> <img src="https://img.shields.io/github/commit-activity/m/AgoraCloud/ui" alt="GitHub commit activity">
+</p>
 
 AgoraCloud is an open source and self hosted cloud development platform that runs in Kubernetes.
 
