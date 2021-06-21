@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { BaseDialog } from 'app/components/Dialogs';
+import { BaseDialog } from 'app/components/dialogs';
 import { observer } from 'mobx-react';
 import { events, eventTypes } from 'app/constants';
 import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
-import { PermissionsForm, RolesForm } from '../Forms/Permissions';
-import { CancelCreateButtons } from 'app/components/Inputs';
-import { PermissionsDialogModel } from 'app/models/Dialog';
+import { PermissionsForm, RolesForm } from '../forms/permissions';
+import { CancelCreateButtons } from 'app/components/inputs';
+import { PermissionsDialogModel } from 'app/workspace/user/models/dialog';
 
 export const PermissionsDialog = observer(
   (props: { dialog: PermissionsDialogModel }) => {

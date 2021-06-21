@@ -1,3 +1,3 @@
 export * from './stores';
-export * from './Events';
-export * from './Permissions';
+export * from './events';
+export * from './permissions';
