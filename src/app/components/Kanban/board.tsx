@@ -53,7 +53,7 @@ export const Board = (props) => {
   const providedData = props.data;
   const [state, setState] = useState(providedData);
   const [open, setOpen] = useState(false);
-  
+
   const handleClickOpen = () => {
     setOpen(true);
   };

@@ -94,7 +94,7 @@ export const BaseSelect = (props: BaseSelectProps) => {
    */
   const { form, id, options, ...rest } = props;
   const value = form.get(id);
-  
+
   return (
     <Select
       // native
