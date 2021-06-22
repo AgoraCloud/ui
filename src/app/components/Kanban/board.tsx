@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import { CreateLaneDialog } from 'app/components/inputs/modal';
-import { AddLaneFAB } from 'app/components/inputs/buttons';
+import { CreateLaneDialog, AddLaneFAB } from 'app/components/inputs';
 // Import BoardColumn component
 import { BoardColumn } from './board-column';
 import { observer } from 'mobx-react';

@@ -1,7 +1,7 @@
 import { BaseFormModel } from 'app/forms/base';
 import { CreateDeploymentDto, UpdateDeploymentDto } from 'app/forms/validators';
-import { Workspace } from 'app/workspace';
-import { Deployment } from 'app/workspace/deployment/models';
+import { Workspace } from 'app/workspace/model';
+import { Deployment } from './models';
 
 interface deploymentForm_i {
   name: string;

@@ -2,7 +2,7 @@ import { BaseFormModel } from 'app/forms/base';
 import {
   UserPermissionsModel,
   WorkspacePermissionsModel,
-} from 'app/workspace/user/models/permission';
+} from 'app/workspace/user/models';
 import { Workspace } from 'app/workspace';
 
 export class PermissionsFormModel extends BaseFormModel<any, any> {

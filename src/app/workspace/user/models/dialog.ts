@@ -1,4 +1,4 @@
-import { UserModel } from '.';
+import { UserModel } from './model';
 import { observable } from 'mobx';
 
 export class DialogModel {

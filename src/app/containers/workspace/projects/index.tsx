@@ -2,12 +2,10 @@ import * as React from 'react';
 import { WORKSPACES_STORE, ROUTER_STORE, UI_STORE } from 'app/constants';
 import { observer, inject } from 'mobx-react';
 import { WorkspacesStore, RouterStore, UIStore } from 'app/stores';
-import { MoreMenu } from 'app/components/inputs';
-import { AddFAB } from 'app/components/inputs';
+import { MoreMenu, AddFAB } from 'app/components/inputs';
 import { HomeWrapper } from 'app/containers/workspace';
 import { Typography, makeStyles } from '@material-ui/core';
-import { ConfirmDeleteDialog } from 'app/components/dialogs/confirm-delete';
-import Link from '@material-ui/core/Link';
+import { ConfirmDeleteDialog } from 'app/components/dialogs';
 import Button from '@material-ui/core/Button';
 
 // Table imports

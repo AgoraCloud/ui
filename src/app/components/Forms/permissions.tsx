@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PermissionsFormModel } from 'app/workspace/user/forms/permissions';
+import { PermissionsFormModel } from 'app/workspace/user/forms';
 import { Checkbox } from '@material-ui/core';
 import { Role, WorkspaceActions, WorkspaceRole } from 'app/constants';
 import { PaginatedTable } from 'app/components/table';

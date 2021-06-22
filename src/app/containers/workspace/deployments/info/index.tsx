@@ -6,8 +6,7 @@ import { inject, observer } from 'mobx-react';
 import { WORKSPACES_STORE } from 'app/constants';
 import { WorkspacesStore } from 'app/stores';
 import { Deployment } from 'app/workspace/deployment/models';
-import { GaugeChart } from 'app/components/gauge-chart';
-import { DeploymentChip } from 'app/components/deployment-card';
+import { GaugeChart, DeploymentChip } from 'app/components';
 import Alert from '@material-ui/lab/Alert';
 
 export const DeploymentLogs = observer((props: { deployment?: Deployment }) => {

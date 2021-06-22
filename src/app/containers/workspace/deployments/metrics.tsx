@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { HomeWrapper } from '..';
 import { Typography, Grid } from '@material-ui/core';
-import { GaugeChart } from 'app/components/gauge-chart';
+import { GaugeChart } from 'app/components';
 import { WORKSPACES_STORE } from 'app/constants';
 import { inject, observer } from 'mobx-react';
 import { WorkspacesStore } from 'app/stores';

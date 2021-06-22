@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import { Workspace } from '.';
+import { Workspace } from './model';
 import { BaseModelItem, BaseModelCollection } from 'app/base-model';
 
 export class WikiSectionsModel extends BaseModelCollection<WikiSectionModel> {

@@ -4,9 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { observer, inject } from 'mobx-react';
 import { ROUTER_STORE } from 'app/constants';
-import { RouterStore } from 'app/stores';
+import { RouterStore, UserStore } from 'app/stores';
 import { USER_STORE } from 'app/constants';
-import { UserStore } from 'app/stores';
 
 export const UpdateUserForm = inject(
   USER_STORE,

@@ -1,10 +1,10 @@
-import { BaseModel, BaseModelCollection } from 'app/base-model';
-import { Workspace } from '../..';
+import { BaseModel } from 'app/base-model';
+import { Workspace } from '../../model';
 import { User, UserModel, WorkspaceUserModel } from 'app/workspace/user/models';
 import {
   PermissionsFormModel,
   WorkspacePermissionsFormModel,
-} from 'app/workspace/user/forms/permissions';
+} from 'app/workspace/user/forms';
 
 interface permission_i {
   id: string;

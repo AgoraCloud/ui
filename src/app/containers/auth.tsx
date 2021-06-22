@@ -18,7 +18,7 @@ import { useLocation } from 'react-router';
 
 import qs from 'qs';
 import { CircularProgress } from '@material-ui/core';
-import { AuthPaper } from 'app/components/paper';
+import { AuthPaper } from 'app/components';
 
 /**
  * Code sourced from https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in

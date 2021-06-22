@@ -4,9 +4,9 @@ import {
   UpdateProjectTaskDto,
   UpdateProjectTaskLaneDto,
 } from 'app/forms/validators';
-import { Project } from 'app/workspace/project/model';
-import { Lane } from 'app/workspace/project/lane/model';
-import { Task } from 'app/workspace/project/lane/task/model';
+import { Project } from 'app/workspace/project';
+import { Lane } from 'app/workspace/project/lane';
+import { Task } from 'app/workspace/project/lane/task';
 import { events, eventTypes } from 'app/constants';
 
 interface createTaskForm_i {

@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import { ConfirmDelete } from 'app/workspace/user/forms/confirm-delete';
+import { ConfirmDelete } from 'app/workspace/user/forms';
 import { RootStore } from './root-store';
 
 export class UIStore {

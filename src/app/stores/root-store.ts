@@ -15,8 +15,8 @@ import {
   SnackbarStore,
   UserStore,
   AdminStore,
+  UIStore,
 } from 'app/stores';
-import { UIStore } from 'app/stores';
 
 export class RootStore {
   public routerStore: RouterStore;

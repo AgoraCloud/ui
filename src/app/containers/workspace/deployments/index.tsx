@@ -2,7 +2,7 @@ import * as React from 'react';
 import { WORKSPACES_STORE } from 'app/constants';
 import { observer, inject } from 'mobx-react';
 import { WorkspacesStore } from 'app/stores';
-import { DeploymentCard } from 'app/components/deployment-card';
+import { DeploymentCard } from 'app/components';
 import { Grid } from '@material-ui/core';
 import { AddFAB } from 'app/components/inputs';
 

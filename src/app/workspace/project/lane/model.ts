@@ -1,10 +1,8 @@
-import { observable, computed } from 'mobx';
-import { Workspace } from '../..';
+import { observable } from 'mobx';
+import { Workspace } from '../../model';
 import { Project } from '../model';
-import { Tasks } from './task/model';
-import { CreateTaskFormModel } from './task/create-task-form';
+import { Tasks, CreateTaskFormModel } from './task';
 import { EditLaneFormModel } from './create-lane-form';
-import { BaseModelCollection, BaseModelItem } from 'app/base-model';
 import { events, eventTypes } from 'app/constants';
 
 export class Lanes {

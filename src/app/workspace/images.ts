@@ -1,4 +1,4 @@
-import { Workspace } from 'app/workspace';
+import { Workspace } from 'app/workspace/model';
 import { BaseModel } from 'app/base-model';
 
 interface images_i {

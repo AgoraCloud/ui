@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dialog } from '@material-ui/core';
-import { DialogModel } from 'app/workspace/user/models/dialog';
+import { DialogModel } from 'app/workspace/user/models';
 import { observer } from 'mobx-react';
 
 export const BaseDialog = observer(

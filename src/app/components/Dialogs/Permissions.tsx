@@ -5,7 +5,7 @@ import { events, eventTypes } from 'app/constants';
 import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { PermissionsForm, RolesForm } from '../forms/permissions';
 import { CancelCreateButtons } from 'app/components/inputs';
-import { PermissionsDialogModel } from 'app/workspace/user/models/dialog';
+import { PermissionsDialogModel } from 'app/workspace/user/models';
 
 export const PermissionsDialog = observer(
   (props: { dialog: PermissionsDialogModel }) => {

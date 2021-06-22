@@ -2,7 +2,7 @@ import * as React from 'react';
 import { USER_STORE } from 'app/constants';
 import { observer, inject } from 'mobx-react';
 import { UserStore } from 'app/stores';
-import { PermissionsBase } from 'app/workspace/user/models/permission';
+import { PermissionsBase } from 'app/workspace/user/models';
 
 export const RenderIf = (props: {
   if: boolean;

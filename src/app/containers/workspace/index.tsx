@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 // my components
 import { DeploymentsList } from './deployments';
-import { AppMenu } from 'app/components/menu/app-menu';
+import { AppMenu } from 'app/components/menu';
 import { ConfirmDeleteDialog } from 'app/components/dialogs';
 
 /**

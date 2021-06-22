@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { CancelCreateButtons, Input, Label } from 'app/components/inputs';
 import { DialogModel } from 'app/workspace/user/models/dialog';
-import { InviteUserFormModel } from 'app/workspace/user/forms/invite-user';
+import { InviteUserFormModel } from 'app/workspace/user/forms';
 
 export const InviteUserDialog = observer(
   (props: { dialog: DialogModel; form: InviteUserFormModel }) => {

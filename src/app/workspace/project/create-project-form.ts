@@ -1,7 +1,7 @@
 import { BaseFormModel } from 'app/forms/base';
 import { CreateProjectDto, UpdateProjectDto } from 'app/forms/validators';
 import { Workspace } from 'app/workspace';
-import { Project } from 'app/workspace/project/model';
+import { Project } from 'app/workspace/project';
 import { events, eventTypes } from 'app/constants';
 
 interface createProjectForm_i {

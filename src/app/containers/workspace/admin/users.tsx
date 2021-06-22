@@ -3,10 +3,9 @@ import { inject, observer } from 'mobx-react';
 import { WorkspacesStore, WorkspaceAdminStore } from 'app/stores';
 import { WORKSPACES_STORE } from 'app/constants';
 import { Typography } from '@material-ui/core';
-import { PaginatedTable } from 'app/components/table';
+import { PaginatedTable } from 'app/components';
 import { MoreMenu, AddFABBase } from 'app/components/inputs';
-import { PermissionsDialog } from 'app/components/dialogs';
-import { InviteUserDialog } from 'app/components/dialogs/invite-user';
+import { PermissionsDialog, InviteUserDialog } from 'app/components/dialogs';
 
 const columns = [
   {

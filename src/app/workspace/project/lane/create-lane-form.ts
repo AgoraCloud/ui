@@ -4,8 +4,8 @@ import {
   UpdateProjectLaneDto,
 } from 'app/forms/validators';
 import { Workspace } from 'app/workspace';
-import { Project } from 'app/workspace/project/model';
-import { Lane } from 'app/workspace/project/lane/model';
+import { Project } from 'app/workspace/project';
+import { Lane } from 'app/workspace/project/lane';
 import { events, eventTypes } from 'app/constants';
 
 interface createLaneForm_i {

@@ -1,7 +1,7 @@
 import { BaseFormModel } from 'app/forms/base';
 import { ConfirmDeleteValidator } from 'app/forms/validators';
 import { observable } from 'mobx';
-import { DialogModel } from 'app/workspace/user/models/dialog';
+import { DialogModel } from 'app/workspace/user/models';
 
 interface create_workspace_i {
   name: string;

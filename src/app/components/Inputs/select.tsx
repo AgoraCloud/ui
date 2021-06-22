@@ -4,11 +4,11 @@ import TextField from '@material-ui/core/TextField';
 import { WORKSPACES_STORE, roles } from 'app/constants';
 import { observer, inject } from 'mobx-react';
 import { WorkspacesStore } from 'app/stores';
-import { Workspace } from 'app/workspace';
+import { Workspace } from 'app/workspace/model';
 import { makeStyles } from '@material-ui/core/styles';
 import { Select, MenuItem, SelectProps } from '@material-ui/core';
 import { BaseFormModel } from 'app/forms';
-import { DeploymentFormModel } from 'app/workspace/deployment/create-deployment-form';
+import { DeploymentFormModel } from 'app/workspace/deployment';
 
 const useStyles = makeStyles((theme) => ({
   root: {

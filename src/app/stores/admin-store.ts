@@ -1,19 +1,19 @@
 import { RootStore } from './root-store';
-import { UsersModel, WorkspaceUsersModel } from 'app/workspace/user/models';
-import { Workspace } from 'app/workspace';
+import { Workspace } from 'app/workspace/model';
 import {
   PermissionsDialogModel,
   UserDialogModel,
   DialogModel,
-} from 'app/workspace/user/models/dialog';
-import { SignupFormModel } from 'app/workspace/user/forms/auth';
+  UsersModel,
+  WorkspaceUsersModel
+} from 'app/workspace/user/models';
+import { SignupFormModel, InviteUserFormModel } from 'app/workspace/user/forms';
 import {
   InWorkspaceActions,
   InWorkspaceRole,
   WorkspaceActions,
   WorkspaceRole,
 } from 'app/constants';
-import { InviteUserFormModel } from 'app/workspace/user/forms/invite-user';
 
 export class AdminStore {
   users: UsersModel;

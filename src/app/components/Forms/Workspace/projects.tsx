@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   CreateProjectFormModel,
   EditProjectFormModel,
-} from 'app/workspace/project/create-project-form';
+} from 'app/workspace/project';
 import { Input, CancelCreateButtons } from 'app/components/inputs';
 import { Typography } from '@material-ui/core';
 import { inject, observer } from 'mobx-react';

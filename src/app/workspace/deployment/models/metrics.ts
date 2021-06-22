@@ -1,4 +1,4 @@
-import { Deployment } from 'app/workspace/deployment/models';
+import { Deployment } from './index';
 import { BaseModel } from 'app/base-model';
 
 interface metricsData_i {

@@ -1,5 +1,5 @@
 import { observable, computed } from 'mobx';
-import { Workspace } from '../..';
+import { Workspace } from '../../model';
 import { EditDeploymentFormModel } from 'app/workspace/deployment/create-deployment-form';
 import { BaseModelCollection, BaseModelItem } from 'app/base-model';
 import { DeploymentMetrics } from './metrics';
