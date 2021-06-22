@@ -5,8 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { inject, observer } from 'mobx-react';
 import { WORKSPACES_STORE, UI_STORE } from 'app/constants';
 import { WorkspacesStore, UIStore } from 'app/stores';
-import { MoreMenu } from 'app/components/Inputs';
-import { EditTaskDialog } from 'app/components/Inputs/Modal';
+import { MoreMenu, EditTaskDialog } from 'app/components/inputs';
 import { Grid } from '@material-ui/core';
 
 export const CardOptions = inject(

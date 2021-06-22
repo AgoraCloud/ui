@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import { MoreMenu } from 'app/components/Inputs';
 // Import BoardItem component
 import { BoardItem } from './board-item';
 import { Typography, Grid, Button } from '@material-ui/core';
-import { EditLaneDialog } from 'app/components/Inputs/Modal';
 import { inject, observer } from 'mobx-react';
 import { WORKSPACES_STORE, UI_STORE } from 'app/constants';
 import { WorkspacesStore, UIStore } from 'app/stores';
-import { AddTaskFAB } from 'app/components/Inputs/Buttons';
-import { CreateTaskDialog } from 'app/components/Inputs/Modal';
+import {
+  AddTaskFAB,
+  CreateTaskDialog,
+  EditLaneDialog,
+  MoreMenu,
+} from 'app/components/inputs';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 

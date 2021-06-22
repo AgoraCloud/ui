@@ -156,7 +156,6 @@ export class BaseFormModel<FormInterface, DBInterface> {
 
       // all the keys in data not in conversions
       //    for(const d of Object.keys(data)){
-      //        console.log(d)
       //    }
 
       return out;
@@ -182,7 +181,6 @@ export class BaseFormModel<FormInterface, DBInterface> {
      */
 
     const out = this.convert(data, true) as DBInterface;
-    // console.log("OUT", out, data)
     _.merge(this.data, out);
     return out;
   };
@@ -208,8 +206,6 @@ export class BaseFormModel<FormInterface, DBInterface> {
      *
      * use to import from db interface
      */
-
-    // console.log(JSON.stringify(this.toDB()));
 
     this.state.loading = true;
     try {
@@ -255,7 +251,6 @@ export class BaseFormModel<FormInterface, DBInterface> {
       this.errors = this.convert(errors, true, false);
       console.log(errors, this.errors);
       this.isValid = Object.keys(this.errors).length == 0;
-      // console.log("validate", data, errors, this.isValid)
       return this.isValid;
     },
     200,

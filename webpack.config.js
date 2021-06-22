@@ -169,14 +169,14 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'https://agoracloud.saidghamra.com',
+        target: 'https://agoracloud.civo.saidghamra.com',
         changeOrigin: true,
         secure: false,
         ws: true,
         "logLevel": "info",
       },
       '/proxy': {
-        target: 'https://agoracloud.saidghamra.com',
+        target: 'https://agoracloud.civo.saidghamra.com',
         changeOrigin: true,
         secure: false,
         ws: true,

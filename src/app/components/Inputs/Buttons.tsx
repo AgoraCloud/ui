@@ -110,7 +110,6 @@ export const CancelCreateButtons = observer(
   }) => {
     const { form, cancel, submit, labels } = props;
     const [label1, label2] = labels || ['Cancel', 'Create'];
-    // console.log("isValid2", form.isValid)
 
     const { isValid } = form;
     console.log('is valid', isValid);

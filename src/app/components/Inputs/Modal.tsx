@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Typography } from '@material-ui/core';
-import { Input } from 'app/components/Inputs';
+import { Input } from 'app/components/inputs';
 
 export const CreateLaneDialog = inject(WORKSPACES_STORE)(
   observer((props) => {

@@ -1,45 +1,45 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Router, Switch } from 'react-router';
-import { Home } from 'app/containers/Home';
+import { Home } from 'app/containers/workspace';
 import {
   AuthedRoute,
   UnauthedRoute,
-} from 'app/components/Guards/RouteGuards/Auth';
+} from 'app/components/forms/route-guards/auth';
 import {
   Login,
   Signup,
   ForgotPassword,
   VerifyAccount,
   ChangePassword,
-} from 'app/containers/Auth';
-import { UpdateWorkspace } from './containers/Home/UpdateWorkspace';
-import { UserProfile } from './containers/Home/UserProfile';
-import { ProjectList } from './containers/Home/Projects';
-import { UserLoaded } from 'app/components/Guards/RouteGuards/User';
-import { FirstWorkspaceRedirect } from 'app/components/Redirects';
-import { FirstWorkspace } from 'app/containers/Home/FirstWorkspace';
+} from 'app/containers/auth';
+import { UpdateWorkspace } from './containers/workspace/update-workspace';
+import { UserProfile } from './containers/user-profile';
+import { ProjectList } from './containers/workspace/projects';
+import { UserLoaded } from 'app/components/forms/route-guards/user';
+import { FirstWorkspaceRedirect } from 'app/components/forms/route-guards/workspaces/redirects';
+import { FirstWorkspace } from 'app/containers/workspace/first-workspace';
 import {
   CreateDeployment,
   EditDeployment,
-} from 'app/containers/Home/Deployments/CreateDeployment';
+} from 'app/containers/workspace/deployments/create-deployment';
 import {
   CreateProject,
   EditProject,
-} from 'app/containers/Home/Projects/CreateProject';
-import { Lanes } from 'app/containers/Home/Projects/Lanes';
+} from 'app/containers/workspace/projects/create-project';
+import { Lanes } from 'app/containers/workspace/projects/lanes';
 import {
   WorkspacesLoaded,
   DeploymentLoaded,
   ProjectsLoaded,
   LanesLoaded,
-} from 'app/components/Guards/RouteGuards/Workspaces';
-import { WikiRoutes } from 'app/containers/Home/Wiki';
-import { DeploymentProxy } from 'app/containers/Home/Deployments/Proxy';
-import { DeploymentInfoPage } from './containers/Home/Deployments/Info';
-import { WorkspaceMetricsPage } from './containers/Home/WorkspaceMetrics';
-import { AdminRoutes } from './containers/Admin';
-import { WorkspaceAdminRoutes } from './containers/Home/Admin';
+} from 'app/components/forms/route-guards/workspaces';
+import { WikiRoutes } from 'app/containers/workspace/wiki';
+import { DeploymentProxy } from 'app/containers/workspace/deployments/proxy';
+import { DeploymentInfoPage } from './containers/workspace/deployments/info';
+import { WorkspaceMetricsPage } from './containers/workspace/workspace-metrics';
+import { AdminRoutes } from './containers/admin';
+import { WorkspaceAdminRoutes } from './containers/workspace/admin';
 
 // http://localhost:3000/verify-account?token=60142f350efcef0018872610
 

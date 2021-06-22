@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import { CreateLaneDialog } from 'app/components/Inputs/Modal';
-import { AddLaneFAB } from 'app/components/Inputs/Buttons';
+import { CreateLaneDialog, AddLaneFAB } from 'app/components/inputs';
 // Import BoardColumn component
 import { BoardColumn } from './board-column';
 import { observer } from 'mobx-react';
@@ -51,13 +50,8 @@ const BoardEl = styled.div`
 
 export const Board = (props) => {
   const providedData = props.data;
-  // console.log("This is the data: ", providedData)
   const [state, setState] = useState(providedData);
   const [open, setOpen] = useState(false);
-
-  // useEffect(()=>{
-  //   setState(providedData)
-  // }, [providedData])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,8 +64,6 @@ export const Board = (props) => {
   // Handle drag & drop
   const onDragEnd = (result: any) => {
     const { source, destination, draggableId } = result;
-
-    // console.log('This is the result: ', result)
 
     // Do nothing if item is dropped outside the list
     if (!destination) {

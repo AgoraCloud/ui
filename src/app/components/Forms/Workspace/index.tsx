@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // form dialogue
 import Button from '@material-ui/core/Button';
-import { Input } from 'app/components/Inputs';
+import { Input } from 'app/components/inputs';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { Typography } from '@material-ui/core';
 
