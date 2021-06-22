@@ -7,7 +7,12 @@ import { Typography, Grid, Button } from '@material-ui/core';
 import { inject, observer } from 'mobx-react';
 import { WORKSPACES_STORE, UI_STORE } from 'app/constants';
 import { WorkspacesStore, UIStore } from 'app/stores';
-import { AddTaskFAB, CreateTaskDialog, EditLaneDialog, MoreMenu } from 'app/components/inputs';
+import {
+  AddTaskFAB,
+  CreateTaskDialog,
+  EditLaneDialog,
+  MoreMenu,
+} from 'app/components/inputs';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 

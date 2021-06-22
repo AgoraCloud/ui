@@ -4,7 +4,11 @@ import { Projects } from './project/model';
 import { CreateDeploymentFormModel } from 'app/workspace/deployment';
 import { CreateProjectFormModel } from 'app/workspace/project';
 import { UpdateWorkspaceFormModel } from 'app/workspace/forms';
-import { WikiSectionsModel, DeploymentImages, WorkspaceMetrics } from 'app/workspace';
+import {
+  WikiSectionsModel,
+  DeploymentImages,
+  WorkspaceMetrics,
+} from 'app/workspace';
 import { WorkspacesStore, WorkspaceAdminStore } from 'app/stores';
 import { UpdateWorkspaceResourcesDto } from 'app/forms/validators';
 

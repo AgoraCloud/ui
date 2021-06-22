@@ -5,7 +5,7 @@ import {
   UserDialogModel,
   DialogModel,
   UsersModel,
-  WorkspaceUsersModel
+  WorkspaceUsersModel,
 } from 'app/workspace/user/models';
 import { SignupFormModel, InviteUserFormModel } from 'app/workspace/user/forms';
 import {
