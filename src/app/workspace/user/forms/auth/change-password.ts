@@ -1,4 +1,4 @@
-import { BaseFormModel } from 'app/forms/base';
+import { BaseFormModel } from 'app/forms';
 import { ChangePasswordDto } from 'app/forms/validators';
 
 interface changePassword_i {
