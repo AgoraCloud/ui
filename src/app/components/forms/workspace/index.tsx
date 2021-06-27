@@ -6,7 +6,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // form dialogue
 import Button from '@material-ui/core/Button';
-import { Input } from 'app/components/inputs';
+import {
+  Input,
+  CPUMemoryInput,
+  Label,
+} from 'app/components/inputs';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { Typography } from '@material-ui/core';
 
@@ -53,68 +57,13 @@ export const CreateWorkspaceForm = inject(
           type="text"
           fullWidth
         />
-        <Typography variant="h6">Resources</Typography>
+        <Label>Resources</Label>
         <Typography variant="body1" className={classes.description}>
           Optionally, specify the maximum amount of resources the workspace can
           use.
         </Typography>
-        <Input
-          form={form}
-          className={classes.margin}
-          margin="dense"
-          id="properties.resources.cpuCount"
-          label="CPU"
-          type="number"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <MemoryIcon />
-              </InputAdornment>
-            ),
-          }}
-          InputLabelProps={{
-            required: false,
-          }}
-          fullWidth
-        />
-        <Input
-          form={form}
-          className={classes.margin}
-          margin="dense"
-          id="properties.resources.memoryCount"
-          label="RAM"
-          type="number"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <MoneyIcon />
-              </InputAdornment>
-            ),
-          }}
-          InputLabelProps={{
-            required: false,
-          }}
-          fullWidth
-        />
-        <Input
-          form={form}
-          className={classes.margin}
-          margin="dense"
-          id="properties.resources.storageCount"
-          label="Storage"
-          type="number"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <StorageIcon />
-              </InputAdornment>
-            ),
-          }}
-          InputLabelProps={{
-            required: false,
-          }}
-          fullWidth
-        />
+        <CPUMemoryInput form={form} fromWorkspace={{check: true}}/>
+        
         {wid && (
           <Button
             onClick={() => {
