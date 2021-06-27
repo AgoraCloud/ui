@@ -32,6 +32,7 @@ export class UpdateWorkspaceFormModel extends BaseFormModel<
     };
   }
 
+ 
   toDB = () => {
     let { name, properties } = this.data;
     name = name ? this.data.name : undefined;
