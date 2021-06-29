@@ -59,7 +59,8 @@ module.exports = {
             plugins: [
               // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
               ["@babel/plugin-proposal-decorators", { legacy: true }],
-              ["@babel/plugin-proposal-class-properties", { loose: true }],
+              ["@babel/plugin-proposal-class-properties", { loose: true }],             
+              ["@babel/plugin-proposal-private-methods", { "loose": true }],
               "react-hot-loader/babel"
             ]
           }
@@ -160,23 +161,6 @@ module.exports = {
 
   ],
   devServer: {
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://localhost:3001',
-    //     changeOrigin: true,
-    //     secure: false,
-    //     ws: true,
-    //     "logLevel": "info",
-    //   }
-    //   // ,
-    //   // '/proxy': {
-    //   //   target: 'https://agoracloud.saidghamra.com',
-    //   //   changeOrigin: true,
-    //   //   secure: false,
-    //   //   ws: true,
-    //   //   "logLevel": "debug",
-    //   // }
-    // },
     contentBase: sourcePath,
     host: "localhost",
     hot: true,
@@ -184,32 +168,16 @@ module.exports = {
     historyApiFallback: {
       disableDotRule: true
     },
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://localhost:3001',
-    //     changeOrigin: true,
-    //     secure: false,
-    //     ws: true,
-    //     "logLevel": "info",
-    //   },
-    //   '/proxy': {
-    //     target: 'http://localhost:3001',
-    //     changeOrigin: true,
-    //     secure: false,
-    //     ws: true,
-    //     "logLevel": "debug",
-    //   }
-    // },
     proxy: {
       '/api': {
-        target: 'https://agoracloud.saidghamra.com',
+        target: 'https://agoracloud.civo.saidghamra.com',
         changeOrigin: true,
         secure: false,
         ws: true,
         "logLevel": "info",
       },
       '/proxy': {
-        target: 'https://agoracloud.saidghamra.com',
+        target: 'https://agoracloud.civo.saidghamra.com',
         changeOrigin: true,
         secure: false,
         ws: true,

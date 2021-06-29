@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# TODO: enable linting when linting errors are fixed
+printf "🚧 Formatting" && npm run format # && printf "🚧 Linting" && npm run lint

@@ -1,9 +1,8 @@
-export * from './AuthStore'
-export * from './RouterStore'
-export * from './WorkspacesStore'
-export * from './SnackbarStore'
-export * from './UserStore'
-export * from './UIStore'
-export * from './AdminStore'
-
-export * from './RootStore'
+export * from './auth-store';
+export * from './router-store';
+export * from './workspaces-store';
+export * from './snackbar-store';
+export * from './user-store';
+export * from './ui-store';
+export * from './admin-store';
+export * from './root-store';
