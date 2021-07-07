@@ -39,7 +39,7 @@ export const RenderIfRole = inject(USER_STORE)(observer((props: {
 }) => {
     const store = props[USER_STORE] as UserStore
     const { roles, wid } = props
-    console.log(store.user.state, store.user.permissions, store.user.permissions?.state)
+    // console.log(store.user.state, store.user.permissions, store.user.permissions?.state)
     let perms: PermissionsBase = store.user.permissions.roles
     if(wid){
         perms = store.user.permissions.getWorkspacePermission(wid)?.roles || perms
