@@ -10,9 +10,11 @@ var outPath = path.join(__dirname, './build');
 
 // Proxy Variables
 const proxyTarget = process.env.PROXY_TARGET;
-const baseProxyTarget = proxyTarget.split('://')[1];
 const proxyCookieDomainRewrite = {};
-proxyCookieDomainRewrite[baseProxyTarget] = 'localhost';
+if (proxyTarget) {
+  const baseProxyTarget = proxyTarget.split('://')[1];
+  proxyCookieDomainRewrite[baseProxyTarget] = 'localhost';
+}
 
 // plugins
 var HtmlWebpackPlugin = require('html-webpack-plugin');
