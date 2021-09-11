@@ -8,6 +8,14 @@ var isProduction = process.argv.indexOf('-p') >= 0 || process.env.NODE_ENV === '
 var sourcePath = path.join(__dirname, './src');
 var outPath = path.join(__dirname, './build');
 
+// Proxy Variables
+const proxyTarget = process.env.PROXY_TARGET;
+const proxyCookieDomainRewrite = {};
+if (proxyTarget) {
+  const baseProxyTarget = proxyTarget.split('://')[1];
+  proxyCookieDomainRewrite[baseProxyTarget] = 'localhost';
+}
+
 // plugins
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
@@ -170,19 +178,12 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'https://agoracloud.civo.saidghamra.com',
+        target: proxyTarget,
         changeOrigin: true,
         secure: false,
-        ws: true,
         "logLevel": "info",
+        cookieDomainRewrite: proxyCookieDomainRewrite,
       },
-      '/proxy': {
-        target: 'https://agoracloud.civo.saidghamra.com',
-        changeOrigin: true,
-        secure: false,
-        ws: true,
-        "logLevel": "debug",
-      }
     },
     stats: 'minimal',
     clientLogLevel: 'warning'

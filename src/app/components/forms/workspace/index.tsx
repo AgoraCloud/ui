@@ -6,11 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // form dialogue
 import Button from '@material-ui/core/Button';
-import {
-  Input,
-  CPUMemoryInput,
-  Label,
-} from 'app/components/inputs';
+import { Input, CPUMemoryInput, Label } from 'app/components/inputs';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { Typography } from '@material-ui/core';
 
@@ -62,8 +58,8 @@ export const CreateWorkspaceForm = inject(
           Optionally, specify the maximum amount of resources the workspace can
           use.
         </Typography>
-        <CPUMemoryInput form={form} fromWorkspace={{check: true}}/>
-        
+        <CPUMemoryInput form={form} fromWorkspace={{ check: true }} />
+
         {wid && (
           <Button
             onClick={() => {
