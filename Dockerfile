@@ -1,5 +1,5 @@
 # https://mherman.org/blog/dockerizing-a-react-app/
-FROM node:14.17-alpine as development
+FROM node:14.17.5-alpine as development
 WORKDIR /agoracloud
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package*.json ./
