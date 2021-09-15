@@ -14,9 +14,9 @@ import {
   ValidateNested,
   IsMongoId,
   IsBoolean,
-} from "class-validator";
-import { Type } from "class-transformer";
-import "reflect-metadata";
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import 'reflect-metadata';
 
 export function Match(property: string, validationOptions?: ValidationOptions) {
   return (object: any, propertyName: string) => {
@@ -30,7 +30,7 @@ export function Match(property: string, validationOptions?: ValidationOptions) {
   };
 }
 
-@ValidatorConstraint({ name: "Match" })
+@ValidatorConstraint({ name: 'Match' })
 export class MatchConstraint implements ValidatorConstraintInterface {
   validate(value: any, args: ValidationArguments) {
     const [relatedPropertyName] = args.constraints;
@@ -62,7 +62,7 @@ export class LoginUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(8, { message: "Password too short" })
+  @MinLength(8, { message: 'Password too short' })
   readonly password: string;
 }
 
@@ -74,25 +74,25 @@ export class ForgotPasswordDto {
 export class ChangePasswordDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(8, { message: "Password too short" })
+  @MinLength(8, { message: 'Password too short' })
   readonly password: string;
 
-  @Match("password")
+  @Match('password')
   readonly confirmPassword: string;
 }
 
 export class CreateWorkspaceResourcesDto {
-  @Min(1, { message: "CPU count must not be less than 1" })
+  @Min(1, { message: 'CPU count must not be less than 1' })
   @IsInt()
   @IsOptional()
   readonly cpuCount?: number;
 
-  @Min(2, { message: "Memory count must not be less than 2" })
+  @Min(2, { message: 'Memory count must not be less than 2' })
   @IsInt()
   @IsOptional()
   readonly memoryCount?: number;
 
-  @Min(8, { message: "Storage count must not be less than 8" })
+  @Min(8, { message: 'Storage count must not be less than 8' })
   @IsInt()
   @IsOptional()
   readonly storageCount?: number;
@@ -108,7 +108,7 @@ export class CreateWorkspacePropertiesDto {
 export class CreateWorkspaceDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(4, { message: "Name too short" })
+  @MinLength(4, { message: 'Name too short' })
   readonly name: string;
 
   @IsOptional()
@@ -157,7 +157,7 @@ export class UpdateWorkspaceDto {
 export class UpdateUserDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(4, { message: "Full name too short" })
+  @MinLength(4, { message: 'Full name too short' })
   readonly fullName: string;
 }
 
@@ -186,24 +186,26 @@ export class DeploymentImage {
   }
 }
 
-import { IsDefined, Validate } from "class-validator";
+import { IsDefined, Validate } from 'class-validator';
 
 /**
  * Validates the given deployment image
  */
-@ValidatorConstraint({ name: "isValidDeploymentImage", async: false })
+@ValidatorConstraint({ name: 'isValidDeploymentImage', async: false })
 class IsValidDeploymentImage implements ValidatorConstraintInterface {
   validate(image: DeploymentImage) {
     return (
       image &&
       image.name &&
       image.tag &&
-      deploymentImages.findIndex((i) => i.name === image.name && i.tag === image.tag) !== -1
+      deploymentImages.findIndex(
+        (i) => i.name === image.name && i.tag === image.tag,
+      ) !== -1
     );
   }
 
   defaultMessage() {
-    return "Image is not one of the allowed deployment images";
+    return 'Image is not one of the allowed deployment images';
   }
 }
 
@@ -326,7 +328,6 @@ export class UpdateProjectDto {
   readonly description?: string;
 }
 
-
 export class AdminUpdateUserDto {
   @IsOptional()
   @IsString()
@@ -346,11 +347,11 @@ export class AdminUpdateUserDto {
 
   @IsOptional()
   @IsBoolean()
-  readonly isVerified: boolean
-  
+  readonly isVerified: boolean;
+
   @IsOptional()
   @IsBoolean()
-  readonly isEnabled: boolean
+  readonly isEnabled: boolean;
 }
 export class CreateProjectLaneDto {
   @IsString()
