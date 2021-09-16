@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { hot } from 'react-hot-loader/root';
 import { Router, Switch } from 'react-router';
 import { Home } from 'app/containers/workspace';
 import {
@@ -43,7 +42,7 @@ import { WorkspaceAdminRoutes } from './containers/workspace/admin';
 
 // http://localhost:3000/verify-account?token=60142f350efcef0018872610
 
-export const App = hot(({ history }: any) => (
+export const App = ({ history }: any) => (
   <Router history={history}>
     <Switch>
       {/* Signup / Login Paths */}
@@ -83,4 +82,4 @@ export const App = hot(({ history }: any) => (
       <AuthedRoute path="" component={FirstWorkspaceRedirect} />
     </Switch>
   </Router>
-));
+);

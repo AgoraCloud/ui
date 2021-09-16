@@ -10,6 +10,7 @@ var outPath = path.join(__dirname, './build');
 
 // Proxy Variables
 const proxyTarget = process.env.PROXY_TARGET;
+console.log("proxy target", proxyTarget)
 const proxyCookieDomainRewrite = {};
 if (proxyTarget) {
   const baseProxyTarget = proxyTarget.split('://')[1];
@@ -182,7 +183,7 @@ module.exports = {
         changeOrigin: true,
         secure: false,
         "logLevel": "info",
-        cookieDomainRewrite: proxyCookieDomainRewrite,
+        cookieDomainRewrite: "",
       },
     },
     stats: 'minimal',

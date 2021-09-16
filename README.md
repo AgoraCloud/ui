@@ -17,11 +17,16 @@ node version > 10
 npm i
 ```
 
+
 ## Run Locally
 
 Ensure that no other app is using port 3000
 
 ```bash
+# setup a proxy target
+# you will have to do this every time you restart your computer
+export PROXY_TARGET=https://agoracloud.mydomain.com/ 
+# start the dev server
 npm run start
 ```
 
