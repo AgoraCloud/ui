@@ -46,7 +46,7 @@ export class AuthStore {
           break;
         }
         case 200: {
-          console.log("LOGGED IN")
+          console.log('LOGGED IN');
           this.state = 'loggedin';
           this.rootStore.userStore.load();
           this.rootStore.workspacesStore.load();

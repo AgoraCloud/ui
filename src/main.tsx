@@ -24,56 +24,53 @@ import { configure, isBoxedObservable, observable } from 'mobx';
 //   document.getElementById('root'),
 // );
 
-
 /**
  * https://github.com/mobxjs/mobx/blob/d216e5ee979b134631a4a7e71320269452a997d0/packages/mobx/src/errors.ts#L69
  */
-configure({ isolateGlobalState: true })
+configure({ isolateGlobalState: true });
 
+class Teststore {
+  @observable state: 'on' | 'off' = 'off';
+  constructor() {
+    setTimeout(() => {
+      console.log('SWITCH');
+      this.state = 'on';
+    }, 2000);
 
-class Teststore{
-  @observable state: "on"|"off" = "off"
-  constructor(){
-    setTimeout(()=>{
-      console.log("SWITCH")
-      this.state = "on"
-    }, 2000)
-
-    console.log(isBoxedObservable(this.state))
+    console.log(isBoxedObservable(this.state));
   }
 }
 
-const Test = inject("test")(observer((props) => {
-  const store = props["test"] as AuthStore
-  // const recurse = () => {
-  //   setTimeout(()=>{
-  //     console.log("STATE", store.state)
-  //     recurse()
-  //   }, 1000)
-  // }
-  // recurse()
+const Test = inject('test')(
+  observer((props) => {
+    const store = props['test'] as AuthStore;
+    // const recurse = () => {
+    //   setTimeout(()=>{
+    //     console.log("STATE", store.state)
+    //     recurse()
+    //   }, 1000)
+    // }
+    // recurse()
 
-  return <div>
-    state {store.state}
-  </div>
-}))
+    return <div>state {store.state}</div>;
+  }),
+);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     {/* <Provider {...rootStore.stores}> */}
-    <Provider {...{
-      test: new Teststore()
-    }}>
+    <Provider
+      {...{
+        test: new Teststore(),
+      }}
+    >
       {/* <App history={history} /> */}
       <Router history={history}>
         <Switch>
           {/* <UnauthedRoute path="/login" component={Login} /> */}
-
         </Switch>
       </Router>
-      <div>
-        Test
-      </div>
+      <div>Test</div>
       <Test />
       {/* <SnackbarManager /> */}
     </Provider>
