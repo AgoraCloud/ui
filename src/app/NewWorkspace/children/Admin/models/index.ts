@@ -19,14 +19,13 @@ constructor(public workspace: Workspace) {
 */
 
 export class WorkspaceAdminModel extends Model {
-    /**
-     * All components of the workspace admin dashboard
-     */
-    workspaceUsers: WorkspaceUsersModel
-    constructor(public workspace: WorkspaceModel) {
-        super({});
+  /**
+   * All components of the workspace admin dashboard
+   */
+  workspaceUsers: WorkspaceUsersModel;
+  constructor(public workspace: WorkspaceModel) {
+    super({});
 
-        this.workspaceUsers = new WorkspaceUsersModel(this.workspace, this)
-    }
+    this.workspaceUsers = new WorkspaceUsersModel(this.workspace, this);
+  }
 }
-
