@@ -1,9 +1,19 @@
 {
-  "version": "0.0.0",
+  "name": "agoracloud_ui",
+  "version": "1.0.0",
+  "description": "AgoraClouds UI",
+  "author": "AgoraCloud",
+  "private": true,
+  "license": "MIT",
+  "main": "index.js",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test" : "jest",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx}\" --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@agoracloud/common": "^1.2.0",
