@@ -37,11 +37,6 @@ export const UnauthedRoute = inject(
 )(
   observer((props) => {
     const store = props[AUTH_STORE] as AuthStore;
-    console.log(store.state);
-    setTimeout(() => {
-      store.state = 'loggedin';
-      console.log(2, store.state);
-    }, 3000);
 
     // const userStore = props[USER_STORE] as UserStore
     // if(userStore.state != 'loaded') return null
