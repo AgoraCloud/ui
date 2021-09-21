@@ -5,7 +5,7 @@ import path from 'path'
 
 const SRC_PATH = path.resolve(__dirname, './src/')
 
-console.log(SRC_PATH)
+const proxyTarget = process.env.PROXY_TARGET
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [reactRefresh()],
@@ -23,7 +23,11 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'https://marc.agoracloud.saidghamra.com',
+      '/api': {
+        target: proxyTarget,
+        changeOrigin: true,
+        cookieDomainRewrite: ""
+      },
     }
   },
   optimizeDeps: {
