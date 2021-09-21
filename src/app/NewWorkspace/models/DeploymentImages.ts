@@ -3,8 +3,8 @@ import { WorkspaceModel } from 'app/NewWorkspace/models';
 
 export class DeploymentImages extends Model {
   repos = {
-    main: new APIRepo({ path: this.api })
-  }
+    main: new APIRepo({ path: this.api }),
+  };
   constructor(public workspace: WorkspaceModel) {
     super({});
 

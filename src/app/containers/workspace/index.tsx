@@ -49,8 +49,7 @@ export const HomeWrapperBase = (props: { children: React.ReactNode }) => {
       <main className={classes.content}>
         {/* <div className={classes.appBarSpacer} /> */}
         {children}
-      <NewWorkspaceSelect/>
-
+        <NewWorkspaceSelect />
       </main>
       <ConfirmDeleteDialog />
     </div>

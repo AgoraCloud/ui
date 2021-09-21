@@ -13,10 +13,10 @@ export class WorkspacesStore {
   @observable wikiEdit: boolean;
   newWorkspaces: WorkspacesModel;
 
-  @observable count = 0
+  @observable count = 0;
   constructor(private rootStore: RootStore) {
     this.workspaces = new Workspaces(this);
-    this.newWorkspaces = new WorkspacesModel()
+    this.newWorkspaces = new WorkspacesModel();
     this.createWorkspaceForm = new CreateWorkspaceFormModel();
     // this.load()
     this.wikiEdit = false;

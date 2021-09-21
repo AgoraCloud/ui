@@ -24,16 +24,16 @@ export class WorkspacesModel extends CollectionModel {
       collections: WorkspaceModel,
     });
 
-    console.log("workspaces")
-    this.test()
+    console.log('workspaces');
+    this.test();
   }
 
   test = async () => {
-    console.log("test")
-    await this.load()
-    console.log(this)
-    console.log(this.workspaces[0].deploymentImages)
-  }
+    console.log('test');
+    await this.load();
+    console.log(this);
+    console.log(this.workspaces[0].deploymentImages);
+  };
   get api() {
     return '/api/workspaces';
   }
@@ -98,7 +98,6 @@ export class WorkspaceModel extends Model<workspaceData_i> {
     this.metrics = new WorkspacesMetricsModel(this);
     this.workspaceAdminModel = new WorkspaceAdminModel(this);
   }
-
 
   get id() {
     return this.data.id;
