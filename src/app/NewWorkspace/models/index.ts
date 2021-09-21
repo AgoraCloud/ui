@@ -4,8 +4,10 @@ import {
   CreateProjectFormModel,
   UpdateWorkspaceFormModel,
 } from 'app/NewWorkspace/forms';
+import { WorkspaceAdminModel } from '../children/Admin/models';
 import { DeploymentsModel } from '../children/Deployments/models';
 import { ProjectsModel } from '../children/Projects/models';
+import { WikiSectionsModel } from '../children/Wiki/models';
 import { DeploymentImages } from './DeploymentImages';
 import { WorkspacesMetricsModel } from './Metrics';
 
@@ -21,14 +23,23 @@ export class WorkspacesModel extends CollectionModel {
     super({
       collections: WorkspaceModel,
     });
+
+    console.log("workspaces")
+    this.test()
   }
 
+  test = async () => {
+    console.log("test")
+    await this.load()
+    console.log(this)
+    console.log(this.workspaces[0].deploymentImages)
+  }
   get api() {
     return '/api/workspaces';
   }
 
-  get workspaces() {
-    return this.collection.models || [];
+  get workspaces(): WorkspaceModel[] {
+    return (this.collection.models || []) as WorkspaceModel[];
   }
 
   // getById = (id?: string): Workspace | undefined => {
@@ -55,11 +66,12 @@ export class WorkspaceModel extends Model<workspaceData_i> {
 
   // deployments: Deployments;
   // projects: Projects;
-  // wikiSections: WikiSectionsModel;
+  wikiSections: WikiSectionsModel;
   deploymentImages: DeploymentImages;
   deployments: DeploymentsModel;
   projects: ProjectsModel;
   metrics: WorkspacesMetricsModel;
+  workspaceAdminModel: WorkspaceAdminModel;
   // @observable metrics: WorkspaceMetrics;
 
   // workspaceAdminStore: WorkspaceAdminStore;
@@ -81,11 +93,12 @@ export class WorkspaceModel extends Model<workspaceData_i> {
 
     this.deployments = new DeploymentsModel(this);
     this.projects = new ProjectsModel(this);
-    // this.wikiSections = new WikiSectionsModel(this);
+    this.wikiSections = new WikiSectionsModel(this);
     this.deploymentImages = new DeploymentImages(this);
     this.metrics = new WorkspacesMetricsModel(this);
-    // this.workspaceAdminStore = new WorkspaceAdminStore(this);
+    this.workspaceAdminModel = new WorkspaceAdminModel(this);
   }
+
 
   get id() {
     return this.data.id;

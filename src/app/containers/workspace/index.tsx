@@ -8,6 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { DeploymentsList } from './deployments';
 import { AppMenu } from 'app/components/menu';
 import { ConfirmDeleteDialog } from 'app/components/dialogs';
+import { NewWorkspaceSelect } from 'app/NewWorkspace/views/WorkspaceSelect';
 
 /**
  * Code Sourced from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
@@ -48,6 +49,8 @@ export const HomeWrapperBase = (props: { children: React.ReactNode }) => {
       <main className={classes.content}>
         {/* <div className={classes.appBarSpacer} /> */}
         {children}
+      <NewWorkspaceSelect/>
+
       </main>
       <ConfirmDeleteDialog />
     </div>

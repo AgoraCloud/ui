@@ -15,6 +15,8 @@ export class ShortcutsModel extends CollectionModel {
     });
   }
 
+
+
   get api() {
     return `${this.workspace.api}/shortcuts`;
   }

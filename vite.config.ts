@@ -25,5 +25,8 @@ export default defineConfig({
     proxy: {
       '/api': 'https://marc.agoracloud.saidghamra.com',
     }
+  },
+  optimizeDeps: {
+    exclude: ["@nestjs/swagger", "swagger-ui-express", "fastify-swagger", "cache-manager"]
   }
 })
