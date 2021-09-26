@@ -4,11 +4,7 @@ import { WORKSPACES_STORE, ROUTER_STORE } from 'app/constants';
 import { WorkspacesStore, RouterStore } from 'app/stores';
 import { HomeWrapper } from 'app/containers/workspace';
 import { Typography, TextField, Button } from '@material-ui/core';
-import {
-  Input,
-  CPUMemoryInput,
-  Label,
-} from 'app/components/inputs';
+import { Input, CPUMemoryInput, Label } from 'app/components/inputs';
 
 export const UpdateWorkspace = inject(
   WORKSPACES_STORE,
@@ -23,12 +19,28 @@ export const UpdateWorkspace = inject(
       <HomeWrapper>
         <Typography variant="h4">Update Workspace</Typography>
         <Label>Workspace Name</Label>
-        <Input form={form} id="name" label="Workspace Name" defaultValue={val.name} autoComplete="off" />
+        <Input
+          form={form}
+          id="name"
+          label="Workspace Name"
+          defaultValue={val.name}
+          autoComplete="off"
+        />
         <Label>Resources</Label>
         <Typography variant="body1">
           Specify the maximum amount of resources the deployment can use:
         </Typography>
-        <CPUMemoryInput form={form} fromWorkspace={{check: true, values: {cpu: val.properties.resources.cpuCount, ram: val.properties.resources.memoryCount, storage: val.properties.resources.storageCount}}} />
+        <CPUMemoryInput
+          form={form}
+          fromWorkspace={{
+            check: true,
+            values: {
+              cpu: val.properties.resources.cpuCount,
+              ram: val.properties.resources.memoryCount,
+              storage: val.properties.resources.storageCount,
+            },
+          }}
+        />
         <div style={{ float: 'left' }}>
           <Button
             onClick={async () => {

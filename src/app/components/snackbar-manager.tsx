@@ -3,6 +3,7 @@ import { SnackbarProvider, withSnackbar } from 'notistack';
 import { inject, observer } from 'mobx-react';
 import { SNACKBAR_STORE } from 'app/constants';
 import { SnackbarStore } from 'app/stores';
+import { isObservable } from 'mobx';
 
 let displayed: number[] = [];
 

@@ -3,6 +3,7 @@ import { observable, computed } from 'mobx';
 import { Workspaces, Workspace } from 'app/workspace';
 import { CreateWorkspaceFormModel } from 'app/workspace/forms';
 import { events, eventTypes } from 'app/constants';
+import { WorkspacesModel } from 'app/NewWorkspace/models';
 
 export class WorkspacesStore {
   @observable workspaces: Workspaces;
@@ -10,8 +11,12 @@ export class WorkspacesStore {
   @observable createWorkspaceForm: CreateWorkspaceFormModel;
 
   @observable wikiEdit: boolean;
+  newWorkspaces: WorkspacesModel;
+
+  @observable count = 0;
   constructor(private rootStore: RootStore) {
     this.workspaces = new Workspaces(this);
+    this.newWorkspaces = new WorkspacesModel();
     this.createWorkspaceForm = new CreateWorkspaceFormModel();
     // this.load()
     this.wikiEdit = false;

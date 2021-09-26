@@ -37,6 +37,7 @@ export const UnauthedRoute = inject(
 )(
   observer((props) => {
     const store = props[AUTH_STORE] as AuthStore;
+
     // const userStore = props[USER_STORE] as UserStore
     // if(userStore.state != 'loaded') return null
     switch (store.state) {

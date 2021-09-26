@@ -1,10 +1,10 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 
 // https://material-ui.com/customization/default-theme/
 // https://www.youtube.com/watch?v=bDkB3LoQKxs
 // https://github.com/bmvantunes/youtube-2020-june-material-ui-themes/blob/master/src/theme.tsx
 
-export const theme = createMuiTheme({
+export const theme = createTheme({
   palette: {
     primary: {
       main: '#2196f3',
