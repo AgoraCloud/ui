@@ -16,7 +16,7 @@ export class WorkspacesStore {
   @observable count = 0;
   constructor(private rootStore: RootStore) {
     this.workspaces = new Workspaces(this);
-    this.newWorkspaces = new WorkspacesModel();
+    //this.newWorkspaces = new WorkspacesModel();
     this.createWorkspaceForm = new CreateWorkspaceFormModel();
     // this.load()
     this.wikiEdit = false;
