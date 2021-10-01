@@ -91,8 +91,8 @@ export const BaseSelect = observer((props: BaseSelectProps) => {
    */
   const { form, id, options, ...rest } = props;
   const value = form.get(id);
-  const error = form.getError(id)
-  
+  const error = form.getError(id);
+
   return (
     <Select
       // native
@@ -104,7 +104,7 @@ export const BaseSelect = observer((props: BaseSelectProps) => {
       {...rest}
     >
       {options.map((option) => {
-        // JSON.stringify(option.value) ??? 
+        // JSON.stringify(option.value) ???
         return (
           <MenuItem key={option.label} value={option.value}>
             {option.label}
@@ -113,13 +113,9 @@ export const BaseSelect = observer((props: BaseSelectProps) => {
       })}
     </Select>
   );
-})
+});
 
 //  FormModel<{ roles: string[] }, { roles: string[] }>
-export const RolesSelect = observer(
-  (props: {
-    form: FormModel
-  }) => {
-    return <BaseSelect {...props} id="roles" options={roles} multiple />;
-  },
-)
+export const RolesSelect = observer((props: { form: FormModel }) => {
+  return <BaseSelect {...props} id="roles" options={roles} multiple />;
+});

@@ -38,13 +38,13 @@ export class SnackbarStore {
   }
 
   initEvents() {
-    Object.values(eventTypes).forEach((v)=>{
+    Object.values(eventTypes).forEach((v) => {
       events.on(v.type, (data) => {
         this.push({
           message: v.data.message,
           variant: v.data.variant as any,
         });
       });
-    })
+    });
   }
 }

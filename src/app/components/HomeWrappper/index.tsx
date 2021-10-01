@@ -53,10 +53,8 @@ export const HomeWrapperBase = (props: { children: React.ReactNode }) => {
   );
 };
 
-
-
 interface HomeWrapper_i {
-  children: React.ReactChild | React.ReactChild[]
+  children: React.ReactChild | React.ReactChild[];
 }
 export const HomeWrapper = (props: HomeWrapper_i) => {
   const classes = useStyles();
@@ -72,9 +70,6 @@ export const HomeWrapper = (props: HomeWrapper_i) => {
   );
 };
 
-
 export const WorkspaceHomeWrapper = (props: HomeWrapper_i) => {
-  <HomeWrapper>
-    
-  </HomeWrapper>
-}
+  <HomeWrapper></HomeWrapper>;
+};

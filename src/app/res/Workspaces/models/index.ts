@@ -29,10 +29,10 @@ export class WorkspacesModel extends CollectionModel {
 
   test = async () => {
     await this.load();
-    console.log("workspace", this);
+    console.log('workspace', this);
     // console.log(this.workspaces[0].deploymentImages);
   };
-  
+
   get api() {
     return '/api/workspaces';
   }
@@ -41,8 +41,8 @@ export class WorkspacesModel extends CollectionModel {
     return (this.collection.models || []) as WorkspaceModel[];
   }
 
-  get selectedWorkspace(){
-    return this.workspaces[0]
+  get selectedWorkspace() {
+    return this.workspaces[0];
   }
 
   get workspaceUrl() {

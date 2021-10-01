@@ -21,9 +21,6 @@ export class DeploymentsModel extends CollectionModel {
   }
 }
 
-
-
-
 export class DeploymentModel extends Model {
   /**
    * A single deployment

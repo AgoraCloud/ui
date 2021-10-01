@@ -6,7 +6,6 @@ import {
 import { RootStore } from 'app/stores/root-store';
 
 export class RouterStore extends BaseRouterStore {
-
   constructor(public rootStore: RootStore, history?: History) {
     super();
     if (history) {

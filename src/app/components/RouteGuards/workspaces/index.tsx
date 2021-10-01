@@ -7,11 +7,10 @@ import { Redirect } from 'react-router';
 import { useStores } from 'app/stores/use-store';
 
 export const WorkspacesLoaded = observer((props) => {
-  const { workspacesstore } = useStores()
+  const { workspacesstore } = useStores();
   const workspaces = workspacesstore.newWorkspaces;
 
-
-  console.log(workspaces.state)
+  console.log(workspaces.state);
 
   if (workspaces.state == 'loaded') {
     const wid = workspaces.selectedWorkspace.id;
@@ -23,11 +22,10 @@ export const WorkspacesLoaded = observer((props) => {
   } else {
     return null;
   }
-})
+});
 
 export const DeploymentLoaded = observer((props) => {
-
-  const { workspacesstore } = useStores()
+  const { workspacesstore } = useStores();
   const workspace = workspacesstore.newWorkspaces.selectedWorkspace;
 
   if (workspace == undefined) return null;
@@ -43,7 +41,7 @@ export const DeploymentLoaded = observer((props) => {
 });
 
 export const ProjectsLoaded = observer((props) => {
-  const { workspacesstore } = useStores()
+  const { workspacesstore } = useStores();
   const workspace = workspacesstore.newWorkspaces.selectedWorkspace;
 
   if (workspace == undefined) return null;
@@ -56,11 +54,11 @@ export const ProjectsLoaded = observer((props) => {
     default:
       return null;
   }
-})
+});
 
 export const WikiLoaded = inject(WORKSPACES_STORE)(
   observer((props) => {
-    const { workspacesstore } = useStores()
+    const { workspacesstore } = useStores();
     const workspace = workspacesstore.newWorkspaces.selectedWorkspace;
 
     if (workspace == undefined) return null;
@@ -77,8 +75,7 @@ export const WikiLoaded = inject(WORKSPACES_STORE)(
 );
 
 export const LanesLoaded = observer((props) => {
-
-  const { workspacesstore } = useStores()
+  const { workspacesstore } = useStores();
   const workspace = workspacesstore.newWorkspaces.selectedWorkspace;
 
   if (workspace == undefined) return null;
@@ -99,4 +96,4 @@ export const LanesLoaded = observer((props) => {
     default:
       return null;
   }
-})
+});

@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { Router, Switch } from 'react-router';
-import {
-  AuthedRoute,
-  UnauthedRoute,
-} from 'app/components/RouteGuards/auth';
+import { AuthedRoute, UnauthedRoute } from 'app/components/RouteGuards/auth';
 import {
   Login,
   Signup,

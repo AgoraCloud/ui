@@ -8,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { WorkspaceModel } from '../models';
 import { useStores } from 'app/stores/use-store';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     color: 'white',
@@ -39,19 +38,18 @@ const useLabelStyles = makeStyles({
   },
 });
 
-
 export const WorkspaceSelect = observer(() => {
   const { workspacesstore } = useStores();
   console.log(workspacesstore);
   const classes = useStyles();
   const labelClasses = useLabelStyles();
-  const workspaces = workspacesstore.newWorkspaces
+  const workspaces = workspacesstore.newWorkspaces;
 
-  const options = workspaces.workspaces
-  const loading = workspaces.state !== 'loaded'
-  const selectedWorkspace = workspaces.selectedWorkspace
+  const options = workspaces.workspaces;
+  const loading = workspaces.state !== 'loaded';
+  const selectedWorkspace = workspaces.selectedWorkspace;
   const onChange = (option, values) => {
-    console.log(values)
+    console.log(values);
     // store.selectedWorkspace = values;
   };
   return (

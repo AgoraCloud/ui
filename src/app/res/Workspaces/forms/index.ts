@@ -8,14 +8,20 @@ export class CreateDeploymentFormModel extends FormModel {
       data: {
         properties: {
           image: {
-            type: 'VSCODE'
-          }
-        }
+            type: 'VSCODE',
+          },
+        },
       },
       keys: [
-        ['cpuCount', {key: 'properties.resources.cpuCount', cast: Number}],
-        ['memoryCount', {key: 'properties.resources.memoryCount', cast: Number}],
-        ['storageCount', {key: 'properties.resources.storageCount', cast: Number}],
+        ['cpuCount', { key: 'properties.resources.cpuCount', cast: Number }],
+        [
+          'memoryCount',
+          { key: 'properties.resources.memoryCount', cast: Number },
+        ],
+        [
+          'storageCount',
+          { key: 'properties.resources.storageCount', cast: Number },
+        ],
         ['isFavorite', 'properties.isFavorite'],
         ['sudoPassword', 'properties.sudoPassword'],
         ['type', 'properties.image.type'],
@@ -26,9 +32,7 @@ export class CreateDeploymentFormModel extends FormModel {
   }
 }
 
-export class EditDeploymentFormModel extends FormModel {
-
-}
+export class EditDeploymentFormModel extends FormModel {}
 
 export class CreateProjectFormModel extends FormModel {
   constructor(public workspace: WorkspaceModel) {

@@ -32,7 +32,6 @@ export class WorkspaceUserModel extends Model {
    * A single workspace users
    */
 
-
   constructor(data, public workspaceUsersModel: WorkspaceUsersModel) {
     super({ data });
     this.repos = {

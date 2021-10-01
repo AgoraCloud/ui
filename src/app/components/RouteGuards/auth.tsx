@@ -6,10 +6,10 @@ import { Redirect, Route } from 'react-router';
 import { useStores } from 'app/stores/use-store';
 
 export const AuthedRoute = observer((props) => {
-  const { authstore, userstore } = useStores()
+  const { authstore, userstore } = useStores();
   // const authstore = props[AUTH_STORE] as AuthStore;
   // const userStore = props[USER_STORE] as UserStore;
-  console.log("state", authstore.state, userstore.state)
+  console.log('state', authstore.state, userstore.state);
   if (authstore.state == 'unauthed') return <Redirect to="/login" />;
   // if (userstore.state != 'loaded') return null;
 
@@ -26,7 +26,7 @@ export const AuthedRoute = observer((props) => {
     default:
       return null;
   }
-})
+});
 
 export const UnauthedRoute = inject(
   AUTH_STORE,

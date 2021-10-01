@@ -12,7 +12,7 @@ export const Input = observer((props: InputProps) => {
   const { form, id, children, workspaceCheck, defaultVal, ...rest } = props;
   let value = form.get(id);
   // const error = form.getError(id)
-  const error = form.errors[id]
+  const error = form.errors[id];
   // console.log(id, error, val)
   if (workspaceCheck) {
     // val = String(defaultVal);
@@ -37,8 +37,6 @@ export const Input = observer((props: InputProps) => {
     </TextField>
   );
 });
-
-
 
 import MemoryIcon from '@material-ui/icons/Memory';
 import MoneyIcon from '@material-ui/icons/Money';
@@ -117,7 +115,7 @@ interface UpdateWorkspaceProps {
 }
 
 export const CPUMemoryInput = (props: {
-  form: FormModel<{cpuCount: number, memoryCount: number}>
+  form: FormModel<{ cpuCount: number; memoryCount: number }>;
 }) => {
   const classes = useStyles();
   const { form } = props;
@@ -127,7 +125,7 @@ export const CPUMemoryInput = (props: {
         form={form}
         className={classes.margin}
         margin="dense"
-        id='cpuCount'
+        id="cpuCount"
         label="CPU"
         type="number"
         InputProps={{
@@ -144,7 +142,7 @@ export const CPUMemoryInput = (props: {
         form={form}
         className={classes.margin}
         margin="dense"
-        id='memoryCount'
+        id="memoryCount"
         label="RAM"
         type="number"
         InputProps={{

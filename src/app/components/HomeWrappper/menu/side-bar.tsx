@@ -71,16 +71,11 @@ const useStyles = makeStyles((theme) => ({
 
 // const { forwardRef, useImperativeHandle } = React;
 
-
-interface sidebarItem_i{
-  icon: React.ReactNode
-  url: string
-  text: string
+interface sidebarItem_i {
+  icon: React.ReactNode;
+  url: string;
+  text: string;
 }
-
-
-
-
 
 // const allItems = [
 //   ...sideBarItems,
@@ -89,89 +84,86 @@ interface sidebarItem_i{
 //   ...adminSideb
 // ]
 
-const SideBarItems = ({links} : {links: sidebarItem_i[]}) => {
+const SideBarItems = ({ links }: { links: sidebarItem_i[] }) => {
   const selected = (url) => {
     // this is a bad way of doing it IMO
-    return window.location.pathname == url
-  }
-  return <>
-            {
-            links.map((link) => (
-              <ListItem
-                key={link.text}
-                button
-                component={Link}
-                to={link.url}
-                selected={selected(link.url)}
-              >
-                <ListItemIcon>
-                  {link.icon}
-                </ListItemIcon>
-                <ListItemText primary={link.text} />
-              </ListItem>
-            ))
-          }
-  </>
-}
+    return window.location.pathname == url;
+  };
+  return (
+    <>
+      {links.map((link) => (
+        <ListItem
+          key={link.text}
+          button
+          component={Link}
+          to={link.url}
+          selected={selected(link.url)}
+        >
+          <ListItemIcon>{link.icon}</ListItemIcon>
+          <ListItemText primary={link.text} />
+        </ListItem>
+      ))}
+    </>
+  );
+};
 export const SideBar = observer((props) => {
-
-  const { workspacesstore } = useStores()
+  const { workspacesstore } = useStores();
   // const routerstore = props[ROUTER_STORE] as routerstore;
   // const workspacesstore = props[WORKSPACES_STORE] as WorkspacesStore;
   const classes = useStyles();
-  const workspaces = workspacesstore.newWorkspaces
+  const workspaces = workspacesstore.newWorkspaces;
   const selectedWorkspace = workspaces.selectedWorkspace;
-  const workspaceUrl = workspaces.workspaceUrl
+  const workspaceUrl = workspaces.workspaceUrl;
 
   const sidebarItems = [
     {
       icon: <AppsIcon />,
       url: workspaceUrl,
-      text: 'Deployments'
+      text: 'Deployments',
     },
     {
       icon: <AssignmentIcon />,
       url: workspaceUrl + '/p',
-      text: 'Projects'
+      text: 'Projects',
     },
     {
       icon: <NotesIcon />,
       url: workspaceUrl + '/wiki',
-      text: 'Wiki'
+      text: 'Wiki',
     },
-  ]
-  
+  ];
+
   const workspaceSidebarItems = [
     {
       icon: <AddCircleOutlineIcon />,
       url: `/w/new`,
-      text: 'New'
+      text: 'New',
     },
     {
       icon: <SettingsIcon />,
       url: `${workspaceUrl}/edit-worspace`,
-      text: 'Settings'
+      text: 'Settings',
     },
     {
       icon: <AssessmentIcon />,
       url: `${workspaceUrl}/metrics`,
-      text: 'Metrics'
-    }
-  ]
+      text: 'Metrics',
+    },
+  ];
   const workspaceAdminSidebarItems = [
     {
       icon: <PeopleIcon />,
       url: `${workspaceUrl}/admin/users`,
-      text: 'Workspace Users'
+      text: 'Workspace Users',
     },
-  ]
+  ];
   const adminSidebarItems = [
     {
       icon: <PeopleIcon />,
       url: '/admin/users',
-      text: 'Users'
-    }
-  ]
+      text: 'Users',
+    },
+  ];
   return (
     <>
       <Drawer
@@ -191,7 +183,7 @@ export const SideBar = observer((props) => {
         </div>
         <Divider />
         <List>
-          <SideBarItems links={sidebarItems}/>
+          <SideBarItems links={sidebarItems} />
         </List>
         <Divider />
         <List
@@ -201,13 +193,12 @@ export const SideBar = observer((props) => {
             </RenderIf>
           }
         >
-          <SideBarItems links={workspaceSidebarItems}/>
+          <SideBarItems links={workspaceSidebarItems} />
           <RenderIfRole
             roles={[Role.WorkspaceAdmin, Role.SuperAdmin]}
             wid={selectedWorkspace.id}
           >
-            <SideBarItems links={workspaceAdminSidebarItems}/>
-
+            <SideBarItems links={workspaceAdminSidebarItems} />
           </RenderIfRole>
         </List>
         <Divider />
@@ -219,10 +210,10 @@ export const SideBar = observer((props) => {
               </RenderIf>
             }
           >
-            <SideBarItems links={adminSidebarItems}/>
+            <SideBarItems links={adminSidebarItems} />
           </List>
         </RenderIfRole>
       </Drawer>
     </>
-  )
-})
+  );
+});

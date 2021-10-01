@@ -103,7 +103,7 @@ export const LinkButton = (props: LinkButtonProps) => {
 
 export const CancelCreateButtons = observer(
   (props: {
-    form: FormModel
+    form: FormModel;
     cancel: () => any;
     submit: () => any;
     labels?: [string, string];
