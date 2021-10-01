@@ -2,31 +2,27 @@
 /* Use this folder to also add/extend a package d.ts file, if needed. */
 
 /* CSS MODULES */
-declare module '*.module.css' {
+declare module '*.css' {
   const classes: { [key: string]: string };
   export default classes;
 }
-declare module '*.module.scss' {
+declare module '*.scss' {
   const classes: { [key: string]: string };
   export default classes;
 }
-declare module '*.module.sass' {
+declare module '*.sass' {
   const classes: { [key: string]: string };
   export default classes;
 }
-declare module '*.module.less' {
+declare module '*.less' {
   const classes: { [key: string]: string };
   export default classes;
 }
-declare module '*.module.styl' {
+declare module '*.styl' {
   const classes: { [key: string]: string };
   export default classes;
 }
 
-declare module '*.scss' {
-  const styles: any;
-  export = styles;
-}
 
 /* CSS */
 declare module '*.css';

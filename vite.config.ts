@@ -2,12 +2,12 @@ import { defineConfig } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import path from 'path'
 import { exit } from 'process'
-
+// import {esbuildCommonjs} from '@originjs/vite-plugin-commonjs'
 
 const SRC_PATH = path.resolve(__dirname, './src/')
 
 const proxyTarget = process.env.PROXY_TARGET
-if(!proxyTarget){
+if (!proxyTarget) {
   console.error("NO PROXY TARGET DEFINED")
   console.warn("please set an ENV variable PROXY_TARGET=https://agoracloud.YOURDOMAIN.com")
   exit()
@@ -15,7 +15,10 @@ if(!proxyTarget){
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [reactRefresh()],
+  plugins: [
+    // esbuildCommonjs(['events', '@mars-man/models/node_modules/events']),
+    reactRefresh()
+  ],
   root: SRC_PATH,
   resolve: {
     alias: {
@@ -38,6 +41,14 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    exclude: ["@nestjs/swagger", "swagger-ui-express", "fastify-swagger", "cache-manager"]
+    exclude: [
+      // this is for npm link local development
+      "@mars-man/models",
+      // this is to handle swagger commonjs
+      "@nestjs/swagger",
+      "swagger-ui-express",
+      "fastify-swagger",
+      "cache-manager"
+    ]
   }
 })

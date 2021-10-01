@@ -6,7 +6,6 @@ import {
 import { RootStore } from 'app/stores/root-store';
 
 export class RouterStore extends BaseRouterStore {
-  private selectedIndex = 0;
 
   constructor(public rootStore: RootStore, history?: History) {
     super();
@@ -18,13 +17,5 @@ export class RouterStore extends BaseRouterStore {
   get workspaceUrl() {
     const wid = this.rootStore.workspacesStore.selectedWorkspace?.id;
     return `/w/${wid}`;
-  }
-
-  get selected(): number {
-    return this.selectedIndex;
-  }
-
-  set selected(index: number) {
-    this.selectedIndex = index;
   }
 }

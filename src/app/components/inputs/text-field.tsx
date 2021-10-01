@@ -1,34 +1,36 @@
 import * as React from 'react';
 import TextField, { StandardTextFieldProps } from '@material-ui/core/TextField';
-import { BaseFormModel } from 'app/forms';
 import { observer } from 'mobx-react';
 
 interface InputProps extends StandardTextFieldProps {
-  form: BaseFormModel<any, any>;
+  form: FormModel;
   id: string;
   workspaceCheck?: boolean;
   defaultVal?: number;
 }
 export const Input = observer((props: InputProps) => {
   const { form, id, children, workspaceCheck, defaultVal, ...rest } = props;
-  let val = form.data[id];
+  let value = form.get(id);
+  // const error = form.getError(id)
+  const error = form.errors[id]
+  // console.log(id, error, val)
   if (workspaceCheck) {
-    val = String(defaultVal);
+    // val = String(defaultVal);
   }
-
   return (
     <TextField
-      onChange={form.onInputChange(id)}
-      error={form.getError(id) != undefined && val != ''}
-      helperText={val != '' ? form.getError(id) : undefined} // to be implemented (currently all errors are just 'error')
-      value={workspaceCheck ? undefined : val}
+      onChange={form.onChange(id)}
+      error={value && error != undefined}
+      helperText={value ? error : undefined} // to be implemented (currently all errors are just 'error')
+      value={value}
       variant="outlined"
       margin="normal"
+      autoComplete="off"
       required
       fullWidth
       id={id}
       name={id}
-      defaultValue={workspaceCheck && Number(val)}
+      defaultValue={workspaceCheck && Number(value)}
       {...rest}
     >
       {children}
@@ -36,7 +38,8 @@ export const Input = observer((props: InputProps) => {
   );
 });
 
-// icons
+
+
 import MemoryIcon from '@material-ui/icons/Memory';
 import MoneyIcon from '@material-ui/icons/Money';
 import StorageIcon from '@material-ui/icons/Storage';
@@ -46,6 +49,7 @@ import {
   Checkbox,
   Typography,
 } from '@material-ui/core';
+import { FormModel } from '@mars-man/models';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -58,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ResourceInput = (props: { form: BaseFormModel<any, any> }) => {
+export const ResourceInput = (props: { form: FormModel }) => {
   const classes = useStyles();
   const { form } = props;
 
@@ -113,8 +117,7 @@ interface UpdateWorkspaceProps {
 }
 
 export const CPUMemoryInput = (props: {
-  form: BaseFormModel<any, any>;
-  fromWorkspace?: UpdateWorkspaceProps;
+  form: FormModel<{cpuCount: number, memoryCount: number}>
 }) => {
   const classes = useStyles();
   const { form } = props;
@@ -124,11 +127,7 @@ export const CPUMemoryInput = (props: {
         form={form}
         className={classes.margin}
         margin="dense"
-        id={
-          props.fromWorkspace?.check
-            ? 'properties.resources.cpuCount'
-            : 'cpuCount'
-        }
+        id='cpuCount'
         label="CPU"
         type="number"
         InputProps={{
@@ -139,18 +138,13 @@ export const CPUMemoryInput = (props: {
           ),
         }}
         fullWidth
-        workspaceCheck={props.fromWorkspace?.check}
-        defaultVal={props.fromWorkspace?.values?.cpu}
+        defaultVal={form.data['cpuCount']}
       />
       <Input
         form={form}
         className={classes.margin}
         margin="dense"
-        id={
-          props.fromWorkspace?.check
-            ? 'properties.resources.memoryCount'
-            : 'memoryCount'
-        }
+        id='memoryCount'
         label="RAM"
         type="number"
         InputProps={{
@@ -161,29 +155,8 @@ export const CPUMemoryInput = (props: {
           ),
         }}
         fullWidth
-        workspaceCheck={props.fromWorkspace?.check}
-        defaultVal={props.fromWorkspace?.values?.ram}
+        defaultVal={form.data['memoryCount']}
       />
-      {props.fromWorkspace?.check && (
-        <Input
-          form={form}
-          className={classes.margin}
-          margin="dense"
-          id="properties.resources.storageCount"
-          label="Storage"
-          type="number"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <MoneyIcon />
-              </InputAdornment>
-            ),
-          }}
-          fullWidth
-          workspaceCheck={props.fromWorkspace?.check}
-          defaultVal={props.fromWorkspace?.values?.storage}
-        />
-      )}
     </>
   );
 };

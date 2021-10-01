@@ -211,7 +211,7 @@ export class Task {
           }),
         },
       );
-      res && events.emit(eventTypes.LANE_TASK_MOVED);
+      res && events.emit(eventTypes.LANE_TASK_CRUD);
     } catch (e) {
       console.warn(e);
     }

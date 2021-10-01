@@ -3,7 +3,7 @@ import { observable, computed } from 'mobx';
 import { Workspaces, Workspace } from 'app/workspace';
 import { CreateWorkspaceFormModel } from 'app/workspace/forms';
 import { events, eventTypes } from 'app/constants';
-import { WorkspacesModel } from 'app/NewWorkspace/models';
+import { WorkspacesModel } from 'app/res/Workspaces/models';
 
 export class WorkspacesStore {
   @observable workspaces: Workspaces;
@@ -125,10 +125,10 @@ export class WorkspacesStore {
     const form = this.createWorkspaceForm;
     const successful = await form.submit();
     if (successful) {
-      events.emit(eventTypes.WORKSPACE_CREATED, 'created');
+      events.emit(eventTypes.WORKSPACE_CRUD.type, 'created');
       form.reset();
     } else {
-      events.emit(eventTypes.WORKSPACE_ERR, form.message);
+      events.emit(eventTypes.WORKSPACE_ERR.type, form.message);
     }
     return successful;
   };
@@ -137,9 +137,9 @@ export class WorkspacesStore {
     const form = this.selectedWorkspace.updateWorkspaceForm;
     const successful = await form.submit(this.selectedWorkspace.id);
     if (successful) {
-      events.emit(eventTypes.WORKSPACE_RUD, 'updated');
+      events.emit(eventTypes.WORKSPACE_CRUD.type, 'updated');
     } else {
-      events.emit(eventTypes.WORKSPACE_ERR, form.message);
+      events.emit(eventTypes.WORKSPACE_ERR.type, form.message);
     }
     return successful;
   };
@@ -148,18 +148,18 @@ export class WorkspacesStore {
     const form = this.selectedWorkspace.updateWorkspaceForm;
     const successful = await form.delete(this.selectedWorkspace.id);
     if (successful) {
-      events.emit(eventTypes.WORKSPACE_RUD, 'deleted');
+      events.emit(eventTypes.WORKSPACE_CRUD.type, 'deleted');
     } else {
-      events.emit(eventTypes.WORKSPACE_ERR, form.message);
+      events.emit(eventTypes.WORKSPACE_ERR.type, form.message);
     }
     return successful;
   };
 
   initEvents = () => {
-    events.on(eventTypes.WORKSPACE_RUD, () => {
+    events.on(eventTypes.WORKSPACE_CRUD.type, () => {
       this.load();
     });
-    events.on(eventTypes.WORKSPACE_CREATED, async () => {
+    events.on(eventTypes.WORKSPACE_CRUD.type, async () => {
       await this.load();
       const newPath = `/w/${
         this.workspaces.workspaces[this.workspaces.workspaces.length - 1].id

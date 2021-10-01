@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { ROUTER_STORE } from 'app/constants';
 import { RouterStore } from 'app/stores';
-import { BaseFormModel } from 'app/forms';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { FormModel } from '@mars-man/models';
 
 export const BaseFAB = (props: {
   onClick: () => any;
@@ -103,16 +103,15 @@ export const LinkButton = (props: LinkButtonProps) => {
 
 export const CancelCreateButtons = observer(
   (props: {
-    form: BaseFormModel<any, any>;
+    form: FormModel
     cancel: () => any;
     submit: () => any;
-    labels?: string[];
+    labels?: [string, string];
   }) => {
     const { form, cancel, submit, labels } = props;
     const [label1, label2] = labels || ['Cancel', 'Create'];
 
     const { isValid } = form;
-    console.log('is valid', isValid);
     return (
       <div style={{ float: 'right' }}>
         <Button onClick={cancel} color="primary">

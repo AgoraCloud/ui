@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 // my components
-import { DeploymentsList } from './deployments';
 import { AppMenu } from 'app/components/HomeWrappper/menu';
 import { ConfirmDeleteDialog } from 'app/components/dialogs';
 
@@ -43,7 +42,7 @@ export const HomeWrapperBase = (props: { children: React.ReactNode }) => {
   const { children } = props;
   return (
     <div className={classes.root}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <AppMenu />
       <main className={classes.content}>
         {/* <div className={classes.appBarSpacer} /> */}
@@ -54,7 +53,12 @@ export const HomeWrapperBase = (props: { children: React.ReactNode }) => {
   );
 };
 
-export const HomeWrapper = (props: { children: React.ReactNode }) => {
+
+
+interface HomeWrapper_i {
+  children: React.ReactChild | React.ReactChild[]
+}
+export const HomeWrapper = (props: HomeWrapper_i) => {
   const classes = useStyles();
   const { children } = props;
   return (
@@ -68,10 +72,9 @@ export const HomeWrapper = (props: { children: React.ReactNode }) => {
   );
 };
 
-export const Home = () => {
-  return (
-    <HomeWrapper>
-      <DeploymentsList />
-    </HomeWrapper>
-  );
-};
+
+export const WorkspaceHomeWrapper = (props: HomeWrapper_i) => {
+  <HomeWrapper>
+    
+  </HomeWrapper>
+}

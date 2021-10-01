@@ -19,7 +19,7 @@ export class Lanes {
     events.on(eventTypes.LANE_TASKS_CRUD, () => {
       this.load();
     });
-    events.on(eventTypes.LANE_TASK_MOVED, () => {
+    events.on(eventTypes.LANE_TASK_CRUD, () => {
       this.load();
     });
   }

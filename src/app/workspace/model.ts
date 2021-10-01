@@ -1,9 +1,9 @@
 import { observable } from 'mobx';
 import { Deployments } from './deployment/models';
 import { Projects } from './project/model';
-import { CreateDeploymentFormModel } from 'app/workspace/deployment';
-import { CreateProjectFormModel } from 'app/workspace/project';
-import { UpdateWorkspaceFormModel } from 'app/workspace/forms';
+import { CreateDeploymentFormModel } from 'app/res/Workspaces/forms';
+import { CreateProjectFormModel } from 'app/res/Workspaces/forms';
+import { UpdateWorkspaceFormModel } from 'app/res/Workspaces/forms';
 import {
   WikiSectionsModel,
   DeploymentImages,
@@ -74,7 +74,7 @@ export class Workspace {
     this.projects = new Projects(this);
     this.createDeploymentForm = new CreateDeploymentFormModel(this);
     this.createProjectForm = new CreateProjectFormModel(this);
-    this.updateWorkspaceForm = new UpdateWorkspaceFormModel();
+    this.updateWorkspaceForm = new UpdateWorkspaceFormModel(this);
     this.wikiSections = new WikiSectionsModel(this);
     this.deploymentImages = new DeploymentImages(this);
     this.metrics = new WorkspaceMetrics(this);

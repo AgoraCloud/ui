@@ -1,24 +1,123 @@
-import * as EventEmitter from 'events';
+import {events} from '@mars-man/models';
+
+
+export {
+  events
+}
+
 
 export const eventTypes = {
-  WORKSPACE_CREATED: 'WORKSPACE_CREATED',
-  WORKSPACE_RUD: 'WORKSPACE_RUD',
-  WORKSPACE_ERR: 'WORKSPACE_ERR',
-  DEPLOYMENT_CRUD: 'DEPLOYMENT_CRUD',
-  DEPLOYMENT_ERR: 'DEPLOYMENT_ERR',
-  WIKI_CRUD: 'WIKI_CRUD',
-  WIKI_ERR: 'WIKI_CRUD',
-  USER_CRUD: 'USER_CRUD',
-  USER_ERR: 'USER_ERR',
-  PROJECT_CRUD: 'PROJECT_CRUD',
-  PROJECT_ERR: 'PROJECT_ERR',
-  PROJECT_LANE_CRUD: 'PROJECT_LANE_CRUD',
-  PROJECT_LANE_ERR: 'PROJECT_LANE_ERR',
-  WORKSPACE_USER_CRUD: 'WORKSPACE_USERS_CRUD',
-  WORKSPACE_USER_ERR: 'WORKSPACE_USERS_ERR',
-  LANE_TASKS_CRUD: 'LANE_TASKS_CRUD',
-  LANE_TASK_MOVED: 'LANE_TASK_MOVED',
-  LANE_TASKS_ERR: 'LANE_TASKS_ERR',
+  WORKSPACE_CRUD: {
+    type: 'WORKSPACE_CRUD',
+    data: {
+      message: 'Workspace Successfully: ',
+      variant: 'success'
+    }
+  },
+  WORKSPACE_ERR: {
+    type: 'WORKSPACE_ERR',
+    data: {
+      message: 'Workspace Failure: ',
+      variant: 'error'
+    }
+  },
+  DEPLOYMENT_CRUD: {
+    type: 'DEPLOYMENT_CRUD',
+    data: {
+      message: 'Deployment Successfully: ',
+      variant: 'success'
+    }
+  },
+  DEPLOYMENT_ERR: {
+    type: 'DEPLOYMENT_ERR',
+    data: {
+      message: 'Deployment Failure: ',
+      variant: 'error'
+    }
+  },
+  WIKI_CRUD: {
+    type: 'WIKI_CRUD',
+    data: {
+      message: 'Wiki Successfully: ',
+      variant: 'success'
+    }
+  },
+  WIKI_ERR: {
+    type: 'WIKI_ERR',
+    data: {
+      message: 'Wiki Failure: ',
+      variant: 'error'
+    }
+  },
+  USER_CRUD: {
+    type: 'USER_CRUD',
+    data: {
+      message: 'User Successfully: ',
+      variant: 'success'
+    }
+  },
+  USER_ERR: {
+    type: 'USER_ERR',
+    data: {
+      message: 'User Failure: ',
+      variant: 'error'
+    }
+  },
+  PROJECT_CRUD: {
+    type: 'PROJECT_CRUD',
+    data: {
+      message: 'Project Successfully: ',
+      variant: 'success'
+    }
+  },
+  PROJECT_ERR: {
+    type: 'PROJECT_ERR',
+    data: {
+      message: 'Project Failure: ',
+      variant: 'error'
+    }
+  },
+  PROJECT_LANE_CRUD: {
+    type: 'PROJECT_LANE_CRUD',
+    data: {
+      message: 'Project Lane Successfully: ',
+      variant: 'success'
+    }
+  },
+  PROJECT_LANE_ERR: {
+    type: 'PROJECT_LANE_ERR',
+    data: {
+      message: 'Project Lane Failure: ',
+      variant: 'error'
+    }
+  },
+  WORKSPACE_USER_CRUD: {
+    type: 'WORKSPACE_USERS_CRUD',
+    data: {
+      message: 'Workspace User Successfully: ',
+      variant: 'success'
+    }
+  },
+  WORKSPACE_USER_ERR: {
+    type: 'WORKSPACE_USERS_ERR',
+    data: {
+      message: 'Workspace User Failure: ',
+      variant: 'error'
+    }
+  },
+  LANE_TASKS_CRUD: {
+    type: 'LANE_TASKS_CRUD',
+    data: {
+      message: 'Project Task Successfully: ',
+      variant: 'success'
+    }
+  },
+  LANE_TASKS_ERR: {
+    type: 'LANE_TASKS_ERR',
+    data: {
+      message: 'Project Task Failure: ',
+      variant: 'error'
+    }
+  },
 };
 
-export const events = new EventEmitter();
