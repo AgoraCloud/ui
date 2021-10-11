@@ -1,0 +1,9 @@
+{
+    "fullName":"Admin",
+    "email": "admin@admin.com",
+    "password": "M4F4fptt8TMVQZ9Y",
+    "improperEmail": "fake-email-of-improper-type",
+    "emailErrMessage": "email must be an email",
+    "improperPassword": "fakepw",
+    "passwordErrMessage": "Password too short"
+}
