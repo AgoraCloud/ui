@@ -126,6 +126,7 @@ export const TopBar = inject(AUTH_STORE)(
       >
         <Toolbar className={classes.toolbar}>
           <IconButton
+            id="hamburger-menu"
             edge="start"
             color="inherit"
             aria-label="open drawer"
@@ -153,6 +154,7 @@ export const TopBar = inject(AUTH_STORE)(
           </div>
           <div className={classes.accountIcon}>
             <IconButton
+              id="account-btn"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"

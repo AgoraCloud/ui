@@ -107,6 +107,7 @@ export const SideBar = inject(
           <Divider />
           <List>
             <ListItem
+              id="deployments-btn"
               button
               component={Link}
               to={store.workspaceUrl}
@@ -119,6 +120,7 @@ export const SideBar = inject(
               <ListItemText primary="Deployments" />
             </ListItem>
             <ListItem
+              id="projects-btn"
               button
               component={Link}
               to={store.workspaceUrl + '/p'}
@@ -131,6 +133,7 @@ export const SideBar = inject(
               <ListItemText primary="Projects" />
             </ListItem>
             <ListItem
+              id="wikis-btn"
               button
               component={Link}
               to={store.workspaceUrl + '/wiki'}
@@ -152,6 +155,7 @@ export const SideBar = inject(
             }
           >
             <ListItem
+              id="new-workspace-btn"
               button
               component={Link}
               to={'/w/new'}
@@ -164,6 +168,7 @@ export const SideBar = inject(
               <ListItemText primary="New" />
             </ListItem>
             <ListItem
+              id="edit-workspace-btn"
               button
               component={Link}
               to={store.workspaceUrl + '/edit-workspace'}
@@ -176,6 +181,7 @@ export const SideBar = inject(
               <ListItemText primary="Settings" />
             </ListItem>
             <ListItem
+              id="workspace-metrics-btn"
               button
               component={Link}
               to={store.workspaceUrl + '/metrics'}
@@ -192,6 +198,7 @@ export const SideBar = inject(
               wid={selectedWorkspace.id}
             >
               <ListItem
+                id="workspace-users-btn"
                 button
                 component={Link}
                 to={`${store.workspaceUrl}/admin/users`}
@@ -215,6 +222,7 @@ export const SideBar = inject(
               }
             >
               <ListItem
+                id="users-btn"
                 button
                 component={Link}
                 to={'/admin/users'}

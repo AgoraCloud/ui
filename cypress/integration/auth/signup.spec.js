@@ -13,7 +13,7 @@ describe('/signup', function () {
     cy.fixture('global-data').then((globalData) => {
       this.globalData = globalData
     })
-    cy.fixture('signup').then((signup) => {
+    cy.fixture('auth/signup').then((signup) => {
       this.signup = signup
     })
   })

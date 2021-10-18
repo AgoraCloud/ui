@@ -6,7 +6,7 @@ const chance = new Chance();
 describe('/verify-account', function () {
   beforeEach(function (){
     cy.visit('/verify-account');
-    cy.fixture('verify-account').then((verifyAccount) => {
+    cy.fixture('auth/verify-account').then((verifyAccount) => {
         this.verifyAccount = verifyAccount
     })
   })
@@ -29,7 +29,7 @@ describe('/change-password', function () {
     cy.fixture('global-data').then((globalData) => {
         this.globalData = globalData
     })
-    cy.fixture('change-password').then((changePassword) => {
+    cy.fixture('auth/change-password').then((changePassword) => {
         this.changePassword = changePassword
     })
   })

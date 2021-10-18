@@ -11,7 +11,7 @@ describe('/forgotPassword', function () {
     cy.fixture('global-data').then((globalData) => {
       this.globalData = globalData
     })
-    cy.fixture('forgot-password').then((forgotPassword) => {
+    cy.fixture('auth/forgot-password').then((forgotPassword) => {
       this.forgotPassword = forgotPassword
     })
   })
