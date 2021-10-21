@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import path from 'path'
 import { exit } from 'process'
+
 // import {esbuildCommonjs} from '@originjs/vite-plugin-commonjs'
 
 const SRC_PATH = path.resolve(__dirname, './src/')
@@ -16,15 +17,21 @@ if (!proxyTarget) {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    // esbuildCommonjs(['events', '@mars-man/models/node_modules/events']),
-    reactRefresh()
+    reactRefresh(),
+    // typescript({
+    //   tsconfig: './tsconfig.json'
+    // })
   ],
   root: SRC_PATH,
   resolve: {
     alias: {
       'app': path.resolve(__dirname, './src/app'),
       '@styles': path.resolve(__dirname, './src/app/styles')
-    }
+    },
+    // dedupe: [
+    //   "mobx",
+    //   "mobx-react"
+    // ]
   },
   build: {
     outDir: '../build',
@@ -42,8 +49,8 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: [
-      // this is for npm link local development
-      "@mars-man/models",
+      "class-transformer/storage",
+      // "mobx",
       // this is to handle swagger commonjs
       "@nestjs/swagger",
       "swagger-ui-express",

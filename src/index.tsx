@@ -2,18 +2,24 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 import { App } from 'app';
-import { rootStore, history } from 'app/stores/root-store';
+import { rootStore, history } from 'app/stores/RootStore';
 import { ThemeProvider } from '@material-ui/core';
 import { theme } from 'app/styles/theme';
 import { SnackbarManager } from 'app/components/snackbar-manager';
+import { configure } from 'mobx';
+
+configure({ 
+  isolateGlobalState: true,
+  enforceActions: "never"
+})
 
 // render react DOM
 ReactDOM.render(
-  <Provider {...rootStore.stores}>
-    <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
+    <Provider {...rootStore.stores}>
       <App history={history} />
-    </ThemeProvider>
-    <SnackbarManager />
-  </Provider>,
+      <SnackbarManager />
+    </Provider>
+  </ThemeProvider>,
   document.getElementById('root'),
 );

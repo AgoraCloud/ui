@@ -1,7 +1,3 @@
-import { FormModel } from '@mars-man/models/lib';
-
-export class InviteWorkspaceUserFormModel extends FormModel {
-  constructor() {
-    super({});
-  }
-}
+export * from './UpdateUser'
+export * from './DeleteUser'
+export * from './InviteUser'

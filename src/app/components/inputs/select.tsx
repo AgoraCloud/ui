@@ -3,11 +3,11 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { WORKSPACES_STORE, roles } from 'app/constants';
 import { observer, inject } from 'mobx-react';
-import { WorkspacesStore } from 'app/stores';
-import { Workspace } from 'app/workspace/model';
+import { useStores, WorkspacesStore } from 'app/stores';
 import { makeStyles } from '@material-ui/core/styles';
 import { Select, MenuItem, SelectProps } from '@material-ui/core';
 import { FormModel } from '@mars-man/models';
+import { WorkspaceModel } from 'app/res/Workspaces/models';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,42 +39,41 @@ const useLabelStyles = makeStyles({
   },
 });
 
-export const WorkspaceSelect = inject(WORKSPACES_STORE)(
-  observer((props) => {
-    const store = props[WORKSPACES_STORE] as WorkspacesStore;
-    const options = store.workspaces.workspaces;
-    const classes = useStyles();
-    const labelClasses = useLabelStyles();
+export const WorkspaceSelect = observer((props) => {
+  const {workspacesstore} = useStores()
+  const workspaces = workspacesstore.workspaces
+  const options = workspaces.workspaces;
+  const loading = workspaces.state === 'loading'
+  const classes = useStyles();
+  const labelClasses = useLabelStyles();
 
-    const onChange = (option, values) => {
-      store.selectedWorkspace = values;
-    };
-    const loading = store.state !== 'loaded';
+  const onChange = (option, values) => {
+    workspacesstore.selectedWorkspace = values;
+  };
 
-    // this is temporary because of an uncontrolled -> controlled error that I can't debug rn
-    if (loading) return null;
-    return (
-      <Autocomplete
-        id="combo-box-demo"
-        loading={loading}
-        classes={classes}
-        value={store.selectedWorkspace}
-        onChange={onChange}
-        options={options}
-        getOptionLabel={(option: Workspace) => option.name}
-        style={{ width: 300 }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            InputLabelProps={{ classes: labelClasses }}
-            label="Select Workspace..."
-            variant="outlined"
-          />
-        )}
-      />
-    );
-  }),
-);
+  // this is temporary because of an uncontrolled -> controlled error that I can't debug rn
+  if (loading) return null;
+  return (
+    <Autocomplete
+      id="combo-box-demo"
+      loading={loading}
+      classes={classes}
+      value={workspacesstore.selectedWorkspace}
+      onChange={onChange}
+      options={options}
+      getOptionLabel={(option: WorkspaceModel) => option.name}
+      style={{ width: 300 }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          InputLabelProps={{ classes: labelClasses }}
+          label="Select Workspace..."
+          variant="outlined"
+        />
+      )}
+    />
+  );
+})
 
 interface BaseSelectProps extends SelectProps {
   form: FormModel;

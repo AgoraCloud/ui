@@ -6,7 +6,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { WorkspaceModel } from '../models';
-import { useStores } from 'app/stores/use-store';
+import { useStores } from 'app/stores';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,14 +43,14 @@ export const WorkspaceSelect = observer(() => {
   console.log(workspacesstore);
   const classes = useStyles();
   const labelClasses = useLabelStyles();
-  const workspaces = workspacesstore.newWorkspaces;
+  const workspaces = workspacesstore.workspaces;
 
-  const options = workspaces.workspaces;
+  const options = workspaces.workspaces
   const loading = workspaces.state !== 'loaded';
-  const selectedWorkspace = workspaces.selectedWorkspace;
+  const selectedWorkspace = workspacesstore.selectedWorkspace;
   const onChange = (option, values) => {
-    console.log(values);
-    // store.selectedWorkspace = values;
+    workspacesstore.selectedWorkspace = values;
+    // workspacesstore.selectWorkspace(option)
   };
   return (
     <div>

@@ -3,7 +3,7 @@
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -19,6 +19,7 @@
     "strictPropertyInitialization": false,
     "jsx": "react",
     "experimentalDecorators" : true,
+    "useDefineForClassFields": true,
     "noImplicitAny" : false,
     "outDir": "build",
     "rootDir": "./src/",
@@ -28,5 +29,8 @@
       "@styles/*" : ["./app/styles/*"]
     }
   },
-  "include": ["./src"]
+  "include": ["./src"],
+  "exclude": ["./src/app/OLD"],
+
+  "files": ["./types/static.d.ts"]
 }

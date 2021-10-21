@@ -1,16 +1,20 @@
-import { FormModel } from '@mars-man/models';
-import { CreateDeploymentDto } from '@agoracloud/common';
-import { WorkspaceModel } from 'app/res/Workspaces/models';
+import { APIRepo, FormModel } from '@mars-man/models';
+import { UpdateDeploymentDto } from '@agoracloud/common';
+import { DeploymentModel } from '../models';
 
 export class EditDeploymentFormModel extends FormModel {
-  constructor(public workspace: WorkspaceModel) {
+  constructor(public deployment: DeploymentModel) {
     super({
       data: {
+        name: deployment.data.name,
         properties: {
-          image: {
-            type: 'VSCODE',
-          },
-        },
+          isFavorite: false,
+          image: deployment.data.properties.image,
+          resources: {
+            cpuCount: deployment.data.properties.resources.cpuCount,
+            memoryCount: deployment.data.properties.resources.memoryCount
+          }
+        }
       },
       keys: [
         ['cpuCount', { key: 'properties.resources.cpuCount', cast: Number }],
@@ -27,7 +31,8 @@ export class EditDeploymentFormModel extends FormModel {
         ['type', 'properties.image.type'],
         ['version', 'properties.image.version'],
       ],
-      validator: CreateDeploymentDto,
+      validator: UpdateDeploymentDto,
+      submit: new APIRepo({path: deployment.api, method: 'PUT'})
     });
   }
 }
