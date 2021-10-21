@@ -64,42 +64,47 @@ export const DeploymentResources = (props: { deployment: DeploymentModel }) => {
   );
 };
 
-export const DeploymentMenu = observer((props: { deployment: DeploymentModel }) => {
-  const { deployment } = props;
-  const { routerstore, uistore } = useStores()
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        top: '2%',
-        right: '2%',
-      }}
-    >
-      <MoreMenu
-        options={[
-          {
-            name: 'Edit',
-            onClick: () => {
-              routerstore.push(deployment.link + '/edit');
+export const DeploymentMenu = observer(
+  (props: { deployment: DeploymentModel }) => {
+    const { deployment } = props;
+    const { routerstore, uistore } = useStores();
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          top: '2%',
+          right: '2%',
+        }}
+      >
+        <MoreMenu
+          options={[
+            {
+              name: 'Edit',
+              onClick: () => {
+                routerstore.push(deployment.link + '/edit');
+              },
             },
-          },
-          {
-            name: 'Info',
-            onClick: () => {
-              routerstore.push(deployment.link + '/info');
+            {
+              name: 'Info',
+              onClick: () => {
+                routerstore.push(deployment.link + '/info');
+              },
             },
-          },
-          {
-            name: 'Delete',
-            onClick: () => {
-              uistore.setDeleteTarget(deployment.name, deployment.delete.call);
+            {
+              name: 'Delete',
+              onClick: () => {
+                uistore.setDeleteTarget(
+                  deployment.name,
+                  deployment.delete.call,
+                );
+              },
             },
-          },
-        ]}
-      />
-    </div>
-  );
-})
+          ]}
+        />
+      </div>
+    );
+  },
+);
 
 export const DeploymentCard = (props: { deployment: DeploymentModel }) => {
   const { deployment } = props;

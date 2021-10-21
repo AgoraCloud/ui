@@ -2,98 +2,97 @@ import { events } from '@mars-man/models';
 
 export { events };
 
-
 export const types = {
   WIKISECTIONS: {
     onLoad: {
       type: 'WIKISECTIONS_LOAD',
       data: {
         message: 'Wiki Section Successfully: ',
-        variant: 'success'
-      }
+        variant: 'success',
+      },
     },
     onError: {
       type: 'WIKISECTION_ERR',
       data: {
         message: 'Wiki Section Failure: ',
-        variant: 'error'
-      }
-    }
+        variant: 'error',
+      },
+    },
   },
   WIKIPAGES: {
     onLoad: {
       type: 'WIKIPAGES_LOAD',
       data: {
         message: 'Wiki Page Successfully: ',
-        variant: 'success'
-      }
+        variant: 'success',
+      },
     },
     onError: {
       type: 'WIKIPAGES_ERR',
       data: {
         message: 'Wiki Page Failure: ',
-        variant: 'error'
-      }
-    }
-  }
-}
+        variant: 'error',
+      },
+    },
+  },
+};
 
 export const eventTypes = {
   SIGNIN: {
     type: 'SIGNIN',
     data: {
       message: 'Successfully Logged In!',
-      variant: 'success'
-    }
+      variant: 'success',
+    },
   },
   SIGNIN_ERR: {
     type: 'SIGNIN',
     data: {
       message: 'Failed to Login: ',
-      variant: 'error'
-    }
+      variant: 'error',
+    },
   },
   SIGNUP: {
     type: 'SIGNUP',
     data: {
       message: 'Registered! Please check your email to verify your account.',
-      variant: 'success'
-    }
+      variant: 'success',
+    },
   },
   SIGNUP_ERR: {
     type: 'SIGNUP_ERR',
     data: {
       message: 'Failed to Signup: ',
-      variant: 'error'
-    }
+      variant: 'error',
+    },
   },
   VERIFY: {
     type: 'VERIFY',
     data: {
       message: 'Successfully Verified',
-      variant: 'success'
-    }
+      variant: 'success',
+    },
   },
   VERIFY_ERR: {
     type: 'VERIFY_ERR',
     data: {
       message: 'Failed to Verify: ',
-      variant: 'error'
-    }
+      variant: 'error',
+    },
   },
   PASSWORD_RESET: {
     type: 'PASSWORD_RESET',
     data: {
       message: 'Success: Please check your email to reset your password!',
       variant: 'success',
-    }
+    },
   },
   PASSWORD_RESET_ERR: {
     type: 'PASSWORD_RESET_ERR',
     data: {
       message: 'Failure: ',
       variant: 'error',
-    }
+    },
   },
 
   CHANGE_PASSWORD: {
@@ -101,14 +100,14 @@ export const eventTypes = {
     data: {
       message: 'Successfully Changed Password',
       variant: 'success',
-    }
+    },
   },
   CHANGE_PASSWORD_ERR: {
     type: 'CHANGE_PASSWORD_ERR',
     data: {
       message: 'Change Password Failed: ',
       variant: 'error',
-    }
+    },
   },
   WORKSPACE_CRUD: {
     type: 'WORKSPACE_CRUD',

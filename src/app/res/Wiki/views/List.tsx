@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 export const PageButton = observer((props: { page: WikiPageModel }) => {
   const { page } = props;
   const classes = useStyles();
-  const {uistore} = useStores();
+  const { uistore } = useStores();
 
   const menuItems = [
     {
@@ -69,13 +69,12 @@ export const PageButton = observer((props: { page: WikiPageModel }) => {
       </ContextMenu>
     </li>
   );
-})
-
+});
 
 export const SectionButton = observer(
   (props: { section: WikiSectionModel; open: boolean; onClick: () => any }) => {
     const { section, open, onClick } = props;
-    const form = section.sectionForm
+    const form = section.sectionForm;
     const handleKeyDown = (e) => {
       if (e.key === 'Enter') {
         section.onSubmitNameChange();
@@ -84,11 +83,7 @@ export const SectionButton = observer(
     return (
       <ListItem>
         <ListItemText>
-          <Input
-            form={form}
-            id="title"
-            onKeyDown={handleKeyDown}
-          />
+          <Input form={form} id="title" onKeyDown={handleKeyDown} />
         </ListItemText>
         <Tooltip title="Add Page To Section" aria-label="Add Page To Section">
           <IconButton onClick={section.onAddPage}>
@@ -132,9 +127,9 @@ export const WikiSectionList = observer(
 );
 
 export const WikiList = observer((props) => {
-  const { workspacesstore } = useStores()
-  const workspace = workspacesstore.selectedWorkspace
-  if (!workspace) return null
+  const { workspacesstore } = useStores();
+  const workspace = workspacesstore.selectedWorkspace;
+  if (!workspace) return null;
   const wikiSections = workspace.wikiSections;
   const selectedWikiPage = workspacesstore.selectedWikiPage;
   return (
@@ -171,4 +166,4 @@ export const WikiList = observer((props) => {
       </List>
     </div>
   );
-})
+});

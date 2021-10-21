@@ -13,8 +13,6 @@ export class WorkspaceMetricsModel extends Model {
     return `${this.workspace.api}/metrics`;
   }
 
-
-
   get memory() {
     return this.data.memory;
   }

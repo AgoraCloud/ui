@@ -9,10 +9,10 @@ const path = '/admin/';
 export const AdminRoutes = () => {
   return (
     <HomeWrapper>
-        <Switch>
-          <Route path={`${path}users`} component={AdminUsersPage} />
-          <Route path={`${path}`} component={AdminHomePage} />
-        </Switch>
+      <Switch>
+        <Route path={`${path}users`} component={AdminUsersPage} />
+        <Route path={`${path}`} component={AdminHomePage} />
+      </Switch>
     </HomeWrapper>
   );
 };

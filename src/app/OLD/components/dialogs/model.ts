@@ -1,4 +1,9 @@
-import { extendObservable, isBoxedObservable, isObservable, observable } from 'mobx';
+import {
+  extendObservable,
+  isBoxedObservable,
+  isObservable,
+  observable,
+} from 'mobx';
 import { FormModel } from '@mars-man/models';
 import { ConfirmDeleteValidator } from 'app/constants/validators';
 
@@ -6,17 +11,16 @@ interface confirmDelete_i {
   name: string;
 }
 
-
 export class DialogModel {
   @observable
   open: boolean = false;
   constructor(open?: boolean) {
     this.open = open || false;
-    extendObservable(this, { open: false })
+    extendObservable(this, { open: false });
   }
   onOpen = () => {
     this.open = true;
-    console.log("OPEN", this)
+    console.log('OPEN', this);
   };
   onClose = () => {
     this.open = false;
@@ -25,10 +29,10 @@ export class DialogModel {
 
 export class ConfirmDeleteModel extends FormModel<confirmDelete_i> {
   dialog: DialogModel;
-  public callBack: () => any
-  public name: string
+  public callBack: () => any;
+  public name: string;
   constructor() {
-    super({validator: ConfirmDeleteValidator, data: {name: ''}});
+    super({ validator: ConfirmDeleteValidator, data: { name: '' } });
     this.dialog = new DialogModel();
   }
 
@@ -37,9 +41,9 @@ export class ConfirmDeleteModel extends FormModel<confirmDelete_i> {
   }
 
   setTarget = (name, callBack) => {
-    this.name = name
-    this.callBack = callBack
-  }
+    this.name = name;
+    this.callBack = callBack;
+  };
 
   submit = async () => {
     if (this.valid) {
@@ -52,7 +56,6 @@ export class ConfirmDeleteModel extends FormModel<confirmDelete_i> {
     this.data.name = '';
   };
 }
-
 
 // export class UserDialogModel extends DialogModel {
 //   @observable user: UserModel;

@@ -5,8 +5,8 @@ import { SideBar, WorkspaceSideBar } from './SideBar';
 export const WorkspaceAppMenu = () => {
   return (
     <>
-      <WorkspaceTopBar/>
-      <WorkspaceSideBar/>
+      <WorkspaceTopBar />
+      <WorkspaceSideBar />
     </>
   );
 };
@@ -14,11 +14,8 @@ export const WorkspaceAppMenu = () => {
 export const AppMenu = () => {
   return (
     <>
-      <TopBar/>
-      <SideBar/>
+      <TopBar />
+      <SideBar />
     </>
   );
 };
-
-
-

@@ -12,9 +12,9 @@ export class EditDeploymentFormModel extends FormModel {
           image: deployment.data.properties.image,
           resources: {
             cpuCount: deployment.data.properties.resources.cpuCount,
-            memoryCount: deployment.data.properties.resources.memoryCount
-          }
-        }
+            memoryCount: deployment.data.properties.resources.memoryCount,
+          },
+        },
       },
       keys: [
         ['cpuCount', { key: 'properties.resources.cpuCount', cast: Number }],
@@ -32,7 +32,7 @@ export class EditDeploymentFormModel extends FormModel {
         ['version', 'properties.image.version'],
       ],
       validator: UpdateDeploymentDto,
-      submit: new APIRepo({path: deployment.api, method: 'PUT'})
+      submit: new APIRepo({ path: deployment.api, method: 'PUT' }),
     });
   }
 }

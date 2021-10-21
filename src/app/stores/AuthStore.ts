@@ -6,7 +6,7 @@ import {
   VerifyAccountFormModel,
   ChangePasswordFormModel,
   ForgotPasswordFormModel,
-  UpdateUserFormModel
+  UpdateUserFormModel,
 } from 'app/res/Auth/forms';
 import { UserModel } from 'app/res/Auth';
 
@@ -18,7 +18,7 @@ export class AuthStore {
   verifyForm: VerifyAccountFormModel;
   forgotPasswordForm: ForgotPasswordFormModel;
   changePasswordForm: ChangePasswordFormModel;
-  user: UserModel
+  user: UserModel;
   constructor(private rootStore: RootStore) {
     this.state = 'unauthed';
     this.signupForm = new SignupFormModel();
@@ -28,15 +28,14 @@ export class AuthStore {
     this.changePasswordForm = new ChangePasswordFormModel();
     this.user = new UserModel();
     this.loadUser();
-    makeObservable(this)
-
+    makeObservable(this);
   }
 
   loadUser = async () => {
     this.state = 'loading';
-    await this.user.load()
+    await this.user.load();
     // await this.rootStore.workspacesStore.workspaces.load();
-    this.state = this.user.state == 'loaded' ? 'loggedin' : 'unauthed'
+    this.state = this.user.state == 'loaded' ? 'loggedin' : 'unauthed';
   };
 
   login = async () => {

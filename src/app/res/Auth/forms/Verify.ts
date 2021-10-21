@@ -9,18 +9,17 @@ export class VerifyAccountFormModel extends FormModel<verify_i> {
   constructor() {
     super({
       data: {
-        token: ''
+        token: '',
       },
       validator: VerifyAccountDto,
       submit: new APIRepo({
-        path: '/api/auth/verify-account', 
+        path: '/api/auth/verify-account',
         method: 'POST',
         events: {
           onLoad: eventTypes.VERIFY,
-          onError: eventTypes.VERIFY_ERR
-        }
-      })
-
+          onError: eventTypes.VERIFY_ERR,
+        },
+      }),
     });
   }
 }

@@ -7,7 +7,7 @@ import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { Input, Label, CancelCreateButtons } from 'app/components/inputs';
 
 export const EditUserDialog = observer((props) => {
-  const { adminstore } = useStores()
+  const { adminstore } = useStores();
   const { editUserDialog } = adminstore;
   const { user } = editUserDialog;
   if (!user) return null;
@@ -38,4 +38,4 @@ export const EditUserDialog = observer((props) => {
       </DialogActions>
     </BaseDialog>
   );
-})
+});

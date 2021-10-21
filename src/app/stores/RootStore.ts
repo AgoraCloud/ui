@@ -31,7 +31,7 @@ export class RootStore {
     this.workspacesStore = new WorkspacesStore(this);
     this.snackbarStore = new SnackbarStore();
     this.uiStore = new UIStore(this);
-    this.adminStore = new AdminStore(this)
+    this.adminStore = new AdminStore(this);
   }
 
   get stores() {
@@ -41,7 +41,7 @@ export class RootStore {
       [WORKSPACES_STORE]: this.workspacesStore,
       [SNACKBAR_STORE]: this.snackbarStore,
       [UI_STORE]: this.uiStore,
-      [ADMIN_STORE]: this.adminStore
+      [ADMIN_STORE]: this.adminStore,
     };
   }
 

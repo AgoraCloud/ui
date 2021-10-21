@@ -15,7 +15,10 @@ export class ChangePasswordFormModel extends FormModel<changePassword_i> {
         confirmPassword: '',
       },
       validator: ChangePasswordDto,
-      submit: new APIRepo({ path: '/api/auth/change-password', method: 'POST' })
+      submit: new APIRepo({
+        path: '/api/auth/change-password',
+        method: 'POST',
+      }),
     });
   }
 }

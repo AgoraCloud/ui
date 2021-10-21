@@ -13,14 +13,13 @@ export class UpdateUserFormModel extends FormModel<signup_i> {
       repo: user.repo,
       validator: UpdateUserDto,
       submit: new APIRepo({
-        path: '/api/user', 
+        path: '/api/user',
         method: 'PUT',
         events: {
           onLoad: eventTypes.USER_CRUD,
-          onError: eventTypes.USER_ERR
-        }
-      })
-
+          onError: eventTypes.USER_ERR,
+        },
+      }),
     });
   }
 }

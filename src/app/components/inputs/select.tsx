@@ -40,10 +40,10 @@ const useLabelStyles = makeStyles({
 });
 
 export const WorkspaceSelect = observer((props) => {
-  const {workspacesstore} = useStores()
-  const workspaces = workspacesstore.workspaces
+  const { workspacesstore } = useStores();
+  const workspaces = workspacesstore.workspaces;
   const options = workspaces.workspaces;
-  const loading = workspaces.state === 'loading'
+  const loading = workspaces.state === 'loading';
   const classes = useStyles();
   const labelClasses = useLabelStyles();
 
@@ -73,7 +73,7 @@ export const WorkspaceSelect = observer((props) => {
       )}
     />
   );
-})
+});
 
 interface BaseSelectProps extends SelectProps {
   form: FormModel;

@@ -5,7 +5,6 @@ import { DialogModel } from 'app/components/dialogs';
  * DEPRICATED FOR app/components/model
  */
 
-
 export class UserDialogModel extends DialogModel {
   @observable user: UserModel;
   constructor() {

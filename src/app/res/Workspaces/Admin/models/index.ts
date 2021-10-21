@@ -21,19 +21,17 @@ constructor(public workspace: Workspace) {
 }
 */
 
-
-export class InviteUserFormModel extends FormModel{
-  constructor(workspace: WorkspaceModel){
+export class InviteUserFormModel extends FormModel {
+  constructor(workspace: WorkspaceModel) {
     super({
       data: {
-        email: ''
+        email: '',
       },
       validator: AddWorkspaceUserDto,
-      submit: new APIRepo({path: `${workspace.api}/users`, method: 'PUT'})
-    })
+      submit: new APIRepo({ path: `${workspace.api}/users`, method: 'PUT' }),
+    });
   }
 }
-
 
 export class WorkspaceAdminModel extends Model {
   /**
@@ -41,16 +39,14 @@ export class WorkspaceAdminModel extends Model {
    */
   users: WorkspaceUsersModel;
   permissionsDialog: PermissionsDialogModel;
-  inviteUserDialog: DialogModel
-  inviteUserForm: InviteUserFormModel
+  inviteUserDialog: DialogModel;
+  inviteUserForm: InviteUserFormModel;
   constructor(public workspace: WorkspaceModel) {
     super({});
 
     this.inviteUserDialog = new DialogModel();
     this.inviteUserForm = new InviteUserFormModel(workspace);
     this.users = new WorkspaceUsersModel(this.workspace, this);
-    this.dependents = [
-      this.users
-    ]
+    this.dependents = [this.users];
   }
 }

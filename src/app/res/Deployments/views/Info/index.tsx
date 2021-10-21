@@ -9,7 +9,6 @@ import { GaugeChart } from 'app/components';
 import Alert from '@material-ui/lab/Alert';
 import { useStores } from 'app/stores';
 
-
 const chips = {
   FAILED: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
   SUCCESS: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
@@ -29,46 +28,54 @@ export const DeploymentChip = (props: { deployment: DeploymentModel }) => {
   );
 };
 
-export const DeploymentLogs = observer((props: { deployment?: DeploymentModel }) => {
-  // const deployment = store.selectedDeployment
-  const { deployment } = props;
-  if (!deployment) return null;
-  const logs = deployment.logs;
+export const DeploymentLogs = observer(
+  (props: { deployment?: DeploymentModel }) => {
+    // const deployment = store.selectedDeployment
+    const { deployment } = props;
+    if (!deployment) return null;
+    const logs = deployment.logs;
 
-  const logText = logs.logs;
-  return (
-    <>
-      <Typography variant="h4">Logs</Typography>
-      <textarea className={style.textarea} disabled value={logText}></textarea>
-    </>
-  );
-});
+    const logText = logs.logs;
+    return (
+      <>
+        <Typography variant="h4">Logs</Typography>
+        <textarea
+          className={style.textarea}
+          disabled
+          value={logText}
+        ></textarea>
+      </>
+    );
+  },
+);
 export const ChartWrapper = (props) => {
   return (
     <Grid item style={{ width: '100%', height: '37vh' }}>
       {props.children}
     </Grid>
-  )
-};
-export const DeploymentMetrics = observer((props: { deployment?: DeploymentModel }) => {
-  const { deployment } = props;
-  if (!deployment) return null;
-  const metrics = deployment?.metrics;
-
-  return (
-    <>
-      <Typography variant="h4">Metrics</Typography>
-      <Grid container item direction="column">
-        <ChartWrapper>
-          <GaugeChart {...metrics.cpuChart} />
-        </ChartWrapper>
-        <ChartWrapper>
-          <GaugeChart {...metrics.memoryChart} />
-        </ChartWrapper>
-      </Grid>
-    </>
   );
-});
+};
+export const DeploymentMetrics = observer(
+  (props: { deployment?: DeploymentModel }) => {
+    const { deployment } = props;
+    if (!deployment) return null;
+    const metrics = deployment?.metrics;
+
+    return (
+      <>
+        <Typography variant="h4">Metrics</Typography>
+        <Grid container item direction="column">
+          <ChartWrapper>
+            <GaugeChart {...metrics.cpuChart} />
+          </ChartWrapper>
+          <ChartWrapper>
+            <GaugeChart {...metrics.memoryChart} />
+          </ChartWrapper>
+        </Grid>
+      </>
+    );
+  },
+);
 
 export const DeploymentAlert = (props: { deployment: DeploymentModel }) => {
   const { deployment } = props;
@@ -79,7 +86,7 @@ export const DeploymentAlert = (props: { deployment: DeploymentModel }) => {
 };
 
 export const DeploymentInfoPage = observer((props) => {
-  const { workspacesstore } = useStores()
+  const { workspacesstore } = useStores();
   const deployment = workspacesstore.selectedDeployment;
   if (!deployment) return null;
   return (
@@ -104,4 +111,4 @@ export const DeploymentInfoPage = observer((props) => {
       </div>
     </WorkspaceWrapper>
   );
-})
+});

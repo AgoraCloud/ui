@@ -1,24 +1,41 @@
-import { extendObservable, isBoxedObservable, isObservable, makeObservable, observable } from 'mobx';
+import {
+  extendObservable,
+  isBoxedObservable,
+  isObservable,
+  makeObservable,
+  observable,
+} from 'mobx';
 import { FormModel } from '@mars-man/models';
 import { ConfirmDeleteValidator } from 'app/constants/validators';
-import { AdminUserModel, BaseAdminUserModel, BaseUserModel, UserModel, user_i, WorkspaceUserModel } from 'app/res/Auth';
-import { InWorkspaceActions, InWorkspaceRole, WorkspaceActions, WorkspaceRole } from 'app/constants';
+import {
+  AdminUserModel,
+  BaseAdminUserModel,
+  BaseUserModel,
+  UserModel,
+  user_i,
+  WorkspaceUserModel,
+} from 'app/res/Auth';
+import {
+  InWorkspaceActions,
+  InWorkspaceRole,
+  WorkspaceActions,
+  WorkspaceRole,
+} from 'app/constants';
 
 interface confirmDelete_i {
   name: string;
 }
-
 
 export class DialogModel {
   @observable
   open: boolean = false;
   constructor(open?: boolean) {
     this.open = open || false;
-    makeObservable(this)
+    makeObservable(this);
   }
   onOpen = () => {
     this.open = true;
-    console.log("OPEN", this)
+    console.log('OPEN', this);
   };
   onClose = () => {
     this.open = false;
@@ -27,13 +44,13 @@ export class DialogModel {
 
 export class ConfirmDeleteModel extends FormModel<confirmDelete_i> {
   dialog: DialogModel;
-  public callBack: () => any
+  public callBack: () => any;
   @observable
-  public name: string
+  public name: string;
   constructor() {
     super({ validator: ConfirmDeleteValidator, data: { name: '' } });
     this.dialog = new DialogModel();
-    makeObservable(this)
+    makeObservable(this);
   }
 
   get valid() {
@@ -41,9 +58,9 @@ export class ConfirmDeleteModel extends FormModel<confirmDelete_i> {
   }
 
   setTarget = (name, callBack) => {
-    this.name = name
-    this.callBack = callBack
-  }
+    this.name = name;
+    this.callBack = callBack;
+  };
 
   submit = async () => {
     if (this.valid) {
@@ -57,14 +74,13 @@ export class ConfirmDeleteModel extends FormModel<confirmDelete_i> {
   };
 }
 
-
-
-
-export class BaseUserDialogModel<T extends BaseUserModel<user_i>> extends DialogModel {
+export class BaseUserDialogModel<
+  T extends BaseUserModel<user_i>,
+> extends DialogModel {
   @observable user: T;
   constructor() {
     super();
-    makeObservable(this)
+    makeObservable(this);
   }
 
   setUserAndOpen(user: T) {
@@ -79,15 +95,11 @@ export class UserDialogModel extends BaseUserDialogModel<UserModel> {
   }
 }
 
-export class BaseAdminUserDialogModel extends BaseUserDialogModel<BaseAdminUserModel<user_i>>{
-
-}
-export class AdminUserDialogModel extends BaseUserDialogModel<AdminUserModel>{
-
-}
-export class WorkspaceAdminUserDialogModel extends BaseUserDialogModel<WorkspaceUserModel>{
-
-}
+export class BaseAdminUserDialogModel extends BaseUserDialogModel<
+  BaseAdminUserModel<user_i>
+> {}
+export class AdminUserDialogModel extends BaseUserDialogModel<AdminUserModel> {}
+export class WorkspaceAdminUserDialogModel extends BaseUserDialogModel<WorkspaceUserModel> {}
 
 // export class AdminUserDialogModel extends DialogModel {
 //   @observable user: AdminUserModel;
@@ -107,12 +119,10 @@ export class PermissionsDialogModel extends BaseAdminUserDialogModel {
   }
 }
 
-
 export const WorkspaceAdminPermissionsDialogModel = new PermissionsDialogModel(
   InWorkspaceActions,
   InWorkspaceRole,
 );
-
 
 export const AdminPermissionsDialogModel = new PermissionsDialogModel(
   WorkspaceActions,

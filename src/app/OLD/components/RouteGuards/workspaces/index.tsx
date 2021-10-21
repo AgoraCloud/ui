@@ -16,7 +16,7 @@ export const WorkspacesLoaded = observer((props) => {
     const wid = workspacesstore.selectedWorkspace?.id;
     if (!wid) {
       // return <Redirect to={`/w/new`} />;
-      return null
+      return null;
     } else {
       return <AuthedRoute {...props} />;
     }
@@ -80,8 +80,9 @@ export const LanesLoaded = observer((props) => {
   const workspace = workspacesstore.selectedWorkspace;
 
   if (workspace == undefined) return null;
-  return null
-  switch (workspace.projects.state) {
+  return null;
+  switch (
+    workspace.projects.state
     // case 'loaded':
     // const project = workspacesstore.selectedProject;
     //   if (project == undefined) {
@@ -97,5 +98,6 @@ export const LanesLoaded = observer((props) => {
     //   }
     // default:
     //   return null;
+  ) {
   }
 });

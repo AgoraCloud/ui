@@ -119,7 +119,8 @@ export const SideBar = observer((props) => {
     {
       icon: <AppsIcon />,
       url: workspaceUrl,
-      text: 'Deployments',workspaces
+      text: 'Deployments',
+      workspaces,
     },
     {
       icon: <AssignmentIcon />,

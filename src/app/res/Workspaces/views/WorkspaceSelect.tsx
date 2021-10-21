@@ -45,7 +45,7 @@ export const WorkspaceSelect = observer(() => {
   const labelClasses = useLabelStyles();
   const workspaces = workspacesstore.workspaces;
 
-  const options = workspaces.workspaces
+  const options = workspaces.workspaces;
   const loading = workspaces.state !== 'loaded';
   const selectedWorkspace = workspacesstore.selectedWorkspace;
   const onChange = (option, values) => {

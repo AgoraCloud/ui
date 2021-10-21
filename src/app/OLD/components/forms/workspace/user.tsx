@@ -13,12 +13,13 @@ export const UpdateUserForm = inject(
   ROUTER_STORE,
 )(
   observer((props) => {
-    const {authstore, routerstore} = useStores()
+    const { authstore, routerstore } = useStores();
     const form = authstore.updateUserForm;
-    const user = authstore.user
+    const user = authstore.user;
     const handleSubmission = async () => {
-      await form.call()
-      if(form.submit && form.submit.state == 'loaded') routerstore.replace('/');
+      await form.call();
+      if (form.submit && form.submit.state == 'loaded')
+        routerstore.replace('/');
     };
     return (
       <div>

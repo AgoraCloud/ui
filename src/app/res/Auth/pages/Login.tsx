@@ -19,10 +19,8 @@ import { AuthWrapper } from 'app/components/Wrapper';
  * https://material-ui.com/getting-started/templates/sign-in/
  */
 
-
-
 export const Login = observer((props) => {
-  const { authstore } = useStores()
+  const { authstore } = useStores();
   const form = authstore.signinForm;
 
   // const onFormSubmit = (e) => {
@@ -68,4 +66,4 @@ export const Login = observer((props) => {
       </Grid>
     </AuthWrapper>
   );
-})
+});

@@ -12,11 +12,8 @@ import { WikiSectionsModel } from 'app/res/Wiki/models';
 import { DeploymentImagesModel } from './DeploymentImages';
 import { WorkspaceMetricsModel } from './Metrics';
 
-
-
-
-export * from './DeploymentImages'
-export * from './Metrics'
+export * from './DeploymentImages';
+export * from './Metrics';
 
 export class WorkspacesModel extends CollectionModel {
   /**
@@ -32,7 +29,7 @@ export class WorkspacesModel extends CollectionModel {
       collections: WorkspaceModel,
     });
 
-    this.createWorkspaceForm = new CreateWorkspaceFormModel()
+    this.createWorkspaceForm = new CreateWorkspaceFormModel();
 
     // this.test();
   }
@@ -59,8 +56,8 @@ export class WorkspacesModel extends CollectionModel {
     return `/w/${this.selectedWorkspace.id}`;
   }
   postLoad = async () => {
-    console.log("workspaces loaded")
-  }
+    console.log('workspaces loaded');
+  };
   // getById = (id?: string): Workspace | undefined => {
   //     return this.workspaces.filter((w: Workspace) => w.id === id)[0];
   // };
@@ -98,9 +95,9 @@ export class WorkspaceModel extends Model<workspaceData_i> {
   workspaces: WorkspacesModel;
 
   // forms
-  updateWorkspace: UpdateWorkspaceFormModel
-  createDeployment: CreateDeploymentFormModel
-  createProject: CreateProjectFormModel
+  updateWorkspace: UpdateWorkspaceFormModel;
+  createDeployment: CreateDeploymentFormModel;
+  createProject: CreateProjectFormModel;
   constructor(config) {
     super(config);
     this.workspaces = this.parent as WorkspacesModel;
@@ -114,22 +111,24 @@ export class WorkspaceModel extends Model<workspaceData_i> {
     this.metrics = new WorkspaceMetricsModel(this);
     this.workspaceAdmin = new WorkspaceAdminModel(this);
 
-
     // Forms
-    this.updateWorkspace = new UpdateWorkspaceFormModel(this)
-    this.createDeployment = new CreateDeploymentFormModel(this)
-    this.createProject = new CreateProjectFormModel(this)
+    this.updateWorkspace = new UpdateWorkspaceFormModel(this);
+    this.createDeployment = new CreateDeploymentFormModel(this);
+    this.createProject = new CreateProjectFormModel(this);
 
     this.dependents = [
       this.deployments,
       this.deploymentImages,
       this.workspaceAdmin,
       this.metrics,
-      this.wikiSections
-    ]
+      this.wikiSections,
+    ];
     this.repos = {
       update: new APIRepo({ path: this.api, method: 'PUT' }),
-      createDeployment: new APIRepo({ path: `${this.api}/deployments`, method: 'POST' }),
+      createDeployment: new APIRepo({
+        path: `${this.api}/deployments`,
+        method: 'POST',
+      }),
     };
     this.forms = {
       createDeployment: this.createDeployment,
@@ -137,7 +136,7 @@ export class WorkspaceModel extends Model<workspaceData_i> {
       update: this.updateWorkspace,
     };
   }
-  
+
   get id() {
     return this.data.id;
   }

@@ -1,6 +1,5 @@
-export * from './Page'
-export * from './List'
-
+export * from './Page';
+export * from './List';
 
 export const WikiPages = () => {
   return null;
@@ -8,4 +7,3 @@ export const WikiPages = () => {
 export const WikiSections = () => {
   return null;
 };
-

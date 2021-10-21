@@ -101,24 +101,24 @@ export const LinkButton = (props: LinkButtonProps) => {
   );
 };
 
-
-
-interface CancelCreateButtonsProps{
-  form: FormModel
-  cancel?: () => any
-  submit?: () => any
-  labels?: [string, string]
+interface CancelCreateButtonsProps {
+  form: FormModel;
+  cancel?: () => any;
+  submit?: () => any;
+  labels?: [string, string];
 }
-export const CancelCreateButtons = observer((props: CancelCreateButtonsProps) => {
+export const CancelCreateButtons = observer(
+  (props: CancelCreateButtonsProps) => {
+    const { routerstore } = useStores();
 
-    const {routerstore} = useStores()
+    const { form, labels } = props;
+    const defaultCancel = routerstore.goBack;
+    const defaultSubmit = () => {
+      form.call();
+    };
 
-    const { form, labels } = props
-    const defaultCancel = routerstore.goBack
-    const defaultSubmit = () => {form.call()}
-    
-    const cancel = props.cancel || defaultCancel
-    const submit = props.submit || defaultSubmit
+    const cancel = props.cancel || defaultCancel;
+    const submit = props.submit || defaultSubmit;
 
     const [label1, label2] = labels || ['Cancel', 'Create'];
 

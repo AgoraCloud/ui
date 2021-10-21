@@ -1,5 +1,3 @@
-import { FormModel } from "@mars-man/models";
+import { FormModel } from '@mars-man/models';
 
-export class InviteUserFormModel extends FormModel{
-    
-}
+export class InviteUserFormModel extends FormModel {}

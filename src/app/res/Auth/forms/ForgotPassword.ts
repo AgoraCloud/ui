@@ -6,10 +6,13 @@ interface forgotPassword_i {
 }
 export class ForgotPasswordFormModel extends FormModel<forgotPassword_i> {
   constructor() {
-    super({ 
-      data: { email: '' }, 
+    super({
+      data: { email: '' },
       validator: ForgotPasswordDto,
-      submit: new APIRepo({path: '/api/auth/forgot-password', method: 'POST'})
+      submit: new APIRepo({
+        path: '/api/auth/forgot-password',
+        method: 'POST',
+      }),
     });
   }
 }

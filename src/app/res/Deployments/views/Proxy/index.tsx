@@ -6,10 +6,9 @@ import { WorkspacesStore } from 'app/stores';
 import { HomeWrapperBase } from 'app/components/Wrapper';
 import { useStores } from 'app/stores';
 
-
 export const DeploymentProxy = inject(WORKSPACES_STORE)(
   observer((props) => {
-    const {workspacesstore} = useStores()
+    const { workspacesstore } = useStores();
     const [state, setState] = React.useState('loading');
     // console.log('iframe state', state);
     const deployment = workspacesstore.selectedDeployment;

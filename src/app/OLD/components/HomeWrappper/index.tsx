@@ -52,7 +52,7 @@ export const HomeWrapperBase = (props: { children: React.ReactNode }) => {
       <ConfirmDeleteDialog />
     </div>
   );
-}
+};
 
 interface HomeWrapper_i {
   children: React.ReactChild | React.ReactChild[];
@@ -69,7 +69,7 @@ export const HomeWrapper = (props: HomeWrapper_i) => {
       </Container>
     </HomeWrapperBase>
   );
-}
+};
 // export const WorkspaceHomeWrapper = (props: HomeWrapper_i) => {
 //   <HomeWrapper></HomeWrapper>;
 // };

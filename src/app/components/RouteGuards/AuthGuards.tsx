@@ -3,8 +3,6 @@ import { observer } from 'mobx-react';
 import { Redirect, Route } from 'react-router';
 import { useStores } from 'app/stores';
 
-
-
 export const AuthGuard = observer((props) => {
   const { authstore } = useStores();
   // console.log(authstore.state)
@@ -13,7 +11,7 @@ export const AuthGuard = observer((props) => {
     case 'loggedin':
       return props.children;
     default:
-      return "loading...";
+      return 'loading...';
   }
 });
 
@@ -31,7 +29,7 @@ export const AuthedRoute = observer((props) => {
 
 export const UnauthedRoute = observer((props) => {
   // const store = props[AUTH_STORE] as AuthStore;
-  const {authstore} = useStores()
+  const { authstore } = useStores();
 
   // const userStore = props[USER_STORE] as UserStore
   // if(userStore.state != 'loaded') return null

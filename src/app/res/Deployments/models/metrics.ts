@@ -12,12 +12,12 @@ export class DeploymentMetricsModel extends Model<metricsData_i> {
 
     // this.repos = OnDemandRepo(new APIRepo({ path: this.api }))
     this.repos = {
-      main: OnDemandRepo(new APIRepo({ path: this.api }))
-    }
+      main: OnDemandRepo(new APIRepo({ path: this.api })),
+    };
   }
 
   get api() {
-    return `${this.deployment.api}/metrics`
+    return `${this.deployment.api}/metrics`;
   }
 
   get memory() {

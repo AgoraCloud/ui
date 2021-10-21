@@ -8,9 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { WorkspaceAppMenu, AppMenu } from 'app/components/Wrapper/menu';
 import { ConfirmDeleteDialog } from 'app/components/dialogs';
 
-
-
-export * from './AuthWrapper'
+export * from './AuthWrapper';
 
 /**
  * Code Sourced from: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard
@@ -41,7 +39,9 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-export const HomeWrapperBase = (props: { children: React.ReactChild | React.ReactChild[] }) => {
+export const HomeWrapperBase = (props: {
+  children: React.ReactChild | React.ReactChild[];
+}) => {
   const classes = useStyles();
   const { children } = props;
   return (
@@ -57,7 +57,7 @@ export const HomeWrapperBase = (props: { children: React.ReactChild | React.Reac
       <ConfirmDeleteDialog />
     </div>
   );
-}
+};
 
 interface HomeWrapper_i {
   children: React.ReactChild | React.ReactChild[];
@@ -79,7 +79,7 @@ export const WorkspaceWrapper = (props: HomeWrapper_i) => {
       <ConfirmDeleteDialog />
     </div>
   );
-}
+};
 
 export const HomeWrapper = (props: HomeWrapper_i) => {
   const classes = useStyles();
@@ -97,4 +97,4 @@ export const HomeWrapper = (props: HomeWrapper_i) => {
       <ConfirmDeleteDialog />
     </div>
   );
-}
+};

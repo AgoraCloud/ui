@@ -1,3 +1,1 @@
-export class UserPermissionsModel{
-    
-}
+export class UserPermissionsModel {}

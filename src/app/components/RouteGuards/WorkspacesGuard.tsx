@@ -15,7 +15,7 @@ export const WorkspacesLoaded = observer((props) => {
     const wid = workspacesstore.selectedWorkspace?.id;
     if (!wid) {
       // return <Redirect to={`/w/new`} />;
-      return null
+      return null;
     } else {
       return <AuthedRoute {...props} />;
     }

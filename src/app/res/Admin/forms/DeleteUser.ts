@@ -1,3 +1,1 @@
-export class AdminDeleteUserFormModel{
-
-}
+export class AdminDeleteUserFormModel {}

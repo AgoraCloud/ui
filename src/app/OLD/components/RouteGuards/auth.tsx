@@ -7,7 +7,7 @@ import { useStores } from 'app/stores';
 
 export const AuthedRoute = observer((props) => {
   const { authstore } = useStores();
-  console.log(authstore.state)
+  console.log(authstore.state);
   if (authstore.state == 'unauthed') return <Redirect to="/login" />;
   switch (authstore.state) {
     case 'loggedin':
@@ -19,7 +19,7 @@ export const AuthedRoute = observer((props) => {
 
 export const UnauthedRoute = observer((props) => {
   // const store = props[AUTH_STORE] as AuthStore;
-  const {authstore} = useStores()
+  const { authstore } = useStores();
 
   // const userStore = props[USER_STORE] as UserStore
   // if(userStore.state != 'loaded') return null

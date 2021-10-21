@@ -12,26 +12,26 @@ export class RouterStore extends BaseRouterStore {
     if (history) {
       this.history = syncHistoryWithStore(history, this);
     }
-    makeObservable(this)
+    makeObservable(this);
   }
 
-  get params(): any{
-      const patterns = [
-        /\/w\/(?<wid>[a-zA-Z0-9]{24})\/p\/(?<pid>[a-zA-Z0-9]{24})/,
-        /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionid>[a-zA-Z0-9]{24})/,
-        /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionid>[a-zA-Z0-9]{24})\/pages\/(?<pageid>[a-zA-Z0-9]{24})/,
-        /\/w\/(?<wid>[a-zA-Z0-9]{24})/,
-        /\/w\/(?<wid>[a-zA-Z0-9]{24})\/d\/(?<did>[a-zA-Z0-9]{24})/,
-      ]
-      let out = {}
-      for (const pattern of patterns){
-        const matches = this.location.pathname.match(pattern);
-        out = {
-          ...matches?.groups || {},
-          ...out
-        }
-      }
-      return out;
+  get params(): any {
+    const patterns = [
+      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/p\/(?<pid>[a-zA-Z0-9]{24})/,
+      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionid>[a-zA-Z0-9]{24})/,
+      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionid>[a-zA-Z0-9]{24})\/pages\/(?<pageid>[a-zA-Z0-9]{24})/,
+      /\/w\/(?<wid>[a-zA-Z0-9]{24})/,
+      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/d\/(?<did>[a-zA-Z0-9]{24})/,
+    ];
+    let out = {};
+    for (const pattern of patterns) {
+      const matches = this.location.pathname.match(pattern);
+      out = {
+        ...(matches?.groups || {}),
+        ...out,
+      };
+    }
+    return out;
   }
 
   get workspaceUrl() {

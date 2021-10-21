@@ -15,7 +15,7 @@ export class SnackbarStore {
   alerts: storeAlert_i[] = [];
   constructor() {
     this.initEvents();
-    makeObservable(this)
+    makeObservable(this);
   }
 
   push(alert: alert_i) {

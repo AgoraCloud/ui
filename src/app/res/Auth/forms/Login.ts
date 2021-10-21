@@ -19,9 +19,9 @@ export class SignInFormModel extends FormModel<signin_i> {
         method: 'POST',
         events: {
           onLoad: eventTypes.SIGNIN,
-          onError: eventTypes.SIGNIN_ERR
-        }
-      })
+          onError: eventTypes.SIGNIN_ERR,
+        },
+      }),
     });
   }
 }

@@ -114,7 +114,7 @@ export const WorkspaceSideBar = observer((props) => {
   const workspaces = workspacesstore.workspaces;
   const selectedWorkspace = workspacesstore.selectedWorkspace;
   const workspaceUrl = workspaces.workspaceUrl;
-  const open = uistore.sideBarOpen
+  const open = uistore.sideBarOpen;
 
   const sidebarItems = [
     {
@@ -170,10 +170,7 @@ export const WorkspaceSideBar = observer((props) => {
       <Drawer
         variant="permanent"
         classes={{
-          paper: clsx(
-            classes.drawerPaper,
-            !open && classes.drawerPaperClose,
-          ),
+          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
         open={uistore.sideBarOpen}
       >
@@ -219,13 +216,11 @@ export const WorkspaceSideBar = observer((props) => {
   );
 });
 
-
 export const SideBar = observer((props) => {
   const { uistore, workspacesstore } = useStores();
   const classes = useStyles();
-  const open = uistore.sideBarOpen
+  const open = uistore.sideBarOpen;
   // const selectedWorkspace = workspacesstore.selectedWorkspace;
-
 
   const sidebarItems = [
     {
@@ -247,10 +242,7 @@ export const SideBar = observer((props) => {
       <Drawer
         variant="permanent"
         classes={{
-          paper: clsx(
-            classes.drawerPaper,
-            !open && classes.drawerPaperClose,
-          ),
+          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
         open={uistore.sideBarOpen}
       >
@@ -264,8 +256,6 @@ export const SideBar = observer((props) => {
           <SideBarItems links={sidebarItems} />
         </List>
         <Divider />
-
-
 
         <RenderIfRole roles={[Role.SuperAdmin]}>
           <List

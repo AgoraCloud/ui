@@ -5,9 +5,10 @@ import { useStores } from 'app/stores';
 
 let displayed: number[] = [];
 
-const Notifier = withSnackbar(observer((props) => {
-    const { snackbarstore } = useStores()
-    console.log(snackbarstore.alerts)
+const Notifier = withSnackbar(
+  observer((props) => {
+    const { snackbarstore } = useStores();
+    console.log(snackbarstore.alerts);
     snackbarstore.alerts.forEach((alert) => {
       const { message, ...rest } = alert;
       if (displayed.includes(alert.key)) return;
@@ -16,7 +17,7 @@ const Notifier = withSnackbar(observer((props) => {
       snackbarstore.remove(alert);
     });
     return null;
-  })
+  }),
 );
 
 export const SnackbarManager = (props) => {

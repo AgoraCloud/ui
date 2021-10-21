@@ -8,10 +8,10 @@ import { theme } from 'app/styles/theme';
 import { SnackbarManager } from 'app/components/snackbar-manager';
 import { configure } from 'mobx';
 
-configure({ 
+configure({
   isolateGlobalState: true,
-  enforceActions: "never"
-})
+  enforceActions: 'never',
+});
 
 // render react DOM
 ReactDOM.render(

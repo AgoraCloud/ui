@@ -98,13 +98,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const WorkspaceTopBar = observer((props) => {
-  const { uistore, authstore } = useStores()
+  const { uistore, authstore } = useStores();
   const classes = useStyles();
 
   //account icon handlers
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openAccount = Boolean(anchorEl);
-  const open = uistore.sideBarOpen
+  const open = uistore.sideBarOpen;
   const handleAccountMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -127,10 +127,7 @@ export const WorkspaceTopBar = observer((props) => {
           color="inherit"
           aria-label="open drawer"
           onClick={uistore.toggleSidebar}
-          className={clsx(
-            classes.menuButton,
-            open && classes.menuButtonHidden,
-          )}
+          className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
         >
           <MenuIcon />
         </IconButton>
@@ -170,17 +167,16 @@ export const WorkspaceTopBar = observer((props) => {
       </Toolbar>
     </AppBar>
   );
-})
-
+});
 
 export const TopBar = observer((props) => {
-  const { uistore, authstore } = useStores()
+  const { uistore, authstore } = useStores();
   const classes = useStyles();
 
   //account icon handlers
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openAccount = Boolean(anchorEl);
-  const open = uistore.sideBarOpen
+  const open = uistore.sideBarOpen;
   const handleAccountMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -203,10 +199,7 @@ export const TopBar = observer((props) => {
           color="inherit"
           aria-label="open drawer"
           onClick={uistore.toggleSidebar}
-          className={clsx(
-            classes.menuButton,
-            open && classes.menuButtonHidden,
-          )}
+          className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
         >
           <MenuIcon />
         </IconButton>
@@ -245,4 +238,4 @@ export const TopBar = observer((props) => {
       </Toolbar>
     </AppBar>
   );
-})
+});

@@ -2,7 +2,11 @@ import { RootStore } from 'app/stores/RootStore';
 import { extendObservable, makeObservable, observable } from 'mobx';
 import { WorkspaceModel, WorkspacesModel } from 'app/res/Workspaces/models';
 import { DeploymentModel } from 'app/res/Deployments/models';
-import { WikiPageModel, WikiSectionModel, WikiSectionsModel } from 'app/res/Wiki';
+import {
+  WikiPageModel,
+  WikiSectionModel,
+  WikiSectionsModel,
+} from 'app/res/Wiki';
 
 export class WorkspacesStore {
   // @observable workspaces: Workspaces;
@@ -11,20 +15,19 @@ export class WorkspacesStore {
   @observable wikiEdit: boolean;
   workspaces: WorkspacesModel;
 
-
   @observable
   count = 0;
   constructor(private rootStore: RootStore) {
     // this.workspaces = new Workspaces(this);
     this.workspaces = new WorkspacesModel();
     this.wikiEdit = false;
-    
-    makeObservable(this)
 
-    rootStore.authStore.user.repo?.onLoad.subscribe((val)=>{
+    makeObservable(this);
+
+    rootStore.authStore.user.repo?.onLoad.subscribe((val) => {
       // console.log("authstore onload", val)
-      this.workspaces.load()
-    })
+      this.workspaces.load();
+    });
   }
 
   // get createDeploymentForm() {
@@ -35,70 +38,76 @@ export class WorkspacesStore {
   //   return this.selectedWorkspace.createProjectForm;
   // }
 
-
   selectWorkspace = (wid: string) => {
-    const selectedWorkspace = this.workspaces.getBy('id', wid)[0] as WorkspaceModel
-    if(selectedWorkspace) this.selectedWorkspace = selectedWorkspace 
-  }
+    const selectedWorkspace = this.workspaces.getBy(
+      'id',
+      wid,
+    )[0] as WorkspaceModel;
+    if (selectedWorkspace) this.selectedWorkspace = selectedWorkspace;
+  };
 
-  set selectedWorkspace(workspace: WorkspaceModel|undefined){
-    if(!workspace) return
-    this.rootStore.routerStore.push(workspace.link)
-    this._selectedWorkspace = this.selectedWorkspace
+  set selectedWorkspace(workspace: WorkspaceModel | undefined) {
+    if (!workspace) return;
+    this.rootStore.routerStore.push(workspace.link);
+    this._selectedWorkspace = this.selectedWorkspace;
   }
-  get selectedWorkspace():WorkspaceModel|undefined{
+  get selectedWorkspace(): WorkspaceModel | undefined {
     // const params = useParams<{wid: string}>()
 
-    const {wid} = this.rootStore.routerStore.params
-    let selectedWorkspace: WorkspaceModel|undefined = undefined
-    if(wid){
+    const { wid } = this.rootStore.routerStore.params;
+    let selectedWorkspace: WorkspaceModel | undefined = undefined;
+    if (wid) {
       // if the URL parameter includes a wid
-      selectedWorkspace = this.workspaces.getBy('id', wid)[0] as WorkspaceModel
-    }
-    else if(this._selectedWorkspace !== undefined){
+      selectedWorkspace = this.workspaces.getBy('id', wid)[0] as WorkspaceModel;
+    } else if (this._selectedWorkspace !== undefined) {
       // if the _selectedWorkspace is already defined
-      selectedWorkspace = this._selectedWorkspace
-    }else{
+      selectedWorkspace = this._selectedWorkspace;
+    } else {
       // if there is no _selectedWorkspace
       // TODO return favorite workspace
-      selectedWorkspace = this.workspaces.workspaces[0]
+      selectedWorkspace = this.workspaces.workspaces[0];
     }
-    this._selectedWorkspace = selectedWorkspace  
-    return selectedWorkspace
+    this._selectedWorkspace = selectedWorkspace;
+    return selectedWorkspace;
   }
 
   get selectedDeployment() {
     // const params = useParams<{wid: string, did: string}>()
-    const {did} = this.rootStore.routerStore.params
+    const { did } = this.rootStore.routerStore.params;
 
-
-    if(this.selectedWorkspace){
-      return this.selectedWorkspace.deployments.getBy('id', did)[0] as DeploymentModel
+    if (this.selectedWorkspace) {
+      return this.selectedWorkspace.deployments.getBy(
+        'id',
+        did,
+      )[0] as DeploymentModel;
     }
-    return undefined
+    return undefined;
   }
 
   get selectedWikiSection() {
     // const params = useParams<{wid: string, did: string}>()
-    const {sectionId} = this.rootStore.routerStore.params
+    const { sectionId } = this.rootStore.routerStore.params;
 
-
-    if(this.selectedWorkspace){
-      return this.selectedWorkspace.wikiSections.getBy('id', sectionId)[0] as WikiSectionModel
+    if (this.selectedWorkspace) {
+      return this.selectedWorkspace.wikiSections.getBy(
+        'id',
+        sectionId,
+      )[0] as WikiSectionModel;
     }
-    return undefined
+    return undefined;
   }
   get selectedWikiPage() {
     // const params = useParams<{wid: string, did: string}>()
-    const {pageId} = this.rootStore.routerStore.params
+    const { pageId } = this.rootStore.routerStore.params;
 
-
-    if(this.selectedWikiSection){
-      return this.selectedWikiSection.wikiPages.getBy('id', pageId)[0] as WikiPageModel
+    if (this.selectedWikiSection) {
+      return this.selectedWikiSection.wikiPages.getBy(
+        'id',
+        pageId,
+      )[0] as WikiPageModel;
     }
-    return undefined
+    return undefined;
   }
-
 
   // @computed
   // get selectedProject() {

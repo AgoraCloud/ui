@@ -8,9 +8,7 @@ export class WikiSectionsModel extends CollectionModel {
    * Collection of Wiki Sections
    */
 
-
-
-  addSection: APIRepo
+  addSection: APIRepo;
   constructor(public workspace: WorkspaceModel) {
     super({
       collections: WikiSectionModel,
@@ -20,34 +18,30 @@ export class WikiSectionsModel extends CollectionModel {
       path: this.api,
       method: 'POST',
       body: { name: 'New Section' },
-      events: types.WIKISECTIONS
-    })
+      events: types.WIKISECTIONS,
+    });
     this.addSection.onLoad.subscribe(() => {
-      this.load()
-    })
+      this.load();
+    });
     this.repos = {
       main: new APIRepo({ path: this.api }),
-      addSection: this.addSection
+      addSection: this.addSection,
     };
   }
   postLoad = async () => {
-    console.log("WIKI SECTIONS", this.data)
-  }
+    console.log('WIKI SECTIONS', this.data);
+  };
 
-  get link(){
-    return `${this.workspace.link}/wiki`
+  get link() {
+    return `${this.workspace.link}/wiki`;
   }
 
   get api() {
     return `${this.workspace.api}/sections`;
   }
 
-
-  onAddSection = () => {
-
-  }
+  onAddSection = () => {};
 }
-
 
 interface wikiSectionData_i {
   name: string;
@@ -57,46 +51,39 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
   /**
    * A single Wiki Section
    */
-  sections: WikiSectionsModel
-  wikiPages: WikiPagesModel
-  @observable selected: boolean = false
-  sectionForm: FormModel
+  sections: WikiSectionsModel;
+  wikiPages: WikiPagesModel;
+  @observable selected: boolean = false;
+  sectionForm: FormModel;
   constructor({ data, parent }) {
     super({ data });
-    this.sections = parent
+    this.sections = parent;
 
     this.sectionForm = new FormModel({
       data: {
         name: data.title,
-      }
-    })
+      },
+    });
 
-    this.wikiPages = new WikiPagesModel(this)
-    this.dependents = [
-      this.wikiPages
-    ]
-    makeObservable(this)
+    this.wikiPages = new WikiPagesModel(this);
+    this.dependents = [this.wikiPages];
+    makeObservable(this);
   }
 
-
-  get id(){
-    return this.data.id
+  get id() {
+    return this.data.id;
   }
 
-  get link(){
-    return `${this.sections.link}/${this.id}`
+  get link() {
+    return `${this.sections.link}/${this.id}`;
   }
 
   get api() {
     return `${this.sections.api}/${this.id}`;
   }
 
-  onSubmitNameChange = () => {
-
-  }
-  onAddPage = () => {
-
-  }
+  onSubmitNameChange = () => {};
+  onAddPage = () => {};
 }
 
 export class WikiPagesModel extends CollectionModel {
@@ -104,8 +91,7 @@ export class WikiPagesModel extends CollectionModel {
    * Collection of Wiki Pages
    */
 
-
-  addPage: APIRepo
+  addPage: APIRepo;
   constructor(public wikiSection: WikiSectionModel) {
     super({
       collections: WikiPageModel,
@@ -117,24 +103,23 @@ export class WikiPagesModel extends CollectionModel {
         title: 'New Page',
         body: '# New Page!',
       },
-      events: types.WIKIPAGES
-    })
+      events: types.WIKIPAGES,
+    });
     this.addPage.onLoad.subscribe(() => {
-      this.load()
-    })
+      this.load();
+    });
     this.repos = {
       main: new APIRepo({ path: this.api }),
     };
   }
 
-  get link(){
-    return `${this.wikiSection.link}/pages`
+  get link() {
+    return `${this.wikiSection.link}/pages`;
   }
   get api() {
     return `${this.wikiSection.api}/pages`;
   }
 }
-
 
 interface wikiPageData_i {
   id: string;
@@ -146,19 +131,19 @@ export class WikiPageModel extends Model<wikiPageData_i> {
    * A single Wiki Page
    */
 
-  public pages: WikiPagesModel
-  pageForm: FormModel
-  @observable selected: boolean = false
+  public pages: WikiPagesModel;
+  pageForm: FormModel;
+  @observable selected: boolean = false;
   constructor({ data, parent }) {
-    super({data});
+    super({ data });
     this.pageForm = new FormModel({
       data: {
         title: data.title,
-        body: data.body
-      }
-    })
-    this.pages = parent
-    makeObservable(this)
+        body: data.body,
+      },
+    });
+    this.pages = parent;
+    makeObservable(this);
   }
 
   get id() {
@@ -176,15 +161,10 @@ export class WikiPageModel extends Model<wikiPageData_i> {
     return `${this.pages.api}/${this.id}`;
   }
 
-  get link(){
-    return `${this.pages.link}/${this.id}`
+  get link() {
+    return `${this.pages.link}/${this.id}`;
   }
 
-  onSave = async () => {
-
-  }
-  delete = async () => {
-
-  }
-
+  onSave = async () => {};
+  delete = async () => {};
 }

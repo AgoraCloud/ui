@@ -10,7 +10,7 @@ export const PermissionsDialog = observer(
   (props: { dialog: PermissionsDialogModel }) => {
     const { dialog } = props;
     const { user } = dialog;
-    console.log("PermissionsDialog", dialog, user)
+    console.log('PermissionsDialog', dialog, user);
     if (!user) return null;
     const form = user.permissions.permissionsForm;
     return (
@@ -26,11 +26,11 @@ export const PermissionsDialog = observer(
             labels={['Cancel', 'Edit']}
             cancel={dialog.onClose}
             submit={async () => {
-              form.call()
-              console.log(JSON.stringify(form.payload))
+              form.call();
+              console.log(JSON.stringify(form.payload));
               // if (await form.submit()) {
-                // dialog.onClose();
-                // events.emit(eventTypes.USER_CRUD.type, 'edited permissions');
+              // dialog.onClose();
+              // events.emit(eventTypes.USER_CRUD.type, 'edited permissions');
               // } else events.emit(eventTypes.USER_ERR.type, 'error');
             }}
           />

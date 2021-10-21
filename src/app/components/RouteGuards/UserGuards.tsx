@@ -4,7 +4,7 @@ import { useStores } from 'app/stores';
 import { AuthedRoute } from './AuthGuards';
 
 export const UserLoaded = observer((props) => {
-  const {authstore} = useStores()
+  const { authstore } = useStores();
   // if (props.path === '/edit-profile') {
   //   routerStore.selected = 100;
   // }
@@ -15,4 +15,4 @@ export const UserLoaded = observer((props) => {
     default:
       return null;
   }
-})
+});

@@ -1,6 +1,3 @@
-import * as React from 'react'
+import * as React from 'react';
 
-
-export const LoginForm = () => {
-
-}
+export const LoginForm = () => {};

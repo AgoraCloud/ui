@@ -114,55 +114,82 @@ interface UpdateWorkspaceProps {
   };
 }
 
-export const CPUMemoryInput = ({form}: {
+export const CPUMemoryInput = ({
+  form,
+}: {
   form: FormModel<{ cpuCount?: number; memoryCount?: number }>;
 }) => {
   return (
     <>
-      <CPUInput form={form}/>
-      <MemoryInput form={form}/>
+      <CPUInput form={form} />
+      <MemoryInput form={form} />
     </>
   );
 };
 
-
-export const StorageInput = ({form}: {
-  form: FormModel<{ storageCount?: number }>
+export const StorageInput = ({
+  form,
+}: {
+  form: FormModel<{ storageCount?: number }>;
 }) => {
-  return <ResourceInput form={form} id="storageCount" label="Storage" icon={<StorageIcon/>}/>
-}
+  return (
+    <ResourceInput
+      form={form}
+      id="storageCount"
+      label="Storage"
+      icon={<StorageIcon />}
+    />
+  );
+};
 
-export const CPUInput = ({form}: {
-  form: FormModel<{ cpuCount?: number }>
+export const CPUInput = ({
+  form,
+}: {
+  form: FormModel<{ cpuCount?: number }>;
 }) => {
-  return <ResourceInput form={form} id="cpuCount" label="CPU Cores" icon={<MemoryIcon/>}/>
-}
+  return (
+    <ResourceInput
+      form={form}
+      id="cpuCount"
+      label="CPU Cores"
+      icon={<MemoryIcon />}
+    />
+  );
+};
 
-
-export const MemoryInput = ({form}: {
-  form: FormModel<{ memoryCount?: number }>
+export const MemoryInput = ({
+  form,
+}: {
+  form: FormModel<{ memoryCount?: number }>;
 }) => {
-  return <ResourceInput form={form} id="memoryCount" label="RAM (GBs)" icon={<MoneyIcon/>}/>
-}
+  return (
+    <ResourceInput
+      form={form}
+      id="memoryCount"
+      label="RAM (GBs)"
+      icon={<MoneyIcon />}
+    />
+  );
+};
 
-export const ResourceInput = ({form, id, icon, label}) => {
+export const ResourceInput = ({ form, id, icon, label }) => {
   const classes = useStyles();
 
-  return <Input
-    form={form}
-    className={classes.margin}
-    margin="dense"
-    id={id}
-    label={label}
-    type="number"
-    InputProps={{
-      startAdornment: (
-        <InputAdornment position="start">
-          {icon}  
-        </InputAdornment>
-      ),
-    }}
-    defaultVal={form.get(id)}
-    fullWidth
-  />
-}
+  return (
+    <Input
+      form={form}
+      className={classes.margin}
+      margin="dense"
+      id={id}
+      label={label}
+      type="number"
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">{icon}</InputAdornment>
+        ),
+      }}
+      defaultVal={form.get(id)}
+      fullWidth
+    />
+  );
+};

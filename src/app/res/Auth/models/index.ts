@@ -1,2 +1,2 @@
-export * from './User'
-export * from './Permissions'
+export * from './User';
+export * from './Permissions';

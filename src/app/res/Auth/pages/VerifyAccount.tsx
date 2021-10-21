@@ -13,45 +13,29 @@ import { CircularProgress } from '@material-ui/core';
 import { AuthWrapper } from 'app/components/Wrapper';
 import { useQuery } from 'app/constants/helpers';
 
-
 export const VerifyAccount = inject(AUTH_STORE)(
-    observer((props) => {
-      const store = props[AUTH_STORE] as AuthStore;
-  
-      const query = useQuery();
-      const { token } = query;
-      const form = store.verifyForm;
-      React.useEffect(() => {
-        form.data.token = token;
-        store.verify();
-      }, []);
-  
-      if (form.state.loading) {
-        return (
-          <AuthWrapper>
-            <CircularProgress />
-          </AuthWrapper>
-        );
-      }
-      if (form.success) {
-        return (
-          <AuthWrapper>
-            <Typography>Account Succesfully Verified!</Typography>
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              component={Link}
-              to="login"
-            >
-              Click here to login
-            </Button>
-          </AuthWrapper>
-        );
-      }
+  observer((props) => {
+    const store = props[AUTH_STORE] as AuthStore;
+
+    const query = useQuery();
+    const { token } = query;
+    const form = store.verifyForm;
+    React.useEffect(() => {
+      form.data.token = token;
+      store.verify();
+    }, []);
+
+    if (form.state.loading) {
       return (
         <AuthWrapper>
-          <Typography color="error">{form.message}</Typography>
+          <CircularProgress />
+        </AuthWrapper>
+      );
+    }
+    if (form.success) {
+      return (
+        <AuthWrapper>
+          <Typography>Account Succesfully Verified!</Typography>
           <Button
             fullWidth
             variant="contained"
@@ -59,10 +43,24 @@ export const VerifyAccount = inject(AUTH_STORE)(
             component={Link}
             to="login"
           >
-            Go back to Log In
+            Click here to login
           </Button>
         </AuthWrapper>
       );
-    }),
-  );
-  
+    }
+    return (
+      <AuthWrapper>
+        <Typography color="error">{form.message}</Typography>
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="login"
+        >
+          Go back to Log In
+        </Button>
+      </AuthWrapper>
+    );
+  }),
+);

@@ -8,14 +8,14 @@ import { WorkspaceAdminHomePage } from '.';
 const path = '/w/:wid/admin/';
 
 export const WorkspaceAdminRoutes = () => {
-    return (
-        <WorkspaceWrapper>
-            {/* <Provider {...rootStore.adminStores}> */}
-            <Switch>
-                <Route path={`${path}users`} component={WorkspaceAdminUsersPage} />
-                <Route path={`${path}`} component={WorkspaceAdminHomePage} />
-            </Switch>
-            {/* </Provider> */}
-        </WorkspaceWrapper>
-    );
+  return (
+    <WorkspaceWrapper>
+      {/* <Provider {...rootStore.adminStores}> */}
+      <Switch>
+        <Route path={`${path}users`} component={WorkspaceAdminUsersPage} />
+        <Route path={`${path}`} component={WorkspaceAdminHomePage} />
+      </Switch>
+      {/* </Provider> */}
+    </WorkspaceWrapper>
+  );
 };

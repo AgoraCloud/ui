@@ -9,14 +9,25 @@ import {
   WorkspacesLoaded,
 } from 'app/components/RouteGuards';
 import { DeploymentInfoPage } from 'app/res/Deployments/views';
-import { CreateDeployment, WorkspaceHome, UpdateWorkspace, WorkspaceMetricsPage, NewWorkspace } from 'app/res/Workspaces';
+import {
+  CreateDeployment,
+  WorkspaceHome,
+  UpdateWorkspace,
+  WorkspaceMetricsPage,
+  NewWorkspace,
+} from 'app/res/Workspaces';
 import { DeploymentProxy } from 'app/res/Deployments/views/Proxy';
 import { WorkspaceAdminRoutes } from 'app/res/Workspaces/Admin/routes';
 import { AdminRoutes } from 'app/res/Admin';
-import { ChangePassword, ForgotPassword, Signup, UserProfile, VerifyAccount } from 'app/res/Auth';
+import {
+  ChangePassword,
+  ForgotPassword,
+  Signup,
+  UserProfile,
+  VerifyAccount,
+} from 'app/res/Auth';
 import { Login } from 'app/res/Auth';
 import { WikiRoutes } from 'app/res/Wiki';
-
 
 export const App = ({ history }: any) => {
   return (
@@ -35,8 +46,14 @@ export const App = ({ history }: any) => {
           <AuthedRoute path="/w/new" component={NewWorkspace} />
           <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
           <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
-          <WorkspacesLoaded path="/w/:wid/metrics" component={WorkspaceMetricsPage} />
-          <WorkspacesLoaded path="/w/:wid/admin" component={WorkspaceAdminRoutes} />
+          <WorkspacesLoaded
+            path="/w/:wid/metrics"
+            component={WorkspaceMetricsPage}
+          />
+          <WorkspacesLoaded
+            path="/w/:wid/admin"
+            component={WorkspaceAdminRoutes}
+          />
           {/* Projects Path */}
           {/* <ProjectsLoaded path="/w/:wid/projects" component={ProjectList} /> */}
           {/* <ProjectsLoaded path="/w/:wid/p/new" component={CreateProject} /> */}
@@ -46,9 +63,18 @@ export const App = ({ history }: any) => {
           {/* <ProjectsLoaded path="/w/:wid/p/new" component={CreateProject} /> */}
           {/* <ProjectsLoaded path="/w/:wid/p" component={ProjectList} /> */}
           <WorkspacesLoaded path="/w/:wid/edit" component={UpdateWorkspace} />
-          <WorkspacesLoaded path="/w/:wid/d/:did/info" component={DeploymentInfoPage} />
-          <WorkspacesLoaded path="/w/:wid/d/:did/edit" component={EditDeployment} />
-          <WorkspacesLoaded path="/w/:wid/d/:did/" component={DeploymentProxy} />
+          <WorkspacesLoaded
+            path="/w/:wid/d/:did/info"
+            component={DeploymentInfoPage}
+          />
+          <WorkspacesLoaded
+            path="/w/:wid/d/:did/edit"
+            component={EditDeployment}
+          />
+          <WorkspacesLoaded
+            path="/w/:wid/d/:did/"
+            component={DeploymentProxy}
+          />
           <WorkspacesLoaded path="/w/:wid" component={WorkspaceHome} />
           <AuthedRoute path="/admin" component={AdminRoutes} />
           <WorkspacesLoaded path="/edit-profile" component={UserProfile} />
@@ -57,4 +83,4 @@ export const App = ({ history }: any) => {
       </Switch>
     </Router>
   );
-}
+};

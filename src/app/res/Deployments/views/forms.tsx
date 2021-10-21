@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {
-  EditDeploymentFormModel,
-} from 'app/res/Deployments/forms';
+import { EditDeploymentFormModel } from 'app/res/Deployments/forms';
 import {
   Input,
   ResourcesInput,
@@ -14,16 +12,16 @@ import { Typography } from '@material-ui/core';
 import { observer } from 'mobx-react';
 
 import { useStores } from 'app/stores';
-import { Form } from '@mars-man/components'
+import { Form } from '@mars-man/components';
 import { ImageSelect } from './ImageSelect';
 
 export const EditDeploymentForm = observer(
   (props: { form?: EditDeploymentFormModel }) => {
     const { routerstore } = useStores();
     const { form } = props;
-    console.log(JSON.stringify(form?.errors), form?.isValid)
+    console.log(JSON.stringify(form?.errors), form?.isValid);
 
-    if (!form) return null
+    if (!form) return null;
     return (
       <Form form={form}>
         <Label>Deployment Name</Label>
@@ -42,8 +40,8 @@ export const EditDeploymentForm = observer(
             // routerstore.replace(form.workspace.link);
           }}
           submit={async () => {
-            console.log("SUBMIT", form, form.payload)
-            await form.call()
+            console.log('SUBMIT', form, form.payload);
+            await form.call();
             // if (await form.submit()) {
             // routerstore.replace(form.workspace.link);
             // events.emit(eventTypes.DEPLOYMENT_CRUD, 'updated');

@@ -18,14 +18,13 @@ export class SignupFormModel extends FormModel<signup_i> {
       },
       validator: CreateUserDto,
       submit: new APIRepo({
-        path: '/api/auth/register', 
+        path: '/api/auth/register',
         method: 'POST',
         events: {
           onLoad: eventTypes.SIGNUP,
-          onError: eventTypes.SIGNUP_ERR
-        }
-      })
-
+          onError: eventTypes.SIGNUP_ERR,
+        },
+      }),
     });
   }
 }

@@ -52,7 +52,7 @@ export const CreateDeploymentForm = observer(
             // routerstore.replace(form.workspace.link);
           }}
           submit={async () => {
-            form.submit.call()
+            form.submit.call();
             console.log(form.payload);
             // if (await form.submit()) {
             //     routerstore.replace(form.workspace.link);

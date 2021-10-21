@@ -2,23 +2,18 @@ import * as React from 'react';
 import { DeploymentsList } from 'app/res/Deployments/views/List';
 import { WorkspaceWrapper } from 'app/components/Wrapper';
 import { useStores } from 'app/stores';
-import {
-  CreateDeploymentForm,
-} from 'app/res/Workspaces/views/forms';
+import { CreateDeploymentForm } from 'app/res/Workspaces/views/forms';
 import { Typography } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { AddFAB } from 'app/components/inputs';
 
-
-export * from './Redirect'
-export * from './WorkspaceSelect'
-export * from './UpdateWorkspace'
-export * from './CreateWorkspace'
-export * from './NewWorkspace'
-export * from './Metrics'
-export * from './forms'
-
-
+export * from './Redirect';
+export * from './WorkspaceSelect';
+export * from './UpdateWorkspace';
+export * from './CreateWorkspace';
+export * from './NewWorkspace';
+export * from './Metrics';
+export * from './forms';
 
 export const WorkspaceHome = observer(() => {
   const { workspacesstore, uistore } = useStores();
@@ -31,7 +26,7 @@ export const WorkspaceHome = observer(() => {
       <AddFAB link={`${workspaces.workspaceUrl}/new`} />
     </WorkspaceWrapper>
   );
-})
+});
 
 export const CreateDeployment = observer((props) => {
   const { workspacesstore } = useStores();

@@ -28,11 +28,10 @@ export class CreateDeploymentFormModel extends FormModel {
         ['version', 'properties.image.version'],
       ],
       validator: CreateDeploymentDto,
-      submit: workspace.repos.createDeployment
+      submit: workspace.repos.createDeployment,
     });
   }
 }
-
 
 export class CreateProjectFormModel extends FormModel {
   constructor(public workspace: WorkspaceModel) {
@@ -45,8 +44,6 @@ export class UpdateWorkspaceFormModel extends FormModel {
     super({});
   }
 }
-
-
 
 interface create_workspace_i {
   name: string;
@@ -65,8 +62,8 @@ export class CreateWorkspaceFormModel extends FormModel<create_workspace_i> {
             cpuCount: undefined,
             memoryCount: undefined,
             storageCount: undefined,
-          }
-        }
+          },
+        },
       },
       keys: [
         ['cpuCount', { key: 'properties.resources.cpuCount', cast: Number }],
@@ -79,7 +76,7 @@ export class CreateWorkspaceFormModel extends FormModel<create_workspace_i> {
           { key: 'properties.resources.storageCount', cast: Number },
         ],
       ],
-      submit: new APIRepo({ path: '/api/workspaces', method: 'POST' })
-    })
+      submit: new APIRepo({ path: '/api/workspaces', method: 'POST' }),
+    });
   }
 }

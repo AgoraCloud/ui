@@ -1,4 +1,1 @@
-export * from './Permissions'
-
-
-
+export * from './Permissions';
