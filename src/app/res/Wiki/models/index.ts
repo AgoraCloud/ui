@@ -63,7 +63,7 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
         name: data.name,
       },
     });
-    this.delete = new APIRepo({ path: this.api, method: 'DELETE' })
+    this.delete = new APIRepo({ path: this.api, method: 'DELETE' });
     this.wikiPages = new WikiPagesModel(this);
     this.delete.onLoad.subscribe(() => {
       this.sections.load();
@@ -83,10 +83,10 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
     return `${this.sections.api}/${this.id}`;
   }
 
-  onSubmitNameChange = () => { };
+  onSubmitNameChange = () => {};
   onDelete = async () => {
-    await this.delete.call()
-  }
+    await this.delete.call();
+  };
 }
 
 export class WikiPagesModel extends CollectionModel {
