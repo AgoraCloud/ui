@@ -70,14 +70,11 @@ export const WorkspaceWrapperBase = (props: HomeWrapper_i) => {
   return (
     <div className={classes.root}>
       <WorkspaceAppMenu />
-      <main className={classes.content}>
-        {children}
-      </main>
+      <main className={classes.content}>{children}</main>
       <ConfirmDeleteDialog />
     </div>
   );
 };
-
 
 export const WorkspaceWrapper = (props: HomeWrapper_i) => {
   const { children } = props;

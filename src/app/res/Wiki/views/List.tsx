@@ -55,7 +55,7 @@ export const PageButton = observer((props: { page: WikiPageModel }) => {
       },
     },
   ];
-  const selected = workspacesstore.selectedWikiPage?.id === page.id
+  const selected = workspacesstore.selectedWikiPage?.id === page.id;
   return (
     <li>
       <ContextMenu menuItems={menuItems}>
@@ -76,6 +76,20 @@ export const SectionButton = observer(
   (props: { section: WikiSectionModel; open: boolean; onClick: () => any }) => {
     const { section, open, onClick } = props;
     const form = section.sectionForm;
+    const { uistore } = useStores();
+    console.log(section.id)
+    const menuItems = [
+      {
+        label: 'Delete',
+        onClick: () => {
+          uistore.setDeleteTarget(section.data.name, () => {
+            console.log(section.id)
+            section.onDelete()
+          });
+        },
+      },
+    ];
+
     const handleKeyDown = (e) => {
       if (e.key === 'Enter') {
         section.onSubmitNameChange();
@@ -84,7 +98,13 @@ export const SectionButton = observer(
     return (
       <ListItem>
         <ListItemText>
-          <InputBase value={form.get("name")} onChange={form.onChange("name")} onKeyDown={handleKeyDown} />
+          <ContextMenu menuItems={menuItems}>
+            <InputBase
+              value={form.get('name')}
+              onChange={form.onChange('name')}
+              onKeyDown={handleKeyDown}
+            />
+          </ContextMenu>
         </ListItemText>
         <Tooltip title="Add Page To Section" aria-label="Add Page To Section">
           <IconButton onClick={section.wikiPages.onAddPage}>
@@ -104,8 +124,8 @@ export const SectionButton = observer(
 export const WikiSectionList = observer(
   (props: { section: WikiSectionModel }) => {
     const { section } = props;
-    const {workspacesstore} = useStores()
-    const selected = workspacesstore.selectedWikiSection?.id === section.id
+    const { workspacesstore } = useStores();
+    const selected = workspacesstore.selectedWikiSection?.id === section.id;
 
     const pages = section.wikiPages;
     const [open, setOpen] = React.useState(false);
@@ -136,7 +156,6 @@ export const WikiList = observer((props) => {
   if (!workspace) return null;
   const wikiSections = workspace.wikiSections;
   const selectedWikiPage = workspacesstore.selectedWikiPage;
-  console.log("Sections", wikiSections.collection.models)
   return (
     <div className={style.sidebar}>
       <div className={style.topsidebar}>

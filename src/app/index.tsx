@@ -45,7 +45,6 @@ export const App = ({ history }: any) => {
       {/* workspace paths */}
       <AuthGuard>
         <Switch>
-
           <AuthedRoute path="/w/new" component={NewWorkspace} />
           <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
           <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />

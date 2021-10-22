@@ -28,9 +28,6 @@ export class WikiSectionsModel extends CollectionModel {
       addSection: this.addSection,
     };
   }
-  postLoad = async () => {
-    console.log('WIKI SECTIONS', this.data);
-  };
 
   get link() {
     return `${this.workspace.link}/wiki`;
@@ -41,7 +38,7 @@ export class WikiSectionsModel extends CollectionModel {
   }
 
   onAddSection = () => {
-    this.addSection.call()
+    this.addSection.call();
   };
 }
 
@@ -56,6 +53,7 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
   sections: WikiSectionsModel;
   wikiPages: WikiPagesModel;
   sectionForm: FormModel;
+  delete: APIRepo;
   constructor({ data, parent }) {
     super({ data });
     this.sections = parent;
@@ -65,8 +63,11 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
         name: data.name,
       },
     });
-
+    this.delete = new APIRepo({ path: this.api, method: 'DELETE' })
     this.wikiPages = new WikiPagesModel(this);
+    this.delete.onLoad.subscribe(() => {
+      this.sections.load();
+    });
     this.dependents = [this.wikiPages];
   }
 
@@ -82,8 +83,10 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
     return `${this.sections.api}/${this.id}`;
   }
 
-  onSubmitNameChange = () => {};
-
+  onSubmitNameChange = () => { };
+  onDelete = async () => {
+    await this.delete.call()
+  }
 }
 
 export class WikiPagesModel extends CollectionModel {
@@ -121,7 +124,7 @@ export class WikiPagesModel extends CollectionModel {
   }
 
   onAddPage = () => {
-      this.addPage.call()
+    this.addPage.call();
   };
 }
 
@@ -136,8 +139,8 @@ export class WikiPageModel extends Model<wikiPageData_i> {
    */
 
   public pages: WikiPagesModel;
-  pageForm: FormModel
-  delete: APIRepo
+  pageForm: FormModel;
+  delete: APIRepo;
   constructor({ data, parent }) {
     super({ data });
     this.pages = parent;
@@ -146,9 +149,9 @@ export class WikiPageModel extends Model<wikiPageData_i> {
         title: data.title,
         body: data.body,
       },
-      submit: new APIRepo({path: this.api, method: 'PUT'})
+      submit: new APIRepo({ path: this.api, method: 'PUT' }),
     });
-    this.delete = new APIRepo({path: this.api, method: 'DELETE'})
+    this.delete = new APIRepo({ path: this.api, method: 'DELETE' });
   }
 
   get id() {
@@ -171,14 +174,14 @@ export class WikiPageModel extends Model<wikiPageData_i> {
   }
 
   onSave = async () => {
-    await this.pageForm.call()
+    await this.pageForm.call();
     // if(this.pageForm.submit.state == 'loaded'){
     // }
   };
   onDelete = async () => {
-    await this.delete.call()
-    if(this.delete.state == 'loaded'){
-      this.pages.load()
+    await this.delete.call();
+    if (this.delete.state == 'loaded') {
+      this.pages.load();
     }
   };
 }

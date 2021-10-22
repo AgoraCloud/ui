@@ -4,7 +4,6 @@ import {
   WORKSPACES_STORE,
   SNACKBAR_STORE,
   UI_STORE,
-  USER_STORE,
   ADMIN_STORE,
 } from 'app/constants';
 import { createBrowserHistory } from 'history';

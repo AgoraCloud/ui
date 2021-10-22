@@ -18,8 +18,8 @@ export const WikiPageHeaderTitle = observer(
     if (workspacesstore.wikiEdit)
       return (
         <InputBase
-          value={form.get("title")}
-          onChange={form.onChange("title")}
+          value={form.get('title')}
+          onChange={form.onChange('title')}
           style={{ fontSize: '3rem', letterSpacing: '0rem' }}
         />
       );
@@ -81,7 +81,7 @@ export const WikiPageRender = (props: { page: WikiPageModel }) => {
 };
 
 export const WikiPage = observer((props) => {
-  const {workspacesstore} = useStores()
+  const { workspacesstore } = useStores();
   const page = workspacesstore.selectedWikiPage;
 
   if (page == undefined) {

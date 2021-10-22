@@ -99,7 +99,6 @@ export class WorkspacesStore {
   get selectedWikiPage() {
     // const params = useParams<{wid: string, did: string}>()
     const { pageId } = this.rootStore.routerStore.params;
-    console.log("PAGE ID", pageId)
     if (this.selectedWikiSection) {
       return this.selectedWikiSection.wikiPages.getBy(
         'id',

@@ -10,10 +10,7 @@ export const WikiRoutes = () => {
     <WorkspaceWrapperBase>
       <WikiList />
       <Switch>
-        <Route
-          path={`${path}:sectionId/pages/:pageId`}
-          component={WikiPage}
-        />
+        <Route path={`${path}:sectionId/pages/:pageId`} component={WikiPage} />
         {/* <Route path={`${path}/:sectionId/pages/new`} component={WikiCreatePage} /> */}
         <Route path={`${path}:sectionId/pages`} component={WikiPages} />
         {/* <Route path={`${path}/new`} component={WikiCreateSection} /> */}

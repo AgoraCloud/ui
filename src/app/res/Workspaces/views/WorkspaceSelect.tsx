@@ -40,7 +40,6 @@ const useLabelStyles = makeStyles({
 
 export const WorkspaceSelect = observer(() => {
   const { workspacesstore } = useStores();
-  console.log(workspacesstore);
   const classes = useStyles();
   const labelClasses = useLabelStyles();
   const workspaces = workspacesstore.workspaces;
