@@ -40,7 +40,9 @@ export class WikiSectionsModel extends CollectionModel {
     return `${this.workspace.api}/sections`;
   }
 
-  onAddSection = () => {};
+  onAddSection = () => {
+    this.addSection.call()
+  };
 }
 
 interface wikiSectionData_i {
@@ -53,7 +55,6 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
    */
   sections: WikiSectionsModel;
   wikiPages: WikiPagesModel;
-  @observable selected: boolean = false;
   sectionForm: FormModel;
   constructor({ data, parent }) {
     super({ data });
@@ -61,13 +62,12 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
 
     this.sectionForm = new FormModel({
       data: {
-        name: data.title,
+        name: data.name,
       },
     });
 
     this.wikiPages = new WikiPagesModel(this);
     this.dependents = [this.wikiPages];
-    makeObservable(this);
   }
 
   get id() {
@@ -83,7 +83,7 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
   }
 
   onSubmitNameChange = () => {};
-  onAddPage = () => {};
+
 }
 
 export class WikiPagesModel extends CollectionModel {
@@ -119,6 +119,10 @@ export class WikiPagesModel extends CollectionModel {
   get api() {
     return `${this.wikiSection.api}/pages`;
   }
+
+  onAddPage = () => {
+      this.addPage.call()
+  };
 }
 
 interface wikiPageData_i {
@@ -132,18 +136,19 @@ export class WikiPageModel extends Model<wikiPageData_i> {
    */
 
   public pages: WikiPagesModel;
-  pageForm: FormModel;
-  @observable selected: boolean = false;
+  pageForm: FormModel
+  delete: APIRepo
   constructor({ data, parent }) {
     super({ data });
+    this.pages = parent;
     this.pageForm = new FormModel({
       data: {
         title: data.title,
         body: data.body,
       },
+      submit: new APIRepo({path: this.api, method: 'PUT'})
     });
-    this.pages = parent;
-    makeObservable(this);
+    this.delete = new APIRepo({path: this.api, method: 'DELETE'})
   }
 
   get id() {
@@ -165,6 +170,15 @@ export class WikiPageModel extends Model<wikiPageData_i> {
     return `${this.pages.link}/${this.id}`;
   }
 
-  onSave = async () => {};
-  delete = async () => {};
+  onSave = async () => {
+    await this.pageForm.call()
+    // if(this.pageForm.submit.state == 'loaded'){
+    // }
+  };
+  onDelete = async () => {
+    await this.delete.call()
+    if(this.delete.state == 'loaded'){
+      this.pages.load()
+    }
+  };
 }

@@ -62,22 +62,33 @@ export const HomeWrapperBase = (props: {
 interface HomeWrapper_i {
   children: React.ReactChild | React.ReactChild[];
 }
-export const WorkspaceWrapper = (props: HomeWrapper_i) => {
+
+export const WorkspaceWrapperBase = (props: HomeWrapper_i) => {
   const { children } = props;
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {/* <CssBaseline /> */}
       <WorkspaceAppMenu />
       <main className={classes.content}>
-        {/* <div className={classes.appBarSpacer} /> */}
-        <Container maxWidth={false} className={classes.container}>
-          {children}
-        </Container>
+        {children}
       </main>
       <ConfirmDeleteDialog />
     </div>
+  );
+};
+
+
+export const WorkspaceWrapper = (props: HomeWrapper_i) => {
+  const { children } = props;
+  const classes = useStyles();
+
+  return (
+    <WorkspaceWrapperBase>
+      <Container maxWidth={false} className={classes.container}>
+        {children}
+      </Container>
+    </WorkspaceWrapperBase>
   );
 };
 

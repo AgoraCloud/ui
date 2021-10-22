@@ -18,8 +18,8 @@ export class RouterStore extends BaseRouterStore {
   get params(): any {
     const patterns = [
       /\/w\/(?<wid>[a-zA-Z0-9]{24})\/p\/(?<pid>[a-zA-Z0-9]{24})/,
-      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionid>[a-zA-Z0-9]{24})/,
-      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionid>[a-zA-Z0-9]{24})\/pages\/(?<pageid>[a-zA-Z0-9]{24})/,
+      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionId>[a-zA-Z0-9]{24})/,
+      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionId>[a-zA-Z0-9]{24})\/pages\/(?<pageId>[a-zA-Z0-9]{24})/,
       /\/w\/(?<wid>[a-zA-Z0-9]{24})/,
       /\/w\/(?<wid>[a-zA-Z0-9]{24})\/d\/(?<did>[a-zA-Z0-9]{24})/,
     ];

@@ -45,6 +45,9 @@ export default defineConfig({
         changeOrigin: true,
         cookieDomainRewrite: ""
       },
+    },
+    fs: {
+      allow: ['/home/marc/Desktop/projects/mars-man/models', '..']
     }
   },
   optimizeDeps: {

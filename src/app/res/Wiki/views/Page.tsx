@@ -1,15 +1,13 @@
 import * as React from 'react';
 import style from './style.module.scss';
-import { WORKSPACES_STORE } from 'app/constants';
 import { observer } from 'mobx-react';
-import { useStores, WorkspacesStore } from 'app/stores';
-import { Typography, IconButton, Grid } from '@material-ui/core';
+import { useStores } from 'app/stores';
+import { Typography, IconButton, Grid, InputBase } from '@material-ui/core';
 import Editor from '@monaco-editor/react';
 import * as monaco from 'monaco-editor';
 import * as Markdown from 'react-markdown';
 import SaveIcon from '@material-ui/icons/Save';
 import { WikiPageModel } from 'app/res/Wiki';
-import { Input } from 'app/components/inputs';
 
 export const WikiPageHeaderTitle = observer(
   (props: { page: WikiPageModel }) => {
@@ -19,9 +17,9 @@ export const WikiPageHeaderTitle = observer(
     const form = page.pageForm;
     if (workspacesstore.wikiEdit)
       return (
-        <Input
-          form={form}
-          id="title"
+        <InputBase
+          value={form.get("title")}
+          onChange={form.onChange("title")}
           style={{ fontSize: '3rem', letterSpacing: '0rem' }}
         />
       );
@@ -53,11 +51,11 @@ export const WikiPageEdit = observer((props: { page: WikiPageModel }) => {
       <div id={style.editorWrapper}>
         <Editor
           language={'markdown'}
-          value={form.get('text')}
+          value={form.get('body')}
           loading={<div />}
           onChange={(val, ev) => {
             if (!val) return;
-            form.onChange('text')(val);
+            form.onChange('body')(val);
           }}
           options={{
             wordWrap: 'on',
@@ -77,22 +75,21 @@ export const WikiPageRender = (props: { page: WikiPageModel }) => {
   return (
     <>
       <WikiPageHeader page={page} />
-      <Markdown source={form.get('text')} />
+      <Markdown source={form.get('body')} />
     </>
   );
 };
 
 export const WikiPage = observer((props) => {
-  // todo get current wiki page
-  const store = props[WORKSPACES_STORE] as WorkspacesStore;
-  const page = store.selectedWikiPage;
+  const {workspacesstore} = useStores()
+  const page = workspacesstore.selectedWikiPage;
 
   if (page == undefined) {
-    return <div>Wiki page not found</div>;
+    return <div id={style.wrapper}>Wiki page not found</div>;
   }
   return (
     <div id={style.wrapper}>
-      {store.wikiEdit ? (
+      {workspacesstore.wikiEdit ? (
         <WikiPageEdit page={page} />
       ) : (
         <WikiPageRender page={page} />

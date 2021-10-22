@@ -9,6 +9,7 @@ import {
   makeStyles,
   IconButton,
   Tooltip,
+  InputBase,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -44,17 +45,17 @@ const useStyles = makeStyles((theme) => ({
 export const PageButton = observer((props: { page: WikiPageModel }) => {
   const { page } = props;
   const classes = useStyles();
-  const { uistore } = useStores();
+  const { uistore, workspacesstore } = useStores();
 
   const menuItems = [
     {
       label: 'Delete',
       onClick: () => {
-        uistore.setDeleteTarget(page.data.title, page.delete);
+        uistore.setDeleteTarget(page.data.title, page.onDelete);
       },
     },
   ];
-
+  const selected = workspacesstore.selectedWikiPage?.id === page.id
   return (
     <li>
       <ContextMenu menuItems={menuItems}>
@@ -62,7 +63,7 @@ export const PageButton = observer((props: { page: WikiPageModel }) => {
           button
           component={Link}
           to={page.link}
-          className={page.selected ? classes.selected : classes.nested}
+          className={selected ? classes.selected : classes.nested}
         >
           <ListItemText primary={page.data.title} />
         </ListItem>
@@ -83,10 +84,10 @@ export const SectionButton = observer(
     return (
       <ListItem>
         <ListItemText>
-          <Input form={form} id="title" onKeyDown={handleKeyDown} />
+          <InputBase value={form.get("name")} onChange={form.onChange("name")} onKeyDown={handleKeyDown} />
         </ListItemText>
         <Tooltip title="Add Page To Section" aria-label="Add Page To Section">
-          <IconButton onClick={section.onAddPage}>
+          <IconButton onClick={section.wikiPages.onAddPage}>
             <AddIcon color="primary" />
           </IconButton>
         </Tooltip>
@@ -103,11 +104,14 @@ export const SectionButton = observer(
 export const WikiSectionList = observer(
   (props: { section: WikiSectionModel }) => {
     const { section } = props;
+    const {workspacesstore} = useStores()
+    const selected = workspacesstore.selectedWikiSection?.id === section.id
+
     const pages = section.wikiPages;
     const [open, setOpen] = React.useState(false);
     React.useEffect(() => {
-      setOpen(section.selected || open);
-    }, [section.selected]);
+      setOpen(selected || open);
+    }, [selected]);
     const onClick = () => {
       setOpen(!open);
     };
@@ -132,6 +136,7 @@ export const WikiList = observer((props) => {
   if (!workspace) return null;
   const wikiSections = workspace.wikiSections;
   const selectedWikiPage = workspacesstore.selectedWikiPage;
+  console.log("Sections", wikiSections.collection.models)
   return (
     <div className={style.sidebar}>
       <div className={style.topsidebar}>

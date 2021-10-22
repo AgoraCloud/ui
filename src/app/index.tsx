@@ -32,17 +32,20 @@ import { WikiRoutes } from 'app/res/Wiki';
 export const App = ({ history }: any) => {
   return (
     <Router history={history}>
+      {/* <Route path="" component={()=><h1> test</h1>}/> */}
       <Switch>
-        {/* <Route path="" component={()=><h1> test</h1>}/> */}
-
         {/* Signup / Login Paths */}
         <UnauthedRoute path="/login" component={Login} />
         <UnauthedRoute path="/signup" component={Signup} />
         <UnauthedRoute path="/forgotPassword" component={ForgotPassword} />
         <UnauthedRoute path="/verify-account" component={VerifyAccount} />
         <UnauthedRoute path="/change-password" component={ChangePassword} />
-        {/* workspace paths */}
-        <AuthGuard>
+      </Switch>
+
+      {/* workspace paths */}
+      <AuthGuard>
+        <Switch>
+
           <AuthedRoute path="/w/new" component={NewWorkspace} />
           <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
           <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
@@ -79,8 +82,8 @@ export const App = ({ history }: any) => {
           <AuthedRoute path="/admin" component={AdminRoutes} />
           <WorkspacesLoaded path="/edit-profile" component={UserProfile} />
           <WorkspacesLoaded path="/" component={WorkspaceRedirect} />
-        </AuthGuard>
-      </Switch>
+        </Switch>
+      </AuthGuard>
     </Router>
   );
 };

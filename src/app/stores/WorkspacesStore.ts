@@ -99,7 +99,7 @@ export class WorkspacesStore {
   get selectedWikiPage() {
     // const params = useParams<{wid: string, did: string}>()
     const { pageId } = this.rootStore.routerStore.params;
-
+    console.log("PAGE ID", pageId)
     if (this.selectedWikiSection) {
       return this.selectedWikiSection.wikiPages.getBy(
         'id',
@@ -131,14 +131,14 @@ export class WorkspacesStore {
   //   const pathname = this.rootStore.routerStore.location.pathname;
   //   try {
   //     const matches = pathname.match(
-  //       /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionid>[a-zA-Z0-9]{24})\/pages\/(?<pageid>[a-zA-Z0-9]{24})/,
+  //       /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionId>[a-zA-Z0-9]{24})\/pages\/(?<pageId>[a-zA-Z0-9]{24})/,
   //     );
-  //     const { wid, sectionid, pageid } = matches?.groups as any;
+  //     const { wid, sectionId, pageId } = matches?.groups as any;
 
   //     const workspace = this.workspaces.getById(wid);
-  //     const section = workspace?.wikiSections.getById(sectionid);
+  //     const section = workspace?.wikiSections.getById(sectionId);
   //     if (section?.wikiPages?.state != 'loaded') return undefined;
-  //     const page = section?.wikiPages.getById(pageid);
+  //     const page = section?.wikiPages.getById(pageId);
   //     if (page) workspace?.wikiSections.selectPage(page);
   //     return page;
   //   } catch (e) {
