@@ -102,6 +102,27 @@ export class WorkspaceModel extends Model<workspaceData_i> {
     super(config);
     this.workspaces = this.parent as WorkspacesModel;
 
+
+    this.repos = {
+      update: new APIRepo({ path: this.api, method: 'PUT' }),
+      createDeployment: new APIRepo({
+        path: `${this.api}/deployments`,
+        method: 'POST',
+      }),
+    };
+
+
+    // Forms
+    this.updateWorkspace = new UpdateWorkspaceFormModel(this);
+    this.createDeployment = new CreateDeploymentFormModel(this);
+    this.createProject = new CreateProjectFormModel(this);
+
+    this.forms = {
+      createDeployment: this.createDeployment,
+      createProject: this.createProject,
+      update: this.updateWorkspace,
+    };
+    
     // CHILDREN
 
     this.deployments = new DeploymentsModel(this);
@@ -111,11 +132,6 @@ export class WorkspaceModel extends Model<workspaceData_i> {
     this.metrics = new WorkspaceMetricsModel(this);
     this.workspaceAdmin = new WorkspaceAdminModel(this);
 
-    // Forms
-    this.updateWorkspace = new UpdateWorkspaceFormModel(this);
-    this.createDeployment = new CreateDeploymentFormModel(this);
-    this.createProject = new CreateProjectFormModel(this);
-
     this.dependents = [
       this.deployments,
       this.deploymentImages,
@@ -123,18 +139,6 @@ export class WorkspaceModel extends Model<workspaceData_i> {
       this.metrics,
       this.wikiSections,
     ];
-    this.repos = {
-      update: new APIRepo({ path: this.api, method: 'PUT' }),
-      createDeployment: new APIRepo({
-        path: `${this.api}/deployments`,
-        method: 'POST',
-      }),
-    };
-    this.forms = {
-      createDeployment: this.createDeployment,
-      createProject: this.createProject,
-      update: this.updateWorkspace,
-    };
   }
 
   get id() {

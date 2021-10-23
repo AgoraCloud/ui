@@ -113,8 +113,11 @@ export const CancelCreateButtons = observer(
 
     const { form, labels } = props;
     const defaultCancel = routerstore.goBack;
-    const defaultSubmit = () => {
-      form.call();
+    const defaultSubmit = async () => {
+      await form.call();
+      if(form.submit.state == 'loaded'){
+        routerstore.goBack()
+      }
     };
 
     const cancel = props.cancel || defaultCancel;

@@ -45,12 +45,13 @@ export class UpdateWorkspaceFormModel extends FormModel {
   }
 }
 
-interface create_workspace_i {
-  name: string;
-  cpuCount?: number;
-  memoryCount?: number;
-  storageCount?: number;
-}
+// interface create_workspace_i {
+//   name: string;
+//   cpuCount?: number;
+//   memoryCount?: number;
+//   storageCount?: number;
+// }
+type create_workspace_i = any
 export class CreateWorkspaceFormModel extends FormModel<create_workspace_i> {
   constructor() {
     super({

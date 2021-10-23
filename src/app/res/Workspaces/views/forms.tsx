@@ -46,19 +46,6 @@ export const CreateDeploymentForm = observer(
         <ResourcesInput form={form} />
         <CancelCreateButtons
           form={form}
-          cancel={() => {
-            routerstore.goBack();
-            console.log(form.payload);
-            // routerstore.replace(form.workspace.link);
-          }}
-          submit={async () => {
-            form.submit.call();
-            console.log(form.payload);
-            // if (await form.submit()) {
-            //     routerstore.replace(form.workspace.link);
-            //     events.emit(eventTypes.DEPLOYMENT_CRUD, 'created');
-            // } else events.emit(eventTypes.DEPLOYMENT_ERR, 'error creating');
-          }}
         />
       </Form>
     );
