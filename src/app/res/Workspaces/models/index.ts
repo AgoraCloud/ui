@@ -102,7 +102,6 @@ export class WorkspaceModel extends Model<workspaceData_i> {
     super(config);
     this.workspaces = this.parent as WorkspacesModel;
 
-
     this.repos = {
       update: new APIRepo({ path: this.api, method: 'PUT' }),
       createDeployment: new APIRepo({
@@ -110,7 +109,6 @@ export class WorkspaceModel extends Model<workspaceData_i> {
         method: 'POST',
       }),
     };
-
 
     // Forms
     this.updateWorkspace = new UpdateWorkspaceFormModel(this);
@@ -122,7 +120,7 @@ export class WorkspaceModel extends Model<workspaceData_i> {
       createProject: this.createProject,
       update: this.updateWorkspace,
     };
-    
+
     // CHILDREN
 
     this.deployments = new DeploymentsModel(this);

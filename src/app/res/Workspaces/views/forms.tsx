@@ -44,9 +44,7 @@ export const CreateDeploymentForm = observer(
           Specify the maximum amount of resources the deployment can use.
         </Typography>
         <ResourcesInput form={form} />
-        <CancelCreateButtons
-          form={form}
-        />
+        <CancelCreateButtons form={form} />
       </Form>
     );
   },

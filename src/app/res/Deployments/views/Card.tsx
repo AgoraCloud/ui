@@ -46,26 +46,35 @@ export const DeploymentLaunch = (props: { deployment: DeploymentModel }) => {
   );
 };
 
-
-export const ResourceChip = ({icon, label, value}: {
-  icon: React.ReactElement
-  label: string
-  value?: number
+export const ResourceChip = ({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactElement;
+  label: string;
+  value?: number;
 }) => {
-  if(value === undefined) return null
-  return <Grid item xs={4}>
-    <Chip icon={icon} label={label + value} />
-  </Grid>
-}
+  if (value === undefined) return null;
+  return (
+    <Grid item xs={4}>
+      <Chip icon={icon} label={label + value} />
+    </Grid>
+  );
+};
 
 export const DeploymentResources = (props: { deployment: DeploymentModel }) => {
   const { deployment } = props;
   const { cpuCount, memoryCount, storageCount } = deployment;
   return (
     <Grid container style={{ paddingTop: '20px' }}>
-      <ResourceChip icon={<MemoryIcon />} label={'CPU: '} value={cpuCount}/>
-      <ResourceChip icon={<MoneyIcon />} label={'RAM: '} value={memoryCount}/>
-      <ResourceChip icon={<StorageIcon />} label={'Storage: '} value={storageCount}/>
+      <ResourceChip icon={<MemoryIcon />} label={'CPU: '} value={cpuCount} />
+      <ResourceChip icon={<MoneyIcon />} label={'RAM: '} value={memoryCount} />
+      <ResourceChip
+        icon={<StorageIcon />}
+        label={'Storage: '}
+        value={storageCount}
+      />
     </Grid>
   );
 };
