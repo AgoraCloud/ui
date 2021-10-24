@@ -124,19 +124,39 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
 
     // this.deleteUserForm = new AdminDeleteUserFormModel(this);
     // this.permissions = new UserPermissionsModel(this);
-    this.disable =  new APIRepo<adminUserModel_i>({ path: this.api,  method: "PUT", body: { isEnabled: false } });
-    this.enable =   new APIRepo<adminUserModel_i>({ path: this.api,   method: "PUT", body: { isEnabled: true } });
-    this.verify =   new APIRepo<adminUserModel_i>({ path: this.api,   method: "PUT", body: { isVerified: true } });
-    this.unverify = new APIRepo<adminUserModel_i>({ path: this.api, method: "PUT", body: { isVerified: false } });
-    this.resetPassword = new APIRepo<adminUserModel_i>({ path: '/api/auth/forgot-password', method: "PUT", body: { email: this.email } });
-    
+    this.disable = new APIRepo<adminUserModel_i>({
+      path: this.api,
+      method: 'PUT',
+      body: { isEnabled: false },
+    });
+    this.enable = new APIRepo<adminUserModel_i>({
+      path: this.api,
+      method: 'PUT',
+      body: { isEnabled: true },
+    });
+    this.verify = new APIRepo<adminUserModel_i>({
+      path: this.api,
+      method: 'PUT',
+      body: { isVerified: true },
+    });
+    this.unverify = new APIRepo<adminUserModel_i>({
+      path: this.api,
+      method: 'PUT',
+      body: { isVerified: false },
+    });
+    this.resetPassword = new APIRepo<adminUserModel_i>({
+      path: '/api/auth/forgot-password',
+      method: 'PUT',
+      body: { email: this.email },
+    });
+
     update(this, [
       this.disable,
       this.enable,
       this.verify,
       this.unverify,
-      this.updateUserForm.submit
-    ])
+      this.updateUserForm.submit,
+    ]);
 
     this.dependents = [this.permissions];
     // this.repos = {
@@ -188,7 +208,7 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
     /**
      * calls forgot-password with the user email, giving them an email to reset their password
      */
-    await this.resetPassword.call()
+    await this.resetPassword.call();
   };
 }
 

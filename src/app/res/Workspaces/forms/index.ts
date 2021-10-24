@@ -2,7 +2,6 @@ import { APIRepo, FormModel } from '@mars-man/models';
 import { CreateWorkspaceDto } from '@agoracloud/common';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
 
-
 export class CreateProjectFormModel extends FormModel {
   constructor(public workspace: WorkspaceModel) {
     super({});

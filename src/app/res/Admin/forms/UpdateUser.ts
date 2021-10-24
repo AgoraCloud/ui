@@ -21,14 +21,14 @@ export class AdminUpdateUserFormModel extends FormModel<adminUpdateUser_i> {
   }
 
   get payload() {
-    if (this.data.password !== "") {
+    if (this.data.password !== '') {
       return {
         fullName: this.data.fullName,
-        password: this.data.password
-      }
+        password: this.data.password,
+      };
     }
     return {
-      fullName: this.data.fullName
-    }
+      fullName: this.data.fullName,
+    };
   }
 }

@@ -30,7 +30,7 @@ export class WorkspacesModel extends CollectionModel {
 
     this.createWorkspaceForm = new CreateWorkspaceFormModel();
 
-    add(this, this.createWorkspaceForm.submit)
+    add(this, this.createWorkspaceForm.submit);
     this.repos = {
       main: new APIRepo({ path: this.api }),
       create: new APIRepo({ path: this.api, method: 'POST' }),
@@ -108,9 +108,8 @@ export class WorkspaceModel extends Model<workspaceData_i> {
       }),
     };
 
-
     // Repos
-    this.delete = new APIRepo({path: this.api, method: 'DELETE'})
+    this.delete = new APIRepo({ path: this.api, method: 'DELETE' });
 
     // Forms
     this.updateWorkspace = new UpdateWorkspaceFormModel(this);
@@ -139,10 +138,8 @@ export class WorkspaceModel extends Model<workspaceData_i> {
       this.wikiSections,
     ];
 
-
-
-    update(this, this.updateWorkspace.submit)
-    remove(this, this.delete)
+    update(this, this.updateWorkspace.submit);
+    remove(this, this.delete);
   }
 
   get id() {
@@ -184,9 +181,8 @@ export class WorkspaceModel extends Model<workspaceData_i> {
     return `/api/workspaces/${this.id}`;
   }
 
-
   onDelete = async () => {
-    await this.delete.call()
-    if(this.delete.state==='loaded') rootStore.routerStore.goBack()
-  }
+    await this.delete.call();
+    if (this.delete.state === 'loaded') rootStore.routerStore.goBack();
+  };
 }

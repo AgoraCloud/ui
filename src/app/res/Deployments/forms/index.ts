@@ -2,7 +2,6 @@ import { APIRepo, FormModel } from '@mars-man/models';
 import { CreateDeploymentDto, UpdateDeploymentDto } from '@agoracloud/common';
 import { DeploymentModel, DeploymentsModel } from 'app/res/Deployments';
 
-
 export class CreateDeploymentFormModel extends FormModel {
   constructor(public deployments: DeploymentsModel) {
     super({
@@ -33,7 +32,6 @@ export class CreateDeploymentFormModel extends FormModel {
     });
   }
 }
-
 
 export class EditDeploymentFormModel extends FormModel {
   constructor(public deployment: DeploymentModel) {

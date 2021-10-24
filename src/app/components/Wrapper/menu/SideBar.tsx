@@ -111,7 +111,7 @@ export const WorkspaceSideBar = observer((props) => {
   const { uistore, workspacesstore } = useStores();
 
   const selectedWorkspace = workspacesstore.selectedWorkspace;
-  if(!selectedWorkspace) return null
+  if (!selectedWorkspace) return null;
   const workspaceUrl = selectedWorkspace?.link;
   const open = uistore.sideBarOpen;
 

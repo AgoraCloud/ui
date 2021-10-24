@@ -29,12 +29,10 @@ export class AuthStore {
     this.forgotPasswordForm = new ForgotPasswordFormModel();
     this.changePasswordForm = new ChangePasswordFormModel();
 
-
-
     this.logoutRepo = new APIRepo({
       path: '/api/auth/logout',
-      method: 'POST'
-    })
+      method: 'POST',
+    });
     this.user = new UserModel();
     this.loadUser();
     makeObservable(this);
@@ -52,9 +50,9 @@ export class AuthStore {
   };
 
   logout = async () => {
-    await this.logoutRepo.call()
-    if(this.logoutRepo.state == 'loaded'){
-      this.rootStore.routerStore.push('/')
+    await this.logoutRepo.call();
+    if (this.logoutRepo.state == 'loaded') {
+      this.rootStore.routerStore.push('/');
     }
   };
 

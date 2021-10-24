@@ -28,9 +28,6 @@ export const EditDeployment = (props) => {
   );
 };
 
-
-
-
 export const EditDeploymentForm = observer(
   (props: { form?: EditDeploymentFormModel }) => {
     const { routerstore } = useStores();

@@ -1,8 +1,4 @@
-import {
-  APIRepo,
-  CollectionModel,
-  Model,
-} from '@mars-man/models';
+import { APIRepo, CollectionModel, Model } from '@mars-man/models';
 import { add, remove } from 'app/constants/helpers';
 import { DeploymentLogsModel } from 'app/res/Deployments/models/logs';
 import { DeploymentMetricsModel } from 'app/res/Deployments/models/metrics';
@@ -47,7 +43,7 @@ export class DeploymentsModel extends CollectionModel<deploymentData_i[]> {
       main: new APIRepo({ path: this.api }),
     };
 
-    add(this, this.createDeployment.submit)
+    add(this, this.createDeployment.submit);
   }
   postLoad = async () => {
     console.log('deployments loaded');
@@ -87,7 +83,7 @@ export class DeploymentModel extends Model<deploymentData_i> {
       delete: this.delete,
     };
 
-    remove(this, this.delete)
+    remove(this, this.delete);
   }
 
   get name() {

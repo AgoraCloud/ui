@@ -4,7 +4,6 @@
 import * as React from 'react';
 import { Route, Router, Switch } from 'react-router';
 
-
 import {
   AuthedRoute,
   AuthGuard,
@@ -12,16 +11,14 @@ import {
   WorkspacesLoaded,
 } from 'app/components/RouteGuards';
 
-
-
 /**
  * DEPLOYMENT IMPORTS
  */
-import { 
-  DeploymentInfoPage, 
-  DeploymentProxy, 
-  CreateDeployment, 
-  EditDeployment 
+import {
+  DeploymentInfoPage,
+  DeploymentProxy,
+  CreateDeployment,
+  EditDeployment,
 } from 'app/res/Deployments';
 
 /**
@@ -32,9 +29,8 @@ import {
   UpdateWorkspace,
   WorkspaceMetricsPage,
   NewWorkspace,
-  WorkspaceRedirect
+  WorkspaceRedirect,
 } from 'app/res/Workspaces';
-
 
 /**
  * WORKSPACE ADMIN IMPORTS
@@ -42,12 +38,10 @@ import {
 
 import { WorkspaceAdminRoutes } from 'app/res/Workspaces/Admin/routes';
 
-
 /**
  * SUPER ADMIN IMPORTS
  */
 import { AdminRoutes } from 'app/res/Admin';
-
 
 /**
  * AUTH IMPORTS
@@ -59,7 +53,7 @@ import {
   UserProfile,
   VerifyAccount,
   Logout,
-  Login
+  Login,
 } from 'app/res/Auth';
 
 /**
@@ -84,7 +78,6 @@ export const App = ({ history }: any) => {
       <AuthGuard>
         <Switch>
           <AuthedRoute path="/logout" component={Logout} />
-
 
           <AuthedRoute path="/w/new" component={NewWorkspace} />
           <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />

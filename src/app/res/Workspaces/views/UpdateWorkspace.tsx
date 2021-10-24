@@ -15,18 +15,13 @@ export const UpdateWorkspace = observer((props) => {
   const { workspacesstore, uistore } = useStores();
 
   const workspace = workspacesstore.selectedWorkspace;
-  if(!workspace) return null
+  if (!workspace) return null;
   const form = workspace.updateWorkspace;
   return (
     <WorkspaceWrapper>
       <Typography variant="h4">Update Workspace</Typography>
       <Label>Workspace Name</Label>
-      <Input
-        form={form}
-        id="name"
-        label="Workspace Name"
-        autoComplete="off"
-      />
+      <Input form={form} id="name" label="Workspace Name" autoComplete="off" />
       <Label>Resources</Label>
       <Typography variant="body1">
         Specify the maximum amount of resources the deployment can use:
@@ -47,7 +42,7 @@ export const UpdateWorkspace = observer((props) => {
       <div style={{ float: 'left' }}>
         <Button
           onClick={async () => {
-            uistore.setDeleteTarget(workspace.name, workspace.onDelete)
+            uistore.setDeleteTarget(workspace.name, workspace.onDelete);
           }}
           color="secondary"
         >
@@ -55,7 +50,7 @@ export const UpdateWorkspace = observer((props) => {
         </Button>
       </div>
       <div style={{ float: 'right' }}>
-        <CancelCreateButtons form={form} labels={["Cancel", "Edit"]}/>
+        <CancelCreateButtons form={form} labels={['Cancel', 'Edit']} />
       </div>
     </WorkspaceWrapper>
   );

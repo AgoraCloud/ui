@@ -28,7 +28,7 @@ export const CreateUserDialog = observer((props) => {
             createUserDialog.onClose();
           }}
           submit={async () => {
-            await form.call()
+            await form.call();
             createUserDialog.onClose();
           }}
           labels={['Cancel', 'Create']}

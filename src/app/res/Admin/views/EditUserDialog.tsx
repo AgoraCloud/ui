@@ -28,7 +28,7 @@ export const EditUserDialog = observer((props) => {
             editUserDialog.onClose();
           }}
           submit={async () => {
-            await form.call()
+            await form.call();
             editUserDialog.onClose();
           }}
           labels={['Cancel', 'Edit']}
