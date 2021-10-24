@@ -71,7 +71,7 @@ export const UsersTable = observer(
 export const WorkspaceAdminUsersPage = observer((props) => {
   const { workspacesstore } = useStores();
   const workspace = workspacesstore.selectedWorkspace;
-  if(!workspace) return null
+  if (!workspace) return null;
   const workspaceAdmin = workspace.workspaceAdmin;
   return (
     <div>

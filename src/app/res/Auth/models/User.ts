@@ -87,7 +87,7 @@ export class AdminUsersModel extends CollectionModel {
       main: new APIRepo({ path: this.api }),
     };
 
-    add(this, this.createUserForm.submit)
+    add(this, this.createUserForm.submit);
   }
 
   get api() {
@@ -156,8 +156,8 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
 
     this.delete = new APIRepo({
       path: this.api,
-      method: 'DELETE'
-    })
+      method: 'DELETE',
+    });
 
     update(this, [
       this.disable,
@@ -167,7 +167,7 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
       this.updateUserForm.submit,
     ]);
 
-    remove(this, this.delete)
+    remove(this, this.delete);
 
     this.dependents = [this.permissions];
     // this.repos = {
@@ -213,7 +213,7 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
     //     this.fullName,
     //     this.deleteUserForm.delete,
     // );
-    await this.delete.call()
+    await this.delete.call();
   };
 
   onResetPassword = async () => {

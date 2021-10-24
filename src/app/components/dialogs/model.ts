@@ -1,7 +1,4 @@
-import {
-  makeObservable,
-  observable,
-} from 'mobx';
+import { makeObservable, observable } from 'mobx';
 import { FormModel } from '@mars-man/models';
 import { ConfirmDeleteValidator } from 'app/constants/validators';
 import {
