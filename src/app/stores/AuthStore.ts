@@ -9,6 +9,7 @@ import {
   UpdateUserFormModel,
 } from 'app/res/Auth/forms';
 import { UserModel } from 'app/res/Auth';
+import { APIRepo } from '@mars-man/models';
 
 export class AuthStore {
   @observable state: 'loading' | 'loggedin' | 'unauthed';
@@ -19,6 +20,7 @@ export class AuthStore {
   forgotPasswordForm: ForgotPasswordFormModel;
   changePasswordForm: ChangePasswordFormModel;
   user: UserModel;
+  logoutRepo: APIRepo<any>;
   constructor(private rootStore: RootStore) {
     this.state = 'unauthed';
     this.signupForm = new SignupFormModel();
@@ -26,6 +28,13 @@ export class AuthStore {
     this.verifyForm = new VerifyAccountFormModel();
     this.forgotPasswordForm = new ForgotPasswordFormModel();
     this.changePasswordForm = new ChangePasswordFormModel();
+
+
+
+    this.logoutRepo = new APIRepo({
+      path: '/api/auth/logout',
+      method: 'POST'
+    })
     this.user = new UserModel();
     this.loadUser();
     makeObservable(this);
@@ -43,19 +52,9 @@ export class AuthStore {
   };
 
   logout = async () => {
-    try {
-      const response = await fetch('/api/auth/logout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.status === 200) {
-        this.loadUser();
-      }
-    } catch (e) {
-      console.warn('ERROR', e);
+    await this.logoutRepo.call()
+    if(this.logoutRepo.state == 'loaded'){
+      this.rootStore.routerStore.push('/')
     }
   };
 

@@ -7,15 +7,16 @@ import {
   CPUMemoryInput,
   StorageInput,
   Label,
+  CancelCreateButtons,
 } from 'app/components/inputs';
 import { WorkspaceWrapper } from 'app/components/Wrapper';
 
 export const UpdateWorkspace = observer((props) => {
-  const { workspacesstore, routerstore } = useStores();
+  const { workspacesstore, uistore } = useStores();
 
   const workspace = workspacesstore.selectedWorkspace;
+  if(!workspace) return null
   const form = workspace.updateWorkspace;
-  const { name } = workspace.data;
   return (
     <WorkspaceWrapper>
       <Typography variant="h4">Update Workspace</Typography>
@@ -24,7 +25,6 @@ export const UpdateWorkspace = observer((props) => {
         form={form}
         id="name"
         label="Workspace Name"
-        defaultValue={name}
         autoComplete="off"
       />
       <Label>Resources</Label>
@@ -47,9 +47,7 @@ export const UpdateWorkspace = observer((props) => {
       <div style={{ float: 'left' }}>
         <Button
           onClick={async () => {
-            // if (await workspacesstore.deleteWorkspace()) {
-            //     routerstore.replace('/');
-            // }
+            uistore.setDeleteTarget(workspace.name, workspace.onDelete)
           }}
           color="secondary"
         >
@@ -57,25 +55,7 @@ export const UpdateWorkspace = observer((props) => {
         </Button>
       </div>
       <div style={{ float: 'right' }}>
-        <Button
-          onClick={() => {
-            routerstore.replace(workspacesstore.selectedWorkspace.link);
-          }}
-          color="primary"
-        >
-          Cancel
-        </Button>
-        <Button
-          onClick={async () => {
-            // if (await workspacesstore.updateWorkspace()) {
-            //     routerstore.replace(workspacesstore.selectedWorkspace.link);
-            // }
-          }}
-          disabled={!form.isValid}
-          color="primary"
-        >
-          Save
-        </Button>
+        <CancelCreateButtons form={form} labels={["Cancel", "Edit"]}/>
       </div>
     </WorkspaceWrapper>
   );

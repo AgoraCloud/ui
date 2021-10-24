@@ -7,9 +7,7 @@ import MemoryIcon from '@material-ui/icons/Memory';
 import MoneyIcon from '@material-ui/icons/Money';
 import StorageIcon from '@material-ui/icons/Storage';
 import { LinkButton, MoreMenu } from 'app/components/inputs';
-import { inject, observer } from 'mobx-react';
-import { ROUTER_STORE, UI_STORE } from 'app/constants';
-import { RouterStore, UIStore } from 'app/stores';
+import { observer } from 'mobx-react';
 import { useStores } from 'app/stores';
 
 const chips = {

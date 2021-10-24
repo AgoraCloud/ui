@@ -3,8 +3,9 @@ import { WorkspaceModel } from 'app/res/Workspaces/models';
 import { DeploymentModel, DeploymentsModel } from 'app/res/Deployments/models';
 import { Grid } from '@material-ui/core';
 import { DeploymentCard } from 'app/res/Deployments/views/Card';
+import { observer } from 'mobx-react';
 
-export const DeploymentsList = ({
+export const DeploymentsList = observer(({
   workspace,
 }: {
   workspace: WorkspaceModel;
@@ -28,7 +29,7 @@ export const DeploymentsList = ({
       </Grid>
     </>
   );
-};
+})
 
 // export const DeploymentCard = ({ deployment }: { deployment: DeploymentModel }) => {
 //   return

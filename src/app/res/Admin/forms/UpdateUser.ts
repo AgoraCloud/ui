@@ -19,4 +19,16 @@ export class AdminUpdateUserFormModel extends FormModel<adminUpdateUser_i> {
       }),
     });
   }
+
+  get payload() {
+    if (this.data.password !== "") {
+      return {
+        fullName: this.data.fullName,
+        password: this.data.password
+      }
+    }
+    return {
+      fullName: this.data.fullName
+    }
+  }
 }

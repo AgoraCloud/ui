@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { WORKSPACES_STORE } from 'app/constants';
 import { AuthedRoute } from './AuthGuards';
 import { useStores } from 'app/stores';
+import { Redirect } from 'react-router';
 
 export const WorkspacesLoaded = observer((props) => {
   const { workspacesstore } = useStores();
@@ -14,8 +15,8 @@ export const WorkspacesLoaded = observer((props) => {
   if (workspaces.state == 'loaded') {
     const wid = workspacesstore.selectedWorkspace?.id;
     if (!wid) {
-      // return <Redirect to={`/w/new`} />;
-      return null;
+      return <Redirect to={`/w/new`} />;
+      // return null;
     } else {
       return <AuthedRoute {...props} />;
     }

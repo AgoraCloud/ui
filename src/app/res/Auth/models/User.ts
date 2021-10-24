@@ -18,6 +18,7 @@ import { CollectionModel } from '@mars-man/models';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
 import { WorkspaceAdminModel } from 'app/res/Workspaces/Admin';
 import { InviteWorkspaceUserFormModel } from 'app/res/Workspaces/Admin';
+import { reload, update } from 'app/constants/helpers';
 
 export interface user_i {
   email: string;
@@ -114,6 +115,7 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
   enable: APIRepo;
   verify: APIRepo;
   unverify: APIRepo;
+  resetPassword: APIRepo<adminUserModel_i, unknown>;
   constructor({ parent, data }) {
     super({ parent, data });
     this.users = parent;
@@ -122,15 +124,26 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
 
     // this.deleteUserForm = new AdminDeleteUserFormModel(this);
     // this.permissions = new UserPermissionsModel(this);
-    this.disable = new APIRepo({ path: this.api, data: { isEnabled: false } });
-    this.enable = new APIRepo({ path: this.api, data: { isEnabled: true } });
-    this.verify = new APIRepo({ path: this.api, data: { isVerified: true } });
-    this.unverify = new APIRepo({
-      path: this.api,
-      data: { isVerified: false },
-    });
+    this.disable =  new APIRepo<adminUserModel_i>({ path: this.api,  method: "PUT", body: { isEnabled: false } });
+    this.enable =   new APIRepo<adminUserModel_i>({ path: this.api,   method: "PUT", body: { isEnabled: true } });
+    this.verify =   new APIRepo<adminUserModel_i>({ path: this.api,   method: "PUT", body: { isVerified: true } });
+    this.unverify = new APIRepo<adminUserModel_i>({ path: this.api, method: "PUT", body: { isVerified: false } });
+    this.resetPassword = new APIRepo<adminUserModel_i>({ path: '/api/auth/forgot-password', method: "PUT", body: { email: this.email } });
+    
+    update(this, [
+      this.disable,
+      this.enable,
+      this.verify,
+      this.unverify,
+      this.updateUserForm.submit
+    ])
 
     this.dependents = [this.permissions];
+    // this.repos = {
+    //   main: new APIRepo({
+    //     path: this.api
+    //   })
+    // }
   }
 
   get email() {
@@ -161,7 +174,7 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
 
   onFlipVerify = async () => {
     if (this.isVerified) this.unverify.call();
-    else this.updateUserForm.call();
+    else this.verify.call();
   };
 
   onDelete = () => {
@@ -175,13 +188,7 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
     /**
      * calls forgot-password with the user email, giving them an email to reset their password
      */
-    await fetch('/api/auth/forgot-password', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: this.email }),
-    });
+    await this.resetPassword.call()
   };
 }
 

@@ -107,13 +107,12 @@ const SideBarItems = ({ links }: { links: sidebarItem_i[] }) => {
   );
 };
 export const WorkspaceSideBar = observer((props) => {
-  const { uistore, workspacesstore } = useStores();
-  // const routerstore = props[ROUTER_STORE] as routerstore;
-  // const workspacesstore = props[WORKSPACES_STORE] as WorkspacesStore;
   const classes = useStyles();
-  const workspaces = workspacesstore.workspaces;
+  const { uistore, workspacesstore } = useStores();
+
   const selectedWorkspace = workspacesstore.selectedWorkspace;
-  const workspaceUrl = workspaces.workspaceUrl;
+  if(!selectedWorkspace) return null
+  const workspaceUrl = selectedWorkspace?.link;
   const open = uistore.sideBarOpen;
 
   const sidebarItems = [

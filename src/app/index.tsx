@@ -1,32 +1,70 @@
+/**
+ * THIRD PARTY IMPORTS
+ */
 import * as React from 'react';
 import { Route, Router, Switch } from 'react-router';
-import { WorkspaceRedirect } from 'app/res/Workspaces/views';
-import { EditDeployment } from 'app/res/Deployments/views';
+
+
 import {
   AuthedRoute,
   AuthGuard,
   UnauthedRoute,
   WorkspacesLoaded,
 } from 'app/components/RouteGuards';
-import { DeploymentInfoPage } from 'app/res/Deployments/views';
+
+
+
+/**
+ * DEPLOYMENT IMPORTS
+ */
+import { 
+  DeploymentInfoPage, 
+  DeploymentProxy, 
+  CreateDeployment, 
+  EditDeployment 
+} from 'app/res/Deployments';
+
+/**
+ * WORKSPACE IMPORTS
+ */
 import {
-  CreateDeployment,
   WorkspaceHome,
   UpdateWorkspace,
   WorkspaceMetricsPage,
   NewWorkspace,
+  WorkspaceRedirect
 } from 'app/res/Workspaces';
-import { DeploymentProxy } from 'app/res/Deployments/views/Proxy';
+
+
+/**
+ * WORKSPACE ADMIN IMPORTS
+ */
+
 import { WorkspaceAdminRoutes } from 'app/res/Workspaces/Admin/routes';
+
+
+/**
+ * SUPER ADMIN IMPORTS
+ */
 import { AdminRoutes } from 'app/res/Admin';
+
+
+/**
+ * AUTH IMPORTS
+ */
 import {
   ChangePassword,
   ForgotPassword,
   Signup,
   UserProfile,
   VerifyAccount,
+  Logout,
+  Login
 } from 'app/res/Auth';
-import { Login } from 'app/res/Auth';
+
+/**
+ * WIKI IMPORTS
+ */
 import { WikiRoutes } from 'app/res/Wiki';
 
 export const App = ({ history }: any) => {
@@ -45,6 +83,9 @@ export const App = ({ history }: any) => {
       {/* workspace paths */}
       <AuthGuard>
         <Switch>
+          <AuthedRoute path="/logout" component={Logout} />
+
+
           <AuthedRoute path="/w/new" component={NewWorkspace} />
           <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
           <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />

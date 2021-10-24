@@ -2,12 +2,12 @@ import {
   APIRepo,
   CollectionModel,
   Model,
-  PeriodicRepo,
 } from '@mars-man/models';
+import { add, remove } from 'app/constants/helpers';
 import { DeploymentLogsModel } from 'app/res/Deployments/models/logs';
 import { DeploymentMetricsModel } from 'app/res/Deployments/models/metrics';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
-import { EditDeploymentFormModel } from '../forms';
+import { CreateDeploymentFormModel, EditDeploymentFormModel } from '../forms';
 
 interface deploymentData_i {
   name: string;
@@ -30,6 +30,8 @@ interface deploymentData_i {
 }
 
 export class DeploymentsModel extends CollectionModel<deploymentData_i[]> {
+  // create: APIRepo;
+  createDeployment: CreateDeploymentFormModel;
   /**
    * Collection of workspace objects
    */
@@ -38,10 +40,14 @@ export class DeploymentsModel extends CollectionModel<deploymentData_i[]> {
     super({
       collections: DeploymentModel,
     });
+
+    this.createDeployment = new CreateDeploymentFormModel(this);
     this.repos = {
-      main: PeriodicRepo(new APIRepo({ path: this.api })),
-      create: new APIRepo({ path: this.api, method: 'POST' }),
+      // main: PeriodicRepo(new APIRepo({ path: this.api })),
+      main: new APIRepo({ path: this.api }),
     };
+
+    add(this, this.createDeployment.submit)
   }
   postLoad = async () => {
     console.log('deployments loaded');
@@ -65,7 +71,7 @@ export class DeploymentModel extends Model<deploymentData_i> {
 
   delete: APIRepo;
   constructor({ data, parent, parentCollection }) {
-    super({ data });
+    super({ data, parentCollection });
     this.deployments = parent;
     this.workspace = this.deployments.workspace;
     // console.log(this.deployments, data, parentCollection)
@@ -80,6 +86,8 @@ export class DeploymentModel extends Model<deploymentData_i> {
     this.repos = {
       delete: this.delete,
     };
+
+    remove(this, this.delete)
   }
 
   get name() {

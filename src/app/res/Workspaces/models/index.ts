@@ -1,6 +1,5 @@
 import { APIRepo, CollectionModel, Model } from '@mars-man/models';
 import {
-  CreateDeploymentFormModel,
   CreateProjectFormModel,
   CreateWorkspaceFormModel,
   UpdateWorkspaceFormModel,
@@ -11,6 +10,9 @@ import { ProjectsModel } from 'app/res/Projects/models';
 import { WikiSectionsModel } from 'app/res/Wiki/models';
 import { DeploymentImagesModel } from './DeploymentImages';
 import { WorkspaceMetricsModel } from './Metrics';
+import { add, reload, remove, update } from 'app/constants/helpers';
+import { rootStore } from 'app/stores';
+import { CreateDeploymentFormModel } from 'app/res/Deployments';
 
 export * from './DeploymentImages';
 export * from './Metrics';
@@ -19,10 +21,7 @@ export class WorkspacesModel extends CollectionModel {
   /**
    * Collection of workspace objects
    */
-  repos = {
-    main: new APIRepo({ path: this.api }),
-    create: new APIRepo({ path: this.api, method: 'POST' }),
-  };
+
   createWorkspaceForm: CreateWorkspaceFormModel;
   constructor() {
     super({
@@ -31,14 +30,12 @@ export class WorkspacesModel extends CollectionModel {
 
     this.createWorkspaceForm = new CreateWorkspaceFormModel();
 
-    // this.test();
+    add(this, this.createWorkspaceForm.submit)
+    this.repos = {
+      main: new APIRepo({ path: this.api }),
+      create: new APIRepo({ path: this.api, method: 'POST' }),
+    };
   }
-
-  // test = async () => {
-  //   await this.load();
-  //   console.log('workspace', this);
-  //   // console.log(this.workspaces[0].deploymentImages);
-  // };
 
   get api() {
     return '/api/workspaces';
@@ -98,6 +95,7 @@ export class WorkspaceModel extends Model<workspaceData_i> {
   updateWorkspace: UpdateWorkspaceFormModel;
   createDeployment: CreateDeploymentFormModel;
   createProject: CreateProjectFormModel;
+  delete: APIRepo;
   constructor(config) {
     super(config);
     this.workspaces = this.parent as WorkspacesModel;
@@ -110,9 +108,12 @@ export class WorkspaceModel extends Model<workspaceData_i> {
       }),
     };
 
+
+    // Repos
+    this.delete = new APIRepo({path: this.api, method: 'DELETE'})
+
     // Forms
     this.updateWorkspace = new UpdateWorkspaceFormModel(this);
-    this.createDeployment = new CreateDeploymentFormModel(this);
     this.createProject = new CreateProjectFormModel(this);
 
     this.forms = {
@@ -137,6 +138,11 @@ export class WorkspaceModel extends Model<workspaceData_i> {
       this.metrics,
       this.wikiSections,
     ];
+
+
+
+    update(this, this.updateWorkspace.submit)
+    remove(this, this.delete)
   }
 
   get id() {
@@ -176,5 +182,11 @@ export class WorkspaceModel extends Model<workspaceData_i> {
      * /api/workspaces/{wid}
      */
     return `/api/workspaces/${this.id}`;
+  }
+
+
+  onDelete = async () => {
+    await this.delete.call()
+    if(this.delete.state==='loaded') rootStore.routerStore.goBack()
   }
 }
