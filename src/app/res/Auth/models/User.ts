@@ -13,19 +13,18 @@ import {
   BaseAdminPermissionsModel,
   AdminUserPermissionsModel,
   UpdateUserFormModel,
+  SignupFormModel,
 } from 'app/res/Auth';
 import { CollectionModel } from '@mars-man/models';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
 import { WorkspaceAdminModel } from 'app/res/Workspaces/Admin';
 import { InviteWorkspaceUserFormModel } from 'app/res/Workspaces/Admin';
-import { reload, update } from 'app/constants/helpers';
+import { add, reload, remove, update } from 'app/constants/helpers';
 
 export interface user_i {
+  id: string;
   email: string;
   fullName: string;
-  id: string;
-  // isEnabled: boolean;
-  // isVerified: boolean;
 }
 
 export class BaseUserModel<T extends user_i> extends Model<T> {
@@ -71,6 +70,7 @@ export class UserModel extends BaseUserModel<user_i> {
  */
 
 export class AdminUsersModel extends CollectionModel {
+  createUserForm: SignupFormModel;
   /**
    * collection of users
    */
@@ -81,10 +81,13 @@ export class AdminUsersModel extends CollectionModel {
     //   events.on(eventTypes.USER_CRUD, async () => {
     // this.load();
     //   });
+    this.createUserForm = new SignupFormModel();
 
     this.repos = {
       main: new APIRepo({ path: this.api }),
     };
+
+    add(this, this.createUserForm.submit)
   }
 
   get api() {
@@ -96,10 +99,10 @@ export class AdminUsersModel extends CollectionModel {
   }
 }
 
-interface adminUserModel_i {
-  id: string;
-  email: string;
-  fullName: string;
+interface adminUserModel_i extends user_i {
+  // id: string;
+  // email: string;
+  // fullName: string;
   isEnabled: boolean;
   isVerified: boolean;
 }
@@ -115,9 +118,10 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
   enable: APIRepo;
   verify: APIRepo;
   unverify: APIRepo;
+  delete: APIRepo;
   resetPassword: APIRepo<adminUserModel_i, unknown>;
-  constructor({ parent, data }) {
-    super({ parent, data });
+  constructor({ parent, data, parentCollection }) {
+    super({ parent, data, parentCollection });
     this.users = parent;
     this.updateUserForm = new AdminUpdateUserFormModel(this);
     this.permissions = new AdminUserPermissionsModel(this);
@@ -150,6 +154,11 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
       body: { email: this.email },
     });
 
+    this.delete = new APIRepo({
+      path: this.api,
+      method: 'DELETE'
+    })
+
     update(this, [
       this.disable,
       this.enable,
@@ -157,6 +166,8 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
       this.unverify,
       this.updateUserForm.submit,
     ]);
+
+    remove(this, this.delete)
 
     this.dependents = [this.permissions];
     // this.repos = {
@@ -197,11 +208,12 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
     else this.verify.call();
   };
 
-  onDelete = () => {
+  onDelete = async () => {
     // rootStore.uiStore.setDeleteTarget(
     //     this.fullName,
     //     this.deleteUserForm.delete,
     // );
+    await this.delete.call()
   };
 
   onResetPassword = async () => {

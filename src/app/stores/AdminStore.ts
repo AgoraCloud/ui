@@ -17,14 +17,12 @@ export class AdminStore extends Model {
   users: AdminUsersModel;
   editUserDialog: AdminUserDialogModel;
   createUserDialog: DialogModel;
-  createUserForm: SignupFormModel;
   constructor(public rootStore: RootStore) {
     super();
     this.users = new AdminUsersModel();
 
     this.editUserDialog = new AdminUserDialogModel();
     this.createUserDialog = new DialogModel();
-    this.createUserForm = new SignupFormModel();
     rootStore.authStore.user.repo?.onLoad.subscribe((val) => {
       console.log('authstore onload admin', val);
       this.load();

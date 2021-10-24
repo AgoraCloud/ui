@@ -43,9 +43,6 @@ export const add = <DataT>(
 
 export const remove = <DataT>(model: Model, repo: BaseRepo<DataT>) => {
   repo.onLoad.subscribe(() => {
-    // collection.add(repo.data)
-    console.log('modles', model.parentCollection?.models.length);
     model.remove();
-    console.log('models', model.parentCollection?.models.length);
   });
 };

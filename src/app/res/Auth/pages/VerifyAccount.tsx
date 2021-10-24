@@ -25,14 +25,14 @@ export const VerifyAccount = inject(AUTH_STORE)(
       store.verify();
     }, []);
 
-    if (form.state.loading) {
+    if (form.submit.state == 'loading') {
       return (
         <AuthWrapper>
           <CircularProgress />
         </AuthWrapper>
       );
     }
-    if (form.success) {
+    if (form.submit.state == 'loaded') {
       return (
         <AuthWrapper>
           <Typography>Account Succesfully Verified!</Typography>
@@ -50,7 +50,7 @@ export const VerifyAccount = inject(AUTH_STORE)(
     }
     return (
       <AuthWrapper>
-        <Typography color="error">{form.message}</Typography>
+        <Typography color="error">{form.submit.data.message}</Typography>
         <Button
           fullWidth
           variant="contained"

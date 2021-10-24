@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { inject, observer } from 'mobx-react';
-import { AdminStore, useStores } from 'app/stores';
-import { ADMIN_STORE } from 'app/constants';
+import { observer } from 'mobx-react';
+import { useStores } from 'app/stores';
 import { Typography } from '@material-ui/core';
-import { PaginatedTable } from 'app/components/table';
+import { PaginatedTable, Column, Row } from 'app/components/table';
 import { MoreMenu, AddFABBase } from 'app/components/inputs';
 import {
   PermissionsDialog,
   AdminPermissionsDialogModel,
 } from 'app/components/dialogs';
-import { AdminUsersModel } from 'app/res/Auth';
 import { EditUserDialog, CreateUserDialog } from '.';
 
-const columns = [
+const columns: Column[] = [
   {
     id: 'fullName',
     label: 'Full Name',
@@ -45,7 +43,7 @@ export const UsersTable = observer(() => {
   const { adminstore } = useStores();
   const { users } = adminstore;
   if (users.state !== 'loaded') return null;
-  const rows = users.map((user) => {
+  const rows: any = users.map((user): Row => {
     return {
       email: user.email,
       fullName: user.fullName,

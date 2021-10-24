@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-interface Column extends TableCellProps {
+export interface Column extends TableCellProps {
   id: string;
   label: string;
   minWidth?: number;
@@ -33,7 +33,7 @@ interface Column extends TableCellProps {
   // format?: (value: number) => string;
 }
 
-interface Row {
+export interface Row {
   [columnId: string]: any;
 }
 

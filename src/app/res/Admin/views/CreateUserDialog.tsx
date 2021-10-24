@@ -9,7 +9,7 @@ import { Input, Label, CancelCreateButtons } from 'app/components/inputs';
 export const CreateUserDialog = observer((props) => {
   const { adminstore } = useStores();
   const { createUserDialog } = adminstore;
-  const form = adminstore.createUserForm;
+  const form = adminstore.users.createUserForm;
   return (
     <BaseDialog dialog={createUserDialog}>
       <DialogTitle>Create User</DialogTitle>

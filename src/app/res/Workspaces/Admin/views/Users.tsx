@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { useStores } from 'app/stores';
 import { Typography } from '@material-ui/core';
-import { PaginatedTable } from 'app/components';
+import { Column, PaginatedTable } from 'app/components';
 import { MoreMenu, AddFABBase } from 'app/components/inputs';
 import {
   PermissionsDialog,
@@ -11,7 +11,7 @@ import {
 } from 'app/components/dialogs';
 import { WorkspaceAdminModel } from 'app/res/Workspaces/Admin';
 
-const columns = [
+const columns: Column[] = [
   {
     id: 'fullName',
     label: 'Full Name',
@@ -34,7 +34,7 @@ export const UsersTable = observer(
     const { permissionsDialog } = workspaceAdmin;
     const { users } = workspaceAdmin;
     if (users.state !== 'loaded') return null;
-    const rows = users.map((user) => {
+    const rows: any = users.map((user) => {
       return {
         email: user.email,
         fullName: user.fullName,
@@ -71,6 +71,7 @@ export const UsersTable = observer(
 export const WorkspaceAdminUsersPage = observer((props) => {
   const { workspacesstore } = useStores();
   const workspace = workspacesstore.selectedWorkspace;
+  if(!workspace) return null
   const workspaceAdmin = workspace.workspaceAdmin;
   return (
     <div>

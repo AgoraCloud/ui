@@ -1,7 +1,4 @@
 import {
-  extendObservable,
-  isBoxedObservable,
-  isObservable,
   makeObservable,
   observable,
 } from 'mobx';
@@ -75,7 +72,7 @@ export class ConfirmDeleteModel extends FormModel<confirmDelete_i> {
 }
 
 export class BaseUserDialogModel<
-  T extends BaseUserModel<user_i>,
+  T extends BaseUserModel<any>,
 > extends DialogModel {
   @observable user: T;
   constructor() {

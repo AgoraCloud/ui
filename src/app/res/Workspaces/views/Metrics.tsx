@@ -21,6 +21,7 @@ export const WorkspaceAlert = (props: { metrics: WorkspaceMetricsModel }) => {
 export const WorkspaceMetricsPage = observer((props) => {
   const { workspacesstore } = useStores();
   const workspace = workspacesstore.selectedWorkspace;
+  if(!workspace) return null
   const metrics = workspace?.metrics;
 
   // if(metrics?.state != 'loaded') return null
