@@ -11,5 +11,7 @@
     "signOutBtnText":"Sign Out",
     "newWorkspaceUrl": "/w/new",
     "usersUrl": "/admin/users",
-    "editProfileUrl":"/edit-profile"
+    "editProfileUrl":"/edit-profile",
+    "originalWorkspaceName": "Admin Test Workspace",
+    "testWorkspaceName": "TWorkspace"
 }

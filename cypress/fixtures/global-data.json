@@ -1,9 +1,11 @@
 {
     "fullName":"Admin",
     "email": "admin@admin.com",
-    "password": "M4F4fptt8TMVQZ9Y",
+    "password": "U3Q59yZqWeCM9Nhf",
     "improperEmail": "fake-email-of-improper-type",
     "emailErrMessage": "email must be an email",
     "improperPassword": "fakepw",
-    "passwordErrMessage": "Password too short"
+    "passwordErrMessage": "Password too short",
+    "testWorkspaceId": "61774019689e2c0019160811",
+    "cancelBtnText": "Cancel"
 }

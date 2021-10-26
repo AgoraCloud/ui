@@ -46,3 +46,8 @@ Cypress.Commands.add('loginAsAdmin', () => {
     cy.url()
       .should('include', '/w/')
  })
+
+ Cypress.Commands.add('visitProjects', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/p')
+})

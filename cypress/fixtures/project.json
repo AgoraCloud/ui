@@ -1,0 +1,15 @@
+{
+    "greeting": "Projects",
+    "tableHeader1": "Name",
+    "tableHeader2": "Description",
+    "testProjectId": "6177650e689e2c00191626b0",
+    "testProjectName": "TProject",
+    "testProjectDescription": "This is the description of TProject",
+    "editBtnText": "Edit",
+    "deleteBtnText": "Delete",
+    "deleteDiaglogGreeting": "Confirm Delete",
+    "createProjectGreeting": "Create Project",
+    "createProjectBtnText": "Create",
+    "createProjectNameErr": "name must be longer than or equal to 4 characters"
+}
+  

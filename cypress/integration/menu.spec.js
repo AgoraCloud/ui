@@ -3,9 +3,6 @@
 
 describe('access to account menu', function () {
   beforeEach(function (){
-    cy.fixture('global-data').then((globalData) => {
-      this.globalData = globalData
-    })
     cy.fixture('menu').then((menu) => {
         this.menu = menu
     })
@@ -28,11 +25,32 @@ describe('access to account menu', function () {
   })
 })
 
-describe('access to side-bar via icons', function () {
+describe('access to workspace select menu', function () {
   beforeEach(function (){
     cy.fixture('global-data').then((globalData) => {
       this.globalData = globalData
     })
+    cy.fixture('menu').then((menu) => {
+        this.menu = menu
+    })
+    cy.loginAsAdmin()
+  })
+
+  it('links to workspace', function () {
+    cy.get('[id=combo-box-demo]')
+      .should('have.attr', 'value', this.menu.originalWorkspaceName)
+      .click()
+    cy.contains(this.menu.testWorkspaceName)
+      .click()
+    cy.url()
+      .should('include', '/w/' + this.globalData.testWorkspaceId)
+    cy.get('[id=combo-box-demo]')
+      .should('have.attr', 'value', this.menu.testWorkspaceName)
+  })
+})
+
+describe('access to side-bar via icons', function () {
+  beforeEach(function (){
     cy.fixture('menu').then((menu) => {
         this.menu = menu
     })
@@ -100,9 +118,6 @@ describe('access to side-bar via icons', function () {
 
 describe('access to side-bar via hamburger', function () {
   beforeEach(function (){
-    cy.fixture('global-data').then((globalData) => {
-      this.globalData = globalData
-    })
     cy.fixture('menu').then((menu) => {
       this.menu = menu
     })
