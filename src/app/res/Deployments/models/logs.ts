@@ -7,8 +7,8 @@ export class DeploymentLogsModel extends Model<string> {
       data: '',
     });
     this.repos = {
-      main: OnDemandRepo(new APIRepo({ path: this.api }))
-    }
+      main: OnDemandRepo(new APIRepo({ path: this.api })),
+    };
   }
 
   get logs() {
