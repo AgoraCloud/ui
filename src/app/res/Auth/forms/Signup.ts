@@ -20,7 +20,7 @@ export class SignupFormModel extends FormModel<signup_i> {
       submit: new APIRepo({
         path: '/api/auth/register',
         method: 'POST',
-        events: types.SIGNUP
+        events: types.SIGNUP,
       }),
     });
   }

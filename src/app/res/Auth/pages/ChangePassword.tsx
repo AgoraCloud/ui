@@ -18,7 +18,7 @@ export const ChangePassword = inject(AUTH_STORE)(
   observer((props) => {
     // two input fields password, confirm password
     const store = props[AUTH_STORE] as AuthStore;
-    console.log("CHANGE PASSWORD")
+    console.log('CHANGE PASSWORD');
     const query = useQuery();
     const { token } = query;
     const form = store.changePasswordForm;

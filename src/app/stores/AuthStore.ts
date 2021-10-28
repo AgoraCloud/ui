@@ -37,9 +37,9 @@ export class AuthStore {
     this.user = new UserModel();
     this.loadUser();
     makeObservable(this);
-    events.on(types.SIGNIN.onLoad.type, ()=>{
-      this.loadUser()
-    })
+    events.on(types.SIGNIN.onLoad.type, () => {
+      this.loadUser();
+    });
   }
 
   loadUser = async () => {
@@ -51,8 +51,8 @@ export class AuthStore {
 
   login = async () => {
     await this.signinForm.call();
-    if(this.signinForm.submit.state == 'loaded'){
-      this.rootStore.routerStore.push('/')
+    if (this.signinForm.submit.state == 'loaded') {
+      this.rootStore.routerStore.push('/');
     }
   };
 

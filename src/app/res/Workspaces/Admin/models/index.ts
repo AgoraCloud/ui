@@ -50,8 +50,7 @@ export class WorkspaceAdminModel extends Model {
     this.users = new WorkspaceUsersModel(this.workspace, this);
     this.dependents = [this.users];
 
-
     // add(this.users, this.inviteUserForm.submit)
-    update(this.users, this.inviteUserForm.submit)
+    update(this.users, this.inviteUserForm.submit);
   }
 }

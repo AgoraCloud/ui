@@ -2,9 +2,6 @@ import { APIRepo, BaseRepo, events, MockRepo } from '@mars-man/models';
 
 export { events };
 
-
-
-
 export const types = {
   USERLOAD: {
     onLoad: {
@@ -20,7 +17,7 @@ export const types = {
         message: 'Failed to Load User: ',
         variant: 'error',
       },
-    }
+    },
   },
   SIGNIN: {
     onLoad: {
@@ -36,7 +33,7 @@ export const types = {
         message: 'Failed to Login: ',
         variant: 'error',
       },
-    }
+    },
   },
   SIGNUP: {
     onLoad: {
@@ -52,7 +49,7 @@ export const types = {
         message: 'Failed to Signup: ',
         variant: 'error',
       },
-    }
+    },
   },
   WIKISECTIONS: {
     onLoad: {
@@ -274,11 +271,9 @@ export const eventTypes = {
   },
 };
 
-
 // events.on(eventTypes.SIGNIN.type, (data)=>{
 //   console.info("Hello World", data)
 // })
-
 
 // events.on('data', ()=>{
 //   console.info("Data yo yo yo")
@@ -287,7 +282,6 @@ export const eventTypes = {
 //   console.info("test123 yoyoyoy ")
 // })
 // events.emit('data')
-
 
 // const repo = new APIRepo({
 //   path: '/api/user',

@@ -31,9 +31,9 @@ export class WorkspacesStore {
     //   this.workspaces.load();
     // });
 
-    events.on(types.USERLOAD.onLoad.type, ()=>{
-      this.workspaces.load()
-    })
+    events.on(types.USERLOAD.onLoad.type, () => {
+      this.workspaces.load();
+    });
   }
 
   // get createDeploymentForm() {
