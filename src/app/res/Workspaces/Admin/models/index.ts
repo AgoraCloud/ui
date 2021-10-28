@@ -4,6 +4,7 @@ import { WorkspaceUsersModel } from 'app/res/Auth';
 import { DialogModel, PermissionsDialogModel } from 'app/components/dialogs';
 import { InWorkspaceActions, InWorkspaceRole } from 'app/constants';
 import { AddWorkspaceUserDto } from '@agoracloud/common';
+import { add, update } from 'app/constants/helpers';
 
 /*
 inviteUserDialog: DialogModel;
@@ -48,5 +49,9 @@ export class WorkspaceAdminModel extends Model {
     this.inviteUserForm = new InviteUserFormModel(workspace);
     this.users = new WorkspaceUsersModel(this.workspace, this);
     this.dependents = [this.users];
+
+
+    // add(this.users, this.inviteUserForm.submit)
+    update(this.users, this.inviteUserForm.submit)
   }
 }

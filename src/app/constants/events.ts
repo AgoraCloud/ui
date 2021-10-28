@@ -1,8 +1,59 @@
-import { events } from '@mars-man/models';
+import { APIRepo, BaseRepo, events, MockRepo } from '@mars-man/models';
 
 export { events };
 
+
+
+
 export const types = {
+  USERLOAD: {
+    onLoad: {
+      type: 'USERLOAD',
+      data: {
+        message: 'Successfully Loaded User!',
+        variant: 'success',
+      },
+    },
+    onError: {
+      type: 'USERLOAD_ERR',
+      data: {
+        message: 'Failed to Load User: ',
+        variant: 'error',
+      },
+    }
+  },
+  SIGNIN: {
+    onLoad: {
+      type: 'SIGNIN',
+      data: {
+        message: 'Successfully Logged In!',
+        variant: 'success',
+      },
+    },
+    onError: {
+      type: 'SIGNIN_ERR',
+      data: {
+        message: 'Failed to Login: ',
+        variant: 'error',
+      },
+    }
+  },
+  SIGNUP: {
+    onLoad: {
+      type: 'SIGNUP',
+      data: {
+        message: 'Registered! Please check your email to verify your account.',
+        variant: 'success',
+      },
+    },
+    onError: {
+      type: 'SIGNUP_ERR',
+      data: {
+        message: 'Failed to Signup: ',
+        variant: 'error',
+      },
+    }
+  },
   WIKISECTIONS: {
     onLoad: {
       type: 'WIKISECTIONS_LOAD',
@@ -222,3 +273,35 @@ export const eventTypes = {
     },
   },
 };
+
+
+// events.on(eventTypes.SIGNIN.type, (data)=>{
+//   console.info("Hello World", data)
+// })
+
+
+// events.on('data', ()=>{
+//   console.info("Data yo yo yo")
+// })
+// events.on('test123', ()=>{
+//   console.info("test123 yoyoyoy ")
+// })
+// events.emit('data')
+
+
+// const repo = new APIRepo({
+//   path: '/api/user',
+//   events: {
+//     onLoad: {
+//       type: 'test123',
+//     }
+//   }
+// })
+
+// await repo.call()
+
+// console.log("Events Test ", repo.state)
+
+// repo.onLoad.subscribe(()=>{
+//   console.log("hello world123")
+// })

@@ -9,7 +9,8 @@ import {
   UpdateUserFormModel,
 } from 'app/res/Auth/forms';
 import { UserModel } from 'app/res/Auth';
-import { APIRepo } from '@mars-man/models';
+import { APIRepo, events } from '@mars-man/models';
+import { types } from 'app/constants';
 
 export class AuthStore {
   @observable state: 'loading' | 'loggedin' | 'unauthed';
@@ -36,6 +37,9 @@ export class AuthStore {
     this.user = new UserModel();
     this.loadUser();
     makeObservable(this);
+    events.on(types.SIGNIN.onLoad.type, ()=>{
+      this.loadUser()
+    })
   }
 
   loadUser = async () => {
@@ -47,6 +51,9 @@ export class AuthStore {
 
   login = async () => {
     await this.signinForm.call();
+    if(this.signinForm.submit.state == 'loaded'){
+      this.rootStore.routerStore.push('/')
+    }
   };
 
   logout = async () => {

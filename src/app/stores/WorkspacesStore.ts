@@ -7,6 +7,8 @@ import {
   WikiSectionModel,
   WikiSectionsModel,
 } from 'app/res/Wiki';
+import { events } from '@mars-man/models';
+import { types } from 'app/constants';
 
 export class WorkspacesStore {
   // @observable workspaces: Workspaces;
@@ -24,10 +26,14 @@ export class WorkspacesStore {
 
     makeObservable(this);
 
-    rootStore.authStore.user.repo?.onLoad.subscribe((val) => {
-      // console.log("authstore onload", val)
-      this.workspaces.load();
-    });
+    // rootStore.authStore.user.repo?.onLoad.subscribe((val) => {
+    //   // console.log("authstore onload", val)
+    //   this.workspaces.load();
+    // });
+
+    events.on(types.USERLOAD.onLoad.type, ()=>{
+      this.workspaces.load()
+    })
   }
 
   // get createDeploymentForm() {

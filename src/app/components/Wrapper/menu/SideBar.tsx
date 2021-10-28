@@ -225,7 +225,7 @@ export const SideBar = observer((props) => {
     {
       icon: <HomeIcon />,
       url: '/', //selectedWorkspace.workspaces.workspaceUrl,
-      text: 'Deployments',
+      text: 'Home',
     },
   ];
 

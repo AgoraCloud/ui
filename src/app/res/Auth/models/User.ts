@@ -20,6 +20,7 @@ import { WorkspaceModel } from 'app/res/Workspaces/models';
 import { WorkspaceAdminModel } from 'app/res/Workspaces/Admin';
 import { InviteWorkspaceUserFormModel } from 'app/res/Workspaces/Admin';
 import { add, reload, remove, update } from 'app/constants/helpers';
+import { types } from 'app/constants';
 
 export interface user_i {
   id: string;
@@ -51,7 +52,7 @@ export class UserModel extends BaseUserModel<user_i> {
     super();
 
     this.repos = {
-      main: new APIRepo({ path: this.api }),
+      main: new APIRepo({ path: this.api, events: types.USERLOAD }),
     };
 
     this.permissions = new UserPermissions(this);
@@ -150,7 +151,7 @@ export class AdminUserModel extends BaseAdminUserModel<adminUserModel_i> {
     });
     this.resetPassword = new APIRepo<adminUserModel_i>({
       path: '/api/auth/forgot-password',
-      method: 'PUT',
+      method: 'POST',
       body: { email: this.email },
     });
 

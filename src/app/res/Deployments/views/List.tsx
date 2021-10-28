@@ -15,7 +15,7 @@ export const DeploymentsList = observer(
           direction={'row'}
           spacing={5}
           alignItems="flex-start"
-          justify="flex-start"
+          justifyContent="flex-start"
         >
           {workspace.deployments.map((deployment) => (
             <Grid item key={deployment.id}>

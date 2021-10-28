@@ -1,6 +1,6 @@
 import { CreateUserDto } from '@agoracloud/common';
 import { APIRepo, FormModel } from '@mars-man/models';
-import { eventTypes } from 'app/constants';
+import { eventTypes, types } from 'app/constants';
 
 interface signup_i {
   fullName: string;
@@ -20,10 +20,7 @@ export class SignupFormModel extends FormModel<signup_i> {
       submit: new APIRepo({
         path: '/api/auth/register',
         method: 'POST',
-        events: {
-          onLoad: eventTypes.SIGNUP,
-          onError: eventTypes.SIGNUP_ERR,
-        },
+        events: types.SIGNUP
       }),
     });
   }

@@ -64,7 +64,7 @@ export const CardOptions = inject(
 export const CustomCardHeader = (props) => {
   return (
     <div>
-      <Grid justify="space-between" container spacing={3}>
+      <Grid justifyContent="space-between" container spacing={3}>
         <Grid item>
           <Typography gutterBottom variant="h6" component="h4">
             {props.title}

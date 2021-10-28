@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { CancelCreateButtons, Input, Label } from 'app/components/inputs';
 import { DialogModel } from 'app/components/dialogs';
-import { InviteUserFormModel } from 'app/res/Admin/forms';
+import { InviteUserFormModel } from 'app/res/Workspaces/Admin';
 
 export const InviteUserDialog = observer(
   (props: { dialog: DialogModel; form: InviteUserFormModel }) => {
@@ -22,7 +22,7 @@ export const InviteUserDialog = observer(
             labels={['Cancel', 'Invite']}
             cancel={dialog.onClose}
             submit={async () => {
-              await form.submit();
+              await form.call();
               dialog.onClose();
             }}
           />
