@@ -9,7 +9,7 @@ describe('create lane', function () {
       cy.fixture('lane').then((lane) => {
         this.lane = lane
       })
-      cy.visitEditLane()  
+      cy.openEditLaneDialog()  
     })
   
     it('dialog displays greeting, instruction, and input label', function () {
@@ -39,7 +39,7 @@ describe('create lane', function () {
         .should('be.disabled')
     })
 
-    it('successfully creates new lane', function () {
+    it('successfully edits lane', function () {
       cy.get('[id=name]')
         .clear()
         .type(this.lane.edit.newLaneName)

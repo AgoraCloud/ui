@@ -78,7 +78,7 @@ export const AddLaneFAB = (props: { onClick: () => any }) => {
 export const AddTaskFAB = (props: { onClick: () => any }) => {
   const { onClick } = props;
   return (
-    <Fab color="primary" aria-label="add" onClick={onClick} size="small">
+    <Fab id="addTask" color="primary" aria-label="add" onClick={onClick} size="small">
       <AddIcon />
     </Fab>
   );
@@ -131,6 +131,7 @@ export const CancelCreateButtons = observer(
 
 export const MoreMenu = (props: {
   options: { name: string; onClick: () => any }[];
+  id?: string;
 }) => {
   const { options } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -151,6 +152,7 @@ export const MoreMenu = (props: {
   return (
     <>
       <IconButton
+        id={props.id ? props.id : "more"}
         aria-label="more"
         aria-controls="long-menu"
         aria-haspopup="true"

@@ -2,6 +2,7 @@
 /// <reference types="cypress" />
 import * as data from "../fixtures/global-data.json"
 import * as projectData from "../fixtures/project.json"
+import '@4tw/cypress-drag-drop'
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -69,9 +70,19 @@ Cypress.Commands.add('visitEditProject', () => {
     .click()
 })
 
-Cypress.Commands.add('visitEditLane', () => { 
+Cypress.Commands.add('openEditLaneDialog', () => { 
   cy.visitLanes()
   cy.get('button[aria-label="more"]', {timeout: 6000})
+    .last()
+    .click()
+  cy.focused()
+    .contains('[role="menuitem"][tabindex=0]', projectData.editBtnText)
+    .click()
+})
+
+Cypress.Commands.add('openEditTaskDialog', () => { 
+  cy.visitLanes()
+  cy.get('[id="moreMenuTask"]', {timeout: 6000})
     .last()
     .click()
   cy.focused()

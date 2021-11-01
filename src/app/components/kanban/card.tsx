@@ -40,6 +40,7 @@ export const CardOptions = inject(
     return (
       <>
         <MoreMenu
+          id="moreMenuTask"
           options={[
             {
               name: 'Edit',
@@ -52,7 +53,7 @@ export const CardOptions = inject(
               onClick: () => {
                 uistore.setDeleteTarget(task.title, task.delete);
               },
-            },
+            }
           ]}
         />
         <EditTaskDialog isOpen={open} close={handleClose} task={task} />

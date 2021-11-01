@@ -52,6 +52,7 @@
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.0.0",
     "@types/classnames": "^2.3.1",
     "@types/jest": "^24.0.15",
     "@types/lodash": "^4.14.171",

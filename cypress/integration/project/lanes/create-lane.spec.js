@@ -50,6 +50,6 @@ describe('create lane', function () {
         .should('not.be.disabled')
         .click()
 
-      cy.contains('h5', this.lane.create.newLaneName)
+      cy.contains('h5', this.lane.create.newLaneName, {timeout: 6000})
     })
 })
