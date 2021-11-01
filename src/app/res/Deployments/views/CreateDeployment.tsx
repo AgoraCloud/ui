@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import { WorkspaceWrapper } from 'app/components/Wrapper';
 import { useStores } from 'app/stores';
 import { observer } from 'mobx-react';
-import { CreateDeploymentFormModel } from 'app/res/Deployments';
+import { CreateDeploymentFormModel, ScalingMethodSelect } from 'app/res/Deployments';
 import {
   Input,
   ResourcesInput,
@@ -52,6 +52,8 @@ export const CreateDeploymentForm = observer(
         />
         <Label>Container Image</Label>
         <ImageSelect form={form} workspace={workspace} />
+        <Label>Scaling Method</Label>
+        <ScalingMethodSelect form={form} />
         <Label>Resources</Label>
         <Typography variant="body1">
           Specify the maximum amount of resources the deployment can use.

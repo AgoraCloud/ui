@@ -2,24 +2,20 @@ import { APIRepo, Model } from '@mars-man/models';
 import {
   AdminDeleteUserFormModel,
   AdminUpdateUserFormModel,
-  UserPermissionsModel,
 } from 'app/res/Admin';
 import {
-  BaseAdminPermissionsFormModel,
-  AdminPermissionsFormModel,
-  WorkspacePermissionsFormModel,
   UserPermissions,
   WorkspaceAdminPermissionsModel,
   BaseAdminPermissionsModel,
   AdminUserPermissionsModel,
   UpdateUserFormModel,
   SignupFormModel,
+  CreateUserFormModel,
 } from 'app/res/Auth';
 import { CollectionModel } from '@mars-man/models';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
 import { WorkspaceAdminModel } from 'app/res/Workspaces/Admin';
-import { InviteWorkspaceUserFormModel } from 'app/res/Workspaces/Admin';
-import { add, reload, remove, update } from 'app/constants/helpers';
+import { add, remove, update } from 'app/constants/helpers';
 import { types } from 'app/constants';
 
 export interface user_i {
@@ -82,7 +78,7 @@ export class AdminUsersModel extends CollectionModel {
     //   events.on(eventTypes.USER_CRUD, async () => {
     // this.load();
     //   });
-    this.createUserForm = new SignupFormModel();
+    this.createUserForm = new CreateUserFormModel();
 
     this.repos = {
       main: new APIRepo({ path: this.api }),
@@ -233,9 +229,6 @@ export class WorkspaceUsersModel extends CollectionModel {
    * Collection of workspace users
    */
 
-  forms = {
-    invite: new InviteWorkspaceUserFormModel(),
-  };
   constructor(
     public workspace: WorkspaceModel,
     public workspaceAdmin: WorkspaceAdminModel,
@@ -258,15 +251,16 @@ export class WorkspaceUserModel extends BaseAdminUserModel<user_i> {
    */
   workspaceUsers: WorkspaceUsersModel;
   workspace: WorkspaceModel;
-  constructor({ data, parent }) {
-    super({ data });
+  constructor({ data, parent, parentCollection }) {
+    super({ data, parent, parentCollection });
     this.workspaceUsers = parent;
     this.workspace = this.workspaceUsers.workspace;
     this.permissions = new WorkspaceAdminPermissionsModel(this, this.workspace);
     this.repos = {
-      remove: new APIRepo({ path: this.api }),
+      remove: new APIRepo({ path: this.api, method: 'DELETE' }),
     };
     this.dependents = [this.permissions];
+    remove(this, this.repos.remove)
   }
 
   get id() {
@@ -274,5 +268,11 @@ export class WorkspaceUserModel extends BaseAdminUserModel<user_i> {
   }
   get api() {
     return `${this.workspaceUsers.api}/${this.id}`;
+  }
+
+
+  onRemove = async () => {
+    await this.repos.remove.call()
+    // if(this.repos.remove.state === 'loaded') 
   }
 }

@@ -2,6 +2,8 @@ import { BaseRepo, CollectionModel, Model } from '@mars-man/models';
 import qs from 'qs';
 import { useLocation } from 'react-router';
 
+import * as _ from 'lodash'
+
 export const useQuery = () => {
   return qs.parse(useLocation().search, { ignoreQueryPrefix: true });
 };
@@ -17,6 +19,7 @@ export const reload = (model: Model, repos: BaseRepo[]) => {
 export const update = <DataT, BodyT>(
   model: Model<DataT, any, any>,
   repos: BaseRepo<DataT, any> | BaseRepo<DataT, any>[],
+  // key?: string
 ) => {
   const run = (repo: BaseRepo) => {
     repo.onLoad.subscribe(() => {

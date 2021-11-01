@@ -14,6 +14,7 @@ const chips = {
   FAILED: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
   SUCCESS: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
   STARTING: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
+  STOPPED: <Chip style={{ backgroundColor: 'red' }} label="STOPPED" />,
   PENDING: <Chip color="secondary" label="PENDING" />,
   CREATING: <Chip color="secondary" label="CREATING" />,
   RUNNING: <Chip color="primary" label="RUNNING" />,

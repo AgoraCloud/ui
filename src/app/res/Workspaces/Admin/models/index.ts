@@ -1,10 +1,9 @@
-import { APIRepo, CollectionModel, FormModel, Model } from '@mars-man/models';
+import { Model } from '@mars-man/models';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
 import { WorkspaceUsersModel } from 'app/res/Auth';
 import { DialogModel, PermissionsDialogModel } from 'app/components/dialogs';
-import { InWorkspaceActions, InWorkspaceRole } from 'app/constants';
-import { AddWorkspaceUserDto } from '@agoracloud/common';
-import { add, update } from 'app/constants/helpers';
+import { reload, update } from 'app/constants/helpers';
+import { InviteWorkspaceUserFormModel } from 'app/res/Workspaces/Admin';
 
 /*
 inviteUserDialog: DialogModel;
@@ -22,18 +21,6 @@ constructor(public workspace: Workspace) {
 }
 */
 
-export class InviteUserFormModel extends FormModel {
-  constructor(workspace: WorkspaceModel) {
-    super({
-      data: {
-        email: '',
-      },
-      validator: AddWorkspaceUserDto,
-      submit: new APIRepo({ path: `${workspace.api}/users`, method: 'PUT' }),
-    });
-  }
-}
-
 export class WorkspaceAdminModel extends Model {
   /**
    * All components of the workspace admin dashboard
@@ -41,16 +28,19 @@ export class WorkspaceAdminModel extends Model {
   users: WorkspaceUsersModel;
   permissionsDialog: PermissionsDialogModel;
   inviteUserDialog: DialogModel;
-  inviteUserForm: InviteUserFormModel;
+  inviteUserForm: InviteWorkspaceUserFormModel;
   constructor(public workspace: WorkspaceModel) {
     super({});
 
     this.inviteUserDialog = new DialogModel();
-    this.inviteUserForm = new InviteUserFormModel(workspace);
+    this.inviteUserForm = new InviteWorkspaceUserFormModel(workspace);
     this.users = new WorkspaceUsersModel(this.workspace, this);
     this.dependents = [this.users];
 
     // add(this.users, this.inviteUserForm.submit)
-    update(this.users, this.inviteUserForm.submit);
+    // cannot use update because it returns the following object
+    // {users: [{id: <UID>}, {id: <UID>}]}
+    // instead of full user objects
+    reload(this.users, [this.inviteUserForm.submit]);
   }
 }

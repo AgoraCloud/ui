@@ -40,7 +40,7 @@ const columns: Column[] = [
 ];
 
 export const UsersTable = observer(() => {
-  const { adminstore } = useStores();
+  const { adminstore, uistore } = useStores();
   const { users } = adminstore;
   if (users.state !== 'loaded') return null;
   const rows: any = users.map((user): Row => {
@@ -56,7 +56,8 @@ export const UsersTable = observer(() => {
             {
               name: 'Delete',
               onClick: () => {
-                user.onDelete();
+                // user.onDelete();
+                uistore.setDeleteTarget(user.fullName, user.onDelete)
               },
             },
             {

@@ -6,4 +6,5 @@ export * from './Proxy';
 export * from './EditDeployment';
 export * from './ImageSelect';
 export * from './List';
+export * from './ScalingMethodSelect';
 export * from './Info';

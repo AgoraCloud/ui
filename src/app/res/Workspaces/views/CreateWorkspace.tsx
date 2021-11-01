@@ -11,6 +11,7 @@ import {
   CPUMemoryInput,
   Label,
   CancelCreateButtons,
+  StorageInput,
 } from 'app/components/inputs';
 import { Typography } from '@material-ui/core';
 
@@ -51,6 +52,7 @@ export const CreateWorkspaceForm = observer((props) => {
         use.
       </Typography>
       <CPUMemoryInput form={form} />
+      <StorageInput form={form} />
 
       <CancelCreateButtons form={form} />
     </>

@@ -12,6 +12,17 @@ export class UpdateWorkspaceFormModel extends FormModel {
   constructor(public workspace: WorkspaceModel) {
     super({
       data: workspace.data,
+      keys: [
+        ['cpuCount', { key: 'properties.resources.cpuCount', cast: Number }],
+        [
+          'memoryCount',
+          { key: 'properties.resources.memoryCount', cast: Number },
+        ],
+        [
+          'storageCount',
+          { key: 'properties.resources.storageCount', cast: Number },
+        ],
+      ],
       submit: new APIRepo({ path: workspace.api, method: 'PUT' }),
     });
   }

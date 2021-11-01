@@ -2,7 +2,7 @@
  * THIRD PARTY IMPORTS
  */
 import * as React from 'react';
-import { Route, Router, Switch } from 'react-router';
+import { Router, Switch } from 'react-router';
 
 import {
   AuthedRoute,

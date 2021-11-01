@@ -50,7 +50,7 @@ export const UpdateWorkspace = observer((props) => {
         </Button>
       </div>
       <div style={{ float: 'right' }}>
-        <CancelCreateButtons form={form} labels={['Cancel', 'Edit']} />
+        <CancelCreateButtons form={form} labels={['Cancel', 'Edit']} submit={()=>{form.call()}} />
       </div>
     </WorkspaceWrapper>
   );

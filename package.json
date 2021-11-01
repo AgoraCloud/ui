@@ -16,7 +16,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@agoracloud/common": "^1.2.0",
+    "@agoracloud/common": "^1.3.0",
     "@mars-man/components": "^1.0.1",
     "@mars-man/events": "^1.0.1",
     "@mars-man/models": "^1.3.9",

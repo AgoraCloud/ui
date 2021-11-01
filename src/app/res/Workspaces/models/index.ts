@@ -183,6 +183,6 @@ export class WorkspaceModel extends Model<workspaceData_i> {
 
   onDelete = async () => {
     await this.delete.call();
-    if (this.delete.state === 'loaded') rootStore.routerStore.goBack();
+    if (this.delete.state === 'loaded') rootStore.routerStore.push('/');
   };
 }

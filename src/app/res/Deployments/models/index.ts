@@ -67,7 +67,7 @@ export class DeploymentModel extends Model<deploymentData_i> {
 
   delete: APIRepo;
   constructor({ data, parent, parentCollection }) {
-    super({ data, parentCollection });
+    super({ data, parentCollection, parent });
     this.deployments = parent;
     this.workspace = this.deployments.workspace;
     // console.log(this.deployments, data, parentCollection)

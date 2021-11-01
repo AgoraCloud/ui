@@ -10,6 +10,7 @@ export class CreateDeploymentFormModel extends FormModel {
           image: {
             type: 'VSCODE',
           },
+          scalingMethod: 'ALWAYS_ON'
         },
       },
       keys: [
@@ -26,6 +27,8 @@ export class CreateDeploymentFormModel extends FormModel {
         ['sudoPassword', 'properties.sudoPassword'],
         ['type', 'properties.image.type'],
         ['version', 'properties.image.version'],
+        ['scalingMethod', 'properties.scalingMethod'],
+
       ],
       validator: CreateDeploymentDto,
       submit: new APIRepo({ path: deployments.api, method: 'POST' }),
@@ -61,6 +64,7 @@ export class EditDeploymentFormModel extends FormModel {
         ['sudoPassword', 'properties.sudoPassword'],
         ['type', 'properties.image.type'],
         ['version', 'properties.image.version'],
+        // ['scalingMethod', 'properties.scalingMethod'], // cannot update scalingMethod
       ],
       validator: UpdateDeploymentDto,
       submit: new APIRepo({ path: deployment.api, method: 'PUT' }),
