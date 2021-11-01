@@ -41,7 +41,8 @@ export default defineConfig({
   build: {
     outDir: '../build',
     emptyOutDir: true,
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1000,
+    minify: false
   },
   server: {
     proxy: {
