@@ -2,7 +2,7 @@ import { BaseRepo, CollectionModel, Model } from '@mars-man/models';
 import qs from 'qs';
 import { useLocation } from 'react-router';
 
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 export const useQuery = () => {
   return qs.parse(useLocation().search, { ignoreQueryPrefix: true });

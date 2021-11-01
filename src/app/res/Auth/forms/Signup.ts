@@ -26,14 +26,13 @@ export class SignupFormModel extends FormModel<signup_i> {
   }
 }
 
-
-export class CreateUserFormModel extends SignupFormModel{
-  constructor(){
-    super()
+export class CreateUserFormModel extends SignupFormModel {
+  constructor() {
+    super();
     this.submit = new APIRepo({
       path: '/api/users',
       method: 'POST',
       events: types.SIGNUP,
-    })
+    });
   }
 }

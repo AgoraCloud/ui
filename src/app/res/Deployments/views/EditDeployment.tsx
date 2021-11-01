@@ -13,7 +13,10 @@ import { observer } from 'mobx-react';
 
 import { Form } from '@mars-man/components';
 import { ImageSelect } from './ImageSelect';
-import { EditDeploymentFormModel, ScalingMethodSelect } from 'app/res/Deployments';
+import {
+  EditDeploymentFormModel,
+  ScalingMethodSelect,
+} from 'app/res/Deployments';
 
 export const EditDeployment = (props) => {
   const { workspacesstore, uistore } = useStores();

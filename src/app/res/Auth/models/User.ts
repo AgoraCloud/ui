@@ -260,7 +260,7 @@ export class WorkspaceUserModel extends BaseAdminUserModel<user_i> {
       remove: new APIRepo({ path: this.api, method: 'DELETE' }),
     };
     this.dependents = [this.permissions];
-    remove(this, this.repos.remove)
+    remove(this, this.repos.remove);
   }
 
   get id() {
@@ -270,9 +270,8 @@ export class WorkspaceUserModel extends BaseAdminUserModel<user_i> {
     return `${this.workspaceUsers.api}/${this.id}`;
   }
 
-
   onRemove = async () => {
-    await this.repos.remove.call()
-    // if(this.repos.remove.state === 'loaded') 
-  }
+    await this.repos.remove.call();
+    // if(this.repos.remove.state === 'loaded')
+  };
 }

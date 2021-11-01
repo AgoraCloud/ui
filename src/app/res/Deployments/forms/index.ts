@@ -10,7 +10,7 @@ export class CreateDeploymentFormModel extends FormModel {
           image: {
             type: 'VSCODE',
           },
-          scalingMethod: 'ALWAYS_ON'
+          scalingMethod: 'ALWAYS_ON',
         },
       },
       keys: [
@@ -28,7 +28,6 @@ export class CreateDeploymentFormModel extends FormModel {
         ['type', 'properties.image.type'],
         ['version', 'properties.image.version'],
         ['scalingMethod', 'properties.scalingMethod'],
-
       ],
       validator: CreateDeploymentDto,
       submit: new APIRepo({ path: deployments.api, method: 'POST' }),

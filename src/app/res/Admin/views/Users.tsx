@@ -57,7 +57,7 @@ export const UsersTable = observer(() => {
               name: 'Delete',
               onClick: () => {
                 // user.onDelete();
-                uistore.setDeleteTarget(user.fullName, user.onDelete)
+                uistore.setDeleteTarget(user.fullName, user.onDelete);
               },
             },
             {
