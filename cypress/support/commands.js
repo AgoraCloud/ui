@@ -1,6 +1,7 @@
 /* eslint-disable */
 /// <reference types="cypress" />
 import * as data from "../fixtures/global-data.json"
+import * as projectData from "../fixtures/project.json"
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -28,26 +29,52 @@ import * as data from "../fixtures/global-data.json"
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('loginAsAdmin', () => { 
-    cy.visit('/login');
+Cypress.Commands.add('loginAsAdmin', () => {
+  cy.request({
+    method:'POST',
+    url:'http://localhost:3000/api/auth/login',
+    body:{
+      email: 'admin@admin.com',
+      password: 'U3Q59yZqWeCM9Nhf'
+    }
+  })
+  .then((resp) => {
+    window.localStorage.setItem('jwt', resp.body.token)
+  })
+})
 
-    cy.get('[id=email]')
-      .type(data.email)
-      .should('have.value', data.email)
-
-    cy.get('[id=password]')
-      .type(data.password)
-      .should('have.value', data.password)
-
-    cy.get('button[type="submit"]')
-      .contains('Log In')
-      .click()
-
-    cy.url()
-      .should('include', '/w/')
- })
-
- Cypress.Commands.add('visitProjects', () => { 
+Cypress.Commands.add('visitProjects', () => { 
   cy.loginAsAdmin()
   cy.visit('/w/' + data.testWorkspaceId + '/p')
+})
+
+Cypress.Commands.add('visitLanes', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/p/' + projectData.testProjectId + '/lanes')
+})
+
+Cypress.Commands.add('visitCreateNewProject', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/p/new')
+})
+
+Cypress.Commands.add('visitEditProject', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/p')
+  cy.get('button[aria-label="more"]')
+    .last()
+    .click()
+  cy.focused()
+    .contains('[role="menuitem"][tabindex=0]', projectData.editBtnText)
+    .click()
+})
+
+Cypress.Commands.add('visitEditLane', () => { 
+  cy.visitLanes()
+  cy.get('button[aria-label="more"]', {timeout: 6000})
+    .last()
+    .click()
+  cy.focused()
+    .contains('[role="menuitem"][tabindex=0]', projectData.editBtnText)
+    .click()
 })

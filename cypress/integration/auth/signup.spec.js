@@ -7,35 +7,34 @@ describe('/signup', function () {
   const randomName = chance.name();
   const randomEmail = chance.email();
   const randomPassword = chance.string({ length: 8 });
-
   beforeEach(function (){
     cy.visit('/signup');
     cy.fixture('global-data').then((globalData) => {
       this.globalData = globalData
     })
-    cy.fixture('auth/signup').then((signup) => {
-      this.signup = signup
+    cy.fixture('auth').then((auth) => {
+      this.auth = auth
     })
   })
 
   it('greets with sign up', function () {
-    cy.contains('h1', this.signup.greeting)
+    cy.contains('h1', this.auth.signup.greeting)
   })
 
   it('links to log in', function () {
-    cy.contains(this.signup.loginText)
+    cy.contains(this.auth.signup.loginText)
       .should('have.attr', 'href', '/login')
   })
 
   it('requires valid full name', function () {
     cy.get('[id=fullName]')
-      .type(this.signup.improperName)
-      .should('have.value', this.signup.improperName)
+      .type(this.auth.signup.improperName)
+      .should('have.value', this.auth.signup.improperName)
 
     cy.get('[id=fullName-helper-text]')
-      .should('contain', this.signup.nameErrMessage)
+      .should('contain', this.auth.signup.nameErrMessage)
 
-    cy.contains('button[type="button"]', this.signup.buttonText)
+    cy.contains('button[type="button"]', this.auth.signup.buttonText)
       .should('be.disabled')
   })
 
@@ -47,7 +46,7 @@ describe('/signup', function () {
     cy.get('[id=email-helper-text]')
       .should('contain', this.globalData.emailErrMessage)
 
-    cy.contains('button[type="button"]', this.signup.buttonText)
+    cy.contains('button[type="button"]', this.auth.signup.buttonText)
       .should('be.disabled')
   })
 
@@ -57,14 +56,14 @@ describe('/signup', function () {
       .should('have.value', this.globalData.improperPassword)
 
     cy.get('[id=password-helper-text]')
-      .should('contain', this.signup.passwordErrMessage)
+      .should('contain', this.auth.signup.passwordErrMessage)
 
-    cy.contains('button[type="button"]', this.signup.buttonText)
+    cy.contains('button[type="button"]', this.auth.signup.buttonText)
       .should('be.disabled')
   })
 
   it('requires full name, email and password', function () {
-    cy.contains('button[type="button"]', this.signup.buttonText)
+    cy.contains('button[type="button"]', this.auth.signup.buttonText)
       .should('be.disabled')
   })
 
@@ -81,12 +80,12 @@ describe('/signup', function () {
       .type(randomPassword)
       .should('have.value', randomPassword)
 
-    cy.contains('button[type="button"]', this.signup.buttonText)
+    cy.contains('button[type="button"]', this.auth.signup.buttonText)
       .should('not.be.disabled')
       .click()
 
     cy.get('[id^=notistack]')
-      .should('have.text', this.signup.successMessage)
+      .should('have.text', this.auth.signup.successMessage)
   })
 
   it('displays a failure message upon unsuccessful registration', function () {
@@ -102,7 +101,7 @@ describe('/signup', function () {
       .type(this.globalData.password)
       .should('have.value', this.globalData.password)
 
-    cy.contains('button[type="button"]', this.signup.buttonText)
+    cy.contains('button[type="button"]', this.auth.signup.buttonText)
       .should('not.be.disabled')
       .click()
 

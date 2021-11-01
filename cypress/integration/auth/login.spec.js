@@ -12,22 +12,22 @@ describe('/login', function () {
     cy.fixture('global-data').then((globalData) => {
       this.globalData = globalData
     })
-    cy.fixture('auth/login').then((login) => {
-      this.login = login
+    cy.fixture('auth').then((auth) => {
+      this.auth = auth
     })
   })
 
   it('greets with log in', function () {
-    cy.contains('h1', this.login.greeting)
+    cy.contains('h1', this.auth.login.greeting)
   })
 
   it('links to sign up', function () {
-    cy.contains(this.login.signupText)
+    cy.contains(this.auth.login.signupText)
       .should('have.attr', 'href', '/signup')
   })
 
   it('links to forgot password', function () {
-    cy.contains(this.login.forgotPWText)
+    cy.contains(this.auth.login.forgotPWText)
       .should('have.attr', 'href', '/forgotPassword')
   })
 
@@ -39,7 +39,7 @@ describe('/login', function () {
     cy.get('[id=email-helper-text]')
       .should('contain', this.globalData.emailErrMessage)
 
-    cy.contains('button[type="submit"]', this.login.buttonText)
+    cy.contains('button[type="submit"]', this.auth.login.buttonText)
       .should('be.disabled')
   })
 
@@ -51,12 +51,12 @@ describe('/login', function () {
     cy.get('[id=password-helper-text]')
       .should('contain', this.globalData.passwordErrMessage)
 
-    cy.contains('button[type="submit"]', this.login.buttonText)
+    cy.contains('button[type="submit"]', this.auth.login.buttonText)
       .should('be.disabled')
   })
 
   it('requires email and password', function () {
-    cy.contains('button[type="submit"]', this.login.buttonText)
+    cy.contains('button[type="submit"]', this.auth.login.buttonText)
       .should('be.disabled')
   })
 
@@ -69,7 +69,7 @@ describe('/login', function () {
       .type(this.globalData.password)
       .should('have.value', this.globalData.password)
 
-    cy.contains('button[type="submit"]', this.login.buttonText)
+    cy.contains('button[type="submit"]', this.auth.login.buttonText)
       .should('not.be.disabled')
       .click()
 
@@ -86,7 +86,7 @@ describe('/login', function () {
       .type(randomPassword)
       .should('have.value', randomPassword)
 
-    cy.contains('button[type="submit"]', this.login.buttonText)
+    cy.contains('button[type="submit"]', this.auth.login.buttonText)
       .should('not.be.disabled')
       .click()
 

@@ -11,13 +11,13 @@ describe('/forgotPassword', function () {
     cy.fixture('global-data').then((globalData) => {
       this.globalData = globalData
     })
-    cy.fixture('auth/forgot-password').then((forgotPassword) => {
-      this.forgotPassword = forgotPassword
+    cy.fixture('auth').then((auth) => {
+      this.auth = auth
     })
   })
 
   it('greets with forgot password', function () {
-    cy.contains('h1', this.forgotPassword.greeting)
+    cy.contains('h1', this.auth.forgotPassword.greeting)
   })
 
   it('requires valid email', function () {
@@ -28,7 +28,7 @@ describe('/forgotPassword', function () {
     cy.get('[id=email-helper-text]')
       .should('contain', this.globalData.emailErrMessage)
 
-    cy.contains('button[type="button"]', this.forgotPassword.buttonText)
+    cy.contains('button[type="button"]', this.auth.forgotPassword.buttonText)
       .should('be.disabled')
   })
 
@@ -37,7 +37,7 @@ describe('/forgotPassword', function () {
       .type(this.globalData.email)
       .should('have.value', this.globalData.email)
 
-    cy.contains('button[type="button"]', this.forgotPassword.buttonText)
+    cy.contains('button[type="button"]', this.auth.forgotPassword.buttonText)
       .should('not.be.disabled')
       .click()
 
@@ -50,7 +50,7 @@ describe('/forgotPassword', function () {
       .type(randomEmail)
       .should('have.value', randomEmail)
 
-    cy.contains('button[type="button"]', this.forgotPassword.buttonText)
+    cy.contains('button[type="button"]', this.auth.forgotPassword.buttonText)
       .should('not.be.disabled')
       .click()
 

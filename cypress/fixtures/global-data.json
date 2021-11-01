@@ -6,6 +6,7 @@
     "emailErrMessage": "email must be an email",
     "improperPassword": "fakepw",
     "passwordErrMessage": "Password too short",
+    "testWorkspaceName": "TWorkspace",
     "testWorkspaceId": "61774019689e2c0019160811",
     "cancelBtnText": "Cancel"
 }

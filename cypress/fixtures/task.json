@@ -1,0 +1,22 @@
+{
+    "global":{
+        "labelTitle": "Title",
+        "labelDescription": "Description"
+    },
+    "testTaskName": "TProject",
+    "testTaskDescription": "This is the description of TProject",
+    "create":{
+        "greeting": "Create Task",
+        "instruction": "Enter the information below and then click the 'Create' button below!",
+        "createBtnText": "Create",
+        "newTaskName": "TT-1",
+        "newTaskDescription": "This is TT-1's description"
+    },
+    "edit":{
+        "greeting": "Edit Task",
+        "instruction": "Modify the information below and then click the 'Save' button below!",
+        "newTaskName": "TT-1-EDIT",
+        "newTaskDescription": "This is TT-1's description-EDIT"
+    }  
+}
+  
