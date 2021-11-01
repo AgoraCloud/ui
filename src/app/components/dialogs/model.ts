@@ -22,7 +22,7 @@ interface confirmDelete_i {
 
 export class DialogModel {
   @observable
-  open: boolean = false;
+  open = false;
   constructor(open?: boolean) {
     this.open = open || false;
     makeObservable(this);

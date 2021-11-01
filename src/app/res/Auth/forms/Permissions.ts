@@ -34,7 +34,7 @@ export class BaseAdminPermissionsFormModel extends FormModel<permissions_i> {
   }
   onSelectRole(role: string) {
     return () => {
-      let change = [role];
+      const change = [role];
       this.onChange('roles')(change);
     };
   }

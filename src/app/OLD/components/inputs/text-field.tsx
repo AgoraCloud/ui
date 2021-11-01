@@ -10,7 +10,7 @@ interface InputProps extends StandardTextFieldProps {
 }
 export const Input = observer((props: InputProps) => {
   const { form, id, children, workspaceCheck, defaultVal, ...rest } = props;
-  let value = form.get(id);
+  const value = form.get(id);
   // const error = form.getError(id)
   const error = form.errors[id];
   // console.log(id, error, val)
