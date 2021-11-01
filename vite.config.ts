@@ -26,7 +26,12 @@ export default defineConfig({
   resolve: {
     alias: {
       'app': path.resolve(__dirname, './src/app'),
-      '@styles': path.resolve(__dirname, './src/app/styles')
+      '@styles': path.resolve(__dirname, './src/app/styles'),
+      "@nestjs/swagger": path.resolve(__dirname, './src/polyfill'),
+      "swagger-ui-express": path.resolve(__dirname, './src/polyfill'),
+      "fastify-swagger": path.resolve(__dirname, './src/polyfill'),
+      "cache-manage": path.resolve(__dirname, './src/polyfill'),
+      "class-transformer/storage": "class-transformer"
     },
     // dedupe: [
     //   "mobx",
@@ -50,15 +55,19 @@ export default defineConfig({
       allow: ['/home/marc/Desktop/projects/mars-man/models', '..']
     }
   },
+  /**
+   * 
   optimizeDeps: {
     exclude: [
       "class-transformer/storage",
       // "mobx",
       // this is to handle swagger commonjs
-      "@nestjs/swagger",
+      // "@nestjs/swagger",
       "swagger-ui-express",
       "fastify-swagger",
       "cache-manager"
     ]
   }
+   */
+
 })
