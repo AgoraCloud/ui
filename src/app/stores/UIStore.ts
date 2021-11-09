@@ -5,7 +5,7 @@ import { Model } from '@mars-man/models';
 
 export class UIStore extends Model {
   confirmDelete: ConfirmDeleteModel;
-  @observable count: number = 0;
+  @observable count = 0;
   @observable sideBarOpen = false;
   constructor(public rootStore: RootStore) {
     super({});
