@@ -29,8 +29,8 @@ export class SignupFormModel extends FormModel<signup_i> {
       fullName: '',
       email: '',
       password: '',
-    }
-  }
+    };
+  };
 }
 
 export class CreateUserFormModel extends SignupFormModel {

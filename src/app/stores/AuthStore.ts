@@ -33,7 +33,7 @@ export class AuthStore {
     this.logoutRepo = new APIRepo({
       path: '/api/auth/logout',
       method: 'POST',
-      events: types.LOGOUT
+      events: types.LOGOUT,
     });
     this.user = new UserModel();
     this.loadUser();
@@ -60,7 +60,7 @@ export class AuthStore {
   logout = async () => {
     await this.logoutRepo.call();
     if (this.logoutRepo.state == 'loaded') {
-      this.state = 'unauthed'
+      this.state = 'unauthed';
       this.rootStore.routerStore.replace('/login');
     }
   };

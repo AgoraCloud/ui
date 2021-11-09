@@ -2,26 +2,24 @@ import { APIRepo, BaseRepo, events, MockRepo } from '@mars-man/models';
 
 export { events };
 
-
-
 // TODO add boolean flag for whether snackbar should show with event
-interface eventType_i{
-  [key: string] : {
+interface eventType_i {
+  [key: string]: {
     onLoad: {
-      type: string,
+      type: string;
       data: {
-        message: string,
-        variant: 'success'|'error'
-      }
-    },
+        message: string;
+        variant: 'success' | 'error';
+      };
+    };
     onError: {
-      type: string,
+      type: string;
       data: {
-        message: string,
-        variant: 'success'|'error'
-      }
-    }
-  }
+        message: string;
+        variant: 'success' | 'error';
+      };
+    };
+  };
 }
 
 export const types: eventType_i = {
@@ -90,8 +88,6 @@ export const types: eventType_i = {
     },
   },
 
-
-
   VERIFY: {
     onLoad: {
       type: 'VERIFY',
@@ -106,8 +102,7 @@ export const types: eventType_i = {
         message: 'Failed to Verify: ',
         variant: 'error',
       },
-    }
-
+    },
   },
 
   PASSWORD_RESET: {
@@ -124,10 +119,8 @@ export const types: eventType_i = {
         message: 'Failure: ',
         variant: 'error',
       },
-    }
+    },
   },
-
-
 
   CHANGE_PASSWORD: {
     onLoad: {
@@ -143,7 +136,7 @@ export const types: eventType_i = {
         message: 'Change Password Failed: ',
         variant: 'error',
       },
-    }
+    },
   },
 
   WORKSPACE_CRUD: {
@@ -160,7 +153,7 @@ export const types: eventType_i = {
         message: 'Workspace Successfully: ',
         variant: 'success',
       },
-    }
+    },
   },
 
   DEPLOYMENT_CRUD: {
@@ -177,8 +170,7 @@ export const types: eventType_i = {
         message: 'Deployment Failure: ',
         variant: 'error',
       },
-    }
-
+    },
   },
 
   USER_CRUD: {
@@ -198,7 +190,6 @@ export const types: eventType_i = {
     },
   },
 
-
   PROJECT_CRUD: {
     onLoad: {
       type: 'PROJECT_CRUD',
@@ -213,13 +204,11 @@ export const types: eventType_i = {
         message: 'Project Failure: ',
         variant: 'error',
       },
-    }
-
+    },
   },
 
   PROJECT_LANE_CRUD: {
     onLoad: {
-
       type: 'PROJECT_LANE_CRUD',
       data: {
         message: 'Project Lane Successfully: ',
@@ -237,7 +226,6 @@ export const types: eventType_i = {
 
   WORKSPACE_USER_CRUD: {
     onLoad: {
-
       type: 'WORKSPACE_USERS_CRUD',
       data: {
         message: 'Workspace User Successfully: ',

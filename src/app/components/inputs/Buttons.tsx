@@ -53,7 +53,7 @@ export const AddFABBase = (props: { onClick: () => any }) => {
   );
 };
 export const AddFAB = observer((props: { link: string }) => {
-  const { routerstore } = useStores()
+  const { routerstore } = useStores();
   const { link } = props;
   return (
     <AddFABBase
@@ -62,7 +62,7 @@ export const AddFAB = observer((props: { link: string }) => {
       }}
     />
   );
-})
+});
 
 export const AddLaneFAB = (props: { onClick: () => any }) => {
   const { onClick } = props;

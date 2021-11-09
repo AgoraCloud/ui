@@ -12,7 +12,7 @@ export class DeploymentLogsModel extends Model<string> {
   }
 
   get logs() {
-    return this.data
+    return this.data;
     // return JSON.stringify(this.data, null, 4);
   }
 

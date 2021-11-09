@@ -7,26 +7,28 @@ import { Redirect, Route } from 'react-router';
 import { LoadingPage } from '../LoadingPage';
 
 export const WorkspacesLoaded = (props) => {
-
-
-  return <AuthedRoute {...props} component={observer(() => {
-    const { workspacesstore } = useStores();
-    const workspaces = workspacesstore.workspaces;
-    console.log("workspacesloaded", workspaces.state)
-    if(workspaces.state == 'loading') return <LoadingPage/>
-    if (workspaces.state == 'loaded') {
-      const wid = workspacesstore.selectedWorkspace?.id;
-      if (!wid) {
-        return <Redirect to={`/w/new`} />;
-        // return null;
-      } else {
-        return <AuthedRoute {...props} />;
-      }
-    } else {
-      return null;
-    }
-  })} />
-
+  return (
+    <AuthedRoute
+      {...props}
+      component={observer(() => {
+        const { workspacesstore } = useStores();
+        const workspaces = workspacesstore.workspaces;
+        console.log('workspacesloaded', workspaces.state);
+        if (workspaces.state == 'loading') return <LoadingPage />;
+        if (workspaces.state == 'loaded') {
+          const wid = workspacesstore.selectedWorkspace?.id;
+          if (!wid) {
+            return <Redirect to={`/w/new`} />;
+            // return null;
+          } else {
+            return <AuthedRoute {...props} />;
+          }
+        } else {
+          return null;
+        }
+      })}
+    />
+  );
 };
 
 export const DeploymentLoaded = observer((props) => {

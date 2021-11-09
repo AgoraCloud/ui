@@ -22,10 +22,10 @@ export class ChangePasswordFormModel extends FormModel<changePassword_i> {
     });
   }
 
-  get payload(){
+  get payload() {
     return {
       password: this.data.password,
-      token: this.data.token
-    }
+      token: this.data.token,
+    };
   }
 }

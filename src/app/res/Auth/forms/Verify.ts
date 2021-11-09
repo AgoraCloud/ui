@@ -20,6 +20,6 @@ export class VerifyAccountFormModel extends FormModel<verify_i> {
     });
   }
   reset = () => {
-    this.data.token = ''
-  }
+    this.data.token = '';
+  };
 }

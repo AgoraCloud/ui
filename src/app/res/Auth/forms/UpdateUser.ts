@@ -15,7 +15,7 @@ export class UpdateUserFormModel extends FormModel<signup_i> {
       submit: new APIRepo({
         path: '/api/user',
         method: 'PUT',
-        events: types.USER_CRUD
+        events: types.USER_CRUD,
       }),
     });
   }

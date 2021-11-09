@@ -17,41 +17,50 @@ import { LoadingPage } from '../LoadingPage';
 // });
 
 export const UnauthedRoute = (props) => {
-  return <Route {...props} component={observer(()=>{
-      const {authstore} = useStores()
-      switch(authstore.state){
-          case "loggedin": {
-              return <Redirect to="/"/>
+  return (
+    <Route
+      {...props}
+      component={observer(() => {
+        const { authstore } = useStores();
+        switch (authstore.state) {
+          case 'loggedin': {
+            return <Redirect to="/" />;
           }
-          case "loading": {
-              return <LoadingPage/>
+          case 'loading': {
+            return <LoadingPage />;
           }
-          case "unauthed":{
-              return <Route component={props.component}/>
+          case 'unauthed': {
+            return <Route component={props.component} />;
           }
-      }
-      return null
-  })}/>
-}
-
+        }
+        return null;
+      })}
+    />
+  );
+};
 
 export const AuthedRoute = (props) => {
-  return <Route {...props} component={observer(()=>{
-      const {authstore} = useStores()
-      switch(authstore.state){
-          case "loggedin": {
-              return <Route component={props.component}/>
+  return (
+    <Route
+      {...props}
+      component={observer(() => {
+        const { authstore } = useStores();
+        switch (authstore.state) {
+          case 'loggedin': {
+            return <Route component={props.component} />;
           }
-          case "loading": {
-              return <LoadingPage/>
+          case 'loading': {
+            return <LoadingPage />;
           }
-          case "unauthed":{
-              return <Redirect to="/login"/>
+          case 'unauthed': {
+            return <Redirect to="/login" />;
           }
-      }
-      return null
-  })}/>
-}
+        }
+        return null;
+      })}
+    />
+  );
+};
 
 // export const AuthedRoute = observer((props) => {
 //   const { authstore } = useStores();

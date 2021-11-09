@@ -72,7 +72,7 @@ export const App = ({ history }: any) => {
         <UnauthedRoute path="/verify-account" component={VerifyAccount} />
         <UnauthedRoute path="/change-password" component={ChangePassword} />
 
-      {/* workspace paths */}
+        {/* workspace paths */}
         <AuthedRoute path="/logout" component={Logout} />
 
         <AuthedRoute path="/w/new" component={NewWorkspace} />
@@ -103,10 +103,7 @@ export const App = ({ history }: any) => {
           path="/w/:wid/d/:did/edit"
           component={EditDeployment}
         />
-        <WorkspacesLoaded
-          path="/w/:wid/d/:did/"
-          component={DeploymentProxy}
-        />
+        <WorkspacesLoaded path="/w/:wid/d/:did/" component={DeploymentProxy} />
         <WorkspacesLoaded path="/w/:wid" component={WorkspaceHome} />
         <AuthedRoute path="/admin" component={AdminRoutes} />
         <WorkspacesLoaded path="/edit-profile" component={UserProfile} />

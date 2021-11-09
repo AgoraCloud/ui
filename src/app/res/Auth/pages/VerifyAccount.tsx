@@ -13,7 +13,7 @@ import { AuthWrapper } from 'app/components/Wrapper';
 import { useQuery } from 'app/constants/helpers';
 
 export const VerifyAccount = observer((props) => {
-  const { authstore } = useStores()
+  const { authstore } = useStores();
 
   const query = useQuery();
   const { token } = query;
@@ -60,4 +60,4 @@ export const VerifyAccount = observer((props) => {
       </Button>
     </AuthWrapper>
   );
-})
+});
