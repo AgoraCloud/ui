@@ -12,7 +12,8 @@ export class DeploymentLogsModel extends Model<string> {
   }
 
   get logs() {
-    return JSON.stringify(this.data);
+    return this.data
+    // return JSON.stringify(this.data, null, 4);
   }
 
   get api() {

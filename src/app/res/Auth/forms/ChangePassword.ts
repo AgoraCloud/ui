@@ -21,4 +21,11 @@ export class ChangePasswordFormModel extends FormModel<changePassword_i> {
       }),
     });
   }
+
+  get payload(){
+    return {
+      password: this.data.password,
+      token: this.data.token
+    }
+  }
 }

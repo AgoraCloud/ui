@@ -1,6 +1,6 @@
 import { VerifyAccountDto } from '@agoracloud/common';
 import { APIRepo, FormModel } from '@mars-man/models';
-import { eventTypes } from 'app/constants';
+import { types } from 'app/constants';
 
 interface verify_i {
   token: string;
@@ -15,11 +15,11 @@ export class VerifyAccountFormModel extends FormModel<verify_i> {
       submit: new APIRepo({
         path: '/api/auth/verify-account',
         method: 'POST',
-        events: {
-          onLoad: eventTypes.VERIFY,
-          onError: eventTypes.VERIFY_ERR,
-        },
+        events: types.VERIFY,
       }),
     });
+  }
+  reset = () => {
+    this.data.token = ''
   }
 }

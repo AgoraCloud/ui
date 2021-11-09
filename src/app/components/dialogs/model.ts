@@ -60,6 +60,7 @@ export class ConfirmDeleteModel extends FormModel<confirmDelete_i> {
     if (this.valid) {
       await this.callBack();
       this.dialog.onClose();
+      this.reset()
     }
   };
 

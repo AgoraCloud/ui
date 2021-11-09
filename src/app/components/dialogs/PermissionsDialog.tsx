@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { BaseDialog, PermissionsDialogModel } from 'app/components/dialogs';
 import { observer } from 'mobx-react';
-import { events, eventTypes } from 'app/constants';
 import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { CancelCreateButtons } from 'app/components/inputs';
 import { PermissionsForm, RolesForm } from 'app/res/Auth';
@@ -27,11 +26,7 @@ export const PermissionsDialog = observer(
             cancel={dialog.onClose}
             submit={async () => {
               form.call();
-              console.log(JSON.stringify(form.payload));
-              // if (await form.submit()) {
-              // dialog.onClose();
-              // events.emit(eventTypes.USER_CRUD.type, 'edited permissions');
-              // } else events.emit(eventTypes.USER_ERR.type, 'error');
+              // console.log(JSON.stringify(form.payload));
             }}
           />
         </DialogActions>

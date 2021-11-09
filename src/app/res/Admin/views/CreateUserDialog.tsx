@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { BaseDialog } from 'app/components/dialogs';
 import { observer } from 'mobx-react';
-import { events, eventTypes } from 'app/constants';
 import { useStores } from 'app/stores';
 import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { Input, Label, CancelCreateButtons } from 'app/components/inputs';

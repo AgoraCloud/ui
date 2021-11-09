@@ -8,8 +8,8 @@ import {
 } from 'app/constants';
 import { createBrowserHistory } from 'history';
 import {
-  RouterStore,
   AuthStore,
+  RouterStore,
   WorkspacesStore,
   SnackbarStore,
   AdminStore,

@@ -1,6 +1,6 @@
 import { CreateUserDto } from '@agoracloud/common';
 import { APIRepo, FormModel } from '@mars-man/models';
-import { eventTypes, types } from 'app/constants';
+import { types } from 'app/constants';
 
 interface signup_i {
   fullName: string;
@@ -23,6 +23,13 @@ export class SignupFormModel extends FormModel<signup_i> {
         events: types.SIGNUP,
       }),
     });
+  }
+  reset = () => {
+    this.data = {
+      fullName: '',
+      email: '',
+      password: '',
+    }
   }
 }
 

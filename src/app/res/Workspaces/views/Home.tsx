@@ -14,7 +14,7 @@ export const WorkspaceHome = observer(() => {
   return (
     <WorkspaceWrapper>
       <DeploymentsList workspace={selectedWorkspace} />
-      <AddFAB link={`${workspaces.workspaceUrl}/new`} />
+      <AddFAB link={`${selectedWorkspace.link}/new`} />
     </WorkspaceWrapper>
   );
 });

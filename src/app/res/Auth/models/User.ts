@@ -75,9 +75,6 @@ export class AdminUsersModel extends CollectionModel {
     super({
       collections: AdminUserModel,
     });
-    //   events.on(eventTypes.USER_CRUD, async () => {
-    // this.load();
-    //   });
     this.createUserForm = new CreateUserFormModel();
 
     this.repos = {

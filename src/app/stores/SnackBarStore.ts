@@ -1,6 +1,6 @@
 import { makeObservable, observable } from 'mobx';
 import { OptionsObject } from 'notistack';
-import { events, eventTypes } from 'app/constants';
+import { events, types } from 'app/constants';
 
 export interface alert_i extends OptionsObject {
   message: string;
@@ -39,13 +39,16 @@ export class SnackbarStore {
   }
 
   initEvents() {
-    Object.values(eventTypes).forEach((v) => {
-      events.on(v.type, (data) => {
-        this.push({
-          message: v.data.message,
-          variant: v.data.variant as any,
+    Object.values(types).forEach((v) => {
+      [v.onLoad, v.onError].map((e)=>{
+        events.on(e.type, (data) => {
+          this.push({
+            message: e.data.message,
+            variant: e.data.variant as any,
+          });
         });
-      });
+      })
+
     });
   }
 }

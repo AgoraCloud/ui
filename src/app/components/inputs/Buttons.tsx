@@ -52,19 +52,17 @@ export const AddFABBase = (props: { onClick: () => any }) => {
     </Fab>
   );
 };
-export const AddFAB = inject(ROUTER_STORE)(
-  observer((props: { link: string }) => {
-    const store = props[ROUTER_STORE] as RouterStore;
-    const { link } = props;
-    return (
-      <AddFABBase
-        onClick={() => {
-          store.push(link);
-        }}
-      />
-    );
-  }),
-);
+export const AddFAB = observer((props: { link: string }) => {
+  const { routerstore } = useStores()
+  const { link } = props;
+  return (
+    <AddFABBase
+      onClick={() => {
+        routerstore.push(link);
+      }}
+    />
+  );
+})
 
 export const AddLaneFAB = (props: { onClick: () => any }) => {
   const { onClick } = props;
@@ -177,12 +175,6 @@ export const MoreMenu = (props: {
         keepMounted
         open={open}
         onClose={handleClose}
-        // PaperProps={{
-        //     style: {
-        //         maxHeight: ITEM_HEIGHT * 4.5,
-        //         width: '20ch',
-        //     },
-        // }}
       >
         {options.map((option) => (
           <MenuItem key={option.name} onClick={onClick(option)}>

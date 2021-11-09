@@ -3,9 +3,8 @@ import Button from '@material-ui/core/Button';
 
 import Typography from '@material-ui/core/Typography';
 
-import { observer, inject } from 'mobx-react';
-import { AUTH_STORE } from 'app/constants';
-import { AuthStore } from 'app/stores';
+import { observer } from 'mobx-react';
+import { useStores } from 'app/stores';
 
 import { Link } from 'react-router-dom';
 
@@ -13,44 +12,28 @@ import { CircularProgress } from '@material-ui/core';
 import { AuthWrapper } from 'app/components/Wrapper';
 import { useQuery } from 'app/constants/helpers';
 
-export const VerifyAccount = inject(AUTH_STORE)(
-  observer((props) => {
-    const store = props[AUTH_STORE] as AuthStore;
+export const VerifyAccount = observer((props) => {
+  const { authstore } = useStores()
 
-    const query = useQuery();
-    const { token } = query;
-    const form = store.verifyForm;
-    React.useEffect(() => {
-      form.data.token = token;
-      store.verify();
-    }, []);
+  const query = useQuery();
+  const { token } = query;
+  const form = authstore.verifyForm;
+  React.useEffect(() => {
+    form.data.token = token;
+    authstore.verify();
+  }, []);
 
-    if (form.submit.state == 'loading') {
-      return (
-        <AuthWrapper>
-          <CircularProgress />
-        </AuthWrapper>
-      );
-    }
-    if (form.submit.state == 'loaded') {
-      return (
-        <AuthWrapper>
-          <Typography>Account Succesfully Verified!</Typography>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            component={Link}
-            to="login"
-          >
-            Click here to login
-          </Button>
-        </AuthWrapper>
-      );
-    }
+  if (form.submit.state == 'loading') {
     return (
       <AuthWrapper>
-        <Typography color="error">{form.submit.data.message}</Typography>
+        <CircularProgress />
+      </AuthWrapper>
+    );
+  }
+  if (form.submit.state == 'loaded') {
+    return (
+      <AuthWrapper>
+        <Typography>Account Succesfully Verified!</Typography>
         <Button
           fullWidth
           variant="contained"
@@ -58,9 +41,23 @@ export const VerifyAccount = inject(AUTH_STORE)(
           component={Link}
           to="login"
         >
-          Go back to Log In
+          Click here to login
         </Button>
       </AuthWrapper>
     );
-  }),
-);
+  }
+  return (
+    <AuthWrapper>
+      <Typography color="error">{form.submit?.data?.message}</Typography>
+      <Button
+        fullWidth
+        variant="contained"
+        color="primary"
+        component={Link}
+        to="login"
+      >
+        Go back to Log In
+      </Button>
+    </AuthWrapper>
+  );
+})

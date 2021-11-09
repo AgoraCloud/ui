@@ -42,10 +42,6 @@ export const EditDeploymentForm = observer(
           submit={async () => {
             console.log('SUBMIT', form, form.payload);
             await form.call();
-            // if (await form.submit()) {
-            // routerstore.replace(form.workspace.link);
-            // events.emit(eventTypes.DEPLOYMENT_CRUD, 'updated');
-            // } else events.emit(eventTypes.DEPLOYMENT_ERR, 'error updating');
           }}
           labels={['Cancel', 'Edit']}
         />
