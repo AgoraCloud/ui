@@ -1,34 +1,12 @@
 import * as React from 'react';
-import { DeploymentModel } from 'app/res/Deployments/models';
+import { DeploymentModel, DeploymentChip, DeploymentResources } from 'app/res/Deployments';
 import Card from '@material-ui/core/Card';
-import { Typography, Chip, Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
-import MemoryIcon from '@material-ui/icons/Memory';
-import MoneyIcon from '@material-ui/icons/Money';
-import StorageIcon from '@material-ui/icons/Storage';
 import { LinkButton, MoreMenu } from 'app/components/inputs';
 import { observer } from 'mobx-react';
 import { useStores } from 'app/stores';
 
-const chips = {
-  FAILED: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
-  SUCCESS: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
-  STARTING: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
-  STOPPED: <Chip style={{ backgroundColor: 'red' }} label="STOPPED" />,
-  PENDING: <Chip color="secondary" label="PENDING" />,
-  CREATING: <Chip color="secondary" label="CREATING" />,
-  RUNNING: <Chip color="primary" label="RUNNING" />,
-  UPDATING: <Chip color="secondary" label="UPDATING" />,
-  DELETING: <Chip style={{ backgroundColor: 'red' }} label="DELETING" />,
-  UNKNOWN: <Chip style={{ backgroundColor: 'purple' }} label="UNKNOWN" />,
-};
-
-export const DeploymentChip = (props: { deployment: DeploymentModel }) => {
-  const { deployment } = props;
-  return (
-    <div style={{ paddingTop: '15px' }}>{chips[deployment.status] || null}</div>
-  );
-};
 
 export const DeploymentLaunch = (props: { deployment: DeploymentModel }) => {
   const { deployment } = props;
@@ -45,38 +23,6 @@ export const DeploymentLaunch = (props: { deployment: DeploymentModel }) => {
   );
 };
 
-export const ResourceChip = ({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactElement;
-  label: string;
-  value?: number;
-}) => {
-  if (value === undefined) return null;
-  return (
-    <Grid item xs={4}>
-      <Chip icon={icon} label={label + value} />
-    </Grid>
-  );
-};
-
-export const DeploymentResources = (props: { deployment: DeploymentModel }) => {
-  const { deployment } = props;
-  const { cpuCount, memoryCount, storageCount } = deployment;
-  return (
-    <Grid container style={{ paddingTop: '20px' }}>
-      <ResourceChip icon={<MemoryIcon />} label={'CPU: '} value={cpuCount} />
-      <ResourceChip icon={<MoneyIcon />} label={'RAM: '} value={memoryCount} />
-      <ResourceChip
-        icon={<StorageIcon />}
-        label={'Storage: '}
-        value={storageCount}
-      />
-    </Grid>
-  );
-};
 
 export const DeploymentMenu = observer(
   (props: { deployment: DeploymentModel }) => {

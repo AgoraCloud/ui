@@ -17,6 +17,7 @@ import {
 
 import { ImageSelect } from 'app/res/Deployments/views/ImageSelect';
 import { Form } from '@mars-man/components';
+import { toJS } from 'mobx';
 
 export const CreateDeployment = observer((props) => {
   const { workspacesstore } = useStores();
@@ -35,7 +36,7 @@ export const CreateDeploymentForm = observer(
   (props: { form: CreateDeploymentFormModel }) => {
     const { form } = props;
     const workspace = form.deployments.workspace;
-
+    console.log(toJS(form.errors))
     return (
       <Form form={form}>
         <Label>Deployment Name</Label>

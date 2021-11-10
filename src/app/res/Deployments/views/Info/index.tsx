@@ -1,32 +1,13 @@
 import * as React from 'react';
 import style from './style.module.scss';
 import { WorkspaceWrapper } from 'app/components/Wrapper';
-import { Typography, Grid, Chip } from '@material-ui/core';
-import { inject, observer } from 'mobx-react';
-import { WORKSPACES_STORE } from 'app/constants';
-import { DeploymentModel } from 'app/res/Deployments/models';
+import { Typography, Grid } from '@material-ui/core';
+import {  observer } from 'mobx-react';
 import { GaugeChart } from 'app/components';
 import Alert from '@material-ui/lab/Alert';
 import { useStores } from 'app/stores';
+import { DeploymentChip, DeploymentModel } from 'app/res/Deployments';
 
-const chips = {
-  FAILED: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
-  SUCCESS: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
-  STARTING: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
-  PENDING: <Chip color="secondary" label="PENDING" />,
-  CREATING: <Chip color="secondary" label="CREATING" />,
-  RUNNING: <Chip color="primary" label="RUNNING" />,
-  UPDATING: <Chip color="secondary" label="UPDATING" />,
-  DELETING: <Chip style={{ backgroundColor: 'red' }} label="DELETING" />,
-  UNKNOWN: <Chip style={{ backgroundColor: 'purple' }} label="UNKNOWN" />,
-};
-
-export const DeploymentChip = (props: { deployment: DeploymentModel }) => {
-  const { deployment } = props;
-  return (
-    <div style={{ paddingTop: '15px' }}>{chips[deployment.status] || null}</div>
-  );
-};
 
 export const DeploymentLogs = observer(
   (props: { deployment?: DeploymentModel }) => {
@@ -60,7 +41,6 @@ export const DeploymentMetrics = observer(
     const { deployment } = props;
     if (!deployment) return null;
     const metrics = deployment?.metrics;
-
     return (
       <>
         <Typography variant="h4">Metrics</Typography>
@@ -89,6 +69,13 @@ export const DeploymentInfoPage = observer((props) => {
   const { workspacesstore } = useStores();
   const deployment = workspacesstore.selectedDeployment;
   if (!deployment) return null;
+  if (deployment?.status === 'STOPPED') {
+    return <WorkspaceWrapper>
+      <Typography variant="h3">Deployment: {deployment.name}</Typography>
+      <Typography variant="h6">Currently off</Typography>
+      <DeploymentChip deployment={deployment} />
+    </WorkspaceWrapper>
+  }
   return (
     <WorkspaceWrapper>
       <Typography variant="h3">Deployment: {deployment.name}</Typography>

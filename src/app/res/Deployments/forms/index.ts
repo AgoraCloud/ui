@@ -2,6 +2,8 @@ import { APIRepo, FormModel } from '@mars-man/models';
 import { CreateDeploymentDto, UpdateDeploymentDto } from '@agoracloud/common';
 import { DeploymentModel, DeploymentsModel } from 'app/res/Deployments';
 
+import * as _ from 'lodash'
+
 export class CreateDeploymentFormModel extends FormModel {
   constructor(public deployments: DeploymentsModel) {
     super({
@@ -68,5 +70,28 @@ export class EditDeploymentFormModel extends FormModel {
       validator: UpdateDeploymentDto,
       submit: new APIRepo({ path: deployment.api, method: 'PUT' }),
     });
+  }
+
+
+  get payload() {
+    const payload = super.payload
+
+    const keys = [
+      "properties.resources.cpuCount",
+      "properties.resources.storageCount",
+      "properties.sudoPassword",
+      "properties.isFavorite",
+      "properties.image.version",
+      "name"
+    ]
+    let out = {}
+    for(const key of keys){
+      const oldValue =_.get(this.deployment.data, key) 
+      const newValue = _.get(payload, key) 
+      // console.log(oldValue, newValue, out)
+      if(oldValue !== newValue) _.set(out, key, newValue)
+    }
+    console.log(out)
+    return out
   }
 }

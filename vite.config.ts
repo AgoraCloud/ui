@@ -61,6 +61,11 @@ export default defineConfig(({ command }) => {
         allow: ['/home/marc/Desktop/projects/mars-man/models', '..']
       }
     },
+    // optimizeDeps: {
+    //   exclude: [
+    //     '@agoracloud/common'
+    //   ]
+    // }
     /**
      * 
     optimizeDeps: {

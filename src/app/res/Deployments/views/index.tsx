@@ -8,3 +8,4 @@ export * from './ImageSelect';
 export * from './List';
 export * from './ScalingMethodSelect';
 export * from './Info';
+export * from './components';
