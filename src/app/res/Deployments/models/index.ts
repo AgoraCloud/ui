@@ -1,4 +1,9 @@
-import { APIRepo, CollectionModel, Model, PeriodicRepo } from '@mars-man/models';
+import {
+  APIRepo,
+  CollectionModel,
+  Model,
+  PeriodicRepo,
+} from '@mars-man/models';
 import { add, remove } from 'app/constants/helpers';
 import { DeploymentLogsModel } from 'app/res/Deployments/models/logs';
 import { DeploymentMetricsModel } from 'app/res/Deployments/models/metrics';

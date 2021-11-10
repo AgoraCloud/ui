@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => {
     container: {
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
-      height: "100%"
+      height: '100%',
     },
     fixedHeight: {
       height: 240,
@@ -48,9 +48,7 @@ export const ProxyWrapper = (props: {
   return (
     <div className={classes.root}>
       <WorkspaceAppMenu />
-      <main className={classes.content}>
-          {children}
-      </main>
+      <main className={classes.content}>{children}</main>
       <ConfirmDeleteDialog />
     </div>
   );
