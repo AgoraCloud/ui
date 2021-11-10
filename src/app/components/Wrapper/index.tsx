@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => {
     container: {
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
+      height: "100%"
     },
     fixedHeight: {
       height: 240,
@@ -39,20 +40,16 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-export const HomeWrapperBase = (props: {
+export const ProxyWrapper = (props: {
   children: React.ReactChild | React.ReactChild[];
 }) => {
   const classes = useStyles();
   const { children } = props;
   return (
     <div className={classes.root}>
-      {/* <CssBaseline /> */}
       <WorkspaceAppMenu />
       <main className={classes.content}>
-        {/* <div className={classes.appBarSpacer} /> */}
-        <Container maxWidth={false} className={classes.container}>
           {children}
-        </Container>
       </main>
       <ConfirmDeleteDialog />
     </div>

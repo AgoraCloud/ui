@@ -1,4 +1,4 @@
-import { APIRepo, CollectionModel, Model } from '@mars-man/models';
+import { APIRepo, CollectionModel, Model, PeriodicRepo } from '@mars-man/models';
 import { add, remove } from 'app/constants/helpers';
 import { DeploymentLogsModel } from 'app/res/Deployments/models/logs';
 import { DeploymentMetricsModel } from 'app/res/Deployments/models/metrics';
@@ -39,8 +39,8 @@ export class DeploymentsModel extends CollectionModel<deploymentData_i[]> {
 
     this.createDeployment = new CreateDeploymentFormModel(this);
     this.repos = {
-      // main: PeriodicRepo(new APIRepo({ path: this.api })),
-      main: new APIRepo({ path: this.api }),
+      main: PeriodicRepo(new APIRepo({ path: this.api }), 5000),
+      // main: new APIRepo({ path: this.api }),
     };
 
     add(this, this.createDeployment.submit);

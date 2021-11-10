@@ -3,7 +3,7 @@ import style from './style.module.scss';
 import { inject, observer } from 'mobx-react';
 import { WORKSPACES_STORE } from 'app/constants';
 import { WorkspacesStore } from 'app/stores';
-import { HomeWrapperBase } from 'app/components/Wrapper';
+import { ProxyWrapper } from 'app/components/Wrapper';
 import { useStores } from 'app/stores';
 
 export const DeploymentProxy = inject(WORKSPACES_STORE)(
@@ -17,7 +17,7 @@ export const DeploymentProxy = inject(WORKSPACES_STORE)(
     const did = deployment.id;
     // console.log("deployment", deployment)
     return (
-      <HomeWrapperBase>
+      <ProxyWrapper>
         <iframe
           id={style.iframe}
           src={`https://${deployment.proxyUrl}`}
@@ -25,7 +25,7 @@ export const DeploymentProxy = inject(WORKSPACES_STORE)(
             setState('loaded');
           }}
         />
-      </HomeWrapperBase>
+      </ProxyWrapper>
     );
   }),
 );

@@ -87,10 +87,8 @@ export class EditDeploymentFormModel extends FormModel {
     for (const key of keys) {
       const oldValue = _.get(this.deployment.data, key);
       const newValue = _.get(payload, key);
-      // console.log(oldValue, newValue, out)
       if (oldValue !== newValue) _.set(out, key, newValue);
     }
-    console.log(out);
     return out;
   }
 }

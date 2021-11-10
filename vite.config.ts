@@ -17,7 +17,7 @@ export default defineConfig(({ command }) => {
   if (!proxyTarget && command !== 'build') {
     console.error("NO PROXY TARGET DEFINED")
     console.warn("please set an ENV variable PROXY_TARGET=https://agoracloud.YOURDOMAIN.com")
-    exit()
+    exit(1)
   }
 
   return {
