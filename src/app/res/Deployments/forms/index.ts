@@ -5,8 +5,7 @@ import { DeploymentModel, DeploymentsModel } from 'app/res/Deployments';
 import * as _ from 'lodash';
 // import { CreateDeploymentDto } from "@agoracloud/common";
 
-import { plainToClass } from 'class-transformer'
-
+import { plainToClass } from 'class-transformer';
 
 export class CreateDeploymentFormModel extends FormModel {
   constructor(public deployments: DeploymentsModel) {
