@@ -1,2 +1,2 @@
-export * from './Chip'
-export * from './Resources'
+export * from './Chip';
+export * from './Resources';

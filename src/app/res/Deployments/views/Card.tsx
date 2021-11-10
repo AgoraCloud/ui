@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { DeploymentModel, DeploymentChip, DeploymentResources } from 'app/res/Deployments';
+import {
+  DeploymentModel,
+  DeploymentChip,
+  DeploymentResources,
+} from 'app/res/Deployments';
 import Card from '@material-ui/core/Card';
 import { Typography } from '@material-ui/core';
 
 import { LinkButton, MoreMenu } from 'app/components/inputs';
 import { observer } from 'mobx-react';
 import { useStores } from 'app/stores';
-
 
 export const DeploymentLaunch = (props: { deployment: DeploymentModel }) => {
   const { deployment } = props;
@@ -22,7 +25,6 @@ export const DeploymentLaunch = (props: { deployment: DeploymentModel }) => {
     </LinkButton>
   );
 };
-
 
 export const DeploymentMenu = observer(
   (props: { deployment: DeploymentModel }) => {

@@ -2,7 +2,7 @@ import { APIRepo, FormModel } from '@mars-man/models';
 import { CreateDeploymentDto, UpdateDeploymentDto } from '@agoracloud/common';
 import { DeploymentModel, DeploymentsModel } from 'app/res/Deployments';
 
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 export class CreateDeploymentFormModel extends FormModel {
   constructor(public deployments: DeploymentsModel) {
@@ -72,26 +72,25 @@ export class EditDeploymentFormModel extends FormModel {
     });
   }
 
-
   get payload() {
-    const payload = super.payload
+    const payload = super.payload;
 
     const keys = [
-      "properties.resources.cpuCount",
-      "properties.resources.storageCount",
-      "properties.sudoPassword",
-      "properties.isFavorite",
-      "properties.image.version",
-      "name"
-    ]
-    let out = {}
-    for(const key of keys){
-      const oldValue =_.get(this.deployment.data, key) 
-      const newValue = _.get(payload, key) 
+      'properties.resources.cpuCount',
+      'properties.resources.storageCount',
+      'properties.sudoPassword',
+      'properties.isFavorite',
+      'properties.image.version',
+      'name',
+    ];
+    let out = {};
+    for (const key of keys) {
+      const oldValue = _.get(this.deployment.data, key);
+      const newValue = _.get(payload, key);
       // console.log(oldValue, newValue, out)
-      if(oldValue !== newValue) _.set(out, key, newValue)
+      if (oldValue !== newValue) _.set(out, key, newValue);
     }
-    console.log(out)
-    return out
+    console.log(out);
+    return out;
   }
 }

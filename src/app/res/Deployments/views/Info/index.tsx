@@ -2,12 +2,11 @@ import * as React from 'react';
 import style from './style.module.scss';
 import { WorkspaceWrapper } from 'app/components/Wrapper';
 import { Typography, Grid } from '@material-ui/core';
-import {  observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { GaugeChart } from 'app/components';
 import Alert from '@material-ui/lab/Alert';
 import { useStores } from 'app/stores';
 import { DeploymentChip, DeploymentModel } from 'app/res/Deployments';
-
 
 export const DeploymentLogs = observer(
   (props: { deployment?: DeploymentModel }) => {
@@ -70,11 +69,13 @@ export const DeploymentInfoPage = observer((props) => {
   const deployment = workspacesstore.selectedDeployment;
   if (!deployment) return null;
   if (deployment?.status === 'STOPPED') {
-    return <WorkspaceWrapper>
-      <Typography variant="h3">Deployment: {deployment.name}</Typography>
-      <Typography variant="h6">Currently off</Typography>
-      <DeploymentChip deployment={deployment} />
-    </WorkspaceWrapper>
+    return (
+      <WorkspaceWrapper>
+        <Typography variant="h3">Deployment: {deployment.name}</Typography>
+        <Typography variant="h6">Currently off</Typography>
+        <DeploymentChip deployment={deployment} />
+      </WorkspaceWrapper>
+    );
   }
   return (
     <WorkspaceWrapper>
