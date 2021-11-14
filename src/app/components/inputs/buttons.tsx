@@ -78,7 +78,13 @@ export const AddLaneFAB = (props: { onClick: () => any }) => {
 export const AddTaskFAB = (props: { onClick: () => any }) => {
   const { onClick } = props;
   return (
-    <Fab id="addTask" color="primary" aria-label="add" onClick={onClick} size="small">
+    <Fab
+      id="addTask"
+      color="primary"
+      aria-label="add"
+      onClick={onClick}
+      size="small"
+    >
       <AddIcon />
     </Fab>
   );
@@ -152,7 +158,7 @@ export const MoreMenu = (props: {
   return (
     <>
       <IconButton
-        id={props.id ? props.id : "more"}
+        id={props.id ? props.id : 'more'}
         aria-label="more"
         aria-controls="long-menu"
         aria-haspopup="true"

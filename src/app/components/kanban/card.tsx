@@ -53,7 +53,7 @@ export const CardOptions = inject(
               onClick: () => {
                 uistore.setDeleteTarget(task.title, task.delete);
               },
-            }
+            },
           ]}
         />
         <EditTaskDialog isOpen={open} close={handleClose} task={task} />
