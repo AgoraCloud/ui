@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Chip } from '@material-ui/core';
 import { DeploymentModel } from 'app/res/Deployments';
+import { observer } from 'mobx-react';
 
 const chips = {
   FAILED: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
@@ -16,9 +17,9 @@ const chips = {
   UNKNOWN: <Chip style={{ backgroundColor: 'purple' }} label="UNKNOWN" />,
 };
 
-export const DeploymentChip = (props: { deployment: DeploymentModel }) => {
+export const DeploymentChip = observer((props: { deployment: DeploymentModel }) => {
   const { deployment } = props;
   return (
     <div style={{ paddingTop: '15px' }}>{chips[deployment.status] || null}</div>
   );
-};
+})

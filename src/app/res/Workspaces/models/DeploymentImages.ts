@@ -48,6 +48,12 @@ export class DeploymentImagesModel extends Model<images_i[]> {
     }));
   }
 
+
+  getLatest(type: string){
+    console.log()
+    return this.versions[type][0]
+  }
+
   get api() {
     return `${this.workspace.api}/deployments/images/`;
   }

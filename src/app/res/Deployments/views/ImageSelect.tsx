@@ -6,7 +6,7 @@ import { FormModel } from '@mars-man/models';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
 
 export const ImageSelect = observer(
-  (props: { workspace: WorkspaceModel; form: FormModel }) => {
+  (props: { workspace: WorkspaceModel; form: FormModel, disableImage?: boolean }) => {
     const { form, workspace } = props;
     const images = workspace.deploymentImages;
     const types = images.getTypes();
@@ -35,6 +35,7 @@ export const ImageSelect = observer(
       <>
         <BaseSelect
           {...props}
+          disabled={props.disableImage ? props.disableImage : false}
           id="type"
           label="Type"
           defaultValue={types[0]}

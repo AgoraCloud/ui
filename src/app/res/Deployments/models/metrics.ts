@@ -12,7 +12,7 @@ export class DeploymentMetricsModel extends Model<metricsData_i> {
 
     // this.repos = OnDemandRepo(new APIRepo({ path: this.api }))
     this.repos = {
-      main: OnDemandRepo(new APIRepo({ path: this.api })),
+      main: new APIRepo({ path: this.api }),
     };
   }
 
@@ -21,11 +21,11 @@ export class DeploymentMetricsModel extends Model<metricsData_i> {
   }
 
   get memory() {
-    return this.data.memory;
+    return this.data?.memory || 0;
   }
 
   get cpu() {
-    return this.data.cpu;
+    return this.data?.cpu || 0;
   }
 
   get cpuChart() {

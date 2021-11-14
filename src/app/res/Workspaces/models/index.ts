@@ -31,6 +31,7 @@ export class WorkspacesModel extends CollectionModel {
     this.createWorkspaceForm = new CreateWorkspaceFormModel();
 
     add(this, this.createWorkspaceForm.submit);
+
     this.repos = {
       main: new APIRepo({ path: this.api }),
       create: new APIRepo({ path: this.api, method: 'POST' }),

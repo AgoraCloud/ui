@@ -1,7 +1,7 @@
 import * as React from 'react';
 import style from './style.module.scss';
 import { WorkspaceWrapper } from 'app/components/Wrapper';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Button } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { GaugeChart } from 'app/components';
 import Alert from '@material-ui/lab/Alert';
@@ -13,7 +13,9 @@ export const DeploymentLogs = observer(
     // const deployment = store.selectedDeployment
     const { deployment } = props;
     if (!deployment) return null;
+
     const logs = deployment.logs;
+    if (logs.state === 'error') return <Alert severity="error">Error fetching deployment logs</Alert>
 
     const logText = logs.logs;
     return (
@@ -40,6 +42,8 @@ export const DeploymentMetrics = observer(
     const { deployment } = props;
     if (!deployment) return null;
     const metrics = deployment?.metrics;
+    console.log("metrics state", metrics.state)
+    if (metrics.state === 'error') return <Alert severity="error">Error fetching metric data</Alert>
     return (
       <>
         <Typography variant="h4">Metrics</Typography>
@@ -55,6 +59,16 @@ export const DeploymentMetrics = observer(
     );
   },
 );
+
+
+export const DeploymentUpgradeButton = observer(({ deployment }: { deployment: DeploymentModel }) => {
+  if (!deployment.isUpgradeable) return null
+  return <Button color="primary" onClick={() => {
+    deployment.upgrade.call()
+  }}>
+    Upgrade
+  </Button>
+})
 
 export const DeploymentAlert = (props: { deployment: DeploymentModel }) => {
   const { deployment } = props;
@@ -80,6 +94,7 @@ export const DeploymentInfoPage = observer((props) => {
   return (
     <WorkspaceWrapper>
       <Typography variant="h3">Deployment: {deployment.name}</Typography>
+      <DeploymentUpgradeButton deployment={deployment} />
       <Typography variant="h6">
         <DeploymentChip deployment={deployment} />
         <br />

@@ -14,6 +14,7 @@ import {
   StorageInput,
 } from 'app/components/inputs';
 import { Typography } from '@material-ui/core';
+import { WorkspaceModel } from '..';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const CreateWorkspaceForm = observer((props) => {
   const classes = useStyles();
-  const { workspacesstore } = useStores();
+  const { workspacesstore, routerstore } = useStores();
   const form = workspacesstore.workspaces.createWorkspaceForm;
 
   return (
@@ -54,7 +55,14 @@ export const CreateWorkspaceForm = observer((props) => {
       <CPUMemoryInput form={form} />
       <StorageInput form={form} />
 
-      <CancelCreateButtons form={form} />
+      <CancelCreateButtons form={form} submit={async () => {
+        await form.call()
+        setTimeout(()=>{
+          console.log(form.submit.data.id)
+          routerstore.push(`/w/${form.submit.data.id}`)
+        }, 1000)
+        // const workspace = (workspacesstore.workspaces.getBy('id', form.submit.data.id) as unknown) as WorkspaceModel
+      }} />
     </>
   );
 });
