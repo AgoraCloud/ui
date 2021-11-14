@@ -13,14 +13,14 @@ export const WorkspaceAppMenu = () => {
 };
 
 export const AppMenu = () => {
-  const {workspacesstore} = useStores()
-  if(workspacesstore.selectedWorkspace == undefined){
+  const { workspacesstore } = useStores();
+  if (workspacesstore.selectedWorkspace == undefined) {
     return (
       <>
-      <TopBar />
-      <SideBar />
-    </>
-    )
+        <TopBar />
+        <SideBar />
+      </>
+    );
   }
-  return <WorkspaceAppMenu/>
+  return <WorkspaceAppMenu />;
 };

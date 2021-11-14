@@ -15,7 +15,8 @@ export const DeploymentLogs = observer(
     if (!deployment) return null;
 
     const logs = deployment.logs;
-    if (logs.state === 'error') return <Alert severity="error">Error fetching deployment logs</Alert>
+    if (logs.state === 'error')
+      return <Alert severity="error">Error fetching deployment logs</Alert>;
 
     const logText = logs.logs;
     return (
@@ -42,8 +43,9 @@ export const DeploymentMetrics = observer(
     const { deployment } = props;
     if (!deployment) return null;
     const metrics = deployment?.metrics;
-    console.log("metrics state", metrics.state)
-    if (metrics.state === 'error') return <Alert severity="error">Error fetching metric data</Alert>
+    console.log('metrics state', metrics.state);
+    if (metrics.state === 'error')
+      return <Alert severity="error">Error fetching metric data</Alert>;
     return (
       <>
         <Typography variant="h4">Metrics</Typography>
@@ -60,15 +62,21 @@ export const DeploymentMetrics = observer(
   },
 );
 
-
-export const DeploymentUpgradeButton = observer(({ deployment }: { deployment: DeploymentModel }) => {
-  if (!deployment.isUpgradeable) return null
-  return <Button color="primary" onClick={() => {
-    deployment.upgrade.call()
-  }}>
-    Upgrade
-  </Button>
-})
+export const DeploymentUpgradeButton = observer(
+  ({ deployment }: { deployment: DeploymentModel }) => {
+    if (!deployment.isUpgradeable) return null;
+    return (
+      <Button
+        color="primary"
+        onClick={() => {
+          deployment.upgrade.call();
+        }}
+      >
+        Upgrade
+      </Button>
+    );
+  },
+);
 
 export const DeploymentAlert = (props: { deployment: DeploymentModel }) => {
   const { deployment } = props;

@@ -17,9 +17,13 @@ const chips = {
   UNKNOWN: <Chip style={{ backgroundColor: 'purple' }} label="UNKNOWN" />,
 };
 
-export const DeploymentChip = observer((props: { deployment: DeploymentModel }) => {
-  const { deployment } = props;
-  return (
-    <div style={{ paddingTop: '15px' }}>{chips[deployment.status] || null}</div>
-  );
-})
+export const DeploymentChip = observer(
+  (props: { deployment: DeploymentModel }) => {
+    const { deployment } = props;
+    return (
+      <div style={{ paddingTop: '15px' }}>
+        {chips[deployment.status] || null}
+      </div>
+    );
+  },
+);

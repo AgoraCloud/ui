@@ -47,7 +47,11 @@ export const EditDeploymentForm = observer(
           Specify the maximum amount of resources the deployment can use:
         </Typography>
         <Label>Container Image</Label>
-        <ImageSelect form={form} workspace={form.deployment.workspace} disableImage={true} />
+        <ImageSelect
+          form={form}
+          workspace={form.deployment.workspace}
+          disableImage={true}
+        />
         <CPUMemoryInput form={form} />
         <CancelCreateButtons
           form={form}
