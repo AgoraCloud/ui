@@ -44,9 +44,14 @@ Cypress.Commands.add('loginAsAdmin', () => {
   })
 })
 
-Cypress.Commands.add('visitProjects', () => { 
+Cypress.Commands.add('visitDeployments', () => { 
   cy.loginAsAdmin()
   cy.visit('/w/' + data.testWorkspaceId + '/p')
+})
+
+Cypress.Commands.add('visitProjects', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId)
 })
 
 Cypress.Commands.add('visitWikis', () => { 

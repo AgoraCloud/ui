@@ -1,0 +1,31 @@
+{
+    "global": {
+        "labelName": "Name",
+        "labelDescription": "Description",
+        "nameErrMessage": "name must be longer than or equal to 4 characters",
+        "improperName": "TP-"
+    },
+    "greeting": "Projects",
+    "testDeploymentId": "617a28e05548110013c54cb7",
+    "testDeploymentName": "TDeployment",
+    "testProjectDescription": "This is the description of TProject",
+    "editBtnText": "Edit",
+    "infoBtnText": "Info",
+    "deleteBtnText": "Delete",
+    "favoriteBtnText": "Favorite",
+    "unfavoriteBtnText": "Unfavorite",
+    "deleteDiaglogGreeting": "Confirm Delete",
+    "create": {
+        "greeting": "Create Project",
+        "createBtnText": "Create",
+        "newProjectName": "TP-1",
+        "newProjectDescription": "This is TP-1's description"
+    },
+    "edit": {
+        "greeting": "Edit Project",
+        "saveBtnText": "Save",
+        "newProjectName": "TP-1-EDIT",
+        "newProjectDescription": "This is TP-1's description-EDIT"
+    } 
+}
+  
