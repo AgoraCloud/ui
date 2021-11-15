@@ -49,6 +49,11 @@ Cypress.Commands.add('visitProjects', () => {
   cy.visit('/w/' + data.testWorkspaceId + '/p')
 })
 
+Cypress.Commands.add('visitWikis', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/wiki')
+})
+
 Cypress.Commands.add('visitLanes', () => { 
   cy.loginAsAdmin()
   cy.visit('/w/' + data.testWorkspaceId + '/p/' + projectData.testProjectId + '/lanes')

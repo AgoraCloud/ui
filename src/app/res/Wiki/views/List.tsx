@@ -113,7 +113,7 @@ export const SectionButton = observer(
         </Tooltip>
         <div>
           <IconButton onClick={onClick}>
-            {open ? <ExpandMore /> : <ExpandLess />}
+            {open ? <ExpandMore id="hideWikiPages" /> : <ExpandLess id="showWikiPages" />}
           </IconButton>
         </div>
       </ListItem>
