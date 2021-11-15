@@ -26,11 +26,13 @@ export const WorkspaceMetricsPage = observer((props) => {
 
   // if(metrics?.state != 'loaded') return null
   if (metrics.state === 'error') {
-    return <WorkspaceWrapper>
-      <Typography variant="h4">{workspace.name} Metrics</Typography>
-      <br />
-      <WorkspaceAlert metrics={metrics} />
-    </WorkspaceWrapper>
+    return (
+      <WorkspaceWrapper>
+        <Typography variant="h4">{workspace.name} Metrics</Typography>
+        <br />
+        <WorkspaceAlert metrics={metrics} />
+      </WorkspaceWrapper>
+    );
   }
   return (
     <WorkspaceWrapper>

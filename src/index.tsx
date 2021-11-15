@@ -6,7 +6,7 @@ import { App } from 'app';
 import { rootStore, history } from 'app/stores/RootStore';
 import { ThemeProvider } from '@material-ui/core';
 import { theme } from 'app/styles/theme';
-import { SnackbarManager } from 'app/components/snackbar-manager';
+import { SnackbarManager } from 'app/components';
 import { configure } from 'mobx';
 
 configure({
