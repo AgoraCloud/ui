@@ -9,6 +9,7 @@ import {
 } from 'app/res/Wiki';
 import { events } from '@mars-man/models';
 import { types } from 'app/constants';
+import { ProjectModel } from 'app/res/Projects';
 
 export class WorkspacesStore {
   // @observable workspaces: Workspaces;
@@ -20,29 +21,15 @@ export class WorkspacesStore {
   @observable
   count = 0;
   constructor(private rootStore: RootStore) {
-    // this.workspaces = new Workspaces(this);
     this.workspaces = new WorkspacesModel();
     this.wikiEdit = false;
 
     makeObservable(this);
 
-    // rootStore.authStore.user.repo?.onLoad.subscribe((val) => {
-    //   // console.log("authstore onload", val)
-    //   this.workspaces.load();
-    // });
-
     events.on(types.USERLOAD.onLoad.type, () => {
       this.workspaces.load();
     });
   }
-
-  // get createDeploymentForm() {
-  //   return this.selectedWorkspace.createDeploymentForm;
-  // }
-
-  // get createProjectForm() {
-  //   return this.selectedWorkspace.createProjectForm;
-  // }
 
   selectWorkspace = (wid: string) => {
     const selectedWorkspace = this.workspaces.getBy(
@@ -58,7 +45,6 @@ export class WorkspacesStore {
     this._selectedWorkspace = this.selectedWorkspace;
   }
   get selectedWorkspace(): WorkspaceModel | undefined {
-    // const params = useParams<{wid: string}>()
 
     const { wid } = this.rootStore.routerStore.params;
     let selectedWorkspace: WorkspaceModel | undefined = undefined;
@@ -78,7 +64,6 @@ export class WorkspacesStore {
   }
 
   get selectedDeployment() {
-    // const params = useParams<{wid: string, did: string}>()
     const { did } = this.rootStore.routerStore.params;
 
     if (this.selectedWorkspace) {
@@ -91,7 +76,6 @@ export class WorkspacesStore {
   }
 
   get selectedWikiSection() {
-    // const params = useParams<{wid: string, did: string}>()
     const { sectionId } = this.rootStore.routerStore.params;
 
     if (this.selectedWorkspace) {
@@ -103,7 +87,6 @@ export class WorkspacesStore {
     return undefined;
   }
   get selectedWikiPage() {
-    // const params = useParams<{wid: string, did: string}>()
     const { pageId } = this.rootStore.routerStore.params;
     if (this.selectedWikiSection) {
       return this.selectedWikiSection.wikiPages.getBy(
@@ -112,5 +95,14 @@ export class WorkspacesStore {
       )[0] as WikiPageModel;
     }
     return undefined;
+  }
+
+
+  get selectedProject(){
+    const { projectId } = this.rootStore.routerStore.params;
+    if (this.selectedWorkspace) {
+      return this.selectedWorkspace.projects.getBy('id', projectId)[0] as ProjectModel
+    }
+    return undefined
   }
 }

@@ -112,7 +112,6 @@ export const DeploymentMenu = observer(
           options.push({
             name: 'Start',
             onClick: () => {
-              console.log('Start Deployment');
               deployment.start.call();
             },
           });
@@ -121,7 +120,6 @@ export const DeploymentMenu = observer(
           options.push({
             name: 'Stop',
             onClick: () => {
-              console.log('Stop Deployment');
               deployment.stop.call();
             },
           });

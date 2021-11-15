@@ -54,7 +54,7 @@ export class WorkspacesModel extends CollectionModel {
     return `/w/${this.selectedWorkspace.id}`;
   }
   postLoad = async () => {
-    console.log('workspaces loaded');
+    // console.log('workspaces loaded');
   };
   // getById = (id?: string): Workspace | undefined => {
   //     return this.workspaces.filter((w: Workspace) => w.id === id)[0];
@@ -95,7 +95,7 @@ export class WorkspaceModel extends Model<workspaceData_i> {
   // forms
   updateWorkspace: UpdateWorkspaceFormModel;
   createDeployment: CreateDeploymentFormModel;
-  createProject: CreateProjectFormModel;
+  // createProject: CreateProjectFormModel;
   delete: APIRepo;
   constructor(config) {
     super(config);
@@ -114,11 +114,11 @@ export class WorkspaceModel extends Model<workspaceData_i> {
 
     // Forms
     this.updateWorkspace = new UpdateWorkspaceFormModel(this);
-    this.createProject = new CreateProjectFormModel(this);
+    // this.createProject = new CreateProjectFormModel(this);
 
     this.forms = {
       createDeployment: this.createDeployment,
-      createProject: this.createProject,
+      // createProject: this.createProject,
       update: this.updateWorkspace,
     };
 
@@ -137,6 +137,7 @@ export class WorkspaceModel extends Model<workspaceData_i> {
       this.workspaceAdmin,
       this.metrics,
       this.wikiSections,
+      this.projects
     ];
 
     update(this, this.updateWorkspace.submit);

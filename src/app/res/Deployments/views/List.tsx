@@ -62,14 +62,11 @@ export const DeploymentsAccordion = observer(
 
 export const DeploymentsList = observer(
   ({ workspace }: { workspace: WorkspaceModel }) => {
-    // console.log(workspace.deployments);
-
     const deployments = workspace.deployments.deployments;
     const favorited = deployments.filter((deployment) => deployment.isFavorite);
     const notfavorited = deployments.filter(
       (deployment) => !deployment.isFavorite,
     );
-    console.log(favorited, notfavorited);
     return (
       <>
         <DeploymentsAccordion

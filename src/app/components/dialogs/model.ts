@@ -29,7 +29,7 @@ export class DialogModel {
   }
   onOpen = () => {
     this.open = true;
-    console.log('OPEN', this);
+    // console.log('OPEN', this);
   };
   onClose = () => {
     this.open = false;

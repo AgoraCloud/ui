@@ -22,6 +22,8 @@ export class RouterStore extends BaseRouterStore {
       /\/w\/(?<wid>[a-zA-Z0-9]{24})\/wiki\/(?<sectionId>[a-zA-Z0-9]{24})\/pages\/(?<pageId>[a-zA-Z0-9]{24})/,
       /\/w\/(?<wid>[a-zA-Z0-9]{24})/,
       /\/w\/(?<wid>[a-zA-Z0-9]{24})\/d\/(?<did>[a-zA-Z0-9]{24})/,
+      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/p\/(?<projectId>[a-zA-Z0-9]{24})/,
+      /\/w\/(?<wid>[a-zA-Z0-9]{24})\/p\/(?<projectId>[a-zA-Z0-9]{24})\/l\/(?<laneId>[a-zA-Z0-9]{24})/,
     ];
     let out = {};
     for (const pattern of patterns) {

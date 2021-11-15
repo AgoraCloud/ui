@@ -10,7 +10,6 @@ export const WorkspaceHome = observer(() => {
   const workspaces = workspacesstore.workspaces;
   const selectedWorkspace = workspacesstore.selectedWorkspace;
   if (!selectedWorkspace) return null;
-  // console.log("SELECTED WORKSPACE", selectedWorkspace)
   return (
     <WorkspaceWrapper>
       <DeploymentsList workspace={selectedWorkspace} />

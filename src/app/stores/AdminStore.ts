@@ -24,7 +24,6 @@ export class AdminStore extends Model {
     this.editUserDialog = new AdminUserDialogModel();
     this.createUserDialog = new DialogModel();
     rootStore.authStore.user.repo?.onLoad.subscribe((val) => {
-      console.log('authstore onload admin', val);
       this.load();
     });
     this.dependents = [this.users];
