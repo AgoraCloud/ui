@@ -19,25 +19,23 @@ export class ProjectsModel extends CollectionModel {
       // create: new APIRepo({ path: this.api, method: 'POST' }),
     };
 
-    this.createProjectForm = new CreateProjectFormModel(this)
-    add(this, this.createProjectForm.submit)
+    this.createProjectForm = new CreateProjectFormModel(this);
+    add(this, this.createProjectForm.submit);
   }
   postLoad = async () => {
     // console.log("projectsmodel loaded", this)
-  }
+  };
   get api() {
     return `${this.workspace.api}/projects`;
   }
 
   get link() {
-    return `${this.workspace.link}/p`
+    return `${this.workspace.link}/p`;
   }
 
   get projects() {
-    return this.collection.models as ProjectModel[]
+    return this.collection.models as ProjectModel[];
   }
-
-
 }
 export class ProjectModel extends Model {
   projects: ProjectsModel;
@@ -47,37 +45,35 @@ export class ProjectModel extends Model {
 
   constructor(config) {
     super(config);
-    this.projects = this.parent as ProjectsModel
-    this.lanes = new LanesModel(this)
-    this.editProjectForm = new EditProjectFormModel(this)
+    this.projects = this.parent as ProjectsModel;
+    this.lanes = new LanesModel(this);
+    this.editProjectForm = new EditProjectFormModel(this);
     this.delete = new APIRepo({
       path: this.api,
-      method: 'DELETE'
-    })
-    this.dependents = [
-      this.lanes
-    ]
-    remove(this, this.delete)
+      method: 'DELETE',
+    });
+    this.dependents = [this.lanes];
+    remove(this, this.delete);
   }
 
   get id() {
-    return this.data.id
+    return this.data.id;
   }
   get api() {
-    return `${this.projects.api}/${this.id}`
+    return `${this.projects.api}/${this.id}`;
   }
   get link() {
-    return `${this.projects.link}/${this.id}`
+    return `${this.projects.link}/${this.id}`;
   }
   get name() {
-    return this.data.name
+    return this.data.name;
   }
 
   get description() {
-    return this.data.description
+    return this.data.description;
   }
 
   onDelete = () => {
-    this.delete.call()
-  }
+    this.delete.call();
+  };
 }

@@ -150,4 +150,4 @@ export const Board = observer((props) => {
       <CreateLaneDialog isOpen={open} close={handleClose} />
     </>
   );
-})
+});

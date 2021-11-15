@@ -1,4 +1,8 @@
-import { CreateTaskFormModel, EditTaskFormModel, LaneModel } from 'app/res/Projects';
+import {
+  CreateTaskFormModel,
+  EditTaskFormModel,
+  LaneModel,
+} from 'app/res/Projects';
 import { APIRepo, CollectionModel, Model } from '@mars-man/models';
 import { types } from 'app/constants';
 import { add, remove } from 'app/constants/helpers';
@@ -8,20 +12,20 @@ export class TasksModel extends CollectionModel {
 
   constructor(public lane: LaneModel) {
     super({
-      collections: TaskModel
-    })
+      collections: TaskModel,
+    });
     this.repos = {
-      main: new APIRepo({path: this.api})
-    }
-    this.createTaskForm = new CreateTaskFormModel(this)
-    add(this, this.createTaskForm.submit)
+      main: new APIRepo({ path: this.api }),
+    };
+    this.createTaskForm = new CreateTaskFormModel(this);
+    add(this, this.createTaskForm.submit);
   }
-  get api(){
-    return `${this.lane.api}/tasks`
+  get api() {
+    return `${this.lane.api}/tasks`;
   }
 
-  get tasks(){
-    return (this.collection.models || []) as TaskModel[]
+  get tasks() {
+    return (this.collection.models || []) as TaskModel[];
   }
   // getById = (id?: string): Task | undefined => {
   //   return this.tasks.filter((t: Task) => t.id === id)[0];
@@ -55,24 +59,24 @@ export class TaskModel extends Model {
    * A single project
    */
   constructor(config) {
-    super(config)
-    this.tasks = this.parent as TasksModel
+    super(config);
+    this.tasks = this.parent as TasksModel;
     this.editTaskForm = new EditTaskFormModel(this);
     this.delete = new APIRepo({
       path: this.api,
       method: 'DELETE',
-      events: types.LANE_TASKS_CRUD
-    })
+      events: types.LANE_TASKS_CRUD,
+    });
 
-    remove(this, this.delete)
+    remove(this, this.delete);
   }
 
   get id() {
     return this.data.id;
   }
 
-  get api(){
-    return `${this.tasks.api}/${this.id}`
+  get api() {
+    return `${this.tasks.api}/${this.id}`;
   }
 
   get title() {
@@ -82,12 +86,10 @@ export class TaskModel extends Model {
   get description() {
     return this.data.description;
   }
-  changeLane = (laneId: string) => {
-
-  }
+  changeLane = (laneId: string) => {};
   onDelete = async () => {
-    await this.delete.call()
-  }
+    await this.delete.call();
+  };
   // delete = async () => {
   //   try {
   //     const wid = this.tasks.project.projects.workspace.id;

@@ -58,4 +58,4 @@ export const BoardItem = observer((props: BoardItemProps) => {
       )}
     </Draggable>
   );
-})
+});

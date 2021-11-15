@@ -1,3 +1,3 @@
-export * from './Task'
-export * from './Lane'
-export * from './Project'
+export * from './Task';
+export * from './Lane';
+export * from './Project';

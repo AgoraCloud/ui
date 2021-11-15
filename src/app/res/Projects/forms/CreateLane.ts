@@ -7,9 +7,7 @@ interface createLaneForm_i {
   name: string;
 }
 
-export class CreateLaneFormModel extends FormModel<
-  createLaneForm_i
-> {
+export class CreateLaneFormModel extends FormModel<createLaneForm_i> {
   constructor(public lanes: LanesModel) {
     super({
       validator: CreateProjectLaneDto,
@@ -19,8 +17,8 @@ export class CreateLaneFormModel extends FormModel<
       submit: new APIRepo({
         path: lanes.api,
         method: 'POST',
-        events: types.PROJECT_LANE_CRUD
-      })
+        events: types.PROJECT_LANE_CRUD,
+      }),
     });
   }
 
@@ -28,5 +26,3 @@ export class CreateLaneFormModel extends FormModel<
     this.data.name = '';
   };
 }
-
-

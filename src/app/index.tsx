@@ -62,7 +62,12 @@ import { WikiRoutes } from 'app/res/Wiki';
 /**
  * ProjectsImport
  */
-import { ProjectListPage, CreateProjectPage, EditProjectPage, KanbanPage } from 'app/res/Projects';
+import {
+  ProjectListPage,
+  CreateProjectPage,
+  EditProjectPage,
+  KanbanPage,
+} from 'app/res/Projects';
 
 export const App = ({ history }: any) => {
   return (
@@ -92,7 +97,10 @@ export const App = ({ history }: any) => {
         />
         {/* Projects Path */}
         <WorkspacesLoaded path="/w/:wid/p/:pid/lanes" component={KanbanPage} />
-        <WorkspacesLoaded path="/w/:wid/p/:pid/edit" component={EditProjectPage} />
+        <WorkspacesLoaded
+          path="/w/:wid/p/:pid/edit"
+          component={EditProjectPage}
+        />
         <WorkspacesLoaded path="/w/:wid/p/new" component={CreateProjectPage} />
         <WorkspacesLoaded path="/w/:wid/p" component={ProjectListPage} />
         <WorkspacesLoaded path="/w/:wid/edit" component={UpdateWorkspace} />

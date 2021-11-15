@@ -137,7 +137,7 @@ export class WorkspaceModel extends Model<workspaceData_i> {
       this.workspaceAdmin,
       this.metrics,
       this.wikiSections,
-      this.projects
+      this.projects,
     ];
 
     update(this, this.updateWorkspace.submit);

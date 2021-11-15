@@ -1,6 +1,11 @@
 import { observable } from 'mobx';
 import { WorkspaceModel } from 'app/res/Workspaces';
-import { ProjectModel, TasksModel, CreateTaskFormModel, CreateLaneFormModel } from 'app/res/Projects';
+import {
+  ProjectModel,
+  TasksModel,
+  CreateTaskFormModel,
+  CreateLaneFormModel,
+} from 'app/res/Projects';
 import { EditLaneFormModel } from 'app/res/Projects';
 import { events, types } from 'app/constants';
 import { APIRepo, CollectionModel, Model } from '@mars-man/models';
@@ -11,8 +16,8 @@ export class LanesModel extends CollectionModel {
 
   constructor(public project: ProjectModel) {
     super({
-      collections: LaneModel
-    })
+      collections: LaneModel,
+    });
     events.on(types.PROJECT_LANE_CRUD.onLoad.type, () => {
       this.load();
     });
@@ -23,21 +28,19 @@ export class LanesModel extends CollectionModel {
       this.load();
     });
 
-    this.createLaneForm = new CreateLaneFormModel(this)
+    this.createLaneForm = new CreateLaneFormModel(this);
     this.repos = {
-      main: new APIRepo({path: this.api})
-    }
-    add(this, this.createLaneForm.submit)
+      main: new APIRepo({ path: this.api }),
+    };
+    add(this, this.createLaneForm.submit);
   }
 
-
-  get api(){
-    return `${this.project.api}/lanes`
+  get api() {
+    return `${this.project.api}/lanes`;
   }
-  get link(){
-    return `${this.project.link}/lanes`
+  get link() {
+    return `${this.project.link}/lanes`;
   }
-
 
   get lanes() {
     return (this.collection.models || []) as LaneModel[];
@@ -58,7 +61,7 @@ interface laneData_i {
       email: string;
       id: string;
     };
-  }
+  };
   id: string;
 }
 export class LaneModel extends Model {
@@ -71,19 +74,17 @@ export class LaneModel extends Model {
    */
 
   constructor(config) {
-    super(config)
-    this.lanes = this.parent as LanesModel
+    super(config);
+    this.lanes = this.parent as LanesModel;
     this.tasks = new TasksModel(this);
     this.editLaneForm = new EditLaneFormModel(this);
     this.delete = new APIRepo({
       path: this.api,
       method: 'DELETE',
-      events: types.PROJECT_LANE_CRUD
-    })
-    this.dependents = [
-      this.tasks
-    ]
-    update(this, this.editLaneForm.submit)
+      events: types.PROJECT_LANE_CRUD,
+    });
+    this.dependents = [this.tasks];
+    update(this, this.editLaneForm.submit);
   }
 
   get id() {
@@ -95,11 +96,11 @@ export class LaneModel extends Model {
   }
 
   get link() {
-    return `${this.lanes.link}/l/${this.id}`
+    return `${this.lanes.link}/l/${this.id}`;
   }
 
-  get api(){
-    return `${this.lanes.api}/${this.id}`
+  get api() {
+    return `${this.lanes.api}/${this.id}`;
   }
 
   load = async () => {

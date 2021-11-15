@@ -13,7 +13,7 @@ import { Input } from 'app/components/inputs';
 import { LaneModel, TaskModel } from 'app/res/Projects';
 
 export const CreateLaneDialog = observer((props) => {
-  const {workspacesstore} = useStores()
+  const { workspacesstore } = useStores();
   const project = workspacesstore.selectedProject;
 
   if (!project) return null;
@@ -62,7 +62,7 @@ export const CreateLaneDialog = observer((props) => {
       </Dialog>
     </div>
   );
-})
+});
 export const EditLaneDialog = inject(WORKSPACES_STORE)(
   observer((props) => {
     const store = props[WORKSPACES_STORE] as WorkspacesStore;
@@ -112,7 +112,7 @@ export const EditLaneDialog = inject(WORKSPACES_STORE)(
 );
 
 export const CreateTaskDialog = observer((props) => {
-  const { workspacesstore } = useStores()
+  const { workspacesstore } = useStores();
   const project = workspacesstore.selectedProject;
 
   if (!project) return null;
@@ -172,55 +172,54 @@ export const CreateTaskDialog = observer((props) => {
       </Dialog>
     </div>
   );
-})
-
-export const EditTaskDialog = observer((props: {
-  task: TaskModel,
-  isOpen: boolean
-  close: () => void
-}) => {
-  const task = props.task;
-  const form = task.editTaskForm;
-
-  return (
-    <div>
-      <Dialog
-        open={props.isOpen}
-        onClose={props.close}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Edit Task</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Modify the information below and then click the 'Save' button below!
-          </DialogContentText>
-
-          <Typography variant="subtitle1">Title</Typography>
-          <Input form={form} id="title" label="Title" />
-          <Typography variant="subtitle1">Description</Typography>
-          <Input
-            form={form}
-            id="description"
-            label="Description"
-            InputLabelProps={{ required: false }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={props.close} color="primary">
-            Cancel
-          </Button>
-          <Button
-            onClick={async () => {
-              props.close();
-              await form.call();
-            }}
-            color="primary"
-            disabled={!form.isValid}
-          >
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
 });
+
+export const EditTaskDialog = observer(
+  (props: { task: TaskModel; isOpen: boolean; close: () => void }) => {
+    const task = props.task;
+    const form = task.editTaskForm;
+
+    return (
+      <div>
+        <Dialog
+          open={props.isOpen}
+          onClose={props.close}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Edit Task</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Modify the information below and then click the 'Save' button
+              below!
+            </DialogContentText>
+
+            <Typography variant="subtitle1">Title</Typography>
+            <Input form={form} id="title" label="Title" />
+            <Typography variant="subtitle1">Description</Typography>
+            <Input
+              form={form}
+              id="description"
+              label="Description"
+              InputLabelProps={{ required: false }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={props.close} color="primary">
+              Cancel
+            </Button>
+            <Button
+              onClick={async () => {
+                props.close();
+                await form.call();
+              }}
+              color="primary"
+              disabled={!form.isValid}
+            >
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  },
+);

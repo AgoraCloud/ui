@@ -45,7 +45,6 @@ export class WorkspacesStore {
     this._selectedWorkspace = this.selectedWorkspace;
   }
   get selectedWorkspace(): WorkspaceModel | undefined {
-
     const { wid } = this.rootStore.routerStore.params;
     let selectedWorkspace: WorkspaceModel | undefined = undefined;
     if (wid) {
@@ -97,12 +96,14 @@ export class WorkspacesStore {
     return undefined;
   }
 
-
-  get selectedProject(){
+  get selectedProject() {
     const { projectId } = this.rootStore.routerStore.params;
     if (this.selectedWorkspace) {
-      return this.selectedWorkspace.projects.getBy('id', projectId)[0] as ProjectModel
+      return this.selectedWorkspace.projects.getBy(
+        'id',
+        projectId,
+      )[0] as ProjectModel;
     }
-    return undefined
+    return undefined;
   }
 }
