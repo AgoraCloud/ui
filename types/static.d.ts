@@ -23,18 +23,6 @@ declare module '*.module.styl' {
   export default classes;
 }
 
-declare module '*.scss' {
-  const styles: any;
-  export = styles;
-}
-
-/* CSS */
-declare module '*.css';
-// declare module '*.scss';
-declare module '*.sass';
-declare module '*.less';
-declare module '*.styl';
-
 /* IMAGES */
 declare module '*.svg' {
   const ref: string;

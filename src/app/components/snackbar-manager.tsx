@@ -1,26 +1,23 @@
 import * as React from 'react';
 import { SnackbarProvider, withSnackbar } from 'notistack';
-import { inject, observer } from 'mobx-react';
-import { SNACKBAR_STORE } from 'app/constants';
-import { SnackbarStore } from 'app/stores';
-import { isObservable } from 'mobx';
+import { observer } from 'mobx-react';
+import { useStores } from 'app/stores';
 
 let displayed: number[] = [];
 
 const Notifier = withSnackbar(
-  inject(SNACKBAR_STORE)(
-    observer((props) => {
-      const store = props[SNACKBAR_STORE] as SnackbarStore;
-      store.alerts.forEach((alert) => {
-        const { message, ...rest } = alert;
-        if (displayed.includes(alert.key)) return;
-        props.enqueueSnackbar(message, rest);
-        displayed = [...displayed, alert.key];
-        store.remove(alert);
-      });
-      return null;
-    }),
-  ),
+  observer((props) => {
+    const { snackbarstore } = useStores();
+    console.log(snackbarstore.alerts);
+    snackbarstore.alerts.forEach((alert) => {
+      const { message, ...rest } = alert;
+      if (displayed.includes(alert.key)) return;
+      props.enqueueSnackbar(message, rest);
+      displayed = [...displayed, alert.key];
+      snackbarstore.remove(alert);
+    });
+    return null;
+  }),
 );
 
 export const SnackbarManager = (props) => {
