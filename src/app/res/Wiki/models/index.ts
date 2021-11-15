@@ -62,6 +62,7 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
       data: {
         name: data.name,
       },
+      submit: new APIRepo({ path: this.api, method: 'PUT' })
     });
     this.delete = new APIRepo({ path: this.api, method: 'DELETE' });
     this.wikiPages = new WikiPagesModel(this);
@@ -83,7 +84,9 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
     return `${this.sections.api}/${this.id}`;
   }
 
-  onSubmitNameChange = () => {};
+  onSubmitNameChange = async () => {
+    await this.sectionForm.call()
+  };
   onDelete = async () => {
     await this.delete.call();
   };
