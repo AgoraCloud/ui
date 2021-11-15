@@ -21,9 +21,8 @@ export const DeploymentsAccordion = observer(
     deployments: DeploymentModel[];
     summary: string;
   }) => {
-    if (deployments.length == 0) return null;
     const [expanded, setExapanded] = React.useState(true);
-
+    if (deployments.length == 0) return null;
     return (
       <Accordion
         expanded={expanded}

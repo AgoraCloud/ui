@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { useStores } from 'app/stores';
 import { Typography } from '@material-ui/core';
-import { PaginatedTable, Column, Row } from 'app/components/table';
+import { PaginatedTable, Column, Row } from 'app/components';
 import { MoreMenu, AddFABBase } from 'app/components/inputs';
 import {
   PermissionsDialog,

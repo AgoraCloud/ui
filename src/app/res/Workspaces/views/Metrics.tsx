@@ -25,12 +25,18 @@ export const WorkspaceMetricsPage = observer((props) => {
   const metrics = workspace?.metrics;
 
   // if(metrics?.state != 'loaded') return null
+  if (metrics.state === 'error') {
+    return (
+      <WorkspaceWrapper>
+        <Typography variant="h4">{workspace.name} Metrics</Typography>
+        <br />
+        <WorkspaceAlert metrics={metrics} />
+      </WorkspaceWrapper>
+    );
+  }
   return (
     <WorkspaceWrapper>
       <Typography variant="h4">{workspace.name} Metrics</Typography>
-      <br />
-      <WorkspaceAlert metrics={metrics} />
-      <br />
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <GaugeChart {...metrics.cpuChart} />

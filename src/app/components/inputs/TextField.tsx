@@ -64,10 +64,10 @@ export const ResourcesInput = (props: { form: FormModel }) => {
   const classes = useStyles();
   const { form } = props;
 
-  const [persist, setPersist] = React.useState(true);
+  const [persist, setPersist] = React.useState(false);
 
   const handleCheckbox = () => {
-    form.onChange('storageCount')(persist ? undefined : 8);
+    form.onChange('storageCount')(persist ? 8 : undefined);
     setPersist(!persist);
   };
 

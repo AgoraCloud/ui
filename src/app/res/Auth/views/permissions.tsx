@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Checkbox } from '@material-ui/core';
-import { PaginatedTable } from 'app/components/table';
+import { PaginatedTable } from 'app/components';
 import { observer } from 'mobx-react';
 import { Label } from 'app/components/inputs';
 import { BaseAdminPermissionsFormModel } from 'app/res/Auth';
