@@ -17,12 +17,10 @@ export const ImageSelect = observer(
     const type = form.get('type') || images.types[0];
     const version = form.get('version');
     const versions = images.getVersions(type);
-    // console.log("YOOOO", types, versions, type, version)
 
     const onChange = (id) => {
       return (e) => {
         form.onChange(id)(e.target.value);
-        // form.onChange(id)(JSON.parse(e.target.value));
       };
     };
 

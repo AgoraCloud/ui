@@ -60,7 +60,6 @@ export const CreateWorkspaceForm = observer((props) => {
         submit={async () => {
           await form.call();
           setTimeout(() => {
-            console.log(form.submit.data.id);
             routerstore.push(`/w/${form.submit.data.id}`);
           }, 1000);
           // const workspace = (workspacesstore.workspaces.getBy('id', form.submit.data.id) as unknown) as WorkspaceModel

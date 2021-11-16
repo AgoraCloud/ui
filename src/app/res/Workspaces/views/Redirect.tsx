@@ -6,7 +6,6 @@ import { useStores } from 'app/stores';
 export const WorkspaceRedirect = observer((props) => {
   const { workspacesstore } = useStores();
   const { workspaces } = workspacesstore;
-  console.log('WorkspaceRedirect', workspaces);
   if (workspaces.state != 'loaded') {
     return null;
   }

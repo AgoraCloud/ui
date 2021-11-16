@@ -77,13 +77,13 @@ export const SectionButton = observer(
     const { section, open, onClick } = props;
     const form = section.sectionForm;
     const { uistore } = useStores();
-    console.log(section.id);
+    // console.log(section.id);
     const menuItems = [
       {
         label: <span id="deleteWikiSection">Delete</span>,
         onClick: () => {
           uistore.setDeleteTarget(section.data.name, () => {
-            console.log(section.id);
+            // console.log(section.id);
             section.onDelete();
           });
         },

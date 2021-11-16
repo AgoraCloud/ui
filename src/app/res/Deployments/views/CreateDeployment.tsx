@@ -36,7 +36,6 @@ export const CreateDeploymentForm = observer(
   (props: { form: CreateDeploymentFormModel }) => {
     const { form } = props;
     const workspace = form.deployments.workspace;
-    console.log(toJS(form.errors));
     return (
       <Form form={form}>
         <Label>Deployment Name</Label>

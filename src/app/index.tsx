@@ -59,6 +59,15 @@ import {
  * WIKI IMPORTS
  */
 import { WikiRoutes } from 'app/res/Wiki';
+/**
+ * ProjectsImport
+ */
+import {
+  ProjectListPage,
+  CreateProjectPage,
+  EditProjectPage,
+  KanbanPage,
+} from 'app/res/Projects';
 
 export const App = ({ history }: any) => {
   return (
@@ -87,13 +96,13 @@ export const App = ({ history }: any) => {
           component={WorkspaceAdminRoutes}
         />
         {/* Projects Path */}
-        {/* <ProjectsLoaded path="/w/:wid/projects" component={ProjectList} /> */}
-        {/* <ProjectsLoaded path="/w/:wid/p/new" component={CreateProject} /> */}
-        {/* <ProjectsLoaded path="/w/:wid/p/:pid/edit" component={EditProject} /> */}
-        {/* <LanesLoaded path="/w/:wid/p/:pid/lanes" component={Lanes} /> */}
-        {/* <ProjectsLoaded path="/w/:wid/p/:pid/edit" component={EditProject} /> */}
-        {/* <ProjectsLoaded path="/w/:wid/p/new" component={CreateProject} /> */}
-        {/* <ProjectsLoaded path="/w/:wid/p" component={ProjectList} /> */}
+        <WorkspacesLoaded path="/w/:wid/p/:pid/lanes" component={KanbanPage} />
+        <WorkspacesLoaded
+          path="/w/:wid/p/:pid/edit"
+          component={EditProjectPage}
+        />
+        <WorkspacesLoaded path="/w/:wid/p/new" component={CreateProjectPage} />
+        <WorkspacesLoaded path="/w/:wid/p" component={ProjectListPage} />
         <WorkspacesLoaded path="/w/:wid/edit" component={UpdateWorkspace} />
         <WorkspacesLoaded
           path="/w/:wid/d/:did/info"

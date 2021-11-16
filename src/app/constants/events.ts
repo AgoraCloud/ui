@@ -22,7 +22,7 @@ interface eventType_i {
   };
 }
 
-export const types: eventType_i = {
+export const types = {
   USERLOAD: {
     onLoad: {
       type: 'USERLOAD',
@@ -224,6 +224,38 @@ export const types: eventType_i = {
     },
   },
 
+  LANE_TASKS_CRUD: {
+    onLoad: {
+      type: 'LANE_TASKS_CRUD',
+      data: {
+        message: 'Project Task Successfully: ',
+        variant: 'success',
+      },
+    },
+    onError: {
+      type: 'LANE_TASKS_ERR',
+      data: {
+        message: 'Project Task Failure: ',
+        variant: 'error',
+      },
+    },
+  },
+  LANE_TASK_MOVED: {
+    onLoad: {
+      type: 'LANE_TASKS_MOVED',
+      data: {
+        message: 'Task Moved Successfully',
+        variant: 'success',
+      },
+    },
+    onError: {
+      type: 'LANE_TASKS_MOVED_ERR',
+      data: {
+        message: 'Task Move Failure',
+        variant: 'error',
+      },
+    },
+  },
   WORKSPACE_USER_CRUD: {
     onLoad: {
       type: 'WORKSPACE_USERS_CRUD',

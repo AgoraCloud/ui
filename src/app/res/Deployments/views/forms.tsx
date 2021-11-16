@@ -19,7 +19,6 @@ export const EditDeploymentForm = observer(
   (props: { form?: EditDeploymentFormModel }) => {
     const { routerstore } = useStores();
     const { form } = props;
-    console.log(JSON.stringify(form?.errors), form?.isValid);
 
     if (!form) return null;
     return (
@@ -40,7 +39,6 @@ export const EditDeploymentForm = observer(
             // routerstore.replace(form.workspace.link);
           }}
           submit={async () => {
-            console.log('SUBMIT', form, form.payload);
             await form.call();
           }}
           labels={['Cancel', 'Edit']}

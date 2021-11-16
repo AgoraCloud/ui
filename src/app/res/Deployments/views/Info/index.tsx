@@ -43,7 +43,6 @@ export const DeploymentMetrics = observer(
     const { deployment } = props;
     if (!deployment) return null;
     const metrics = deployment?.metrics;
-    console.log('metrics state', metrics.state);
     if (metrics.state === 'error')
       return <Alert severity="error">Error fetching metric data</Alert>;
     return (

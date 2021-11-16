@@ -58,7 +58,7 @@ export class DeploymentsModel extends CollectionModel<deploymentData_i[]> {
     add(this, this.createDeployment.submit);
   }
   postLoad = async () => {
-    console.log('deployments loaded');
+    // console.log('deployments loaded');
   };
   get deployments(): DeploymentModel[] {
     let out = (this.collection.models || []) as DeploymentModel[];
