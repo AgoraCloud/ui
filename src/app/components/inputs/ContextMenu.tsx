@@ -11,6 +11,7 @@ const initialState = {
 };
 
 interface menuItem_i {
+  id?: string
   label: string;
   onClick: () => any;
 }
@@ -58,11 +59,19 @@ export const ContextMenu = (props: {
         }
       >
         {menuItems.map((item) => {
-          return (
-            <MenuItem onClick={onClick(item.onClick)} key={item.label}>
-              {item.label}
-            </MenuItem>
-          );
+          if(item.id){
+            return (
+              <MenuItem onClick={onClick(item.onClick)} key={item.label}>
+                <span id={item.id}>{item.label}</span>
+              </MenuItem>
+            ); 
+          } else {
+              return (
+                <MenuItem onClick={onClick(item.onClick)} key={item.label}>
+                  {item.label}
+                </MenuItem>
+              );
+          }      
         })}
       </Menu>
     </div>
