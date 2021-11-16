@@ -27,9 +27,6 @@ export class TasksModel extends CollectionModel {
   get tasks() {
     return (this.collection.models || []) as TaskModel[];
   }
-  // getById = (id?: string): Task | undefined => {
-  //   return this.tasks.filter((t: Task) => t.id === id)[0];
-  // };
 }
 
 interface taskData_i {

@@ -45,10 +45,6 @@ export class LanesModel extends CollectionModel {
   get lanes() {
     return (this.collection.models || []) as LaneModel[];
   }
-
-  // getById = (id?: string): Lane | undefined => {
-  //   return this.lanes.filter((l: Lane) => l.id === id)[0];
-  // };
 }
 
 interface laneData_i {

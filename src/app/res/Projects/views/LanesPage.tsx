@@ -2,6 +2,7 @@ import { WorkspaceWrapper } from 'app/components/Wrapper';
 import { useStores } from 'app/stores';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { LaneModel, TaskModel } from 'app/res/Projects';
 
 interface ILane {
   id: string;
@@ -24,9 +25,10 @@ export const LanePages = observer((props) => {
   if (!project || !lanes) return null;
 
   const handleLaneChange = async (from: string, to: string, taskId: string) => {
-    const lane = lanes.getById(from);
-    const task = lane?.tasks.getById(taskId);
-    await task?.changeLane(task.title, task.description, to);
+    const lane = lanes.getBy('id', from)[0] as LaneModel;
+    const task = lane?.tasks.getBy('id', taskId)[0] as TaskModel;
+    if (!lane || !task) return;
+    await task?.changeLane(to);
   };
 
   lanes.lanes.forEach((lane) => {

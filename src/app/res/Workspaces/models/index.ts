@@ -56,9 +56,6 @@ export class WorkspacesModel extends CollectionModel {
   postLoad = async () => {
     // console.log('workspaces loaded');
   };
-  // getById = (id?: string): Workspace | undefined => {
-  //     return this.workspaces.filter((w: Workspace) => w.id === id)[0];
-  // };
 }
 
 interface workspaceData_i {
