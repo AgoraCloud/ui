@@ -49,7 +49,7 @@ export const PageButton = observer((props: { page: WikiPageModel }) => {
 
   const menuItems = [
     {
-      label: 'Delete',
+      label: <span id="deleteWikiPage">Delete</span>,
       onClick: () => {
         uistore.setDeleteTarget(page.data.title, page.onDelete);
       },
@@ -80,7 +80,7 @@ export const SectionButton = observer(
     console.log(section.id);
     const menuItems = [
       {
-        label: 'Delete',
+        label: <span id="deleteWikiSection">Delete</span>,
         onClick: () => {
           uistore.setDeleteTarget(section.data.name, () => {
             console.log(section.id);
@@ -100,6 +100,7 @@ export const SectionButton = observer(
         <ListItemText>
           <ContextMenu menuItems={menuItems}>
             <InputBase
+              id="wikiSection"
               value={form.get('name')}
               onChange={form.onChange('name')}
               onKeyDown={handleKeyDown}

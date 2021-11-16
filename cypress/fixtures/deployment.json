@@ -14,6 +14,7 @@
     "deleteBtnText": "Delete",
     "favoriteBtnText": "Favorite",
     "unfavoriteBtnText": "Unfavorite",
+    "launchBtnText": "Launch",
     "deleteDiaglogGreeting": "Confirm Delete",
     "create": {
         "greeting": "Create Project",

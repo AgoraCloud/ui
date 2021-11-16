@@ -5,7 +5,8 @@
     "deleteBtnText": "Delete",
     "deleteDiaglogGreeting": "Confirm Delete",
     "create": {
-        "newWikiName": "New TWiki Page",
+        "newWikiSectionName": "New TWiki Section",
+        "newWikiPageName": "New TWiki Page",
         "newWikiContent": "This is new test wiki page!"
     }
 }
