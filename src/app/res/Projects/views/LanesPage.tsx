@@ -2,7 +2,7 @@ import { WorkspaceWrapper } from 'app/components/Wrapper';
 import { useStores } from 'app/stores';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { LaneModel, TaskModel } from 'app/res/Projects';
+import { Board, LaneModel, TaskModel } from 'app/res/Projects';
 
 interface ILane {
   id: string;

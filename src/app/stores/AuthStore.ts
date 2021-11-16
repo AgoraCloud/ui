@@ -33,7 +33,7 @@ export class AuthStore {
     this.logoutRepo = new APIRepo({
       path: '/api/auth/logout',
       method: 'POST',
-      events: types.LOGOUT,
+      events: types.SIGNOUT,
     });
     this.user = new UserModel();
     this.loadUser();
