@@ -112,12 +112,12 @@ export const EditLaneDialog = inject(WORKSPACES_STORE)(
 );
 
 export const CreateTaskDialog = observer((props) => {
-  const { workspacesstore } = useStores();
-  const project = workspacesstore.selectedProject;
+  // const { workspacesstore } = useStores();
+  // const project = workspacesstore.selectedProject;
 
-  if (!project) return null;
+  // if (!project) return null;
 
-  const lane = project.lanes.getBy('id', props.columnId)[0] as LaneModel;
+  const { lane } = props;
 
   if (!lane) return null;
 

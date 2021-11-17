@@ -102,7 +102,7 @@ export const App = ({ history }: any) => {
           component={EditProjectPage}
         />
         <WorkspacesLoaded path="/w/:wid/p/new" component={CreateProjectPage} />
-        <WorkspacesLoaded path="/w/:wid/p" component={ProjectListPage} />
+        <WorkspacesLoaded path="/w/:wid/p" exact component={ProjectListPage} />
         <WorkspacesLoaded path="/w/:wid/edit" component={UpdateWorkspace} />
         <WorkspacesLoaded
           path="/w/:wid/d/:did/info"

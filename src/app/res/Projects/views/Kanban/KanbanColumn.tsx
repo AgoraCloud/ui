@@ -8,14 +8,7 @@ import { WORKSPACES_STORE, UI_STORE } from 'app/constants';
 import { WorkspacesStore, UIStore, useStores } from 'app/stores';
 import { AddTaskFAB, MoreMenu } from 'app/components/inputs';
 import { CreateTaskDialog, EditLaneDialog, BoardItem } from '.';
-import { LaneModel } from 'app/res/Projects';
-
-// Define types for board column element properties
-type BoardColumnProps = {
-  key: string;
-  column: any;
-  items: any;
-};
+import { LaneModel, TaskModel } from 'app/res/Projects';
 
 // Define types for board column content style properties
 // This is necessary for TypeScript to accept the 'isDraggingOver' prop.
@@ -105,10 +98,41 @@ const BoardColumnContent = styled.div<BoardColumnContentStylesProps>`
   border-radius: 4px;
 `;
 
+export const Column = observer(
+  ({
+    provided,
+    snapshot,
+    tasks,
+  }: {
+    provided: any;
+    snapshot: any;
+    tasks: TaskModel[];
+  }) => {
+    return (
+      <BoardColumnContent
+        {...provided.droppableProps}
+        ref={provided.innerRef}
+        isDraggingOver={snapshot.isDraggingOver}
+      >
+        {/* All board items belong into specific column. */}
+        {tasks.map((task: TaskModel, index: number) => (
+          <BoardItem key={task.id} task={task} index={index} />
+        ))}
+        {provided.placeholder}
+        <div
+          style={{ float: 'right', marginTop: '10px', marginBottom: '6px' }}
+        ></div>
+      </BoardColumnContent>
+    );
+  },
+);
+
 // Create and export the BoardColumn component
-export const BoardColumn: React.FC<BoardColumnProps> = observer((props) => {
+export const BoardColumn = observer((props: { lane: LaneModel }) => {
   const [open, setOpen] = React.useState(false);
-  const { items } = props;
+  const { lane } = props;
+  const tasks = lane.tasks.tasks;
+  // console.log("board column rerender", tasks.tasks.length)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -118,37 +142,15 @@ export const BoardColumn: React.FC<BoardColumnProps> = observer((props) => {
   };
   return (
     <BoardColumnWrapper>
-      <BoardColumnHeader title={props.column.title} id={props.column.id} />
-      <Droppable droppableId={props.column.id}>
+      <BoardColumnHeader title={lane.name} id={lane.id} />
+      <Droppable droppableId={lane.id}>
         {(provided, snapshot) => (
-          <BoardColumnContent
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            isDraggingOver={snapshot.isDraggingOver}
-          >
-            {/* All board items belong into specific column. */}
-            {items.map((item: any, index: number) => (
-              <BoardItem
-                key={item.id}
-                laneId={props.column.id}
-                item={item}
-                index={index}
-              />
-            ))}
-            {provided.placeholder}
-            <div
-              style={{ float: 'right', marginTop: '10px', marginBottom: '6px' }}
-            >
-              <AddTaskFAB onClick={handleClickOpen} />
-            </div>
-            <CreateTaskDialog
-              isOpen={open}
-              close={handleClose}
-              columnId={props.column.id}
-            />
-          </BoardColumnContent>
+          <Column provided={provided} snapshot={snapshot} tasks={tasks} />
         )}
       </Droppable>
+      <AddTaskFAB onClick={handleClickOpen} />
+
+      <CreateTaskDialog isOpen={open} close={handleClose} lane={lane} />
     </BoardColumnWrapper>
   );
 });

@@ -52,17 +52,25 @@ export class TaskModel extends Model {
   tasks: TasksModel;
   editTaskForm: EditTaskFormModel;
   delete: APIRepo;
+  changeLaneRepo: APIRepo;
+  lane: LaneModel;
   /**
    * A single project
    */
   constructor(config) {
     super(config);
     this.tasks = this.parent as TasksModel;
+    this.lane = this.tasks.lane;
     this.editTaskForm = new EditTaskFormModel(this);
     this.delete = new APIRepo({
       path: this.api,
       method: 'DELETE',
       events: types.LANE_TASKS_CRUD,
+    });
+    this.changeLaneRepo = new APIRepo({
+      path: this.api,
+      method: 'PUT',
+      events: types.LANE_TASK_MOVED,
     });
 
     remove(this, this.delete);
@@ -83,7 +91,15 @@ export class TaskModel extends Model {
   get description() {
     return this.data.description;
   }
-  changeLane = (laneId: string) => {};
+  changeLane = (lane: LaneModel) => {
+    lane.tasks.add(this.data);
+    this.remove();
+    this.changeLaneRepo.call({
+      lane: {
+        id: lane.id,
+      },
+    });
+  };
   onDelete = async () => {
     await this.delete.call();
   };

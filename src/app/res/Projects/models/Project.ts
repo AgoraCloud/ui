@@ -1,5 +1,5 @@
 import { APIRepo, CollectionModel, Model } from '@mars-man/models';
-import { add, remove } from 'app/constants/helpers';
+import { add, remove, update } from 'app/constants/helpers';
 import { CreateProjectFormModel, EditProjectFormModel } from 'app/res/Projects';
 import { WorkspaceModel } from 'app/res/Workspaces';
 import { LanesModel } from '..';
@@ -54,6 +54,7 @@ export class ProjectModel extends Model {
     });
     this.dependents = [this.lanes];
     remove(this, this.delete);
+    update(this, [this.editProjectForm.submit]);
   }
 
   get id() {

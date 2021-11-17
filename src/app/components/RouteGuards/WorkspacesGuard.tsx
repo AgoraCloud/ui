@@ -6,7 +6,7 @@ import { useStores } from 'app/stores';
 import { Redirect, Route } from 'react-router';
 import { LoadingPage } from '../LoadingPage';
 
-export const WorkspacesLoaded = (props) => {
+export const WorkspacesLoaded = observer((props) => {
   return (
     <AuthedRoute
       {...props}
@@ -29,7 +29,7 @@ export const WorkspacesLoaded = (props) => {
       })}
     />
   );
-};
+});
 
 export const DeploymentLoaded = observer((props) => {
   const { workspacesstore } = useStores();

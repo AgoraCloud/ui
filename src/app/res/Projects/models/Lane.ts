@@ -18,11 +18,11 @@ export class LanesModel extends CollectionModel {
     events.on(types.PROJECT_LANE_CRUD.onLoad.type, () => {
       this.load();
     });
-    events.on(types.LANE_TASKS_CRUD.onLoad.type, () => {
-      this.load();
-    });
+    // events.on(types.LANE_TASKS_CRUD.onLoad.type, () => {
+    //   this.load();
+    // });
     events.on(types.LANE_TASK_MOVED.onLoad.type, () => {
-      this.load();
+      // this.load();
     });
 
     this.createLaneForm = new CreateLaneFormModel(this);

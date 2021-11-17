@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Menu, MenuItem } from '@material-ui/core';
 
 /**
@@ -12,6 +12,7 @@ const initialState = {
 
 interface menuItem_i {
   label: string;
+  component?: React.ReactNode;
   onClick: () => any;
 }
 
@@ -60,7 +61,7 @@ export const ContextMenu = (props: {
         {menuItems.map((item) => {
           return (
             <MenuItem onClick={onClick(item.onClick)} key={item.label}>
-              {item.label}
+              {item.component || item.label}
             </MenuItem>
           );
         })}
