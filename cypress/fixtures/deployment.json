@@ -1,32 +1,49 @@
 {
     "global": {
-        "labelName": "Name",
-        "labelDescription": "Description",
+        "labelName": "Deployment Name",
+        "labelPassword": "Sudo Password",
+        "labelResources": "Resources",
+        "labelContainer": "Container Image",
+        "labelScaling": "Scaling Method",
         "nameErrMessage": "name must be longer than or equal to 4 characters",
-        "improperName": "TP-"
+        "sudoPasswordErrMessage": "sudoPassword must be longer than or equal to 8 characters",
+        "improperName": "TD-",
+        "invalidCpuCount": "0",
+        "invalidMemoryCount": "0",
+        "invalidStorageCount": "0",
+        "cpuErrMessage": "cpuCount must not be less than 1",
+        "memoryErrMessage": "memoryCount must not be less than 2",
+        "storageErrMessage": "storageCount must not be less than 8"
     },
-    "greeting": "Projects",
     "testDeploymentId": "617a28e05548110013c54cb7",
     "testDeploymentName": "TDeployment",
-    "testProjectDescription": "This is the description of TProject",
     "editBtnText": "Edit",
     "infoBtnText": "Info",
     "deleteBtnText": "Delete",
     "favoriteBtnText": "Favorite",
     "unfavoriteBtnText": "Unfavorite",
     "launchBtnText": "Launch",
+    "proxyUrl": "https://p617a28e05548110013c54cb7.waleed.agoracloud.saidghamra.com",
     "deleteDiaglogGreeting": "Confirm Delete",
     "create": {
-        "greeting": "Create Project",
+        "greeting": "Create Deployment",
         "createBtnText": "Create",
-        "newProjectName": "TP-1",
-        "newProjectDescription": "This is TP-1's description"
+        "newDeploymentName": "TP-1",
+        "newDeploymentSP": "12345678",
+        "newImageType": "VSCode",
+        "newImageVersion": "v3.12.0",
+        "newScalingType": "Always On",
+        "newDeploymentCpuCount": "1",
+        "newDeploymentMemoryCount": "2",
+        "newDeploymentStorageCount": "8"
     },
     "edit": {
-        "greeting": "Edit Project",
-        "saveBtnText": "Save",
-        "newProjectName": "TP-1-EDIT",
-        "newProjectDescription": "This is TP-1's description-EDIT"
+        "greeting": "Edit Deployment",
+        "saveBtnText": "Edit",
+        "newDeploymentName": "TP-1-Edit",
+        "newImageVersion": "v3.11.1",
+        "newDeploymentCpuCount": "2",
+        "newDeploymentMemoryCount": "4"
     } 
 }
   

@@ -185,7 +185,7 @@ export const MoreMenu = (props: {
         onClose={handleClose}
       >
         {options.map((option) => (
-          <MenuItem key={option.name} onClick={onClick(option)}>
+          <MenuItem id={option.name} key={option.name} onClick={onClick(option)}>
             {option.name}
           </MenuItem>
         ))}

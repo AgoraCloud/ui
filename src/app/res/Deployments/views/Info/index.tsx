@@ -23,6 +23,7 @@ export const DeploymentLogs = observer(
       <>
         <Typography variant="h4">Logs</Typography>
         <textarea
+          id="deploymentLogs"
           className={style.textarea}
           disabled
           value={logText}

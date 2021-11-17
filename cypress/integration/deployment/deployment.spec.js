@@ -1,7 +1,7 @@
 /* eslint-disable */
 /// <reference types="cypress" />
 
-describe('/wiki', function () {
+describe('/deployment', function () {
     beforeEach(function () {
       cy.fixture('global-data').then((globalData) => {
         this.globalData = globalData
@@ -64,5 +64,8 @@ describe('/wiki', function () {
         cy.contains('li[role="menuitem"]', this.deployment.unfavoriteBtnText)
           .click()
     })
-    
-  })
+
+    it('links to deployment proxy', function () {
+      cy.get('a[href="' + '/w/' + this.globalData.testWorkspaceId + "/d/" + this.deployment.testDeploymentId +'"]')
+    })    
+})

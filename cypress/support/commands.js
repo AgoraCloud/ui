@@ -2,6 +2,7 @@
 /// <reference types="cypress" />
 import * as data from "../fixtures/global-data.json"
 import * as projectData from "../fixtures/project.json"
+import * as deploymentData from "../fixtures/deployment.json"
 import '@4tw/cypress-drag-drop'
 
 // ***********************************************
@@ -44,14 +45,48 @@ Cypress.Commands.add('loginAsAdmin', () => {
   })
 })
 
+Cypress.Commands.add('loginAsAdminOWD', () => {
+  cy.request({
+    method:'POST',
+    url:'https://waleed.agoracloud.saidghamra.com/api/auth/login',
+    body:{
+      email: 'admin@admin.com',
+      password: 'U3Q59yZqWeCM9Nhf'
+    }
+  })
+  .then((resp) => {
+    window.localStorage.setItem('jwt', resp.body.token)
+  })
+})
+
 Cypress.Commands.add('visitDeployments', () => { 
   cy.loginAsAdmin()
-  cy.visit('/w/' + data.testWorkspaceId + '/p')
+  cy.visit('/w/' + data.testWorkspaceId)
+})
+
+Cypress.Commands.add('visitCreateDeployment', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/new')
+})
+
+Cypress.Commands.add('visitEditDeployment', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/d/' + deploymentData.testDeploymentId + '/edit')
+})
+
+Cypress.Commands.add('visitDeploymentInfo', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/d/' + deploymentData.testDeploymentId + '/Info')
+})
+
+Cypress.Commands.add('visitDeploymentProxy', () => { 
+  cy.loginAsAdminOWD()
+  cy.visit('https://waleed.agoracloud.saidghamra.com/w/' + data.testWorkspaceId + '/d/' + deploymentData.testDeploymentId)
 })
 
 Cypress.Commands.add('visitProjects', () => { 
   cy.loginAsAdmin()
-  cy.visit('/w/' + data.testWorkspaceId)
+  cy.visit('/w/' + data.testWorkspaceId + '/p')
 })
 
 Cypress.Commands.add('visitWikis', () => { 
