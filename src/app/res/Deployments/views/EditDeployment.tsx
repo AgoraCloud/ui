@@ -55,12 +55,13 @@ export const EditDeploymentForm = observer(
         <CancelCreateButtons
           form={form}
           cancel={() => {
-            routerstore.goBack();
+            // routerstore.goBack();
+            routerstore.push(form.deployment.workspace.link)
           }}
           submit={async () => {
             await form.call();
           }}
-          labels={['Cancel', 'Edit']}
+          labels={['Cancel', 'Update']}
         />
       </Form>
     );
