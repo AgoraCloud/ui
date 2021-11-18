@@ -13,24 +13,26 @@ import { observer } from 'mobx-react';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-
-
-export const DeploymentCards = observer(({ deployments }: { deployments: DeploymentModel[] }) => {
-  return <Grid
-    container
-    direction={'row'}
-    spacing={5}
-    alignItems="flex-start"
-    justifyContent="flex-start"
-  >
-    {deployments.map((deployment) => (
-      <Grid item key={deployment.id}>
-        {/* xs={12} sm={12} md={6} lg={2} xl={4}  */}
-        <DeploymentCard deployment={deployment} />
+export const DeploymentCards = observer(
+  ({ deployments }: { deployments: DeploymentModel[] }) => {
+    return (
+      <Grid
+        container
+        direction={'row'}
+        spacing={5}
+        alignItems="flex-start"
+        justifyContent="flex-start"
+      >
+        {deployments.map((deployment) => (
+          <Grid item key={deployment.id}>
+            {/* xs={12} sm={12} md={6} lg={2} xl={4}  */}
+            <DeploymentCard deployment={deployment} />
+          </Grid>
+        ))}
       </Grid>
-    ))}
-  </Grid>
-})
+    );
+  },
+);
 
 export const DeploymentsAccordion = observer(
   ({
@@ -59,7 +61,7 @@ export const DeploymentsAccordion = observer(
         <AccordionDetails
         // sx={{backgroundColor: 'transparent'}}
         >
-          <DeploymentCards deployments={deployments}/>
+          <DeploymentCards deployments={deployments} />
         </AccordionDetails>
       </Accordion>
     );
@@ -73,11 +75,11 @@ export const DeploymentsList = observer(
     const notfavorited = deployments.filter(
       (deployment) => !deployment.isFavorite,
     );
-    if(favorited.length === 0){
-      return <DeploymentCards deployments={notfavorited}/>
+    if (favorited.length === 0) {
+      return <DeploymentCards deployments={notfavorited} />;
     }
-    if(notfavorited.length === 0){
-      return <DeploymentCards deployments={favorited}/>
+    if (notfavorited.length === 0) {
+      return <DeploymentCards deployments={favorited} />;
     }
     return (
       <>

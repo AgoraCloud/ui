@@ -56,7 +56,7 @@ export const EditDeploymentForm = observer(
           form={form}
           cancel={() => {
             // routerstore.goBack();
-            routerstore.push(form.deployment.workspace.link)
+            routerstore.push(form.deployment.workspace.link);
           }}
           submit={async () => {
             await form.call();
