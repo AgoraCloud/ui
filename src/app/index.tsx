@@ -6,6 +6,7 @@ import { Router, Switch } from 'react-router';
 
 import {
   AuthedRoute,
+  NewWorkspaceRoute,
   UnauthedRoute,
   WorkspacesLoaded,
 } from 'app/components/RouteGuards';
@@ -84,7 +85,7 @@ export const App = ({ history }: any) => {
         {/* workspace paths */}
         <AuthedRoute path="/logout" component={Logout} />
 
-        <AuthedRoute path="/w/new" component={NewWorkspace} />
+        <NewWorkspaceRoute path="/w/new" component={NewWorkspace} />
         <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
         <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
         <WorkspacesLoaded

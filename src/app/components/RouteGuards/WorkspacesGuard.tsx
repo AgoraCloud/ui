@@ -6,6 +6,25 @@ import { useStores } from 'app/stores';
 import { Redirect, Route } from 'react-router';
 import { LoadingPage } from '../LoadingPage';
 
+
+
+export const NewWorkspaceRoute = observer((props) => {
+  return (
+    <AuthedRoute
+      {...props}
+      component={observer(() => {
+        const { workspacesstore } = useStores();
+        const workspaces = workspacesstore.workspaces;
+        if (workspaces.state == 'loading') return <LoadingPage />;
+        if (workspaces.state == 'loaded') {
+          return <AuthedRoute {...props} />;
+        } else {
+          return null;
+        }
+      })}/>
+  )
+})
+
 export const WorkspacesLoaded = observer((props) => {
   return (
     <AuthedRoute
