@@ -63,6 +63,7 @@ export const CreateLaneDialog = observer((props) => {
     </div>
   );
 });
+
 export const EditLaneDialog = inject(WORKSPACES_STORE)(
   observer((props) => {
     const store = props[WORKSPACES_STORE] as WorkspacesStore;
@@ -71,6 +72,7 @@ export const EditLaneDialog = inject(WORKSPACES_STORE)(
     if (!project) return null;
 
     const lane = project.lanes.getBy('id', props.columnId)[0] as LaneModel;
+    if (!lane) return null;
     const form = lane.editLaneForm;
 
     return (

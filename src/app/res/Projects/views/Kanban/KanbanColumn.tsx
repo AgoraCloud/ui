@@ -56,7 +56,7 @@ export const BoardColumnOptions = observer((props) => {
           {
             name: 'Delete',
             onClick: () => {
-              uistore.setDeleteTarget(lane.name, lane.delete);
+              uistore.setDeleteTarget(lane.name, lane.onDelete);
             },
           },
         ]}

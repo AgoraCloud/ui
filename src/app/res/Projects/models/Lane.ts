@@ -99,7 +99,9 @@ export class LaneModel extends Model {
   load = async () => {
     if (this.tasks.state != 'loaded') await this.tasks.load();
   };
-
+  onDelete = async () => {
+    await this.delete.call();
+  };
   // delete = async () => {
   //   try {
   //     const wid = this.lanes.workspace.id;

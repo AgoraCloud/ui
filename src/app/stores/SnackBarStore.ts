@@ -41,6 +41,7 @@ export class SnackbarStore {
   initEvents() {
     Object.values(types).forEach((v) => {
       [v.onLoad, v.onError].map((e) => {
+        if (e.snackbar === false) return;
         events.on(e.type, (data) => {
           this.push({
             message: e.data.message,
