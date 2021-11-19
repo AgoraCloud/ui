@@ -28,12 +28,10 @@ export class UpdateWorkspaceFormModel extends FormModel {
   }
 }
 
-
-
 const NumberCast = (str: string) => {
-  if(!str || str === '') return undefined
-  return Number(str)
-}
+  if (!str || str === '') return undefined;
+  return Number(str);
+};
 
 // interface create_workspace_i {
 //   name: string;
@@ -57,7 +55,10 @@ export class CreateWorkspaceFormModel extends FormModel<create_workspace_i> {
         },
       },
       keys: [
-        ['cpuCount', { key: 'properties.resources.cpuCount', cast: NumberCast }],
+        [
+          'cpuCount',
+          { key: 'properties.resources.cpuCount', cast: NumberCast },
+        ],
         [
           'memoryCount',
           { key: 'properties.resources.memoryCount', cast: NumberCast },

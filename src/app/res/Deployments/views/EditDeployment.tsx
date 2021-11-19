@@ -38,7 +38,12 @@ export const EditDeploymentForm = observer(
     const { form } = props;
 
     if (!form) return null;
-    console.log("errors", toJS(form.errors), toJS(form.data), toJS(form.payload))
+    console.log(
+      'errors',
+      toJS(form.errors),
+      toJS(form.data),
+      toJS(form.payload),
+    );
     return (
       <Form form={form}>
         <Label>Deployment Name</Label>

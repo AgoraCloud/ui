@@ -93,7 +93,7 @@ export class EditDeploymentFormModel extends FormModel {
       const newValue = _.get(payload, key);
       if (oldValue !== newValue) _.set(out, key, newValue);
     }
-    _.set(out, 'properties.image.type', this.data.type)
+    _.set(out, 'properties.image.type', this.data.type);
     return out;
   }
 }

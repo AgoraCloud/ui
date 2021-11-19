@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { BaseSelect } from 'app/components/inputs';
-import { DeploymentImagesModel, label_i } from 'app/res/Workspaces/models/DeploymentImages';
+import {
+  DeploymentImagesModel,
+  label_i,
+} from 'app/res/Workspaces/models/DeploymentImages';
 import { FormModel } from '@mars-man/models';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
 import { DeploymentModel } from 'app/res/Deployments';
-
-
 
 export const ImageSelectBase = observer(
   (props: {
     workspace: WorkspaceModel;
     form: FormModel;
     disableImage?: boolean;
-    types: label_i[]
-    versions: label_i[]
+    types: label_i[];
+    versions: label_i[];
   }) => {
     const { form, workspace, types, versions } = props;
     const images = workspace.deploymentImages;
@@ -47,7 +48,6 @@ export const ImageSelectBase = observer(
   },
 );
 
-
 export const ImageSelect = observer(
   (props: {
     workspace: WorkspaceModel;
@@ -67,21 +67,25 @@ export const ImageSelect = observer(
     //   };
     // };
 
-    return <ImageSelectBase {...props} types={types} versions={versions} />
-  }
+    return <ImageSelectBase {...props} types={types} versions={versions} />;
+  },
 );
 
-
-export const UpdateImageSelect = observer((props: {
-  workspace: WorkspaceModel;
-  deployment: DeploymentModel
-  form: FormModel;
-}) => {
-  const { form, workspace, deployment } = props;
-  const images = workspace.deploymentImages;
-  const types = images.getTypes();
-  const type = form.get('type') || images.types[0];
-  const version = form.get('version');
-  const versions = images.getHigherVersions(type, deployment.data.properties.image.version);
-  return <ImageSelectBase {...props} types={types} versions={versions}/> 
-})
+export const UpdateImageSelect = observer(
+  (props: {
+    workspace: WorkspaceModel;
+    deployment: DeploymentModel;
+    form: FormModel;
+  }) => {
+    const { form, workspace, deployment } = props;
+    const images = workspace.deploymentImages;
+    const types = images.getTypes();
+    const type = form.get('type') || images.types[0];
+    const version = form.get('version');
+    const versions = images.getHigherVersions(
+      type,
+      deployment.data.properties.image.version,
+    );
+    return <ImageSelectBase {...props} types={types} versions={versions} />;
+  },
+);

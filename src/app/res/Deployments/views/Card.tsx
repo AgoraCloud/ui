@@ -88,17 +88,17 @@ export const DeploymentMenu = observer(
       },
       deployment.isFavorite
         ? {
-          name: 'Unfavorite',
-          onClick: () => {
-            deployment.unfavorite.call();
-          },
-        }
+            name: 'Unfavorite',
+            onClick: () => {
+              deployment.unfavorite.call();
+            },
+          }
         : {
-          name: 'Favorite',
-          onClick: () => {
-            deployment.favorite.call();
+            name: 'Favorite',
+            onClick: () => {
+              deployment.favorite.call();
+            },
           },
-        },
     ];
 
     let options: { name: string; onClick: () => void }[] = [];
@@ -143,9 +143,6 @@ export const DeploymentMenu = observer(
     );
   },
 );
-
-
-
 
 export const DeploymentCard = observer(
   (props: { deployment: DeploymentModel }) => {

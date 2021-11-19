@@ -28,10 +28,15 @@ export const DeploymentChip = observer(
   },
 );
 
-
-export const ScalingMethodChip = observer(({ deployment }: { deployment: DeploymentModel }) => {
-  const label = DeploymentLabelingUtil.generateScalingMethodLabel(deployment.scalingMethod as any)
-  return <div style={{ paddingTop: '15px' }}>
-    <Chip color="primary" label={label} />
-  </div>
-})
+export const ScalingMethodChip = observer(
+  ({ deployment }: { deployment: DeploymentModel }) => {
+    const label = DeploymentLabelingUtil.generateScalingMethodLabel(
+      deployment.scalingMethod as any,
+    );
+    return (
+      <div style={{ paddingTop: '15px' }}>
+        <Chip color="primary" label={label} />
+      </div>
+    );
+  },
+);
