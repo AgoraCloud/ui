@@ -57,7 +57,6 @@ export const EditDeploymentForm = observer(
           form={form}
           workspace={form.deployment.workspace}
           deployment={form.deployment}
-          disableImage={true}
         />
         <CPUMemoryInput form={form} />
         <CancelCreateButtons
