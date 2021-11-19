@@ -12,11 +12,12 @@ import { Typography } from '@material-ui/core';
 import { observer } from 'mobx-react';
 
 import { Form } from '@mars-man/components';
-import { ImageSelect } from './ImageSelect';
+import { UpdateImageSelect } from './ImageSelect';
 import {
   EditDeploymentFormModel,
   ScalingMethodSelect,
 } from 'app/res/Deployments';
+import { toJS } from 'mobx';
 
 export const EditDeployment = (props) => {
   const { workspacesstore, uistore } = useStores();
@@ -37,6 +38,7 @@ export const EditDeploymentForm = observer(
     const { form } = props;
 
     if (!form) return null;
+    console.log("errors", toJS(form.errors), toJS(form.data), toJS(form.payload))
     return (
       <Form form={form}>
         <Label>Deployment Name</Label>
@@ -46,9 +48,10 @@ export const EditDeploymentForm = observer(
           Specify the maximum amount of resources the deployment can use:
         </Typography>
         <Label>Container Image</Label>
-        <ImageSelect
+        <UpdateImageSelect
           form={form}
           workspace={form.deployment.workspace}
+          deployment={form.deployment}
           disableImage={true}
         />
         <CPUMemoryInput form={form} />

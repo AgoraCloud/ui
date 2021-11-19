@@ -3,6 +3,7 @@ import React from 'react';
 import { Chip } from '@material-ui/core';
 import { DeploymentModel } from 'app/res/Deployments';
 import { observer } from 'mobx-react';
+import { DeploymentLabelingUtil } from '@agoracloud/common';
 
 const chips = {
   FAILED: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
@@ -18,8 +19,7 @@ const chips = {
 };
 
 export const DeploymentChip = observer(
-  (props: { deployment: DeploymentModel }) => {
-    const { deployment } = props;
+  ({ deployment }: { deployment: DeploymentModel }) => {
     return (
       <div style={{ paddingTop: '15px' }}>
         {chips[deployment.status] || null}
@@ -27,3 +27,11 @@ export const DeploymentChip = observer(
     );
   },
 );
+
+
+export const ScalingMethodChip = observer(({ deployment }: { deployment: DeploymentModel }) => {
+  const label = DeploymentLabelingUtil.generateScalingMethodLabel(deployment.scalingMethod as any)
+  return <div style={{ paddingTop: '15px' }}>
+    <Chip color="primary" label={label} />
+  </div>
+})

@@ -1,12 +1,14 @@
 import { DeploymentLabelingUtil } from '@agoracloud/common';
 import { Model, APIRepo } from '@mars-man/models';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
+import _ from 'lodash'
 
-interface label_i {
+
+export interface label_i {
   label: string;
   value: string;
 }
-interface images_i {
+export interface images_i {
   type: string;
   version: string;
 }
@@ -46,6 +48,15 @@ export class DeploymentImagesModel extends Model<images_i[]> {
       label: DeploymentLabelingUtil.generateImageVersionLabel(d as any),
       value: d,
     }));
+  }
+  getHigherVersions(type: string, version: string): label_i[] {
+    const versions = this.getVersions(type)
+    const index = versions.findIndex((elem)=>(elem.value===version))
+    if(index === -1){
+      return versions
+    }
+
+    return _.slice(versions, 0, index+1)
   }
 
   getLatest(type: string) {

@@ -3,6 +3,7 @@ import {
   DeploymentModel,
   DeploymentChip,
   DeploymentResources,
+  ScalingMethodChip,
 } from 'app/res/Deployments';
 import Card from '@material-ui/core/Card';
 import {
@@ -87,17 +88,17 @@ export const DeploymentMenu = observer(
       },
       deployment.isFavorite
         ? {
-            name: 'Unfavorite',
-            onClick: () => {
-              deployment.unfavorite.call();
-            },
-          }
-        : {
-            name: 'Favorite',
-            onClick: () => {
-              deployment.favorite.call();
-            },
+          name: 'Unfavorite',
+          onClick: () => {
+            deployment.unfavorite.call();
           },
+        }
+        : {
+          name: 'Favorite',
+          onClick: () => {
+            deployment.favorite.call();
+          },
+        },
     ];
 
     let options: { name: string; onClick: () => void }[] = [];
@@ -143,6 +144,9 @@ export const DeploymentMenu = observer(
   },
 );
 
+
+
+
 export const DeploymentCard = observer(
   (props: { deployment: DeploymentModel }) => {
     const { deployment } = props;
@@ -162,6 +166,7 @@ export const DeploymentCard = observer(
         </Typography>
         <DeploymentMenu deployment={deployment} />
         <DeploymentChip deployment={deployment} />
+        <ScalingMethodChip deployment={deployment} />
         <DeploymentResources deployment={deployment} />
         <DeploymentLaunch deployment={deployment} />
         {/* {JSON.stringify(deployment.data, null, 2)} */}

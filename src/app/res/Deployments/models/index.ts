@@ -51,7 +51,7 @@ export class DeploymentsModel extends CollectionModel<deploymentData_i[]> {
 
     this.createDeployment = new CreateDeploymentFormModel(this);
     this.repos = {
-      main: PeriodicRepo(new APIRepo({ path: this.api }), 500000),
+      main: PeriodicRepo(new APIRepo({ path: this.api }), 5000),
       // main: new APIRepo({ path: this.api }),
     };
 

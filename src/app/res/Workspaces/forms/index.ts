@@ -28,6 +28,13 @@ export class UpdateWorkspaceFormModel extends FormModel {
   }
 }
 
+
+
+const NumberCast = (str: string) => {
+  if(!str || str === '') return undefined
+  return Number(str)
+}
+
 // interface create_workspace_i {
 //   name: string;
 //   cpuCount?: number;
@@ -50,14 +57,14 @@ export class CreateWorkspaceFormModel extends FormModel<create_workspace_i> {
         },
       },
       keys: [
-        ['cpuCount', { key: 'properties.resources.cpuCount', cast: Number }],
+        ['cpuCount', { key: 'properties.resources.cpuCount', cast: NumberCast }],
         [
           'memoryCount',
-          { key: 'properties.resources.memoryCount', cast: Number },
+          { key: 'properties.resources.memoryCount', cast: NumberCast },
         ],
         [
           'storageCount',
-          { key: 'properties.resources.storageCount', cast: Number },
+          { key: 'properties.resources.storageCount', cast: NumberCast },
         ],
       ],
       submit: new APIRepo({ path: '/api/workspaces', method: 'POST' }),
