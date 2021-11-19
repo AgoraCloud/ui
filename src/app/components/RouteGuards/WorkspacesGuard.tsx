@@ -6,8 +6,6 @@ import { useStores } from 'app/stores';
 import { Redirect, Route } from 'react-router';
 import { LoadingPage } from '../LoadingPage';
 
-
-
 export const NewWorkspaceRoute = observer((props) => {
   return (
     <AuthedRoute
@@ -21,9 +19,10 @@ export const NewWorkspaceRoute = observer((props) => {
         } else {
           return null;
         }
-      })}/>
-  )
-})
+      })}
+    />
+  );
+});
 
 export const WorkspacesLoaded = observer((props) => {
   return (
