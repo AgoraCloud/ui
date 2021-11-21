@@ -95,7 +95,6 @@ export class EditDeploymentFormModel extends FormModel {
     }
     if (_.get(out, 'properties.image.version') !== undefined) {
       _.set(out, 'properties.image.type', this.data.type);
-
     }
     return out;
   }

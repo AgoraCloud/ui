@@ -23,9 +23,8 @@ export const DeploymentChip = observer(
     return (
       <>
         <div style={{ paddingTop: '15px', display: 'flex' }}>
-
           {chips[deployment.status] || null}
-          <div style={{ marginLeft: "20px" }}>
+          <div style={{ marginLeft: '20px' }}>
             <Chip color="primary" label={deployment.scalingMethodLabel} />
           </div>
         </div>

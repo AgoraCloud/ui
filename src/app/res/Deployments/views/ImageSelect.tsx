@@ -88,6 +88,14 @@ export const UpdateImageSelect = observer(
       type,
       deployment.data.properties.image.version,
     );
-    return <ImageSelectBase {...props} types={types} versions={versions} disableImage={true} disableVersion={versions.length === 1}/>;
+    return (
+      <ImageSelectBase
+        {...props}
+        types={types}
+        versions={versions}
+        disableImage={true}
+        disableVersion={versions.length === 1}
+      />
+    );
   },
 );

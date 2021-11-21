@@ -161,7 +161,6 @@ export class DeploymentModel extends Model<deploymentData_i> {
     };
   };
 
-
   get name() {
     return this.data.name;
   }
@@ -182,7 +181,6 @@ export class DeploymentModel extends Model<deploymentData_i> {
     return `${this.deployments.api}/${this.id}`;
   }
 
-
   get isUpgradeable() {
     const latestVersion = this.workspace.deploymentImages.getLatest(
       this.data.properties.image.type,
@@ -195,7 +193,7 @@ export class DeploymentModel extends Model<deploymentData_i> {
     return this.data.properties.scalingMethod;
   }
 
-  get scalingMethodLabel(){
+  get scalingMethodLabel() {
     return DeploymentLabelingUtil.generateScalingMethodLabel(
       this.scalingMethod as any,
     );

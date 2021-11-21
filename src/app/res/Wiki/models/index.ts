@@ -156,7 +156,7 @@ export class WikiPageModel extends Model<wikiPageData_i> {
       submit: new APIRepo({ path: this.api, method: 'PUT' }),
     });
     this.delete = new APIRepo({ path: this.api, method: 'DELETE' });
-    update(this, [this.pageForm.submit])
+    update(this, [this.pageForm.submit]);
     // remove
   }
 
