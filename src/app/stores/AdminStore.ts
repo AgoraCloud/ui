@@ -24,7 +24,7 @@ export class AdminStore extends Model {
     this.users = new AdminUsersModel();
 
     this.editUserDialog = new AdminUserDialogModel();
-    this.auditLogs = new AuditLogs()
+    this.auditLogs = new AuditLogs();
     this.createUserDialog = new DialogModel();
     rootStore.authStore.user.repo?.onLoad.subscribe((val) => {
       this.load();

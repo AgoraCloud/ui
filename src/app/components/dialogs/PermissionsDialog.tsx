@@ -26,7 +26,7 @@ export const PermissionsDialog = observer(
             cancel={dialog.onClose}
             submit={async () => {
               form.call();
-              dialog.onClose()
+              dialog.onClose();
               // console.log(JSON.stringify(form.payload));
             }}
           />
