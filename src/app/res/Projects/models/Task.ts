@@ -5,7 +5,7 @@ import {
 } from 'app/res/Projects';
 import { APIRepo, CollectionModel, Model } from '@mars-man/models';
 import { types } from 'app/constants';
-import { add, remove } from 'app/constants/helpers';
+import { add, remove, update } from 'app/constants/helpers';
 
 export class TasksModel extends CollectionModel {
   createTaskForm: CreateTaskFormModel;
@@ -72,7 +72,7 @@ export class TaskModel extends Model {
       method: 'PUT',
       events: types.LANE_TASK_MOVED,
     });
-
+    update(this, [this.editTaskForm.submit])
     remove(this, this.delete);
   }
 
