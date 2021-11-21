@@ -72,7 +72,7 @@ export class TaskModel extends Model {
       method: 'PUT',
       events: types.LANE_TASK_MOVED,
     });
-    update(this, [this.editTaskForm.submit])
+    update(this, [this.editTaskForm.submit]);
     remove(this, this.delete);
   }
 

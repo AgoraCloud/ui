@@ -48,16 +48,18 @@ export const EditDeploymentForm = observer(
       <Form form={form}>
         <Label>Deployment Name</Label>
         <Input form={form} id="name" label="name" autoComplete="off" />
-        <Label>Resources</Label>
-        <Typography variant="body1">
-          Specify the maximum amount of resources the deployment can use:
-        </Typography>
+
         <Label>Container Image</Label>
         <UpdateImageSelect
           form={form}
           workspace={form.deployment.workspace}
           deployment={form.deployment}
         />
+
+        <Label>Resources</Label>
+        <Typography variant="body1">
+          Specify the maximum amount of resources the deployment can use:
+        </Typography>
         <CPUMemoryInput form={form} />
         <CancelCreateButtons
           form={form}

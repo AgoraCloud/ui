@@ -1,5 +1,6 @@
 import { APIRepo, CollectionModel, FormModel, Model } from '@mars-man/models';
 import { types } from 'app/constants';
+import { update } from 'app/constants/helpers';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
 import { makeObservable, observable } from 'mobx';
 
@@ -155,6 +156,8 @@ export class WikiPageModel extends Model<wikiPageData_i> {
       submit: new APIRepo({ path: this.api, method: 'PUT' }),
     });
     this.delete = new APIRepo({ path: this.api, method: 'DELETE' });
+    update(this, [this.pageForm.submit])
+    // remove
   }
 
   get id() {

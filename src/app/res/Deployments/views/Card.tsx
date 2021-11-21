@@ -3,7 +3,6 @@ import {
   DeploymentModel,
   DeploymentChip,
   DeploymentResources,
-  ScalingMethodChip,
 } from 'app/res/Deployments';
 import Card from '@material-ui/core/Card';
 import {
@@ -163,7 +162,6 @@ export const DeploymentCard = observer(
         </Typography>
         <DeploymentMenu deployment={deployment} />
         <DeploymentChip deployment={deployment} />
-        <ScalingMethodChip deployment={deployment} />
         <DeploymentResources deployment={deployment} />
         <DeploymentLaunch deployment={deployment} />
         {/* {JSON.stringify(deployment.data, null, 2)} */}

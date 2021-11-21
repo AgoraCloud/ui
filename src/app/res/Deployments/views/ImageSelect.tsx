@@ -14,6 +14,7 @@ export const ImageSelectBase = observer(
     workspace: WorkspaceModel;
     form: FormModel;
     disableImage?: boolean;
+    disableVersion?: boolean;
     types: label_i[];
     versions: label_i[];
   }) => {
@@ -36,6 +37,7 @@ export const ImageSelectBase = observer(
         />
         <BaseSelect
           {...props}
+          disabled={props.disableVersion ? props.disableVersion : false}
           id="version"
           label="Version"
           defaultValue={versions[0]}
@@ -86,6 +88,6 @@ export const UpdateImageSelect = observer(
       type,
       deployment.data.properties.image.version,
     );
-    return <ImageSelectBase {...props} types={types} versions={versions} />;
+    return <ImageSelectBase {...props} types={types} versions={versions} disableImage={true} disableVersion={versions.length === 1}/>;
   },
 );

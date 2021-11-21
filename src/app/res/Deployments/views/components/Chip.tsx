@@ -9,34 +9,27 @@ const chips = {
   FAILED: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
   SUCCESS: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
   STARTING: <Chip style={{ backgroundColor: 'red' }} label="Error" />,
-  STOPPED: <Chip style={{ backgroundColor: 'red' }} label="STOPPED" />,
-  PENDING: <Chip color="secondary" label="PENDING" />,
-  CREATING: <Chip color="secondary" label="CREATING" />,
-  RUNNING: <Chip color="primary" label="RUNNING" />,
-  UPDATING: <Chip color="secondary" label="UPDATING" />,
-  DELETING: <Chip style={{ backgroundColor: 'red' }} label="DELETING" />,
-  UNKNOWN: <Chip style={{ backgroundColor: 'purple' }} label="UNKNOWN" />,
+  STOPPED: <Chip style={{ backgroundColor: 'red' }} label="Stopped" />,
+  PENDING: <Chip color="secondary" label="Pending" />,
+  CREATING: <Chip color="secondary" label="Creating" />,
+  RUNNING: <Chip color="primary" label="Running" />,
+  UPDATING: <Chip color="secondary" label="Updating" />,
+  DELETING: <Chip style={{ backgroundColor: 'red' }} label="Deleting" />,
+  UNKNOWN: <Chip style={{ backgroundColor: 'purple' }} label="Unknown" />,
 };
 
 export const DeploymentChip = observer(
   ({ deployment }: { deployment: DeploymentModel }) => {
     return (
-      <div style={{ paddingTop: '15px' }}>
-        {chips[deployment.status] || null}
-      </div>
-    );
-  },
-);
+      <>
+        <div style={{ paddingTop: '15px', display: 'flex' }}>
 
-export const ScalingMethodChip = observer(
-  ({ deployment }: { deployment: DeploymentModel }) => {
-    const label = DeploymentLabelingUtil.generateScalingMethodLabel(
-      deployment.scalingMethod as any,
-    );
-    return (
-      <div style={{ paddingTop: '15px' }}>
-        <Chip color="primary" label={label} />
-      </div>
+          {chips[deployment.status] || null}
+          <div style={{ marginLeft: "20px" }}>
+            <Chip color="primary" label={deployment.scalingMethodLabel} />
+          </div>
+        </div>
+      </>
     );
   },
 );
