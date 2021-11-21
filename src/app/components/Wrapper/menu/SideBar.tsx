@@ -19,6 +19,8 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AssessmentIcon from '@material-ui/icons/Assessment';
+import FilterListIcon from '@material-ui/icons/FilterList';
+
 import { observer } from 'mobx-react';
 import { Role } from 'app/constants';
 import { ListSubheader } from '@material-ui/core';
@@ -158,6 +160,11 @@ export const WorkspaceSideBar = observer((props) => {
     },
   ];
   const adminSidebarItems = [
+    {
+      icon: <FilterListIcon />,
+      url: '/admin/auditlogs',
+      text: 'Audit Logs',
+    },
     {
       icon: <PeopleIcon />,
       url: '/admin/users',

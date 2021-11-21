@@ -115,7 +115,7 @@ export const App = ({ history }: any) => {
         />
         <WorkspacesLoaded path="/w/:wid/d/:did/" component={DeploymentProxy} />
         <WorkspacesLoaded path="/w/:wid" component={WorkspaceHome} />
-        <AuthedRoute path="/admin" component={AdminRoutes} />
+        <WorkspacesLoaded path="/admin" component={AdminRoutes} />
         <WorkspacesLoaded path="/edit-profile" component={UserProfile} />
         <WorkspacesLoaded path="/" component={WorkspaceRedirect} />
       </Switch>
