@@ -19,6 +19,17 @@ export const Signup = inject(AUTH_STORE)(
   observer((props) => {
     const store = props[AUTH_STORE] as AuthStore;
     const form = store.signupForm;
+    const clearForm = () => {
+        form.data.fullName = '';
+        form.data.email = '';
+        form.data.password = '';
+    }
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter' && form.isValid) {
+        store.signup()
+        clearForm();
+      }
+    }
 
     return (
       <AuthWrapper>
@@ -37,12 +48,16 @@ export const Signup = inject(AUTH_STORE)(
           type="password"
           label="Password"
           autoComplete="current-password"
+          onKeyDown={handleKeyDown}
         />
         <Button
           fullWidth
           variant="contained"
           color="primary"
-          onClick={store.signup}
+          onClick={() => {
+            store.signup();
+            clearForm();
+          }}
           disabled={!form.isValid}
         >
           Sign Up

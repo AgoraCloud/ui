@@ -17,6 +17,15 @@ export const ForgotPassword = inject(AUTH_STORE)(
   observer((props) => {
     const store = props[AUTH_STORE] as AuthStore;
     const form = store.forgotPasswordForm;
+    const clearForm = () => {
+      form.data.email = '';
+    }
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter' && form.isValid) {
+        store.forgotPassword();
+        clearForm();
+      }
+    }
 
     return (
       <Container component="main" maxWidth="xs">
@@ -26,12 +35,15 @@ export const ForgotPassword = inject(AUTH_STORE)(
             Forgot Password
           </Typography>
 
-          <Input form={form} id="email" label="Email Address" />
+          <Input form={form} id="email" label="Email Address" onKeyDown={handleKeyDown} />
           <Button
             fullWidth
             variant="contained"
             color="primary"
-            onClick={store.forgotPassword}
+            onClick={() => {
+              store.forgotPassword();
+              clearForm();
+            }}
             disabled={!form.isValid}
           >
             Send Reset Link

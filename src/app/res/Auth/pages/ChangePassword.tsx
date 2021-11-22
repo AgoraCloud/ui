@@ -25,6 +25,16 @@ export const ChangePassword = inject(AUTH_STORE)(
     React.useEffect(() => {
       form.data.token = token;
     }, []);
+    const clearForm = () => {
+      form.data.password = '';
+      form.data.confirmPassword = '';
+    }
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter' && form.isValid) {
+        store.changePassword();
+        clearForm();
+      }
+    }
 
     if (form.submit.state == 'loading') {
       return (
@@ -68,6 +78,7 @@ export const ChangePassword = inject(AUTH_STORE)(
           type="password"
           label="Confirm Password"
           autoComplete="current-password"
+          onKeyDown={handleKeyDown}
         />
 
         <Button
@@ -77,6 +88,7 @@ export const ChangePassword = inject(AUTH_STORE)(
           disabled={!form.isValid}
           onClick={() => {
             store.changePassword();
+            clearForm();
           }}
         >
           Change Password

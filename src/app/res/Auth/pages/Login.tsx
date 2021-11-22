@@ -22,6 +22,16 @@ import { AuthWrapper } from 'app/components/Wrapper';
 export const Login = observer((props) => {
   const { authstore } = useStores();
   const form = authstore.signinForm;
+  const clearForm = () => {
+    form.data.email = '';
+    form.data.password = '';
+  }
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && form.isValid) {
+      authstore.login();
+      clearForm();
+    }
+  }
 
   // const onFormSubmit = (e) => {
   //     e.preventDefault();
@@ -43,6 +53,7 @@ export const Login = observer((props) => {
         type="password"
         label="Password"
         autoComplete="current-password"
+        onKeyDown={handleKeyDown}
       />
 
       <Button
@@ -50,7 +61,10 @@ export const Login = observer((props) => {
         variant="contained"
         color="primary"
         type="submit"
-        onClick={authstore.login}
+        onClick={()=> {
+          authstore.login();
+          clearForm();
+        }}
         disabled={!form.isValid}
       >
         Log In
