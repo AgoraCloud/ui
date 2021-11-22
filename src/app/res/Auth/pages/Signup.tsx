@@ -19,17 +19,12 @@ export const Signup = inject(AUTH_STORE)(
   observer((props) => {
     const store = props[AUTH_STORE] as AuthStore;
     const form = store.signupForm;
-    const clearForm = () => {
-        form.data.fullName = '';
-        form.data.email = '';
-        form.data.password = '';
-    }
     const handleKeyDown = (event) => {
       if (event.key === 'Enter' && form.isValid) {
-        store.signup()
-        clearForm();
+        store.signup();
+        form.reset();
       }
-    }
+    };
 
     return (
       <AuthWrapper>
@@ -56,7 +51,7 @@ export const Signup = inject(AUTH_STORE)(
           color="primary"
           onClick={() => {
             store.signup();
-            clearForm();
+            form.reset();
           }}
           disabled={!form.isValid}
         >
