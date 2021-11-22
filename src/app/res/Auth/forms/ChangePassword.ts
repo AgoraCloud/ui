@@ -1,5 +1,6 @@
 import { ChangePasswordDto } from '@agoracloud/common';
 import { APIRepo, FormModel } from '@mars-man/models';
+import { types } from 'app/constants';
 
 interface changePassword_i {
   token: string;
@@ -18,6 +19,7 @@ export class ChangePasswordFormModel extends FormModel<changePassword_i> {
       submit: new APIRepo({
         path: '/api/auth/change-password',
         method: 'POST',
+        events: types.CHANGE_PASSWORD,
       }),
     });
   }

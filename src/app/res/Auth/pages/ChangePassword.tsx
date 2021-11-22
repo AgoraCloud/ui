@@ -14,6 +14,9 @@ import { CircularProgress } from '@material-ui/core';
 import { AuthWrapper } from 'app/components/Wrapper';
 import { useQuery } from 'app/constants/helpers';
 
+import { events } from '@mars-man/models';
+import { types } from 'app/constants';
+
 export const ChangePassword = inject(AUTH_STORE)(
   observer((props) => {
     // two input fields password, confirm password
@@ -25,10 +28,12 @@ export const ChangePassword = inject(AUTH_STORE)(
     React.useEffect(() => {
       form.data.token = token;
     }, []);
+    events.on(types.CHANGE_PASSWORD.onLoad.type, () => {
+      form.reset();
+    });
     const handleKeyDown = (event) => {
       if (event.key === 'Enter' && form.isValid) {
         store.changePassword();
-        form.reset();
       }
     };
 
@@ -82,10 +87,7 @@ export const ChangePassword = inject(AUTH_STORE)(
           variant="contained"
           color="primary"
           disabled={!form.isValid}
-          onClick={() => {
-            store.changePassword();
-            form.reset();
-          }}
+          onClick={store.changePassword}
         >
           Change Password
         </Button>

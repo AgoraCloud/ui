@@ -12,11 +12,16 @@ import { AuthStore } from 'app/stores';
 import { Input } from 'app/components/inputs';
 
 import { AuthPaper } from 'app/components';
+import { events } from '@mars-man/models';
+import { types } from 'app/constants';
 
 export const ForgotPassword = inject(AUTH_STORE)(
   observer((props) => {
     const store = props[AUTH_STORE] as AuthStore;
     const form = store.forgotPasswordForm;
+    events.on(types.PASSWORD_RESET.onLoad.type, () => {
+      form.reset();
+    });
     const handleKeyDown = (event) => {
       if (event.key === 'Enter' && form.isValid) {
         store.forgotPassword();
@@ -42,10 +47,7 @@ export const ForgotPassword = inject(AUTH_STORE)(
             fullWidth
             variant="contained"
             color="primary"
-            onClick={() => {
-              store.forgotPassword();
-              form.reset();
-            }}
+            onClick={store.forgotPassword}
             disabled={!form.isValid}
           >
             Send Reset Link

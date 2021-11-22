@@ -15,14 +15,19 @@ import { Input } from 'app/components/inputs';
 
 import { AuthWrapper } from 'app/components/Wrapper';
 
+import { events } from '@mars-man/models';
+import { types } from 'app/constants';
+
 export const Signup = inject(AUTH_STORE)(
   observer((props) => {
     const store = props[AUTH_STORE] as AuthStore;
     const form = store.signupForm;
+    events.on(types.SIGNUP.onLoad.type, () => {
+      form.reset();
+    });
     const handleKeyDown = (event) => {
       if (event.key === 'Enter' && form.isValid) {
         store.signup();
-        form.reset();
       }
     };
 
@@ -49,10 +54,7 @@ export const Signup = inject(AUTH_STORE)(
           fullWidth
           variant="contained"
           color="primary"
-          onClick={() => {
-            store.signup();
-            form.reset();
-          }}
+          onClick={store.signup}
           disabled={!form.isValid}
         >
           Sign Up
