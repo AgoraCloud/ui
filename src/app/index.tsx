@@ -1,86 +1,124 @@
+/**
+ * THIRD PARTY IMPORTS
+ */
 import * as React from 'react';
-import { hot } from 'react-hot-loader/root';
 import { Router, Switch } from 'react-router';
-import { Home } from 'app/containers/workspace';
+
 import {
   AuthedRoute,
+  NewWorkspaceRoute,
   UnauthedRoute,
-} from 'app/components/forms/route-guards/auth';
+  WorkspacesLoaded,
+} from 'app/components/RouteGuards';
+
+/**
+ * DEPLOYMENT IMPORTS
+ */
 import {
-  Login,
-  Signup,
-  ForgotPassword,
-  VerifyAccount,
-  ChangePassword,
-} from 'app/containers/auth';
-import { UpdateWorkspace } from './containers/workspace/update-workspace';
-import { UserProfile } from './containers/user-profile';
-import { ProjectList } from './containers/workspace/projects';
-import { UserLoaded } from 'app/components/forms/route-guards/user';
-import { FirstWorkspaceRedirect } from 'app/components/forms/route-guards/workspaces/redirects';
-import { FirstWorkspace } from 'app/containers/workspace/first-workspace';
-import {
+  DeploymentInfoPage,
+  DeploymentProxy,
   CreateDeployment,
   EditDeployment,
-} from 'app/containers/workspace/deployments/create-deployment';
-import {
-  CreateProject,
-  EditProject,
-} from 'app/containers/workspace/projects/create-project';
-import { Lanes } from 'app/containers/workspace/projects/lanes';
-import {
-  WorkspacesLoaded,
-  DeploymentLoaded,
-  ProjectsLoaded,
-  LanesLoaded,
-} from 'app/components/forms/route-guards/workspaces';
-import { WikiRoutes } from 'app/containers/workspace/wiki';
-import { DeploymentProxy } from 'app/containers/workspace/deployments/proxy';
-import { DeploymentInfoPage } from './containers/workspace/deployments/info';
-import { WorkspaceMetricsPage } from './containers/workspace/workspace-metrics';
-import { AdminRoutes } from './containers/admin';
-import { WorkspaceAdminRoutes } from './containers/workspace/admin';
+} from 'app/res/Deployments';
 
-// http://localhost:3000/verify-account?token=60142f350efcef0018872610
+/**
+ * WORKSPACE IMPORTS
+ */
+import {
+  WorkspaceHome,
+  UpdateWorkspace,
+  WorkspaceMetricsPage,
+  NewWorkspace,
+  WorkspaceRedirect,
+} from 'app/res/Workspaces';
 
-export const App = hot(({ history }: any) => (
-  <Router history={history}>
-    <Switch>
-      {/* Signup / Login Paths */}
-      <UnauthedRoute path="/login" component={Login} />
-      <UnauthedRoute path="/signup" component={Signup} />
-      <UnauthedRoute path="/forgotPassword" component={ForgotPassword} />
-      <UnauthedRoute path="/verify-account" component={VerifyAccount} />
-      <UnauthedRoute path="/change-password" component={ChangePassword} />
-      <AuthedRoute path="/w/new" component={FirstWorkspace} />
-      <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
-      <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
-      <WorkspacesLoaded
-        path="/w/:wid/metrics"
-        component={WorkspaceMetricsPage}
-      />
-      <WorkspacesLoaded path="/w/:wid/admin" component={WorkspaceAdminRoutes} />
-      <ProjectsLoaded path="/w/:wid/projects" component={ProjectList} />
-      <ProjectsLoaded path="/w/:wid/p/new" component={CreateProject} />
-      <ProjectsLoaded path="/w/:wid/p/:pid/edit" component={EditProject} />
-      <LanesLoaded path="/w/:wid/p/:pid/lanes" component={Lanes} />
-      <ProjectsLoaded path="/w/:wid/p/:pid/edit" component={EditProject} />
-      <ProjectsLoaded path="/w/:wid/p/new" component={CreateProject} />
-      <ProjectsLoaded path="/w/:wid/p" component={ProjectList} />
-      <WorkspacesLoaded
-        path="/w/:wid/edit-workspace"
-        component={UpdateWorkspace}
-      />
-      <DeploymentLoaded
-        path="/w/:wid/d/:did/info"
-        component={DeploymentInfoPage}
-      />
-      <DeploymentLoaded path="/w/:wid/d/:did/edit" component={EditDeployment} />
-      <DeploymentLoaded path="/w/:wid/d/:did/" component={DeploymentProxy} />
-      <WorkspacesLoaded path="/w/:wid" component={Home} />
-      <AuthedRoute path="/admin" component={AdminRoutes} />
-      <UserLoaded path="/edit-profile" component={UserProfile} />
-      <AuthedRoute path="" component={FirstWorkspaceRedirect} />
-    </Switch>
-  </Router>
-));
+/**
+ * WORKSPACE ADMIN IMPORTS
+ */
+
+import { WorkspaceAdminRoutes } from 'app/res/Workspaces/Admin/routes';
+
+/**
+ * SUPER ADMIN IMPORTS
+ */
+import { AdminRoutes } from 'app/res/Admin';
+
+/**
+ * AUTH IMPORTS
+ */
+import {
+  ChangePassword,
+  ForgotPassword,
+  Signup,
+  UserProfile,
+  VerifyAccount,
+  Logout,
+  Login,
+} from 'app/res/Auth';
+
+/**
+ * WIKI IMPORTS
+ */
+import { WikiRoutes } from 'app/res/Wiki';
+/**
+ * ProjectsImport
+ */
+import {
+  ProjectListPage,
+  CreateProjectPage,
+  EditProjectPage,
+  KanbanPage,
+} from 'app/res/Projects';
+
+export const App = ({ history }: any) => {
+  return (
+    <Router history={history}>
+      {/* <Route path="" component={()=><h1> test</h1>}/> */}
+      <Switch>
+        {/* Signup / Login Paths */}
+        <UnauthedRoute path="/login" component={Login} />
+        <UnauthedRoute path="/signup" component={Signup} />
+        <UnauthedRoute path="/forgotPassword" component={ForgotPassword} />
+        <UnauthedRoute path="/verify-account" component={VerifyAccount} />
+        <UnauthedRoute path="/change-password" component={ChangePassword} />
+
+        {/* workspace paths */}
+        <AuthedRoute path="/logout" component={Logout} />
+
+        <NewWorkspaceRoute path="/w/new" component={NewWorkspace} />
+        <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
+        <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
+        <WorkspacesLoaded
+          path="/w/:wid/metrics"
+          component={WorkspaceMetricsPage}
+        />
+        <WorkspacesLoaded
+          path="/w/:wid/admin"
+          component={WorkspaceAdminRoutes}
+        />
+        {/* Projects Path */}
+        <WorkspacesLoaded path="/w/:wid/p/:pid/lanes" component={KanbanPage} />
+        <WorkspacesLoaded
+          path="/w/:wid/p/:pid/edit"
+          component={EditProjectPage}
+        />
+        <WorkspacesLoaded path="/w/:wid/p/new" component={CreateProjectPage} />
+        <WorkspacesLoaded path="/w/:wid/p" exact component={ProjectListPage} />
+        <WorkspacesLoaded path="/w/:wid/edit" component={UpdateWorkspace} />
+        <WorkspacesLoaded
+          path="/w/:wid/d/:did/info"
+          component={DeploymentInfoPage}
+        />
+        <WorkspacesLoaded
+          path="/w/:wid/d/:did/edit"
+          component={EditDeployment}
+        />
+        <WorkspacesLoaded path="/w/:wid/d/:did/" component={DeploymentProxy} />
+        <WorkspacesLoaded path="/w/:wid" component={WorkspaceHome} />
+        <WorkspacesLoaded path="/admin" component={AdminRoutes} />
+        <WorkspacesLoaded path="/edit-profile" component={UserProfile} />
+        <WorkspacesLoaded path="/" component={WorkspaceRedirect} />
+      </Switch>
+    </Router>
+  );
+};

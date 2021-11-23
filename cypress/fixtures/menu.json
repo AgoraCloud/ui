@@ -1,0 +1,15 @@
+{
+    "deploymentsBtnText":"Deployments",
+    "projectsBtnText":"Projects",
+    "wikisBtnText":"Wiki",
+    "createWorkspaceBtnText":"New",
+    "editWorkspaceBtnText":"Settings",
+    "workspaceMetricsBtnText":"Metrics",
+    "workspaceUsersBtnText":"Workspace Users",
+    "usersBtnText":"Users",
+    "myProfileBtnText":"My Profile",
+    "signOutBtnText":"Sign Out",
+    "newWorkspaceUrl": "/w/new",
+    "usersUrl": "/admin/users",
+    "editProfileUrl":"/edit-profile"    
+}
