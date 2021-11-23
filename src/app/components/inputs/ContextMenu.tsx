@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Menu, MenuItem } from '@material-ui/core';
 
 /**
@@ -13,6 +13,7 @@ const initialState = {
 interface menuItem_i {
   id?: string;
   label: string;
+  component?: React.ReactNode;
   onClick: () => any;
 }
 

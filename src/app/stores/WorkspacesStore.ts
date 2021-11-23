@@ -53,7 +53,7 @@ export class WorkspacesStore {
     } else if (this._selectedWorkspace !== undefined) {
       // if the _selectedWorkspace is already defined
       selectedWorkspace = this._selectedWorkspace;
-    } else {
+    } else if (this.workspaces.workspaces.length > 0) {
       // if there is no _selectedWorkspace
       // TODO return favorite workspace
       selectedWorkspace = this.workspaces.workspaces[0];

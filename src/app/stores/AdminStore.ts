@@ -12,16 +12,19 @@ import {
 } from 'app/components/dialogs';
 import { AdminUsersModel, SignupFormModel } from 'app/res/Auth';
 import { Model } from '@mars-man/models';
+import { AuditLogs } from 'app/res/AuditLogs';
 
 export class AdminStore extends Model {
   users: AdminUsersModel;
   editUserDialog: AdminUserDialogModel;
   createUserDialog: DialogModel;
+  auditLogs: AuditLogs;
   constructor(public rootStore: RootStore) {
     super();
     this.users = new AdminUsersModel();
 
     this.editUserDialog = new AdminUserDialogModel();
+    this.auditLogs = new AuditLogs();
     this.createUserDialog = new DialogModel();
     rootStore.authStore.user.repo?.onLoad.subscribe((val) => {
       this.load();

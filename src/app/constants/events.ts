@@ -25,6 +25,7 @@ interface eventType_i {
 export const types = {
   USERLOAD: {
     onLoad: {
+      snackbar: true,
       type: 'USERLOAD',
       data: {
         message: 'Successfully Loaded User!',
@@ -32,6 +33,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'USERLOAD_ERR',
       data: {
         message: 'Failed to Load User: ',
@@ -41,6 +43,7 @@ export const types = {
   },
   SIGNIN: {
     onLoad: {
+      snackbar: true,
       type: 'SIGNIN',
       data: {
         message: 'Successfully Logged In!',
@@ -48,6 +51,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'SIGNIN_ERR',
       data: {
         message: 'Failed to Login: ',
@@ -57,6 +61,7 @@ export const types = {
   },
   SIGNOUT: {
     onLoad: {
+      snackbar: true,
       type: 'SIGNOUT',
       data: {
         message: 'Signed out',
@@ -64,6 +69,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'SIGNOUT_ERR',
       data: {
         message: 'Failed to Signout: ',
@@ -73,6 +79,7 @@ export const types = {
   },
   SIGNUP: {
     onLoad: {
+      snackbar: true,
       type: 'SIGNUP',
       data: {
         message: 'Registered! Please check your email to verify your account.',
@@ -80,6 +87,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'SIGNUP_ERR',
       data: {
         message: 'Failed to Signup: ',
@@ -90,6 +98,7 @@ export const types = {
 
   VERIFY: {
     onLoad: {
+      snackbar: true,
       type: 'VERIFY',
       data: {
         message: 'Successfully Verified',
@@ -97,6 +106,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'VERIFY_ERR',
       data: {
         message: 'Failed to Verify: ',
@@ -107,6 +117,7 @@ export const types = {
 
   PASSWORD_RESET: {
     onLoad: {
+      snackbar: true,
       type: 'PASSWORD_RESET',
       data: {
         message: 'Success: Please check your email to reset your password!',
@@ -114,6 +125,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'PASSWORD_RESET_ERR',
       data: {
         message: 'Failure: ',
@@ -124,6 +136,7 @@ export const types = {
 
   CHANGE_PASSWORD: {
     onLoad: {
+      snackbar: true,
       type: 'CHANGE_PASSWORD',
       data: {
         message: 'Successfully Changed Password',
@@ -131,6 +144,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'CHANGE_PASSWORD_ERR',
       data: {
         message: 'Change Password Failed: ',
@@ -141,6 +155,7 @@ export const types = {
 
   WORKSPACE_CRUD: {
     onLoad: {
+      snackbar: true,
       type: 'WORKSPACE_ERR',
       data: {
         message: 'Workspace Failure: ',
@@ -148,6 +163,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'WORKSPACE_CRUD',
       data: {
         message: 'Workspace Successfully: ',
@@ -158,6 +174,7 @@ export const types = {
 
   DEPLOYMENT_CRUD: {
     onLoad: {
+      snackbar: true,
       type: 'DEPLOYMENT_CRUD',
       data: {
         message: 'Deployment Successfully: ',
@@ -165,6 +182,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'DEPLOYMENT_ERR',
       data: {
         message: 'Deployment Failure: ',
@@ -175,6 +193,7 @@ export const types = {
 
   USER_CRUD: {
     onLoad: {
+      snackbar: true,
       type: 'USER_CRUD',
       data: {
         message: 'User Successfully: ',
@@ -182,6 +201,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'USER_ERR',
       data: {
         message: 'User Failure: ',
@@ -192,6 +212,7 @@ export const types = {
 
   PROJECT_CRUD: {
     onLoad: {
+      snackbar: true,
       type: 'PROJECT_CRUD',
       data: {
         message: 'Project Successfully: ',
@@ -199,6 +220,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'PROJECT_ERR',
       data: {
         message: 'Project Failure: ',
@@ -209,6 +231,7 @@ export const types = {
 
   PROJECT_LANE_CRUD: {
     onLoad: {
+      snackbar: false,
       type: 'PROJECT_LANE_CRUD',
       data: {
         message: 'Project Lane Successfully: ',
@@ -216,6 +239,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: false,
       type: 'PROJECT_LANE_ERR',
       data: {
         message: 'Project Lane Failure: ',
@@ -227,6 +251,7 @@ export const types = {
   LANE_TASKS_CRUD: {
     onLoad: {
       type: 'LANE_TASKS_CRUD',
+      snackbar: false,
       data: {
         message: 'Project Task Successfully: ',
         variant: 'success',
@@ -234,6 +259,7 @@ export const types = {
     },
     onError: {
       type: 'LANE_TASKS_ERR',
+      snackbar: false,
       data: {
         message: 'Project Task Failure: ',
         variant: 'error',
@@ -243,6 +269,7 @@ export const types = {
   LANE_TASK_MOVED: {
     onLoad: {
       type: 'LANE_TASKS_MOVED',
+      snackbar: false,
       data: {
         message: 'Task Moved Successfully',
         variant: 'success',
@@ -250,6 +277,7 @@ export const types = {
     },
     onError: {
       type: 'LANE_TASKS_MOVED_ERR',
+      snackbar: false,
       data: {
         message: 'Task Move Failure',
         variant: 'error',
@@ -258,6 +286,7 @@ export const types = {
   },
   WORKSPACE_USER_CRUD: {
     onLoad: {
+      snackbar: true,
       type: 'WORKSPACE_USERS_CRUD',
       data: {
         message: 'Workspace User Successfully: ',
@@ -265,6 +294,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: true,
       type: 'WORKSPACE_USERS_ERR',
       data: {
         message: 'Workspace User Failure: ',
@@ -275,6 +305,7 @@ export const types = {
   LANE_TASK_CRUD: {
     onLoad: {
       type: 'LANE_TASKS_CRUD',
+      snackbar: false,
       data: {
         message: 'Project Task Successfully: ',
         variant: 'success',
@@ -282,6 +313,7 @@ export const types = {
     },
     onError: {
       type: 'LANE_TASKS_ERR',
+      snackbar: false,
       data: {
         message: 'Project Task Failure: ',
         variant: 'error',
@@ -291,6 +323,7 @@ export const types = {
 
   WIKISECTIONS: {
     onLoad: {
+      snackbar: false,
       type: 'WIKISECTIONS_LOAD',
       data: {
         message: 'Wiki Section Successfully: ',
@@ -298,6 +331,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: false,
       type: 'WIKISECTION_ERR',
       data: {
         message: 'Wiki Section Failure: ',
@@ -307,6 +341,7 @@ export const types = {
   },
   WIKIPAGES: {
     onLoad: {
+      snackbar: false,
       type: 'WIKIPAGES_LOAD',
       data: {
         message: 'Wiki Page Successfully: ',
@@ -314,6 +349,7 @@ export const types = {
       },
     },
     onError: {
+      snackbar: false,
       type: 'WIKIPAGES_ERR',
       data: {
         message: 'Wiki Page Failure: ',

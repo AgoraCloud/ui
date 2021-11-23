@@ -18,8 +18,5 @@ export class EditLaneFormModel extends FormModel<updateLaneForm_i> {
         events: types.PROJECT_LANE_CRUD,
       }),
     });
-    this.data = {
-      name: '',
-    };
   }
 }

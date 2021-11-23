@@ -5,7 +5,7 @@ import { useStores } from 'app/stores';
 import { Typography, IconButton, Grid, InputBase } from '@material-ui/core';
 import Editor from '@monaco-editor/react';
 import * as monaco from 'monaco-editor';
-import * as Markdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import SaveIcon from '@material-ui/icons/Save';
 import { WikiPageModel } from 'app/res/Wiki';
 
@@ -80,11 +80,11 @@ export const WikiPageRender = (props: { page: WikiPageModel }) => {
   );
 };
 
-export const WikiPage = observer((props) => {
+export const WikiPage = observer(() => {
   const { workspacesstore } = useStores();
   const page = workspacesstore.selectedWikiPage;
 
-  if (page == undefined) {
+  if (page === undefined) {
     return <div id={style.wrapper}>Wiki page not found</div>;
   }
   return (

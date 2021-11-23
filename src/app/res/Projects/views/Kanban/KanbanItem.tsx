@@ -3,13 +3,7 @@ import * as React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import { CustomCard } from '.';
-
-// Define types for board item element properties
-type BoardItemProps = {
-  index: number;
-  item: any;
-  laneId: string;
-};
+import { TaskModel } from 'app/res/Projects';
 
 // Define types for board item element style properties
 // This is necessary for TypeScript to accept the 'isDragging' prop.
@@ -34,28 +28,31 @@ const BoardItemEl = styled.div<BoardItemStylesProps>`
 `;
 
 // Create and export the BoardItem component
-export const BoardItem = observer((props: BoardItemProps) => {
-  return (
-    <Draggable draggableId={props.item.id} index={props.index}>
-      {(provided, snapshot) => (
-        <BoardItemEl
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          isDragging={snapshot.isDragging}
-        >
-          {/* The content of the BoardItem */}
-          {/* {"Title: " + props.item.title}
+export const BoardItem = observer(
+  (props: { task: TaskModel; index: number }) => {
+    const { task, index } = props;
+    return (
+      <Draggable draggableId={task.id} index={index}>
+        {(provided, snapshot) => (
+          <BoardItemEl
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            isDragging={snapshot.isDragging}
+          >
+            {/* The content of the BoardItem */}
+            {/* {"Title: " + props.item.title}
         <Divider style={{marginTop: "10px", marginBottom: "10px"}} />
         {"Description: " + props.item.description} */}
-          <CustomCard
-            id={props.item.id}
-            title={props.item.title}
-            description={props.item.description}
-            laneId={props.laneId}
-          />
-        </BoardItemEl>
-      )}
-    </Draggable>
-  );
-});
+            <CustomCard
+              id={task.id}
+              title={task.title}
+              description={task.description}
+              laneId={task.lane.id}
+            />
+          </BoardItemEl>
+        )}
+      </Draggable>
+    );
+  },
+);

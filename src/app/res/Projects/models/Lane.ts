@@ -18,11 +18,11 @@ export class LanesModel extends CollectionModel {
     events.on(types.PROJECT_LANE_CRUD.onLoad.type, () => {
       this.load();
     });
-    events.on(types.LANE_TASKS_CRUD.onLoad.type, () => {
-      this.load();
-    });
+    // events.on(types.LANE_TASKS_CRUD.onLoad.type, () => {
+    //   this.load();
+    // });
     events.on(types.LANE_TASK_MOVED.onLoad.type, () => {
-      this.load();
+      // this.load();
     });
 
     this.createLaneForm = new CreateLaneFormModel(this);
@@ -99,7 +99,9 @@ export class LaneModel extends Model {
   load = async () => {
     if (this.tasks.state != 'loaded') await this.tasks.load();
   };
-
+  onDelete = async () => {
+    await this.delete.call();
+  };
   // delete = async () => {
   //   try {
   //     const wid = this.lanes.workspace.id;

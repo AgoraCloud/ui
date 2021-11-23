@@ -43,6 +43,7 @@ export class CreateDeploymentFormModel extends FormModel {
 export class EditDeploymentFormModel extends FormModel {
   constructor(public deployment: DeploymentModel) {
     super({
+      // data: deployment.data,
       data: {
         name: deployment.data.name,
         properties: {
@@ -91,6 +92,9 @@ export class EditDeploymentFormModel extends FormModel {
       const oldValue = _.get(this.deployment.data, key);
       const newValue = _.get(payload, key);
       if (oldValue !== newValue) _.set(out, key, newValue);
+    }
+    if (_.get(out, 'properties.image.version') !== undefined) {
+      _.set(out, 'properties.image.type', this.data.type);
     }
     return out;
   }

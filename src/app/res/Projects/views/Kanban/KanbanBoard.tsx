@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import {
+  DragDropContext,
+  DragDropContextProps,
+  DropResult,
+} from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import { AddLaneFAB } from 'app/components/inputs';
 // Import BoardColumn component
 import { BoardColumn } from '.';
 import { observer } from 'mobx-react';
 import { CreateLaneDialog } from '.';
+import { LaneModel, LanesModel, TaskModel } from 'app/res/Projects';
 
 // Create styles board element properties
 const BoardEl = styled.div`
@@ -14,9 +19,8 @@ const BoardEl = styled.div`
   justify-content: space-between;
 `;
 
-export const Board = observer((props) => {
-  const providedData = props.data;
-  const [state, setState] = useState(providedData);
+export const Board = observer((props: { lanes: LanesModel }) => {
+  const { lanes } = props.lanes;
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -27,6 +31,52 @@ export const Board = observer((props) => {
     setOpen(false);
   };
 
+  // {destination: {droppableId: string}, source: {droppableId: string}, draggableId: string}
+  const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
+    console.log('onDragEnd');
+    const destLaneId = destination?.droppableId;
+    const srcLaneId = source.droppableId;
+    const destLane = props.lanes.getBy('id', destLaneId)[0] as LaneModel;
+    const srcLane = props.lanes.getBy('id', srcLaneId)[0] as LaneModel;
+    const task = srcLane.tasks.getBy('id', draggableId)[0] as TaskModel;
+    if (!destLane || !srcLane) {
+      // return
+    }
+    if (!destLaneId) {
+      console.log('DROPPED OUTSIDE');
+      return;
+    }
+    if (destLaneId == srcLaneId) {
+      // Same lane
+      console.log('SAME LANE');
+    } else {
+      // lane change
+      console.log('LANE CHANGE');
+      task.changeLane(destLane);
+    }
+  };
+  return (
+    <>
+      <BoardEl>
+        {/* Create context for drag & drop */}
+        <DragDropContext onDragEnd={onDragEnd}>
+          {/* Get all columns in the order specified in 'board-initial-data.ts' */}
+          {lanes.map((lane: LaneModel) => {
+            // Get id of the current column
+
+            // Render the BoardColumn component
+            return <BoardColumn lane={lane} />;
+          })}
+        </DragDropContext>
+      </BoardEl>
+      <AddLaneFAB onClick={handleClickOpen} />
+      <CreateLaneDialog isOpen={open} close={handleClose} />
+    </>
+  );
+});
+
+/**
+ 
   // Handle drag & drop
   const onDragEnd = (result: any) => {
     const { source, destination, draggableId } = result;
@@ -123,31 +173,4 @@ export const Board = observer((props) => {
       setState(newState);
     }
   };
-
-  return (
-    <>
-      <BoardEl>
-        {/* Create context for drag & drop */}
-        <DragDropContext onDragEnd={onDragEnd}>
-          {/* Get all columns in the order specified in 'board-initial-data.ts' */}
-          {state.columnsOrder.map((columnId) => {
-            // Get id of the current column
-            const column = (state.columns as any)[columnId];
-
-            // Get item belonging to the current column
-            const items = column.itemsIds.map(
-              (itemId: string) => (state.items as any)[itemId],
-            );
-
-            // Render the BoardColumn component
-            return (
-              <BoardColumn key={column.id} column={column} items={items} />
-            );
-          })}
-        </DragDropContext>
-      </BoardEl>
-      <AddLaneFAB onClick={handleClickOpen} />
-      <CreateLaneDialog isOpen={open} close={handleClose} />
-    </>
-  );
-});
+ */

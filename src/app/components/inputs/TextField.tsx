@@ -26,7 +26,7 @@ export const Input = observer((props: InputProps) => {
       variant="outlined"
       margin="normal"
       autoComplete="off"
-      required
+      // required
       fullWidth
       id={id}
       name={id}

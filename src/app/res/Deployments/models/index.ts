@@ -1,3 +1,4 @@
+import { DeploymentLabelingUtil } from '@agoracloud/common';
 import {
   APIRepo,
   CollectionModel,
@@ -142,6 +143,24 @@ export class DeploymentModel extends Model<deploymentData_i> {
     update(this, [this.favorite, this.unfavorite, this.upgrade]);
   }
 
+  /**
+   *
+   * Upgrade Section
+   */
+
+  upgradeBody = () => {
+    return {
+      properties: {
+        image: {
+          type: this.data.properties.image.type,
+          version: this.workspace.deploymentImages.getLatest(
+            this.data.properties.image.type,
+          ),
+        },
+      },
+    };
+  };
+
   get name() {
     return this.data.name;
   }
@@ -162,24 +181,6 @@ export class DeploymentModel extends Model<deploymentData_i> {
     return `${this.deployments.api}/${this.id}`;
   }
 
-  /**
-   *
-   * Upgrade Section
-   */
-
-  upgradeBody = () => {
-    return {
-      properties: {
-        image: {
-          type: this.data.properties.image.type,
-          version: this.workspace.deploymentImages.getLatest(
-            this.data.properties.image.type,
-          ),
-        },
-      },
-    };
-  };
-
   get isUpgradeable() {
     const latestVersion = this.workspace.deploymentImages.getLatest(
       this.data.properties.image.type,
@@ -190,6 +191,12 @@ export class DeploymentModel extends Model<deploymentData_i> {
 
   get scalingMethod() {
     return this.data.properties.scalingMethod;
+  }
+
+  get scalingMethodLabel() {
+    return DeploymentLabelingUtil.generateScalingMethodLabel(
+      this.scalingMethod as any,
+    );
   }
 
   get cpuCount() {

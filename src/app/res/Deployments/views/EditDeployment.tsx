@@ -12,11 +12,12 @@ import { Typography } from '@material-ui/core';
 import { observer } from 'mobx-react';
 
 import { Form } from '@mars-man/components';
-import { ImageSelect } from './ImageSelect';
+import { UpdateImageSelect } from './ImageSelect';
 import {
   EditDeploymentFormModel,
   ScalingMethodSelect,
 } from 'app/res/Deployments';
+import { toJS } from 'mobx';
 
 export const EditDeployment = (props) => {
   const { workspacesstore, uistore } = useStores();
@@ -37,30 +38,39 @@ export const EditDeploymentForm = observer(
     const { form } = props;
 
     if (!form) return null;
+    console.log(
+      'errors',
+      toJS(form.errors),
+      toJS(form.data),
+      toJS(form.payload),
+    );
     return (
       <Form form={form}>
         <Label>Deployment Name</Label>
         <Input form={form} id="name" label="name" autoComplete="off" />
+
+        <Label>Container Image</Label>
+        <UpdateImageSelect
+          form={form}
+          workspace={form.deployment.workspace}
+          deployment={form.deployment}
+        />
+
         <Label>Resources</Label>
         <Typography variant="body1">
           Specify the maximum amount of resources the deployment can use:
         </Typography>
-        <Label>Container Image</Label>
-        <ImageSelect
-          form={form}
-          workspace={form.deployment.workspace}
-          disableImage={true}
-        />
         <CPUMemoryInput form={form} />
         <CancelCreateButtons
           form={form}
           cancel={() => {
-            routerstore.goBack();
+            // routerstore.goBack();
+            routerstore.push(form.deployment.workspace.link);
           }}
           submit={async () => {
             await form.call();
           }}
-          labels={['Cancel', 'Edit']}
+          labels={['Cancel', 'Update']}
         />
       </Form>
     );

@@ -6,6 +6,7 @@ import { Router, Switch } from 'react-router';
 
 import {
   AuthedRoute,
+  NewWorkspaceRoute,
   UnauthedRoute,
   WorkspacesLoaded,
 } from 'app/components/RouteGuards';
@@ -84,7 +85,7 @@ export const App = ({ history }: any) => {
         {/* workspace paths */}
         <AuthedRoute path="/logout" component={Logout} />
 
-        <AuthedRoute path="/w/new" component={NewWorkspace} />
+        <NewWorkspaceRoute path="/w/new" component={NewWorkspace} />
         <WorkspacesLoaded path="/w/:wid/new" component={CreateDeployment} />
         <WorkspacesLoaded path="/w/:wid/wiki" component={WikiRoutes} />
         <WorkspacesLoaded
@@ -102,7 +103,7 @@ export const App = ({ history }: any) => {
           component={EditProjectPage}
         />
         <WorkspacesLoaded path="/w/:wid/p/new" component={CreateProjectPage} />
-        <WorkspacesLoaded path="/w/:wid/p" component={ProjectListPage} />
+        <WorkspacesLoaded path="/w/:wid/p" exact component={ProjectListPage} />
         <WorkspacesLoaded path="/w/:wid/edit" component={UpdateWorkspace} />
         <WorkspacesLoaded
           path="/w/:wid/d/:did/info"
@@ -114,7 +115,7 @@ export const App = ({ history }: any) => {
         />
         <WorkspacesLoaded path="/w/:wid/d/:did/" component={DeploymentProxy} />
         <WorkspacesLoaded path="/w/:wid" component={WorkspaceHome} />
-        <AuthedRoute path="/admin" component={AdminRoutes} />
+        <WorkspacesLoaded path="/admin" component={AdminRoutes} />
         <WorkspacesLoaded path="/edit-profile" component={UserProfile} />
         <WorkspacesLoaded path="/" component={WorkspaceRedirect} />
       </Switch>
