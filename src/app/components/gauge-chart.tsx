@@ -2,6 +2,7 @@ import React from 'react';
 import Plot from 'react-plotly.js';
 
 export const GaugeChart = (props) => {
+  // return null;
   return (
     <Plot
       data={[

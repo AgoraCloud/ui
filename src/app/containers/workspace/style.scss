@@ -1,7 +1,0 @@
-@import '~@styles/colors.scss';
-
-#home{
-    // an example of constant colors w/ importing using an alias in scss
-    // note that the alias is defined in tsconfig and in the webpack.config.js
-    color: $color1;
-}

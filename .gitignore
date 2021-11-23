@@ -1,8 +1,7 @@
-.vscode
-.DS_STORE
 node_modules
-.module-cache
-*.log*
+.DS_Store
 build
-
-dev/docker-compose.yml
+*.local
+node_modules
+tmp
+package-lock.json
