@@ -33,10 +33,6 @@ export class ChangePasswordFormModel extends FormModel<changePassword_i> {
   }
 }
 
-
-
-
-
 import {
   IsNotEmpty,
   IsString,
@@ -46,7 +42,7 @@ import {
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
-} from "class-validator";
+} from 'class-validator';
 
 export function Match(property: string, validationOptions?: ValidationOptions) {
   return (object: any, propertyName: string) => {
@@ -60,7 +56,7 @@ export function Match(property: string, validationOptions?: ValidationOptions) {
   };
 }
 
-@ValidatorConstraint({ name: "Match" })
+@ValidatorConstraint({ name: 'Match' })
 export class MatchConstraint implements ValidatorConstraintInterface {
   validate(value: any, args: ValidationArguments) {
     const [relatedPropertyName] = args.constraints;
@@ -69,13 +65,12 @@ export class MatchConstraint implements ValidatorConstraintInterface {
   }
 }
 
-
 export class ChangePasswordDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(8, { message: "Password too short" })
+  @MinLength(8, { message: 'Password too short' })
   readonly password: string;
 
-  @Match("password")
+  @Match('password')
   readonly confirmPassword: string;
 }
