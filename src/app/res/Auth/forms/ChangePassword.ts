@@ -20,9 +20,17 @@ export class ChangePasswordFormModel extends FormModel<changePassword_i> {
         path: '/api/auth/change-password',
         events: types.CHANGE_PASSWORD,
         method: 'POST',
+        events: types.CHANGE_PASSWORD,
       }),
     });
   }
+
+  reset = () => {
+    this.data = {
+      password: '',
+      confirmPassword: '',
+    };
+  };
 
   get payload() {
     return {
