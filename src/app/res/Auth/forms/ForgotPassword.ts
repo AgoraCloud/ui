@@ -14,13 +14,7 @@ export class ForgotPasswordFormModel extends FormModel<forgotPassword_i> {
         path: '/api/auth/forgot-password',
         events: types.PASSWORD_RESET,
         method: 'POST',
-        events: types.PASSWORD_RESET,
       }),
     });
   }
-  reset = () => {
-    this.data = {
-      email: '',
-    };
-  };
 }
