@@ -63,8 +63,8 @@ export class MatchConstraint implements ValidatorConstraintInterface {
     const relatedValue = (args.object as any)[relatedPropertyName];
     return value === relatedValue;
   }
-  defaultMessage(args: ValidationArguments){
-    return "Password's do not match"
+  defaultMessage(args: ValidationArguments) {
+    return "Password's do not match";
   }
 }
 
