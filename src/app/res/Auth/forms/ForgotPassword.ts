@@ -12,14 +12,9 @@ export class ForgotPasswordFormModel extends FormModel<forgotPassword_i> {
       validator: ForgotPasswordDto,
       submit: new APIRepo({
         path: '/api/auth/forgot-password',
-        method: 'POST',
         events: types.PASSWORD_RESET,
+        method: 'POST',
       }),
     });
   }
-  reset = () => {
-    this.data = {
-      email: '',
-    };
-  };
 }
