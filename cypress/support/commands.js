@@ -59,6 +59,26 @@ Cypress.Commands.add('loginAsAdminOWD', () => {
   })
 })
 
+Cypress.Commands.add('visitWorkspaces', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/')
+})
+
+Cypress.Commands.add('visitWorkspaceMetrics', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/metrics')
+})
+
+Cypress.Commands.add('visitCreateWorkspace', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/new')
+})
+
+Cypress.Commands.add('visitEditWorkspace', () => { 
+  cy.loginAsAdmin()
+  cy.visit('/w/' + data.testWorkspaceId + '/edit')
+})
+
 Cypress.Commands.add('visitDeployments', () => { 
   cy.loginAsAdmin()
   cy.visit('/w/' + data.testWorkspaceId)

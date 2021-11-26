@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
 // const { forwardRef, useImperativeHandle } = React;
 
 interface sidebarItem_i {
+  id?: string;
   icon: React.ReactNode;
   url: string;
   text: string;
@@ -95,6 +96,7 @@ const SideBarItems = ({ links }: { links: sidebarItem_i[] }) => {
     <>
       {links.map((link) => (
         <ListItem
+          id={link.id}
           key={link.text}
           button
           component={Link}
@@ -119,16 +121,19 @@ export const WorkspaceSideBar = observer((props) => {
 
   const sidebarItems = [
     {
+      id: 'deployments-btn',
       icon: <AppsIcon />,
       url: workspaceUrl,
       text: 'Deployments',
     },
     {
+      id: 'projects-btn',
       icon: <AssignmentIcon />,
       url: workspaceUrl + '/p',
       text: 'Projects',
     },
     {
+      id: 'wikis-btn',
       icon: <NotesIcon />,
       url: workspaceUrl + '/wiki',
       text: 'Wiki',
@@ -137,16 +142,19 @@ export const WorkspaceSideBar = observer((props) => {
 
   const workspaceSidebarItems = [
     {
+      id: 'new-workspace-btn',
       icon: <AddCircleOutlineIcon />,
       url: `/w/new`,
       text: 'New',
     },
     {
+      id: 'edit-workspace-btn',
       icon: <SettingsIcon />,
       url: `${workspaceUrl}/edit`,
       text: 'Settings',
     },
     {
+      id: 'workspace-metrics-btn',
       icon: <AssessmentIcon />,
       url: `${workspaceUrl}/metrics`,
       text: 'Metrics',
@@ -154,6 +162,7 @@ export const WorkspaceSideBar = observer((props) => {
   ];
   const workspaceAdminSidebarItems = [
     {
+      id: 'workspace-users-btn',
       icon: <PeopleIcon />,
       url: `${workspaceUrl}/admin/users`,
       text: 'Workspace Users',
@@ -166,6 +175,7 @@ export const WorkspaceSideBar = observer((props) => {
       text: 'Audit Logs',
     },
     {
+      id: 'users-btn',
       icon: <PeopleIcon />,
       url: '/admin/users',
       text: 'Users',
@@ -230,6 +240,7 @@ export const SideBar = observer((props) => {
 
   const sidebarItems = [
     {
+      id: 'deployments-btn',
       icon: <HomeIcon />,
       url: '/', //selectedWorkspace.workspaces.workspaceUrl,
       text: 'Home',
@@ -238,6 +249,7 @@ export const SideBar = observer((props) => {
 
   const adminSidebarItems = [
     {
+      id: 'users-btn',
       icon: <PeopleIcon />,
       url: '/admin/users',
       text: 'Users',
