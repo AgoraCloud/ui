@@ -7,17 +7,20 @@ import * as _ from 'lodash';
 
 import { plainToClass } from 'class-transformer';
 
+
+const DEFAULT_DATA = {
+  properties: {
+    image: {
+      type: 'VSCODE',
+    },
+    scalingMethod: 'ALWAYS_ON',
+  }
+}
+
 export class CreateDeploymentFormModel extends FormModel {
   constructor(public deployments: DeploymentsModel) {
     super({
-      data: {
-        properties: {
-          image: {
-            type: 'VSCODE',
-          },
-          scalingMethod: 'ALWAYS_ON',
-        },
-      },
+      data: DEFAULT_DATA,
       keys: [
         ['cpuCount', { key: 'properties.resources.cpuCount', cast: Number }],
         [
@@ -37,6 +40,9 @@ export class CreateDeploymentFormModel extends FormModel {
       validator: CreateDeploymentDto,
       submit: new APIRepo({ path: deployments.api, method: 'POST' }),
     });
+  }
+  reset = () => {
+    this.data = DEFAULT_DATA
   }
 }
 
