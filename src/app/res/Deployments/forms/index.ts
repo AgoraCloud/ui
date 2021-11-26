@@ -7,15 +7,14 @@ import * as _ from 'lodash';
 
 import { plainToClass } from 'class-transformer';
 
-
 const DEFAULT_DATA = {
   properties: {
     image: {
       type: 'VSCODE',
     },
     scalingMethod: 'ALWAYS_ON',
-  }
-}
+  },
+};
 
 export class CreateDeploymentFormModel extends FormModel {
   constructor(public deployments: DeploymentsModel) {
@@ -42,8 +41,8 @@ export class CreateDeploymentFormModel extends FormModel {
     });
   }
   reset = () => {
-    this.data = DEFAULT_DATA
-  }
+    this.data = DEFAULT_DATA;
+  };
 }
 
 export class EditDeploymentFormModel extends FormModel {
