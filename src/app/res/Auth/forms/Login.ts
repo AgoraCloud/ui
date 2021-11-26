@@ -21,4 +21,10 @@ export class SignInFormModel extends FormModel<signin_i> {
       }),
     });
   }
+  reset = () => {
+    this.data = {
+      email: '',
+      password: '',
+    };
+  };
 }
