@@ -49,7 +49,6 @@ export const PageButton = observer((props: { page: WikiPageModel }) => {
 
   const menuItems = [
     {
-      id: 'deleteWikiPage',
       label: 'Delete',
       component: <span id="contextMenuDelete"> Delete </span>,
       onClick: () => {
@@ -82,7 +81,6 @@ export const SectionButton = observer(
     // console.log(section.id);
     const menuItems = [
       {
-        id: 'deleteWikiSection',
         label: 'Delete',
         component: <span id="contextMenuDelete"> Delete </span>,
         onClick: () => {
@@ -104,7 +102,6 @@ export const SectionButton = observer(
         <ListItemText>
           <ContextMenu menuItems={menuItems}>
             <InputBase
-              id="wikiSection"
               value={form.get('name')}
               onChange={form.onChange('name')}
               onKeyDown={handleKeyDown}
@@ -118,11 +115,7 @@ export const SectionButton = observer(
         </Tooltip>
         <div>
           <IconButton onClick={onClick}>
-            {open ? (
-              <ExpandMore id="hideWikiPages" />
-            ) : (
-              <ExpandLess id="showWikiPages" />
-            )}
+            {open ? <ExpandMore /> : <ExpandLess />}
           </IconButton>
         </div>
       </ListItem>

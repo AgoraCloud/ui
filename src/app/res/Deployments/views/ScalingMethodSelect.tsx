@@ -32,7 +32,7 @@ export const ScalingMethodSelect = observer((props: { form: FormModel }) => {
     <>
       <BaseSelect
         {...props}
-        id="scalingType"
+        id="type"
         label="Type"
         defaultValue={options[0]}
         options={options}
