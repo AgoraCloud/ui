@@ -17,4 +17,9 @@ export class ForgotPasswordFormModel extends FormModel<forgotPassword_i> {
       }),
     });
   }
+  reset = () => {
+    this.data = {
+      email: '',
+    };
+  };
 }

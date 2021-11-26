@@ -24,6 +24,13 @@ export class ChangePasswordFormModel extends FormModel<changePassword_i> {
     });
   }
 
+  reset = () => {
+    this.data = {
+      password: '',
+      confirmPassword: '',
+    };
+  };
+
   get payload() {
     return {
       password: this.data.password,
