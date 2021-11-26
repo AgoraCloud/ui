@@ -28,7 +28,7 @@ export const ImageSelectBase = observer(
         <BaseSelect
           {...props}
           disabled={props.disableImage ? props.disableImage : false}
-          id="type"
+          id="imageType"
           label="Type"
           defaultValue={types[0]}
           options={types}
@@ -37,8 +37,8 @@ export const ImageSelectBase = observer(
         />
         <BaseSelect
           {...props}
+          id="imageVersion"
           disabled={props.disableVersion ? props.disableVersion : false}
-          id="version"
           label="Version"
           defaultValue={versions[0]}
           options={versions}

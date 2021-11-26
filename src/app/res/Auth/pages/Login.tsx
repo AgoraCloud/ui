@@ -14,6 +14,9 @@ import { Input } from 'app/components/inputs';
 
 import { AuthWrapper } from 'app/components/Wrapper';
 
+import { events } from '@mars-man/models';
+import { types } from 'app/constants';
+
 /**
  * Code sourced from https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-in
  * https://material-ui.com/getting-started/templates/sign-in/
@@ -22,6 +25,14 @@ import { AuthWrapper } from 'app/components/Wrapper';
 export const Login = observer((props) => {
   const { authstore } = useStores();
   const form = authstore.signinForm;
+  events.on(types.SIGNIN.onLoad.type, () => {
+    form.reset();
+  });
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && form.isValid) {
+      authstore.login();
+    }
+  };
 
   // const onFormSubmit = (e) => {
   //     e.preventDefault();
@@ -43,6 +54,7 @@ export const Login = observer((props) => {
         type="password"
         label="Password"
         autoComplete="current-password"
+        onKeyDown={handleKeyDown}
       />
 
       <Button
