@@ -42,9 +42,9 @@ export class SnackbarStore {
     Object.values(types).forEach((v) => {
       [v.onLoad, v.onError].map((e) => {
         if (e.snackbar === false) return;
-        events.on(e.type, (data) => {
+        events.on(e.type, (eventData, repoData) => {
           this.push({
-            message: e.data.message,
+            message: `${e.data.message} ${repoData['message'] || ''}`,
             variant: e.data.variant as any,
           });
         });

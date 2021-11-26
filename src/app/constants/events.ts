@@ -25,7 +25,7 @@ interface eventType_i {
 export const types = {
   USERLOAD: {
     onLoad: {
-      snackbar: true,
+      snackbar: false,
       type: 'USERLOAD',
       data: {
         message: 'Successfully Loaded User!',
@@ -33,7 +33,7 @@ export const types = {
       },
     },
     onError: {
-      snackbar: true,
+      snackbar: false,
       type: 'USERLOAD_ERR',
       data: {
         message: 'Failed to Load User: ',
