@@ -69,6 +69,7 @@ export const EditDeploymentForm = observer(
           }}
           submit={async () => {
             await form.call();
+            routerstore.push(form.deployment.workspace.link);
           }}
           labels={['Cancel', 'Update']}
         />

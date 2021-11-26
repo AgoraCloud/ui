@@ -106,7 +106,7 @@ export const WikiPageHeader = (props: { page: WikiPageModel }) => {
         <WikiPageHeaderTitle page={page} />
       </Grid>
       <Grid item xs={3} sm={1}>
-        <IconButton id="saveWiki" onClick={page.onSave}>
+        <IconButton onClick={page.onSave}>
           <SaveIcon />
         </IconButton>
       </Grid>

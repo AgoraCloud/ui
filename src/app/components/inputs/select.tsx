@@ -95,7 +95,6 @@ export const BaseSelect = observer((props: BaseSelectProps) => {
   return (
     <Select
       // native
-      id={id}
       error={value && error != undefined}
       value={value}
       style={{ width: '100%' }}
@@ -106,7 +105,7 @@ export const BaseSelect = observer((props: BaseSelectProps) => {
       {options.map((option) => {
         // JSON.stringify(option.value) ???
         return (
-          <MenuItem id={option.label} key={option.label} value={option.value}>
+          <MenuItem key={option.label} value={option.value}>
             {option.label}
           </MenuItem>
         );
