@@ -20,7 +20,6 @@ export const UpdateWorkspace = observer((props) => {
   return (
     <WorkspaceWrapper>
       <Typography variant="h4">Update Workspace</Typography>
-      <Label>Workspace Name</Label>
       <Input form={form} id="name" label="Workspace Name" autoComplete="off" />
       <Label>Resources</Label>
       <Typography variant="body1">

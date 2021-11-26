@@ -1,0 +1,35 @@
+{
+    "global": {
+        "labelResources": "Resources",
+        "nameErrMessage": "name must be longer than or equal to 4 characters",
+        "improperName": "TW-",
+        "invalidCpuCount": "0",
+        "invalidMemoryCount": "0",
+        "invalidStorageCount": "0",
+        "cpuErrMessage": "cpuCount must not be less than 1",
+        "memoryErrMessage": "memoryCount must not be less than 2",
+        "storageErrMessage": "storageCount must not be less than 8"
+    },
+    "deleteDiaglogGreeting": "Confirm Delete",
+    "create": {
+        "greeting": "Create Workspace",
+        "instruction": "Please fill out the form below and press 'Create' to create a workspace.",
+        "resourceInstruction": "Optionally, specify the maximum amount of resources the workspace can use.",
+        "createBtnText": "Create",
+        "newWorkspaceName": "TW-1",
+        "newWorkspaceCpuCount": "2",
+        "newWorkspaceMemoryCount": "4",
+        "newWorkspaceStorageCount": "16"
+    },
+    "edit": {
+        "greeting": "Update Workspace",
+        "resourceInstruction": "Specify the maximum amount of resources the deployment can use:",
+        "saveBtnText": "Edit",
+        "deleteBtnText": "Delete",
+        "newWorkspaceName": "TW-1-Edit",
+        "newWorkspaceCpuCount": "3",
+        "newWorkspaceMemoryCount": "5",
+        "newWorkspaceStorageCount": "17"
+    } 
+}
+  
