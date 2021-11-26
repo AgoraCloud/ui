@@ -3,7 +3,6 @@
 import * as data from "../fixtures/global-data.json"
 import * as projectData from "../fixtures/project.json"
 import * as deploymentData from "../fixtures/deployment.json"
-import '@4tw/cypress-drag-drop'
 
 // ***********************************************
 // This example commands.js shows you how to
