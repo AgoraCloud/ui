@@ -8,6 +8,7 @@ describe('access to account menu', function () {
       })
       cy.loginAsAdmin()
       cy.visit('/')
+      cy.wait(6000)
       cy.get('button[id="account-btn"]')
         .should('not.be.disabled')
         .click()
@@ -33,6 +34,7 @@ describe('access to workspace select menu', function () {
       })
       cy.loginAsAdmin()
       cy.visit('/')
+      cy.wait(6000)
     })
 
     it('links to workspace', function () {

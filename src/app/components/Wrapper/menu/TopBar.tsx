@@ -123,6 +123,7 @@ export const WorkspaceTopBar = observer((props) => {
     >
       <Toolbar className={classes.toolbar}>
         <IconButton
+          id="hamburger-menu"
           edge="start"
           color="inherit"
           aria-label="open drawer"
@@ -135,6 +136,7 @@ export const WorkspaceTopBar = observer((props) => {
 
         <div className={classes.accountIcon}>
           <IconButton
+            id="account-btn"
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
