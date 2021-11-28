@@ -227,9 +227,7 @@ export const AuditLogTable = observer(
                 </TableCell>
               </TableRow>
             </TableHead>
-            {/* {query.state === 'loaded' ?
-             */}
-            {false ? (
+            {query.state === 'loaded'  ? (
               <TableBody>
                 {rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
