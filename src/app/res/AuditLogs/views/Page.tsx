@@ -191,15 +191,15 @@ export const AuditLogTable = observer(
               <TableRow>
                 <TableCell
                   key={'date'}
-                // align={column.align}
-                // style={{ minWidth: column.minWidth }}
+                  // align={column.align}
+                  // style={{ minWidth: column.minWidth }}
                 >
                   Date
                 </TableCell>
                 <TableCell
                   key={'resource'}
-                // align={column.align}
-                // style={{ minWidth: column.minWidth }}
+                  // align={column.align}
+                  // style={{ minWidth: column.minWidth }}
                 >
                   <FilterSelect
                     label="Resource"
@@ -209,8 +209,8 @@ export const AuditLogTable = observer(
                 </TableCell>
                 <TableCell
                   key={'action'}
-                // align={column.align}
-                // style={{ minWidth: column.minWidth }}
+                  // align={column.align}
+                  // style={{ minWidth: column.minWidth }}
                 >
                   <FilterSelect
                     label="Action"
@@ -220,22 +220,27 @@ export const AuditLogTable = observer(
                 </TableCell>
                 <TableCell
                   key={'username'}
-                // align={column.align}
-                // style={{ minWidth: column.minWidth }}
+                  // align={column.align}
+                  // style={{ minWidth: column.minWidth }}
                 >
                   Username
                 </TableCell>
               </TableRow>
             </TableHead>
-              {/* {query.state === 'loaded' ? 
-               */}
-              {false ?
-            <TableBody>
-
-                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {/* {query.state === 'loaded' ?
+             */}
+            {false ? (
+              <TableBody>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     return (
-                      <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.id}
+                      >
                         {columns.map((column) => {
                           const value = row[column.id];
                           return (
@@ -248,13 +253,12 @@ export const AuditLogTable = observer(
                       </TableRow>
                     );
                   })}
-            </TableBody>
-                  
-                  : 
-
-            <Box sx={{ display: 'flex', width: "100%" }}>
-              <CircularProgress />
-            </Box>}
+              </TableBody>
+            ) : (
+              <Box sx={{ display: 'flex', width: '100%' }}>
+                <CircularProgress />
+              </Box>
+            )}
           </Table>
         </TableContainer>
         <TablePagination
