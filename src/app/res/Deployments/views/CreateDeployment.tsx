@@ -36,6 +36,7 @@ export const CreateDeploymentForm = observer(
   (props: { form: CreateDeploymentFormModel }) => {
     const { form } = props;
     const workspace = form.deployments.workspace;
+    console.log(toJS(form.payload), toJS(form.errors));
     return (
       <Form form={form}>
         <Label>Deployment Name</Label>
@@ -51,7 +52,7 @@ export const CreateDeploymentForm = observer(
           id="sudoPassword"
           type="password"
           label="Sudo Password"
-          autoComplete="current-password"
+          autoComplete="off"
         />
         <Label>Container Image</Label>
         <ImageSelect form={form} workspace={workspace} />

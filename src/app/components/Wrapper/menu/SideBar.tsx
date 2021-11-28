@@ -162,10 +162,16 @@ export const WorkspaceSideBar = observer((props) => {
   ];
   const workspaceAdminSidebarItems = [
     {
+      id: 'workspace-audit-btn',
+      icon: <FilterListIcon />,
+      url: `${workspaceUrl}/admin/audit`,
+      text: 'Audit Logs',
+    },
+    {
       id: 'workspace-users-btn',
       icon: <PeopleIcon />,
       url: `${workspaceUrl}/admin/users`,
-      text: 'Workspace Users',
+      text: 'Users',
     },
   ];
   const adminSidebarItems = [

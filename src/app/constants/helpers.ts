@@ -49,3 +49,8 @@ export const remove = <DataT>(model: Model, repo: BaseRepo<DataT>) => {
     model.remove();
   });
 };
+
+export const NumberCast = (str: string) => {
+  if (!str || str === '') return undefined;
+  return Number(str);
+};
