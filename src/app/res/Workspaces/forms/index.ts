@@ -1,6 +1,7 @@
 import { APIRepo, FormModel } from '@mars-man/models';
 import { CreateWorkspaceDto } from '@agoracloud/common';
 import { WorkspaceModel } from 'app/res/Workspaces/models';
+import { NumberCast } from 'app/constants/helpers';
 
 export class CreateProjectFormModel extends FormModel {
   constructor(public workspace: WorkspaceModel) {
@@ -27,11 +28,6 @@ export class UpdateWorkspaceFormModel extends FormModel {
     });
   }
 }
-
-const NumberCast = (str: string) => {
-  if (!str || str === '') return undefined;
-  return Number(str);
-};
 
 // interface create_workspace_i {
 //   name: string;

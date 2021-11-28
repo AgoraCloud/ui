@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 // import { CreateDeploymentDto } from "@agoracloud/common";
 
 import { plainToClass } from 'class-transformer';
+import { NumberCast } from 'app/constants/helpers';
 
 const DEFAULT_DATA = {
   properties: {
@@ -21,14 +22,17 @@ export class CreateDeploymentFormModel extends FormModel {
     super({
       data: DEFAULT_DATA,
       keys: [
-        ['cpuCount', { key: 'properties.resources.cpuCount', cast: Number }],
+        [
+          'cpuCount',
+          { key: 'properties.resources.cpuCount', cast: NumberCast },
+        ],
         [
           'memoryCount',
-          { key: 'properties.resources.memoryCount', cast: Number },
+          { key: 'properties.resources.memoryCount', cast: NumberCast },
         ],
         [
           'storageCount',
-          { key: 'properties.resources.storageCount', cast: Number },
+          { key: 'properties.resources.storageCount', cast: NumberCast },
         ],
         ['isFavorite', 'properties.isFavorite'],
         ['sudoPassword', 'properties.sudoPassword'],
@@ -61,14 +65,17 @@ export class EditDeploymentFormModel extends FormModel {
         },
       },
       keys: [
-        ['cpuCount', { key: 'properties.resources.cpuCount', cast: Number }],
+        [
+          'cpuCount',
+          { key: 'properties.resources.cpuCount', cast: NumberCast },
+        ],
         [
           'memoryCount',
-          { key: 'properties.resources.memoryCount', cast: Number },
+          { key: 'properties.resources.memoryCount', cast: NumberCast },
         ],
         [
           'storageCount',
-          { key: 'properties.resources.storageCount', cast: Number },
+          { key: 'properties.resources.storageCount', cast: NumberCast },
         ],
         ['isFavorite', 'properties.isFavorite'],
         ['sudoPassword', 'properties.sudoPassword'],

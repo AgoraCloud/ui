@@ -58,7 +58,6 @@ describe('/deployment', function () {
         cy.contains('li[role="menuitem"]', this.deployment.favoriteBtnText)
           .click()
         cy.wait(3000)
-        cy.contains('p', 'Favorited Deployments')
         cy.get('button[id="more"]')
           .click()
         cy.contains('li[role="menuitem"]', this.deployment.unfavoriteBtnText)

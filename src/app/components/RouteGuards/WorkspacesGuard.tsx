@@ -8,7 +8,7 @@ import { LoadingPage } from '../LoadingPage';
 
 export const NewWorkspaceRoute = observer((props) => {
   return (
-    <AuthedRoute
+    <Route
       {...props}
       component={observer(() => {
         const { workspacesstore } = useStores();
@@ -29,7 +29,7 @@ export const WorkspacesLoaded = observer((props) => {
     <AuthedRoute
       {...props}
       component={observer(() => {
-        const { workspacesstore } = useStores();
+        const { workspacesstore, authstore } = useStores();
         const workspaces = workspacesstore.workspaces;
         console.log('workspacesloaded', workspaces.state);
         if (workspaces.state == 'loading') return <LoadingPage />;
