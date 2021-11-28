@@ -15,16 +15,16 @@ import {
   TableBody,
   makeStyles,
   TablePagination,
-  TableCellProps,
-  Select,
-  OutlinedInput,
+  CircularProgress,
   MenuItem,
   ListItemText,
   Checkbox,
+  Box,
   Button,
   Menu,
 } from '@material-ui/core';
 import { AirlineSeatIndividualSuiteRounded } from '@material-ui/icons';
+import { Loading, LoadingPage } from 'app/components/LoadingPage';
 
 const useStyles = makeStyles({
   root: {
@@ -161,7 +161,7 @@ export const AuditLogTable = observer(
       console.log('QUERY PARAMS', queryParams);
     }, [queryParams]);
     if (!query) return <div> Not Query </div>;
-    if (query.state !== 'loaded') return <div>Audit Logs Not Loaded</div>;
+    // if (query.state !== 'loaded') return <Loading/>;
 
     const addQuery = (option: string) => {
       return (value?: string) => {
@@ -191,15 +191,15 @@ export const AuditLogTable = observer(
               <TableRow>
                 <TableCell
                   key={'date'}
-                  // align={column.align}
-                  // style={{ minWidth: column.minWidth }}
+                // align={column.align}
+                // style={{ minWidth: column.minWidth }}
                 >
                   Date
                 </TableCell>
                 <TableCell
                   key={'resource'}
-                  // align={column.align}
-                  // style={{ minWidth: column.minWidth }}
+                // align={column.align}
+                // style={{ minWidth: column.minWidth }}
                 >
                   <FilterSelect
                     label="Resource"
@@ -209,8 +209,8 @@ export const AuditLogTable = observer(
                 </TableCell>
                 <TableCell
                   key={'action'}
-                  // align={column.align}
-                  // style={{ minWidth: column.minWidth }}
+                // align={column.align}
+                // style={{ minWidth: column.minWidth }}
                 >
                   <FilterSelect
                     label="Action"
@@ -220,32 +220,41 @@ export const AuditLogTable = observer(
                 </TableCell>
                 <TableCell
                   key={'username'}
-                  // align={column.align}
-                  // style={{ minWidth: column.minWidth }}
+                // align={column.align}
+                // style={{ minWidth: column.minWidth }}
                 >
                   Username
                 </TableCell>
               </TableRow>
             </TableHead>
+              {/* {query.state === 'loaded' ? 
+               */}
+              {false ?
             <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id}>
-                            {value}
-                            {/* {column.format && typeof value === 'number' ? column.format(value) : value} */}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
+
+                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <TableCell key={column.id}>
+                              {value}
+                              {/* {column.format && typeof value === 'number' ? column.format(value) : value} */}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
             </TableBody>
+                  
+                  : 
+
+            <Box sx={{ display: 'flex', width: "100%" }}>
+              <CircularProgress />
+            </Box>}
           </Table>
         </TableContainer>
         <TablePagination
