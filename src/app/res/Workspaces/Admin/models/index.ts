@@ -4,6 +4,7 @@ import { WorkspaceUsersModel } from 'app/res/Auth';
 import { DialogModel, PermissionsDialogModel } from 'app/components/dialogs';
 import { reload, update } from 'app/constants/helpers';
 import { InviteWorkspaceUserFormModel } from 'app/res/Workspaces/Admin';
+import { WorkspaceAuditLogs } from 'app/res/AuditLogs';
 
 /*
 inviteUserDialog: DialogModel;
@@ -29,12 +30,14 @@ export class WorkspaceAdminModel extends Model {
   permissionsDialog: PermissionsDialogModel;
   inviteUserDialog: DialogModel;
   inviteUserForm: InviteWorkspaceUserFormModel;
+  auditLogs: WorkspaceAuditLogs
   constructor(public workspace: WorkspaceModel) {
     super({});
 
     this.inviteUserDialog = new DialogModel();
     this.inviteUserForm = new InviteWorkspaceUserFormModel(workspace);
     this.users = new WorkspaceUsersModel(this.workspace, this);
+    this.auditLogs = new WorkspaceAuditLogs(this.workspace)
     this.dependents = [this.users];
 
     // add(this.users, this.inviteUserForm.submit)
