@@ -3,17 +3,17 @@ import { BaseAuditLogs } from '.';
 
 const take = 10;
 
-interface auditLogOptions_i{
-  action?: string
-  resource?: string
+interface auditLogOptions_i {
+  action?: string;
+  resource?: string;
 }
 
-export class AuditLogs extends BaseAuditLogs{
+export class AuditLogs extends BaseAuditLogs {
   constructor() {
-    super(AuditLog)
+    super(AuditLog);
   }
-  get api(){
-    return '/api/audit'
+  get api() {
+    return '/api/audit';
   }
 }
 

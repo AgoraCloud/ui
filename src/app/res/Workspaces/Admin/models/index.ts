@@ -30,14 +30,14 @@ export class WorkspaceAdminModel extends Model {
   permissionsDialog: PermissionsDialogModel;
   inviteUserDialog: DialogModel;
   inviteUserForm: InviteWorkspaceUserFormModel;
-  auditLogs: WorkspaceAuditLogs
+  auditLogs: WorkspaceAuditLogs;
   constructor(public workspace: WorkspaceModel) {
     super({});
 
     this.inviteUserDialog = new DialogModel();
     this.inviteUserForm = new InviteWorkspaceUserFormModel(workspace);
     this.users = new WorkspaceUsersModel(this.workspace, this);
-    this.auditLogs = new WorkspaceAuditLogs(this.workspace)
+    this.auditLogs = new WorkspaceAuditLogs(this.workspace);
     this.dependents = [this.users];
 
     // add(this.users, this.inviteUserForm.submit)

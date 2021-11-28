@@ -4,19 +4,18 @@ import { makeObservable, observable } from 'mobx';
 
 const take = 10;
 
-interface auditLogOptions_i{
-  action?: string
-  resource?: string
+interface auditLogOptions_i {
+  action?: string;
+  resource?: string;
 }
 
-type AuditLogClassT = new (...args: any[]) => BaseAuditLog
-
+type AuditLogClassT = new (...args: any[]) => BaseAuditLog;
 
 export class BaseAuditLogs {
   state: 'unloaded' | 'loading' | 'reloading' | 'loaded' | 'error' = 'unloaded';
   pages: AuditPage[];
   // key is json serialized string of the selected options
-  cache: {[key: string]: AuditPage[]} = {}
+  cache: { [key: string]: AuditPage[] } = {};
   constructor(public AuditLogClass: AuditLogClassT) {
     // this.repos = {
     //     main: OnDemandRepo(new APIRepo({
@@ -26,15 +25,18 @@ export class BaseAuditLogs {
     this.cache['undefined'] = [new AuditPage(this, AuditLogClass, 0, take)];
   }
 
-  get = (start: number, end: number, options?: auditLogOptions_i): AuditLogQuery => {
+  get = (
+    start: number,
+    end: number,
+    options?: auditLogOptions_i,
+  ): AuditLogQuery => {
     const out: AuditPage[] = [];
     const take = end - start;
     let newStart = start;
     let newTake = end - start;
-    
 
-    const key = JSON.stringify(options)
-    let pages = this.cache[key] || []
+    const key = JSON.stringify(options);
+    let pages = this.cache[key] || [];
     // console.log(this.pages)
     for (const page of pages) {
       if (newStart >= page.start) {
@@ -56,12 +58,18 @@ export class BaseAuditLogs {
     if (newTake > 0) {
       // create new page with newStart and newTake
       console.log('CREATE MISSING PAGE');
-      const tmp = new AuditPage(this, this.AuditLogClass, newStart, newTake, options);
+      const tmp = new AuditPage(
+        this,
+        this.AuditLogClass,
+        newStart,
+        newTake,
+        options,
+      );
       pages.push(tmp);
       out.push(tmp);
     }
 
-    this.cache[key] = pages
+    this.cache[key] = pages;
 
     return new AuditLogQuery(start, end, out, options);
   };
@@ -71,15 +79,20 @@ export class BaseAuditLogs {
     // this.hasPage(start, take)
   };
 
-  get api(){
-    return '/api/audit'
+  get api() {
+    return '/api/audit';
   }
 }
 
 export class AuditLogQuery {
   @observable
   pages: AuditPage[];
-  constructor(public start: number, public end: number, pages: AuditPage[], public options?: auditLogOptions_i) {
+  constructor(
+    public start: number,
+    public end: number,
+    pages: AuditPage[],
+    public options?: auditLogOptions_i,
+  ) {
     this.pages = pages;
     makeObservable(this);
   }
@@ -101,7 +114,6 @@ export class AuditLogQuery {
   }
 }
 
-
 export class AuditPage {
   @observable
   state: 'unloaded' | 'loading' | 'reloading' | 'loaded' | 'error' = 'unloaded';
@@ -109,23 +121,30 @@ export class AuditPage {
   // take: number
   @observable
   logs: BaseAuditLog[];
-  constructor(public auditLogs: BaseAuditLogs, public AudtiLogClass: AuditLogClassT, public start: number, public take: number, public options?: auditLogOptions_i) {
+  constructor(
+    public auditLogs: BaseAuditLogs,
+    public AudtiLogClass: AuditLogClassT,
+    public start: number,
+    public take: number,
+    public options?: auditLogOptions_i,
+  ) {
     makeObservable(this);
     this.load();
   }
 
-  get qs(){
+  get qs() {
     const options = {
       ...(this.options || {}),
       take: this.take,
-      start: this.start
-    }
-    var queryString = Object.keys(options).map(key => key + '=' + options[key]).join('&');
+      start: this.start,
+    };
+    var queryString = Object.keys(options)
+      .map((key) => key + '=' + options[key])
+      .join('&');
 
-    return queryString
+    return queryString;
   }
   get api() {
-   
     return `${this.auditLogs.api}?${this.qs}`;
   }
 
