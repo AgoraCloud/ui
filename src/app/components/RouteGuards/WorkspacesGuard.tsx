@@ -8,7 +8,7 @@ import { LoadingPage } from '../LoadingPage';
 
 export const NewWorkspaceRoute = observer((props) => {
   return (
-    <AuthedRoute
+    <Route
       {...props}
       component={observer(() => {
         const { workspacesstore } = useStores();
@@ -26,7 +26,7 @@ export const NewWorkspaceRoute = observer((props) => {
 
 export const WorkspacesLoaded = observer((props) => {
   return (
-    <AuthedRoute
+    <Route
       {...props}
       component={observer(() => {
         const { workspacesstore } = useStores();

@@ -55,13 +55,13 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
   wikiPages: WikiPagesModel;
   sectionForm: FormModel;
   delete: APIRepo;
-  constructor({ data, parent }) {
-    super({ data });
-    this.sections = parent;
+  constructor(config) {
+    super(config);
+    this.sections = this.parent as WikiSectionsModel;
 
     this.sectionForm = new FormModel({
       data: {
-        name: data.name,
+        name: this.data.name,
       },
       submit: new APIRepo({ path: this.api, method: 'PUT' }),
     });
@@ -71,6 +71,7 @@ export class WikiSectionModel extends Model<wikiSectionData_i> {
       this.sections.load();
     });
     this.dependents = [this.wikiPages];
+    update(this, this.sectionForm.submit);
   }
 
   get id() {
@@ -145,13 +146,13 @@ export class WikiPageModel extends Model<wikiPageData_i> {
   public pages: WikiPagesModel;
   pageForm: FormModel;
   delete: APIRepo;
-  constructor({ data, parent }) {
-    super({ data });
-    this.pages = parent;
+  constructor(config) {
+    super(config);
+    this.pages = this.parent as WikiPagesModel;
     this.pageForm = new FormModel({
       data: {
-        title: data.title,
-        body: data.body,
+        title: this.data.title,
+        body: this.data.body,
       },
       submit: new APIRepo({ path: this.api, method: 'PUT' }),
     });

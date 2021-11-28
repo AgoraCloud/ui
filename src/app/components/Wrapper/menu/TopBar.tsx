@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    // borderRadius: '20px'
   },
   appBarShift: {
     marginLeft: drawerWidth,

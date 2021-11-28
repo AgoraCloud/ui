@@ -67,8 +67,8 @@ export const ResourcesInput = (props: { form: FormModel }) => {
   const [persist, setPersist] = React.useState(false);
 
   const handleCheckbox = () => {
-    form.onChange('storageCount')(persist ? 8 : undefined);
     setPersist(!persist);
+    form.onChange('storageCount')(!persist ? 8 : undefined);
   };
 
   return (
