@@ -5,6 +5,7 @@
     "toDoText": "To Do",
     "inProgressText": "In Progress",
     "doneText": "Done",
+    "deleteBtnText": "Delete",
     "create":{
         "greeting": "Create Lane",
         "instruction": "Enter the information below and then click the 'Create' button below!",

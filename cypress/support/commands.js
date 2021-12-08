@@ -126,7 +126,8 @@ Cypress.Commands.add('visitCreateNewProject', () => {
 Cypress.Commands.add('visitEditProject', () => { 
   cy.loginAsAdmin()
   cy.visit('/w/' + data.testWorkspaceId + '/p')
-  cy.get('button[aria-label="more"]')
+  cy.wait(6000)
+  cy.get('button[aria-label="more"]', {timeout: 6000})
     .last()
     .click()
   cy.focused()
@@ -136,6 +137,7 @@ Cypress.Commands.add('visitEditProject', () => {
 
 Cypress.Commands.add('openEditLaneDialog', () => { 
   cy.visitLanes()
+  cy.wait(6000)
   cy.get('button[aria-label="more"]', {timeout: 6000})
     .last()
     .click()
@@ -146,6 +148,7 @@ Cypress.Commands.add('openEditLaneDialog', () => {
 
 Cypress.Commands.add('openEditTaskDialog', () => { 
   cy.visitLanes()
+  cy.wait(6000)
   cy.get('[id="moreMenuTask"]', {timeout: 6000})
     .last()
     .click()

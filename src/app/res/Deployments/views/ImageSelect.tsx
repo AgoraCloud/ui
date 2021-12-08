@@ -35,6 +35,7 @@ export const ImageSelectBase = observer(
           onChange={form.onChange('type')}
           value={type}
         />
+        <p></p>
         <BaseSelect
           {...props}
           disabled={props.disableVersion ? props.disableVersion : false}

@@ -47,7 +47,12 @@ export const EditDeploymentForm = observer(
     return (
       <Form form={form}>
         <Label>Deployment Name</Label>
-        <Input form={form} id="name" label="name" autoComplete="off" />
+        <Input
+          form={form}
+          id="name"
+          label="Deployment Name"
+          autoComplete="off"
+        />
 
         <Label>Container Image</Label>
         <UpdateImageSelect
@@ -55,8 +60,9 @@ export const EditDeploymentForm = observer(
           workspace={form.deployment.workspace}
           deployment={form.deployment}
         />
-
+        <p></p>
         <Label>Resources</Label>
+
         <Typography variant="body1">
           Specify the maximum amount of resources the deployment can use:
         </Typography>

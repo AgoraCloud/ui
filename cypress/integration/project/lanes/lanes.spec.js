@@ -7,6 +7,7 @@ describe('/lanes', function () {
         this.lane = lane
       })
       cy.visitLanes()
+      cy.wait(6000)
     })
   
     it('greets with to-do, in-progress and done lanes', function () {

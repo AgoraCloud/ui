@@ -91,6 +91,7 @@ export const BaseSelect = observer((props: BaseSelectProps) => {
   const { form, id, options, ...rest } = props;
   const value = form.get(id);
   const error = form.getError(id);
+  const classes = useStyles();
 
   return (
     <Select
