@@ -5,6 +5,7 @@
     },
     "testTaskTitle": "TTask",
     "testTaskDescription": "This is the description of TTask",
+    "deleteBtnText": "Delete",
     "create":{
         "greeting": "Create Task",
         "instruction": "Enter the information below and then click the 'Create' button below!",

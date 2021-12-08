@@ -35,7 +35,7 @@ export const CreateLaneDialog = observer((props) => {
           </DialogContentText>
 
           <Typography variant="subtitle1">Lane Name</Typography>
-          <Input form={form} id="name" label="Name" />
+          <Input form={form} id="name" label="Name" required/>
         </DialogContent>
         <DialogActions>
           <Button
@@ -90,7 +90,7 @@ export const EditLaneDialog = inject(WORKSPACES_STORE)(
             </DialogContentText>
 
             <Typography variant="subtitle1">Lane Name</Typography>
-            <Input form={form} id="name" label="Name" />
+            <Input form={form} id="name" label="Name" required/>
           </DialogContent>
           <DialogActions>
             <Button onClick={props.close} color="primary">
@@ -140,7 +140,7 @@ export const CreateTaskDialog = observer((props) => {
           </DialogContentText>
 
           <Typography variant="subtitle1">Title</Typography>
-          <Input form={form} id="title" label="Title" />
+          <Input form={form} id="title" label="Title" required/>
           <Typography variant="subtitle1">Description</Typography>
           <Input
             form={form}
@@ -196,7 +196,7 @@ export const EditTaskDialog = observer(
             </DialogContentText>
 
             <Typography variant="subtitle1">Title</Typography>
-            <Input form={form} id="title" label="Title" />
+            <Input form={form} id="title" label="Title" required/>
             <Typography variant="subtitle1">Description</Typography>
             <Input
               form={form}

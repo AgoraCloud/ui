@@ -36,6 +36,7 @@ export const CardOptions = observer((props) => {
   return (
     <>
       <MoreMenu
+        id="moreMenuTask"
         options={[
           {
             name: 'Edit',
