@@ -22,7 +22,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   spacing: {
-    paddingBottom: "5px",
+    paddingBottom: '5px',
   },
 });
 

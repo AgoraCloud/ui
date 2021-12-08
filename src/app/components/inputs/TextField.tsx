@@ -60,7 +60,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ResourcesInput = (props: { form: FormModel; resourcesRequired?: boolean }) => {
+export const ResourcesInput = (props: {
+  form: FormModel;
+  resourcesRequired?: boolean;
+}) => {
   const classes = useStyles();
   const { form, resourcesRequired } = props;
 
@@ -124,7 +127,7 @@ export const CPUMemoryInput = ({
   return (
     <>
       <CPUInput form={form} cpuRequired={cpuMemoryRequired} />
-      <MemoryInput form={form} memoryRequired={cpuMemoryRequired}/>
+      <MemoryInput form={form} memoryRequired={cpuMemoryRequired} />
     </>
   );
 };
@@ -155,7 +158,6 @@ export const CPUInput = ({
   return (
     <ResourceInput
       form={form}
-
       id="cpuCount"
       label="CPU Cores"
       icon={<MemoryIcon />}
