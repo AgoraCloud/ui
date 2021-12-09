@@ -18,6 +18,13 @@ import {
 import { ImageSelect } from 'app/res/Deployments/views/ImageSelect';
 import { Form } from '@mars-man/components';
 import { toJS } from 'mobx';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  spacing: {
+    paddingBottom: '5px',
+  },
+});
 
 export const CreateDeployment = observer((props) => {
   const { workspacesstore } = useStores();
@@ -37,14 +44,16 @@ export const CreateDeploymentForm = observer(
     const { form } = props;
     const workspace = form.deployments.workspace;
     console.log(toJS(form.payload), toJS(form.errors));
+    const classes = useStyles();
     return (
       <Form form={form}>
         <Label>Deployment Name</Label>
         <Input
           form={form}
           id="name"
-          label="deployment name"
+          label="Deployment Name"
           autoComplete="off"
+          required
         />
         <Label>Sudo Password</Label>
         <Input
@@ -53,16 +62,22 @@ export const CreateDeploymentForm = observer(
           type="password"
           label="Sudo Password"
           autoComplete="off"
+          required
         />
         <Label>Container Image</Label>
+        <p></p>
         <ImageSelect form={form} workspace={workspace} />
+        <p></p>
         <Label>Scaling Method</Label>
+        <p></p>
         <ScalingMethodSelect form={form} />
+        <p></p>
         <Label>Resources</Label>
+        <p></p>
         <Typography variant="body1">
           Specify the maximum amount of resources the deployment can use.
         </Typography>
-        <ResourcesInput form={form} />
+        <ResourcesInput form={form} resourcesRequired={true} />
         <CancelCreateButtons form={form} />
       </Form>
     );

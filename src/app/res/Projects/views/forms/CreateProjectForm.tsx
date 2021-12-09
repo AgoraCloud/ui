@@ -16,7 +16,7 @@ export const CreateProjectForm = observer(
     return (
       <div>
         <Typography variant="h6">Name</Typography>
-        <Input form={form} id="name" label="Name" />
+        <Input form={form} id="name" label="Name" required />
         <Typography variant="h6">Description</Typography>
         <Input
           form={form}
@@ -48,7 +48,7 @@ export const EditProjectForm = observer(
     return (
       <div>
         <Typography variant="h6">Name</Typography>
-        <Input form={form} id="name" label="Name" />
+        <Input form={form} id="name" label="Name" required />
         <Typography variant="h6">Description</Typography>
         <Input
           form={form}

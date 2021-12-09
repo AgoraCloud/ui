@@ -42,6 +42,7 @@ export const CreateWorkspaceForm = observer((props) => {
         label="Workspace Name"
         type="text"
         fullWidth
+        required
       />
       <Label>Resources</Label>
       <Typography variant="body1" className={classes.description}>

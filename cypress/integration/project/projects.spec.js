@@ -10,6 +10,7 @@ describe('/project', function () {
       this.project = project
     })
     cy.visitProjects()
+    cy.wait(6000)
   })
 
   it('greets with project', function () {

@@ -60,9 +60,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ResourcesInput = (props: { form: FormModel }) => {
+export const ResourcesInput = (props: {
+  form: FormModel;
+  resourcesRequired?: boolean;
+}) => {
   const classes = useStyles();
-  const { form } = props;
+  const { form, resourcesRequired } = props;
 
   const [persist, setPersist] = React.useState(false);
 
@@ -73,7 +76,7 @@ export const ResourcesInput = (props: { form: FormModel }) => {
 
   return (
     <>
-      <CPUMemoryInput form={form} />
+      <CPUMemoryInput form={form} cpuMemoryRequired={resourcesRequired} />
       <Typography>
         <Checkbox
           checked={persist}
@@ -89,7 +92,7 @@ export const ResourcesInput = (props: { form: FormModel }) => {
           className={classes.margin}
           margin="dense"
           id="storageCount"
-          label="Storage"
+          label="Storage (GBs)"
           type="number"
           InputProps={{
             startAdornment: (
@@ -116,13 +119,15 @@ interface UpdateWorkspaceProps {
 
 export const CPUMemoryInput = ({
   form,
+  cpuMemoryRequired,
 }: {
   form: FormModel<{ cpuCount?: number; memoryCount?: number }>;
+  cpuMemoryRequired?: boolean;
 }) => {
   return (
     <>
-      <CPUInput form={form} />
-      <MemoryInput form={form} />
+      <CPUInput form={form} cpuRequired={cpuMemoryRequired} />
+      <MemoryInput form={form} memoryRequired={cpuMemoryRequired} />
     </>
   );
 };
@@ -136,16 +141,19 @@ export const StorageInput = ({
     <ResourceInput
       form={form}
       id="storageCount"
-      label="Storage"
+      label="Storage (GBs)"
       icon={<StorageIcon />}
+      inputRequired={false}
     />
   );
 };
 
 export const CPUInput = ({
   form,
+  cpuRequired,
 }: {
   form: FormModel<{ cpuCount?: number }>;
+  cpuRequired?: boolean;
 }) => {
   return (
     <ResourceInput
@@ -153,14 +161,17 @@ export const CPUInput = ({
       id="cpuCount"
       label="CPU Cores"
       icon={<MemoryIcon />}
+      inputRequired={cpuRequired}
     />
   );
 };
 
 export const MemoryInput = ({
   form,
+  memoryRequired,
 }: {
   form: FormModel<{ memoryCount?: number }>;
+  memoryRequired?: boolean;
 }) => {
   return (
     <ResourceInput
@@ -168,11 +179,12 @@ export const MemoryInput = ({
       id="memoryCount"
       label="RAM (GBs)"
       icon={<MoneyIcon />}
+      inputRequired={memoryRequired}
     />
   );
 };
 
-export const ResourceInput = ({ form, id, icon, label }) => {
+export const ResourceInput = ({ form, id, icon, label, inputRequired }) => {
   const classes = useStyles();
 
   return (
@@ -190,6 +202,7 @@ export const ResourceInput = ({ form, id, icon, label }) => {
       }}
       defaultVal={form.get(id)}
       fullWidth
+      required={inputRequired}
     />
   );
 };
